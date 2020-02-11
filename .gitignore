@@ -1,0 +1,8 @@
+.vs
+Library
+/dnn_model.onnx
+/Temp
+/k4a.dll
+/k4abt.dll
+/onnxruntime.dll
+/depthengine_1_0.dll
