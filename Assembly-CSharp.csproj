@@ -91,6 +91,8 @@
     <Compile Include="Assets\AzureKinectDK\Scripts\M4ABT\JointId.cs" />
     <Compile Include="Assets\AzureKinectDK\Scripts\M4ABT\Native\BodyTrackingNativeMethods.cs" />
     <Compile Include="Assets\AzureKinectDK\Scripts\M4ABT\Skeleton.cs" />
+    <Compile Include="Assets\FurnishedCabin\Scripts\MoveableObject.cs" />
+    <Compile Include="Assets\FurnishedCabin\Scripts\MoveObjectController.cs" />
     <Compile Include="Assets\unity-chan!\Unity-chan! Model\Scripts\AutoBlink.cs" />
     <Compile Include="Assets\unity-chan!\Unity-chan! Model\Scripts\CameraController.cs" />
     <Compile Include="Assets\unity-chan!\Unity-chan! Model\Scripts\FaceUpdate.cs" />
