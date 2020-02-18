@@ -23,27 +23,37 @@ public class ServerListener : MonoBehaviour {
     static byte[] nullByte = new byte[1024];
     static string nullByteStr = Encoding.ASCII.GetString(nullByte);
 
+    //make sure initial complete
+    private bool initial = false;
+
     // Use this for initialization
     void Awake() {
         //get client & server from persist node
         mainMgr = GameObject.Find("MainMgr").GetComponent<MainMgr>();
         server = mainMgr.server;
         if (server == null)
-            UnityEngine.Debug.LogWarning("null server");
+            Debug.LogWarning("null server");
     }
 
     private void OnEnable() {
+        
         // KINECT INITIALIZE
         this.device = Device.Open(0);
+        Debug.Log("open device");
         var config = new DeviceConfiguration {
             ColorResolution = ColorResolution.r720p,
             ColorFormat = ImageFormat.ColorBGRA32,
             DepthMode = DepthMode.NFOV_Unbinned
         };
         device.StartCameras(config);
+        Debug.Log("start camera");
 
         var calibration = device.GetCalibration(config.DepthMode, config.ColorResolution);
         this.tracker = BodyTracker.Create(calibration);
+        Debug.Log("create trcker complete");
+        //tell update init complete
+        initial = true;
+        
         //cubes?
         debugObjects = new GameObject[(int)JointId.Count];
         for (var i = 0; i < (int)JointId.Count; i++) {
@@ -52,12 +62,13 @@ public class ServerListener : MonoBehaviour {
             cube.transform.localScale = Vector3.one * 0.4f;
             debugObjects[i] = cube;
         }
+        Debug.Log("init cube");
     }
 
     // Update is called once per frame
     void Update() {
+        Debug.Log("enter update");
         updateBody();
-        
     }
 
     private void OnDisable() {
@@ -70,7 +81,13 @@ public class ServerListener : MonoBehaviour {
     }
 
     void updateBody() {
+        if (!initial) {
+            Debug.Log("init not complete yet");
+            return;
+        }
+        Debug.Log("Enter updateBody");
         using (var frame = tracker.PopResult()) {
+            Debug.Log("using");
             Debug.LogFormat("{0} bodies found.", frame.NumBodies);
             if (frame.NumBodies > 0) {
                 var bodyId = frame.GetBodyId(0);
