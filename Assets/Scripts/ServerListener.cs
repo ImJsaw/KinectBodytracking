@@ -86,6 +86,9 @@ public class ServerListener : MonoBehaviour {
             return;
         }
         Debug.Log("Enter updateBody");
+        using (Capture capture = device.GetCapture()) {
+            tracker.EnqueueCapture(capture);
+        }
         using (var frame = tracker.PopResult()) {
             Debug.Log("using");
             Debug.LogFormat("{0} bodies found.", frame.NumBodies);
