@@ -16,6 +16,7 @@ public class DebugRenderer : MonoBehaviour
     public Renderer renderer;
     public JointChan chan;
     int tempx = 0, tempy = 0, tempz = 0;
+    bool isRotate = true;
 
     [System.Serializable]
     public struct JointChan
@@ -65,6 +66,9 @@ public class DebugRenderer : MonoBehaviour
             cube.name = Enum.GetName(typeof(JointId), i);
             cube.transform.localScale = Vector3.one * 0.4f;
             debugObjects[i] = cube;
+            Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.forward * 5.0f), Color.blue);
+            Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.up * 5.0f), Color.green);
+            Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.right * 5.0f), Color.red);
         }
     }
 
@@ -146,105 +150,128 @@ public class DebugRenderer : MonoBehaviour
                 //send skeleton
                this.skeleton = frame.GetSkeleton(0);
 
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    isRotate = !isRotate;
+                }
+
                 for (var i = 0; i < 26; i++) {
                     var joint = this.skeleton.Joints[i];
                     var pos = joint.Position;
                     var rot = joint.Orientation;
                     var v1 = new Vector3(pos[0], -pos[1], pos[2]) * 0.004f;
-                    var r1 = new Quaternion(rot[1], rot[2], rot[3], rot[0]);
+                    var r1 = new Quaternion();
+                    if (isRotate)
+                    {
+                        r1.Set(rot[1], rot[2], rot[3], rot[0]);
+                    }
+                    else
+                    {
+                        r1.Set(0, 0, 0, rot[0]);
+                    }
                     var obj = debugObjects[i];
                     obj.transform.SetPositionAndRotation(v1, r1);
+ 
                 }
 
-                Debug.DrawLine(debugObjects[7].transform.position, debugObjects[8].transform.forward * 5.0f, Color.blue);
-                Debug.DrawLine(debugObjects[7].transform.position, debugObjects[8].transform.up * 5.0f, Color.green);
-                Debug.DrawLine(debugObjects[7].transform.position, debugObjects[8].transform.right * 5.0f, Color.red);
-                Debug.Log("debugObjects[8].transform.rotation " + debugObjects[8].transform.rotation);
+                for(var i=0;i<4;i++)
+                {
+                    Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.forward * 5.0f), Color.blue);
+                    Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.up * 5.0f), Color.green);
+                    Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.right * 5.0f), Color.red);
+                }
 
                 //       0            
                 var joint1 = this.skeleton.Joints[0];
                 var rot1 = joint1.Orientation;
                 var r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                chan.Pelvis.rotation = Quaternion.Euler(-r.eulerAngles.x, r.eulerAngles.y, -r.eulerAngles.z-180); 
+                var qx = Quaternion.AngleAxis(90, chan.Pelvis.right);
+                // var qz = Quaternion.AngleAxis(180, chan.Pelvis.up);
+                //var r = new Quaternion(-rot1[2], -rot1[1], -rot1[3], rot1[0]);
+                chan.Pelvis.rotation = Quaternion.Euler(r.eulerAngles.z, r.eulerAngles.x , r.eulerAngles.y);
+                chan.Pelvis.Rotate(-90, 0, 0);
+                chan.Pelvis.Rotate(0, 180, 0);
 
-                //         1          
-                joint1 = this.skeleton.Joints[1];
-                rot1 = joint1.Orientation;
-                r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                chan.SpinNaval.rotation = Quaternion.Euler(-r.eulerAngles.x, r.eulerAngles.y, -r.eulerAngles.z-180);
 
-                //        2           
-                joint1 = this.skeleton.Joints[2];
-                rot1 = joint1.Orientation;
-                r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                chan.SpinChest.rotation = Quaternion.Euler(-r.eulerAngles.x, r.eulerAngles.y, -r.eulerAngles.z-180);
+                ////         1          
+                //joint1 = this.skeleton.Joints[1];
+                //rot1 = joint1.Orientation;
+                ////var r = new Quaternion(rot1[2], -rot1[3], rot1[1], rot1[0]);
+                //r = new Quaternion(-rot1[1], rot1[2], -rot1[3], rot1[0]);
+                //chan.SpinNaval.localRotation = r;
+                ////        2           
+                //joint1 = this.skeleton.Joints[2];
+                //rot1 = joint1.Orientation;
+                //// chan.SpinChest.rotation = Quaternion.Euler(-r.eulerAngles.x, r.eulerAngles.y, -r.eulerAngles.z - 180);
+                ////var r = new Quaternion(rot1[2], -rot1[3], rot1[1], rot1[0]);
+                //r = new Quaternion(-rot1[1], rot1[2], -rot1[3], rot1[0]);
+                //chan.SpinChest.localRotation = r;
+                ////        3           
+                //joint1 = this.skeleton.Joints[3];
+                //rot1 = joint1.Orientation;
+                //r = new Quaternion(-rot1[1], rot1[2], -rot1[3], rot1[0]);
+                //chan.Neck.rotation = r;
 
-                //        3           
-                joint1 = this.skeleton.Joints[3];
-                rot1 = joint1.Orientation;
-                r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                chan.Neck.rotation = Quaternion.Euler(-r.eulerAngles.x, r.eulerAngles.y, -r.eulerAngles.z-180);
+                ////        4           
+                //joint1 = this.skeleton.Joints[4];
+                //rot1 = joint1.Orientation;
+                //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+                //chan.ClavicleLeft.rotation = r;
 
-                //        4           
-                joint1 = this.skeleton.Joints[4];
-                rot1 = joint1.Orientation;
-                r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                chan.ClavicleLeft.rotation = Quaternion.Euler(r.eulerAngles.x, r.eulerAngles.y +180, r.eulerAngles.z);
+                ////         5         
+                //joint1 = this.skeleton.Joints[5];
+                //rot1 = joint1.Orientation;
+                //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+                //chan.ShoulderLeft.rotation = r;
 
-                //         5         
-                joint1 = this.skeleton.Joints[5];
-                rot1 = joint1.Orientation;
-                r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                chan.ShoulderLeft.rotation = Quaternion.Euler(r.eulerAngles.x, r.eulerAngles.y +180, r.eulerAngles.z);
+                ////         6         
+                //joint1 = this.skeleton.Joints[6];
+                //rot1 = joint1.Orientation;
+                //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+                //chan.ElbowLeft.rotation =r;
 
-                //         6         
-                joint1 = this.skeleton.Joints[6];
-                rot1 = joint1.Orientation;
-                r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                chan.ElbowLeft.rotation = Quaternion.Euler(r.eulerAngles.x , r.eulerAngles.y +180, r.eulerAngles.z);
-
-                //         7         
-                joint1 = this.skeleton.Joints[7];
-                rot1 = joint1.Orientation;
-                r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                chan.WristLeft.rotation = Quaternion.Euler(r.eulerAngles.x, r.eulerAngles.y +180, r.eulerAngles.z);
+                ////         7         
+                //joint1 = this.skeleton.Joints[7];
+                //rot1 = joint1.Orientation;
+                //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+                //chan.WristLeft.rotation = r;
 
                 Debug.DrawLine(chan.WristLeft.position, chan.WristLeft.forward * 2.5f, Color.blue);
                 Debug.DrawLine(chan.WristLeft.position, chan.WristLeft.up * 2.5f, Color.green);
                 Debug.DrawLine(chan.WristLeft.position, chan.WristLeft.right * 2.5f, Color.red);
 
                 //        8           
-                joint1 = this.skeleton.Joints[8];
-                rot1 = joint1.Orientation;
-                r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                chan.ClavicleRight.localRotation = Quaternion.Euler(r.eulerAngles.x +tempx, r.eulerAngles.y + tempy, r.eulerAngles.z+tempz);
+                //joint1 = this.skeleton.Joints[8];
+                //rot1 = joint1.Orientation;
+                //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+                //chan.ClavicleRight.localRotation =r;
 
-                //Debug.DrawLine(chan.ClavicleRight.position, chan.ClavicleRight.forward * 2.5f, Color.blue);
-                //Debug.DrawLine(chan.ClavicleRight.position, chan.ClavicleRight.up * 2.5f, Color.green);
-                //Debug.DrawLine(chan.ClavicleRight.position, chan.ClavicleRight.right * 2.5f, Color.red);
-                Debug.Log("chan.ClavicleRight.rotation " + chan.ClavicleRight.rotation);
-                Debug.Log("tempx: " + tempx);
-                Debug.Log("tempy: " + tempy);
-                Debug.Log("tempz: " + tempz);
+                ////Debug.DrawLine(chan.ClavicleRight.position, chan.ClavicleRight.forward * 2.5f, Color.blue);
+                ////Debug.DrawLine(chan.ClavicleRight.position, chan.ClavicleRight.up * 2.5f, Color.green);
+                ////Debug.DrawLine(chan.ClavicleRight.position, chan.ClavicleRight.right * 2.5f, Color.red);
+                //Debug.Log("chan.ClavicleRight.rotation " + chan.ClavicleRight.rotation);
+                //Debug.Log("tempx: " + tempx);
+                //Debug.Log("tempy: " + tempy);
+                //Debug.Log("tempz: " + tempz);
 
-                if (Input.GetKeyDown(KeyCode.Z))
-                {
-                    tempx += 90;
-                    if (tempx >= 360)
-                        tempx %= 360;
-                }
-                if (Input.GetKeyDown(KeyCode.X))
-                {
-                    tempy += 90;
-                    if (tempy >= 360)
-                        tempy %= 360;
-                }
-                if (Input.GetKeyDown(KeyCode.C))
-                {
-                    tempz += 90;
-                    if (tempz >= 360)
-                        tempz %= 360;
-                }
+                //if (Input.GetKeyDown(KeyCode.Z))
+                //{
+                //    tempx += 90;
+                //    if (tempx >= 360)
+                //        tempx %= 360;
+                //}
+                //if (Input.GetKeyDown(KeyCode.X))
+                //{
+                //    tempy += 90;
+                //    if (tempy >= 360)
+                //        tempy %= 360;
+                //}
+                //if (Input.GetKeyDown(KeyCode.C))
+                //{
+                //    tempz += 90;
+                //    if (tempz >= 360)
+                //        tempz %= 360;
+                //}
 
                 ////        9           
                 //joint1 = this.skeleton.Joints[9];
@@ -264,67 +291,67 @@ public class DebugRenderer : MonoBehaviour
                 //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
                 //chan.WristRight.rotation = Quaternion.Euler(r.eulerAngles.x, r.eulerAngles.y, r.eulerAngles.z);
 
-                ////        12           
-                //joint1 = this.skeleton.Joints[12];
-                //pos1 = joint1.Position;
-                //rot1 = joint1.Orientation;
-                //v = new Vector3(pos1[0], -pos1[1], pos1[2]) * 0.004f;
-                //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                //chan.HipLeft.rotation = r;
+                //////        12           
+                ////joint1 = this.skeleton.Joints[12];
+                ////pos1 = joint1.Position;
+                ////rot1 = joint1.Orientation;
+                ////v = new Vector3(pos1[0], -pos1[1], pos1[2]) * 0.004f;
+                ////r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+                ////chan.HipLeft.rotation = r;
 
-                ////        13           
-                //joint1 = this.skeleton.Joints[13];
-                //pos1 = joint1.Position;
-                //rot1 = joint1.Orientation;
-                //v = new Vector3(pos1[0], -pos1[1], pos1[2]) * 0.004f;
-                //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                //chan.KneeLeft.rotation = r;
+                //////        13           
+                ////joint1 = this.skeleton.Joints[13];
+                ////pos1 = joint1.Position;
+                ////rot1 = joint1.Orientation;
+                ////v = new Vector3(pos1[0], -pos1[1], pos1[2]) * 0.004f;
+                ////r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+                ////chan.KneeLeft.rotation = r;
 
-                ////        14           
-                //joint1 = this.skeleton.Joints[14];
-                //pos1 = joint1.Position;
-                //rot1 = joint1.Orientation;
-                //v = new Vector3(pos1[0], -pos1[1], pos1[2]) * 0.004f;
-                //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                //chan.AnkleLeft.rotation = r;
+                //////        14           
+                ////joint1 = this.skeleton.Joints[14];
+                ////pos1 = joint1.Position;
+                ////rot1 = joint1.Orientation;
+                ////v = new Vector3(pos1[0], -pos1[1], pos1[2]) * 0.004f;
+                ////r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+                ////chan.AnkleLeft.rotation = r;
 
-                ////        15           
-                //joint1 = this.skeleton.Joints[15];
-                //pos1 = joint1.Position;
-                //rot1 = joint1.Orientation;
-                //v = new Vector3(pos1[0], -pos1[1], pos1[2]) * 0.004f;
-                //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                //chan.FootLeft.rotation = r;
+                //////        15           
+                ////joint1 = this.skeleton.Joints[15];
+                ////pos1 = joint1.Position;
+                ////rot1 = joint1.Orientation;
+                ////v = new Vector3(pos1[0], -pos1[1], pos1[2]) * 0.004f;
+                ////r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+                ////chan.FootLeft.rotation = r;
 
-                ////        16           
-                //joint1 = this.skeleton.Joints[16];
+                //////        16           
+                ////joint1 = this.skeleton.Joints[16];
+                ////rot1 = joint1.Orientation;
+                ////r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+                ////chan.HipRight.rotation = Quaternion.Euler(-r.eulerAngles.x + 180, r.eulerAngles.y , -r.eulerAngles.z );
+
+                //////        17           
+                ////joint1 = this.skeleton.Joints[17];
+                ////rot1 = joint1.Orientation;
+                ////r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+                ////chan.KneeRight.rotation = Quaternion.Euler(-r.eulerAngles.x +180,r.eulerAngles.y , -r.eulerAngles.z );
+
+                //////        18           
+                ////joint1 = this.skeleton.Joints[18];
+                ////rot1 = joint1.Orientation;
+                ////r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+                ////chan.AnkleRight.rotation = Quaternion.Euler(-r.eulerAngles.x +180, r.eulerAngles.y, -r.eulerAngles.z );
+
+                //////        19           
+                ////joint1 = this.skeleton.Joints[19];
+                ////rot1 = joint1.Orientation;
+                ////r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+                ////chan.FootRight.rotation = Quaternion.Euler(-r.eulerAngles.x +180, r.eulerAngles.y, -r.eulerAngles.z );
+
+                ////        20           
+                //joint1 = this.skeleton.Joints[20];
                 //rot1 = joint1.Orientation;
                 //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                //chan.HipRight.rotation = Quaternion.Euler(-r.eulerAngles.x + 180, r.eulerAngles.y , -r.eulerAngles.z );
-
-                ////        17           
-                //joint1 = this.skeleton.Joints[17];
-                //rot1 = joint1.Orientation;
-                //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                //chan.KneeRight.rotation = Quaternion.Euler(-r.eulerAngles.x +180,r.eulerAngles.y , -r.eulerAngles.z );
-
-                ////        18           
-                //joint1 = this.skeleton.Joints[18];
-                //rot1 = joint1.Orientation;
-                //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                //chan.AnkleRight.rotation = Quaternion.Euler(-r.eulerAngles.x +180, r.eulerAngles.y, -r.eulerAngles.z );
-
-                ////        19           
-                //joint1 = this.skeleton.Joints[19];
-                //rot1 = joint1.Orientation;
-                //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                //chan.FootRight.rotation = Quaternion.Euler(-r.eulerAngles.x +180, r.eulerAngles.y, -r.eulerAngles.z );
-
-                //        20           
-                joint1 = this.skeleton.Joints[20];
-                rot1 = joint1.Orientation;
-                r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                chan.Head.rotation = Quaternion.Euler(r.eulerAngles.x , r.eulerAngles.y, r.eulerAngles.z);
+                //chan.Head.rotation = Quaternion.Euler(r.eulerAngles.x , r.eulerAngles.y, r.eulerAngles.z);
             }
         }
     }
