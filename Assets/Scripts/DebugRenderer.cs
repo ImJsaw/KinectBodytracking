@@ -385,7 +385,7 @@ public class DebugRenderer : MonoBehaviour
 
         }
 
-        for (var i = 0; i < 4; i++) {
+        for (var i = 0; i < 1; i++) {
             Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.forward * 5.0f), Color.blue);
             Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.up * 5.0f), Color.green);
             Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.right * 5.0f), Color.red);
@@ -394,11 +394,10 @@ public class DebugRenderer : MonoBehaviour
         //       0            
         GameObject joint1 = debugObjects[0];
         Quaternion rot1 = joint1.transform.rotation;
-        var r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-        var qx = Quaternion.AngleAxis(90, chan.Pelvis.right);
-        // var qz = Quaternion.AngleAxis(180, chan.Pelvis.up);
-        //var r = new Quaternion(-rot1[2], -rot1[1], -rot1[3], rot1[0]);
-        chan.Pelvis.rotation = r;
+
+        Vector3 r = (Quaternion.Inverse(Quaternion.Euler(0,-150,-90)) * rot1).eulerAngles;
+        Quaternion q = Quaternion.Euler(r.z, -r.x, r.y);
+        chan.Pelvis.rotation = q;
 
         Debug.DrawLine(chan.Pelvis.transform.position, chan.Pelvis.transform.TransformPoint(Vector3.forward * 5.0f), Color.blue);
         Debug.DrawLine(chan.Pelvis.transform.position, chan.Pelvis.transform.TransformPoint(Vector3.up * 5.0f), Color.green);
