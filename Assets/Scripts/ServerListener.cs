@@ -23,6 +23,8 @@ public class ServerListener : MonoBehaviour {
     static byte[] nullByte = new byte[1024];
     static string nullByteStr = Encoding.ASCII.GetString(nullByte);
 
+
+
     //make sure initial complete
     private bool initial = false;
 
@@ -63,6 +65,7 @@ public class ServerListener : MonoBehaviour {
             debugObjects[i] = cube;
         }
         Debug.Log("init cube");
+
     }
 
     // Update is called once per frame
@@ -104,6 +107,11 @@ public class ServerListener : MonoBehaviour {
                 BinaryFormatter bf1 = new BinaryFormatter();
                 bf1.Serialize(ms, frame.GetSkeleton(0));
                 userDataBytes = ms.ToArray();
+
+           
+
+
+
 
                 //send to client
                 sendData(userDataBytes);
