@@ -224,7 +224,7 @@ public class DebugRenderer : MonoBehaviour
                 joint1 = this.skeleton.Joints[4];
                 rot1 = joint1.Orientation;
                 rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                r = (Quaternion.Inverse(Quaternion.Euler(0,  90, -90)) * rot2);
+                r = (Quaternion.Inverse(Quaternion.Euler(180, 0, 0)) * rot2);
                 q = new Quaternion(r.y, -r.x, -r.z, r.w);
                 chan.ClavicleLeft.rotation = q;
 
@@ -237,7 +237,7 @@ public class DebugRenderer : MonoBehaviour
                 joint1 = this.skeleton.Joints[5];
                 rot1 = joint1.Orientation;
                 rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                r = (Quaternion.Inverse(Quaternion.Euler(180, 90, -90)) * rot2);
+                r = (Quaternion.Inverse(Quaternion.Euler(180, 0, 0)) * rot2);
                 q = new Quaternion(r.y, -r.x, -r.z, r.w);
                 chan.ShoulderLeft.rotation = q;
 
@@ -246,9 +246,29 @@ public class DebugRenderer : MonoBehaviour
                 joint1 = this.skeleton.Joints[6];
                 rot1 = joint1.Orientation;
                 rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-                r = (Quaternion.Inverse(Quaternion.Euler(180, 90, -90)) * rot2);
+                r = (Quaternion.Inverse(Quaternion.Euler(180, 0, 0)) * rot2);
                 q = new Quaternion(r.y, -r.x, -r.z, r.w);
                 chan.ElbowLeft.rotation = q;
+
+                if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    tempx += 90;
+                    if (tempx >= 360)
+                        tempx %= 360;
+                }
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    tempy += 90;
+                    if (tempy >= 360)
+                        tempy %= 360;
+                }
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    tempz += 90;
+                    if (tempz >= 360)
+                        tempz %= 360;
+                }
+
 
 
                 ////         7         
@@ -267,28 +287,10 @@ public class DebugRenderer : MonoBehaviour
                 ////Debug.DrawLine(chan.ClavicleRight.position, chan.ClavicleRight.up * 2.5f, Color.green);
                 ////Debug.DrawLine(chan.ClavicleRight.position, chan.ClavicleRight.right * 2.5f, Color.red);
                 //Debug.Log("chan.ClavicleRight.rotation " + chan.ClavicleRight.rotation);
-                //Debug.Log("tempx: " + tempx);
-                //Debug.Log("tempy: " + tempy);
-                //Debug.Log("tempz: " + tempz);
+                Debug.Log("tempx: " + tempx);
+                Debug.Log("tempy: " + tempy);
+                Debug.Log("tempz: " + tempz);
 
-                //if (Input.GetKeyDown(KeyCode.Z))
-                //{
-                //    tempx += 90;
-                //    if (tempx >= 360)
-                //        tempx %= 360;
-                //}
-                //if (Input.GetKeyDown(KeyCode.X))
-                //{
-                //    tempy += 90;
-                //    if (tempy >= 360)
-                //        tempy %= 360;
-                //}
-                //if (Input.GetKeyDown(KeyCode.C))
-                //{
-                //    tempz += 90;
-                //    if (tempz >= 360)
-                //        tempz %= 360;
-                //}
 
                 ////        9           
                 //joint1 = this.skeleton.Joints[9];
