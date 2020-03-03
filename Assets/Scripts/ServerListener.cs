@@ -6,6 +6,7 @@ using Microsoft.Azure.Kinect.Sensor;
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using Joint = Microsoft.Azure.Kinect.Sensor.BodyTracking.Joint;
 
 public class ServerListener : MonoBehaviour {
 
@@ -129,7 +130,8 @@ public class ServerListener : MonoBehaviour {
                 byte[] userDataBytes;
                 MemoryStream ms = new MemoryStream();
                 BinaryFormatter bf1 = new BinaryFormatter();
-                bf1.Serialize(ms, frame.GetSkeleton(0));
+                bf1.Serialize(ms, serializeJoints(frame.GetSkeleton(0).Joints));
+                ms.Flush();
                 userDataBytes = ms.ToArray();
 
                 //send to client
@@ -147,7 +149,25 @@ public class ServerListener : MonoBehaviour {
 
             }
         }
-        updateBody();
+        updateModel();
+    }
+
+    string serializeJoints(Microsoft.Azure.Kinect.Sensor.BodyTracking.Joint[] joints) {
+        string s = "";
+        for(int i = 0; i < joints.Length; i++) {
+            for(int j = 0; j < joints[i].Orientation.Length; j++) {
+                s += joints[i].Orientation[j] + "#";
+            }
+            s = s.Remove(s.Length - 1);
+            s += "$";
+            for (int j = 0; j < joints[i].Position.Length; j++) {
+                s += joints[i].Position[j] + "|";
+            }
+            s = s.Remove(s.Length - 1);
+            s += "_";
+        }
+        s = s.Remove(s.Length - 1);
+        return s;
     }
 
     void updateModel() {

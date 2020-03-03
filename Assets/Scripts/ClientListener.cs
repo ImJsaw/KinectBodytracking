@@ -6,6 +6,7 @@ using Microsoft.Azure.Kinect.Sensor;
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using Joint = Microsoft.Azure.Kinect.Sensor.BodyTracking.Joint;
 
 public class ClientListener : MonoBehaviour {
 
@@ -47,6 +48,7 @@ public class ClientListener : MonoBehaviour {
     private int curPackage = 0;
     static byte[] nullByte = new byte[1024];
     static string nullByteStr = Encoding.ASCII.GetString(nullByte);
+    bool startUpdate = false;
 
     // Use this for initialization
     void Awake() {
@@ -70,31 +72,37 @@ public class ClientListener : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        
+        if(startUpdate)
+            updateModel();
     }
 
     public void updateBody(byte[] bodyData) { //get data from net
 
-        MemoryStream ms = new MemoryStream(bodyData);
-        BinaryFormatter bf = new BinaryFormatter();
-        ms.Position = 0;
-        object rawObj = bf.Deserialize(ms);
-        this.skeleton = (Skeleton)rawObj;
+        //MemoryStream ms = new MemoryStream(bodyData);
+        //BinaryFormatter bf = new BinaryFormatter();
+        //ms.Position = 0;
+        //this.skeleton.Joints = deserializeJoints((string)bf.Deserialize(ms));
+        this.skeleton = deserializeJoints(Encoding.ASCII.GetString(bodyData));
+        startUpdate = true;
+        //Debug.Log("count" + (int)JointId.Count);
+        //for (var i = 0; i < (int)JointId.Count; i++) {
+        //    Debug.Log(i);
+        //    var joint = this.skeleton.Joints[i];
+        //    var pos = joint.Position;
+        //    Debug.Log("pos" + joint.Position);
+        //    var rot = joint.Orientation;
+        //    Debug.Log("rot" + joint.Orientation);
+        //    var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.004f;
+        //    var r = new Quaternion(rot[1], rot[2], rot[3], rot[0]);
+        //    var obj = debugObjects[i];
+        //    //obj.transform.SetPositionAndRotation(v, r);
+        //}
 
-        for (var i = 0; i < (int)JointId.Count; i++) {
-            var joint = this.skeleton.Joints[i];
-            var pos = joint.Position;
-            var rot = joint.Orientation;
-            var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.004f;
-            var r = new Quaternion(rot[1], rot[2], rot[3], rot[0]);
-            var obj = debugObjects[i];
-            obj.transform.SetPositionAndRotation(v, r);
-        }
-
-        updateModel();
+        //updateModel();
     }
 
     void updateModel() {
+        Debug.Log("LLL****************************"+this.skeleton.Joints.Length.ToString());
         //       0            
         var joint1 = this.skeleton.Joints[0];
         var rot1 = joint1.Orientation;
@@ -267,6 +275,36 @@ public class ClientListener : MonoBehaviour {
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.Head.rotation = q;
+    }
+
+
+    Skeleton deserializeJoints(string s) {
+        Debug.Log(s);
+        string[] jointStr = s.Split('_');
+        Skeleton skeleton = new Skeleton();
+        skeleton.Joints = new Joint[jointStr.Length];
+        Joint[] joints = skeleton.Joints;
+        for (int i = 0; i < jointStr.Length; i++) {
+            joints[i] = new Joint();
+            string[] oriAndPos = jointStr[i].Split('$');
+            Debug.Log("*****rot"+oriAndPos[0]);
+            string[] orientationStr = oriAndPos[0].Split('#');
+            float[] orientations = new float[orientationStr.Length];
+            for (int j = 0; j < orientations.Length; j++) {
+                Debug.Log(orientationStr[j]);
+                orientations[j] = float.Parse(orientationStr[j]);
+            }
+            joints[i].Orientation = orientations;
+            Debug.Log("*****Pos" + oriAndPos[1]);
+            string[] positionStr = oriAndPos[1].Split('|');
+            float[] positions = new float[positionStr.Length];
+            for (int j = 0; j < positions.Length; j++) {
+                Debug.Log(positionStr[j]);
+                positions[j] = float.Parse(positionStr[j]);
+            }
+            joints[i].Position = positions;
+        }
+        return skeleton;
     }
 
 }

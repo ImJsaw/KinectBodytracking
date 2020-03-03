@@ -24,6 +24,7 @@ public class MainMgr : MonoBehaviour {
     public TcpClient client = null;
     public TcpServer server = null;
     ClientListener remoteListener = null;
+    bool getListenerComplete = false;
 
     private int test = 0;
     SceneID curScene = SceneID.None;
@@ -53,10 +54,12 @@ public class MainMgr : MonoBehaviour {
     public void onMsgRcv(byte[] data) {
         switch (curScene) {
             case SceneID.Client:
-                if(remoteListener == null)
-                    remoteListener = GameObject.Find("Listener").GetComponent<ClientListener>();
-                if (remoteListener == null)
+                //if(remoteListener == null)
+                //    remoteListener = GameObject.Find("Listener").GetComponent<ClientListener>();
+                if(!getListenerComplete || remoteListener == null) {
                     Debug.Log("null remote");
+                    break;
+                }
                 remoteListener.updateBody(data);
                 break;
             default:
@@ -104,6 +107,10 @@ public class MainMgr : MonoBehaviour {
             case SceneID.Client:
                 remoteListener = GameObject.Find("Listener").GetComponent<ClientListener>();
                 if (remoteListener == null) Debug.Log("null remote");
+                else {
+                    getListenerComplete = true;
+                    Debug.Log("complete find listener");
+                }
                 break;
         }
     }
