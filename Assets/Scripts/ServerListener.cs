@@ -135,7 +135,7 @@ public class ServerListener : MonoBehaviour {
                 //send to client
                 sendData(userDataBytes);
 
-                for (var i = 0; i < 6; i++) {
+                for (var i = 0; i < (int)JointId.Count; i++) {
                     var joint = this.skeleton.Joints[i];
                     var pos = joint.Position;
                     var rot = joint.Orientation;
@@ -324,8 +324,6 @@ public class ServerListener : MonoBehaviour {
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.Head.rotation = q;
     }
-
-
 
     void sendData(byte[] data) {
         //TODO:
