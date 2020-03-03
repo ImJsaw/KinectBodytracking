@@ -51,7 +51,7 @@ public class MainMgr : MonoBehaviour {
     void Update() {
     }
 
-    public void onMsgRcv(byte[] data) {
+    public void onMsgRcv(string data) {
         switch (curScene) {
             case SceneID.Client:
                 //if(remoteListener == null)
@@ -61,6 +61,7 @@ public class MainMgr : MonoBehaviour {
                     break;
                 }
                 remoteListener.updateBody(data);
+                Debug.Log("/////MGR LEN" + data.Length);
                 break;
             default:
                 Debug.Log("[msg rcv]Scene error!"); ;

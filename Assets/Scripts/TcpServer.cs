@@ -13,7 +13,7 @@ public class TcpServer : MonoBehaviour {
     IPEndPoint ipEnd; //偵聽埠
     string recvStr; //接收的字串
     string sendStr; //傳送的字串
-    byte[] recvData = new byte[1024]; //接收的資料，必須為位元組
+    byte[] recvData = new byte[2048]; //接收的資料，必須為位元組
     //byte[] sendData = new byte[1024]; //傳送的資料，必須為位元組
     int recvLen; //接收的資料長度
     Thread connectThread; //連線執行緒
@@ -67,7 +67,7 @@ public class TcpServer : MonoBehaviour {
         //進入接收迴圈
         while (true) {
             //對data清零
-            recvData = new byte[1024];
+            recvData = new byte[2048];
             //獲取收到的資料的長度
             recvLen = clientSocket.Receive(recvData);
             //如果收到的資料長度為0，則重連並進入下一個迴圈

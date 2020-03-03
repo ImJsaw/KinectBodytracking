@@ -22,7 +22,7 @@ public class ServerListener : MonoBehaviour {
     
     private TcpServer server = null;
     private int curPackage = 0;
-    static byte[] nullByte = new byte[1024];
+    static byte[] nullByte = new byte[4096];
     static string nullByteStr = Encoding.ASCII.GetString(nullByte);
 
     [System.Serializable]
@@ -164,7 +164,7 @@ public class ServerListener : MonoBehaviour {
                 s += joints[i].Position[j] + "|";
             }
             s = s.Remove(s.Length - 1);
-            s += "_";
+            s += "^";
         }
         s = s.Remove(s.Length - 1);
         return s;
@@ -351,3 +351,5 @@ public class ServerListener : MonoBehaviour {
     }
 
 }
+
+

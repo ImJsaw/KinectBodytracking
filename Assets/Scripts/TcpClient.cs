@@ -55,15 +55,18 @@ public class TcpClient : MonoBehaviour {
         SocketConnet();
         //不斷接收伺服器發來的資料
         while (true) {
-            recvData = new byte[1024];
+            recvData = new byte[2048];
+            recvLen = 0;
             recvLen = serverSocket.Receive(recvData);
             if (recvLen == 0) {
                 SocketConnet();
                 continue;
             }
             //get data
+            recvStr = "";
             recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
-            MainMgr.inst.onMsgRcv(recvData);
+            Debug.Log("/////SOCKET LEN" + recvStr.Length);
+            MainMgr.inst.onMsgRcv(recvStr);
         }
     }
 
