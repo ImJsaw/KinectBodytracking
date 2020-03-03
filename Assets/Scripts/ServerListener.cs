@@ -6,7 +6,6 @@ using Microsoft.Azure.Kinect.Sensor;
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using Joint = Microsoft.Azure.Kinect.Sensor.BodyTracking.Joint;
 
 public class ServerListener : MonoBehaviour {
 
@@ -16,6 +15,7 @@ public class ServerListener : MonoBehaviour {
     GameObject[] debugObjects;
     public Renderer renderer;
     public JointChan chan;
+    int sendlock = 0;
 
     MainMgr mainMgr = null;
     public Text count = null;
@@ -62,7 +62,7 @@ public class ServerListener : MonoBehaviour {
             Debug.LogWarning("null server");
     }
 
-    private void OnEnable() {
+    void Start() {
         
         // KINECT INITIALIZE
         this.device = Device.Open(0);
@@ -130,12 +130,16 @@ public class ServerListener : MonoBehaviour {
                 byte[] userDataBytes;
                 MemoryStream ms = new MemoryStream();
                 BinaryFormatter bf1 = new BinaryFormatter();
-                bf1.Serialize(ms, serializeJoints(frame.GetSkeleton(0).Joints));
-                ms.Flush();
-                userDataBytes = ms.ToArray();
+                //bf1.Serialize(ms, serializeJoints(frame.GetSkeleton(0).Joints));
 
+                byte[] ASCIIbytes = Encoding.ASCII.GetBytes(serializeJoints(frame.GetSkeleton(0).Joints));
                 //send to client
-                sendData(userDataBytes);
+                if(sendlock == 4)
+                {
+                    sendlock -= 4;
+                    sendData(ASCIIbytes);
+                }
+                sendlock++;
 
                 for (var i = 0; i < (int)JointId.Count; i++) {
                     var joint = this.skeleton.Joints[i];
@@ -150,24 +154,6 @@ public class ServerListener : MonoBehaviour {
             }
         }
         updateModel();
-    }
-
-    string serializeJoints(Microsoft.Azure.Kinect.Sensor.BodyTracking.Joint[] joints) {
-        string s = "";
-        for(int i = 0; i < joints.Length; i++) {
-            for(int j = 0; j < joints[i].Orientation.Length; j++) {
-                s += joints[i].Orientation[j] + "#";
-            }
-            s = s.Remove(s.Length - 1);
-            s += "$";
-            for (int j = 0; j < joints[i].Position.Length; j++) {
-                s += joints[i].Position[j] + "|";
-            }
-            s = s.Remove(s.Length - 1);
-            s += "^";
-        }
-        s = s.Remove(s.Length - 1);
-        return s;
     }
 
     void updateModel() {
@@ -312,13 +298,13 @@ public class ServerListener : MonoBehaviour {
         chan.HipRight.rotation = q;
 
 
-        //        17           
-        joint1 = this.skeleton.Joints[17];
-        rot1 = joint1.Orientation;
-        rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-        r = (Quaternion.Inverse(Quaternion.Euler(180, 90, -90)) * rot2);
-        q = new Quaternion(r.z, r.x, r.y, r.w);
-        chan.KneeRight.rotation = q;
+        ////        17           
+        //joint1 = this.skeleton.Joints[17];
+        //rot1 = joint1.Orientation;
+        //rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+        //r = (Quaternion.Inverse(Quaternion.Euler(180, 90, -90)) * rot2);
+        //q = new Quaternion(r.z, r.x, r.y, r.w);
+        //chan.KneeRight.rotation = q;
 
 
         //        18           
@@ -350,6 +336,28 @@ public class ServerListener : MonoBehaviour {
         server.SocketSend(data);
     }
 
+
+    string serializeJoints(Microsoft.Azure.Kinect.Sensor.BodyTracking.Joint[] joints)
+    {
+        string s = "";
+        for (int i = 0; i < 26; i++)
+        {
+            for (int j = 0; j < joints[i].Orientation.Length; j++)
+            {
+                s += joints[i].Orientation[j] + "#";
+            }
+            s = s.Remove(s.Length - 1);
+            s += "$";
+            for (int j = 0; j < joints[i].Position.Length; j++)
+            {
+                s += joints[i].Position[j] + "|";
+            }
+            s = s.Remove(s.Length - 1);
+            s += "^";
+        }
+        s = s.Remove(s.Length - 1);
+        return s;
+    }
+
+
 }
-
-
