@@ -15,8 +15,6 @@ public class DebugRenderer : MonoBehaviour
     GameObject[] debugObjects;
     public Renderer renderer;
     public JointChan chan;
-    int tempx = 0, tempy = 0, tempz = 0;
-    bool isRotate = true;
 
     Queue<string> dataQueue = new Queue<string>();
     bool readComplete = false;
@@ -72,10 +70,9 @@ public class DebugRenderer : MonoBehaviour
             cube.name = Enum.GetName(typeof(JointId), i);
             cube.transform.localScale = Vector3.one * 0.4f;
             debugObjects[i] = cube;
-            Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.forward * 5.0f), Color.blue);
-            Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.up * 5.0f), Color.green);
-            Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.right * 5.0f), Color.red);
+         
         }
+
     }
 
     private void OnDisable()
@@ -107,8 +104,6 @@ public class DebugRenderer : MonoBehaviour
         }
         //split for force update
         //updateBody();
-
-
         selfUpdate();
 
     }
@@ -158,36 +153,17 @@ public class DebugRenderer : MonoBehaviour
                 //send skeleton
                this.skeleton = frame.GetSkeleton(0);
 
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    isRotate = !isRotate;
-                }
-
                 for (var i = 0; i < 26; i++) {
                     var joint = this.skeleton.Joints[i];
                     var pos = joint.Position;
                     var rot = joint.Orientation;
                     var v1 = new Vector3(pos[0], -pos[1], pos[2]) * 0.004f;
-                    var r1 = new Quaternion();
-                    if (isRotate)
-                    {
-                        r1.Set(rot[1], rot[2], rot[3], rot[0]);
-                    }
-                    else
-                    {
-                        r1.Set(0, 0, 0, rot[0]);
-                    }
+                    var r1 = new Quaternion(rot[1], rot[2], rot[3], rot[0]);
                     var obj = debugObjects[i];
                     obj.transform.SetPositionAndRotation(v1, r1);
  
                 }
 
-                for(var i=4;i<8;i++)
-                {
-                    Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.forward * 5.0f), Color.blue);
-                    Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.up * 5.0f), Color.green);
-                    Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.right * 5.0f), Color.red);
-                }
 
                 //       0            
                 var joint1 = this.skeleton.Joints[0];
@@ -227,10 +203,6 @@ public class DebugRenderer : MonoBehaviour
                 r = (Quaternion.Inverse(Quaternion.Euler(180, 0, 0)) * rot2);
                 q = new Quaternion(r.y, -r.x, -r.z, r.w);
                 chan.ClavicleLeft.rotation = q;
-
-                Debug.DrawLine(chan.ClavicleLeft.position, chan.ClavicleLeft.transform.TransformPoint(Vector3.forward * 2.5f), Color.blue);
-                Debug.DrawLine(chan.ClavicleLeft.position, chan.ClavicleLeft.transform.TransformPoint(Vector3.up * 2.5f), Color.green);
-                Debug.DrawLine(chan.ClavicleLeft.position, chan.ClavicleLeft.transform.TransformPoint(Vector3.right * 2.5f), Color.red);
 
 
                 //         5         
