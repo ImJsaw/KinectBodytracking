@@ -76,15 +76,15 @@ public class ClientListener : MonoBehaviour {
             updateModel();
     }
 
-    public void updateBody(string bodyData) { //get data from net
+    public void updateBody(byte[] bodyData) { //get data from net
 
-        //MemoryStream ms = new MemoryStream(bodyData);
-        //BinaryFormatter bf = new BinaryFormatter();
-        //ms.Position = 0;
-        //this.skeleton.Joints = deserializeJoints((string)bf.Deserialize(ms));
+        MemoryStream ms = new MemoryStream(bodyData);
+        BinaryFormatter bf = new BinaryFormatter();
+        ms.Position = 0;
+        this.skeleton = (Skeleton)bf.Deserialize(ms);
         Debug.Log("/////body LEN" + bodyData.Length);
 
-        this.skeleton = deserializeJoints(bodyData);
+        //this.skeleton = deserializeJoints(bodyData);
         startUpdate = true;
         //Debug.Log("count" + (int)JointId.Count);
         //for (var i = 0; i < (int)JointId.Count; i++) {
@@ -284,6 +284,7 @@ public class ClientListener : MonoBehaviour {
         Debug.Log(s);
         //avoid get two data same time
         s = s.Split('@')[0];
+        //get joint array
         string[] jointStr = s.Split('^');
         Skeleton skeleton = new Skeleton();
         skeleton.Joints = new Joint[jointStr.Length];
@@ -291,8 +292,10 @@ public class ClientListener : MonoBehaviour {
         Joint[] joints = skeleton.Joints;
         for (int i = 0; i < 26; i++) {
             joints[i] = new Joint();
+            //get single joint
             string[] oriAndPos = jointStr[i].Split('$');
             Debug.Log("*****rot"+oriAndPos[0] + "//" + i);
+            //orientation
             string[] orientationStr = oriAndPos[0].Split('#');
             float[] orientations = new float[orientationStr.Length];
             for (int j = 0; j < orientations.Length; j++) {
@@ -300,6 +303,7 @@ public class ClientListener : MonoBehaviour {
                 orientations[j] = float.Parse(orientationStr[j]);
             }
             joints[i].Orientation = orientations;
+            //position
             Debug.Log("*****Pos" + oriAndPos[1] + "//"+i);
             string[] positionStr = oriAndPos[1].Split('|');
             float[] positions = new float[positionStr.Length];

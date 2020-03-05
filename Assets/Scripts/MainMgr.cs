@@ -51,7 +51,7 @@ public class MainMgr : MonoBehaviour {
     void Update() {
     }
 
-    public void onMsgRcv(string data) {
+    public void onMsgRcv(byte[] data) {
         switch (curScene) {
             case SceneID.Client:
                 //if(remoteListener == null)

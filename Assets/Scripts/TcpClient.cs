@@ -14,7 +14,7 @@ public class TcpClient : MonoBehaviour {
     IPEndPoint ipEnd;
     string recvStr; //接收的字串
     string sendStr; //傳送的字串
-    byte[] recvData = new byte[2048]; //接收的資料，必須為位元組
+    byte[] recvData = new byte[4096]; //接收的資料，必須為位元組
     //byte[] sendData = new byte[1024]; //傳送的資料，必須為位元組
     int recvLen; //接收的資料長度
     Thread connectThread; //連線執行緒
@@ -55,7 +55,7 @@ public class TcpClient : MonoBehaviour {
         SocketConnet();
         //不斷接收伺服器發來的資料
         while (true) {
-            recvData = new byte[2048];
+            recvData = new byte[4096];
             recvLen = 0;
             recvLen = serverSocket.Receive(recvData);
             if (recvLen == 0) {
@@ -64,9 +64,9 @@ public class TcpClient : MonoBehaviour {
             }
             //get data
             recvStr = "";
-            recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
-            Debug.Log("/////SOCKET LEN" + recvStr.Length);
-            MainMgr.inst.onMsgRcv(recvStr);
+            //recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
+            //Debug.Log("/////SOCKET LEN" + recvStr.Length);
+            MainMgr.inst.onMsgRcv(recvData);
         }
     }
 
