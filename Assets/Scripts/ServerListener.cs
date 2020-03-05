@@ -128,17 +128,17 @@ public class ServerListener : MonoBehaviour {
 
                 //send from net
                 byte[] userDataBytes;
-                MemoryStream ms = new MemoryStream();
-                BinaryFormatter bf1 = new BinaryFormatter();
+                //MemoryStream ms = new MemoryStream();
+                //BinaryFormatter bf1 = new BinaryFormatter();
                 //bf1.Serialize(ms, serializeJoints(frame.GetSkeleton(0).Joints));
 
-                byte[] ASCIIbytes = Encoding.ASCII.GetBytes(serializeJoints(frame.GetSkeleton(0).Joints));
-                //send to client
-                if(sendlock == 4)
-                {
-                    sendlock -= 4;
-                    sendData(ASCIIbytes);
-                }
+                userDataBytes = Encoding.ASCII.GetBytes(serializeJoints(frame.GetSkeleton(0).Joints));
+                ////send to client
+                //if(sendlock == 4)
+                //{
+                //    sendlock -= 4;
+                    sendData(userDataBytes);
+                //}
                 sendlock++;
 
                 for (var i = 0; i < (int)JointId.Count; i++) {
@@ -356,7 +356,7 @@ public class ServerListener : MonoBehaviour {
             s += "^";
         }
         s = s.Remove(s.Length - 1);
-        return s;
+        return s+"@";
     }
 
 

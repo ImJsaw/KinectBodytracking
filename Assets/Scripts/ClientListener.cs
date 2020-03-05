@@ -282,6 +282,8 @@ public class ClientListener : MonoBehaviour {
 
     Skeleton deserializeJoints(string s) {
         Debug.Log(s);
+        //avoid get two data same time
+        s = s.Split('@')[0];
         string[] jointStr = s.Split('^');
         Skeleton skeleton = new Skeleton();
         skeleton.Joints = new Joint[jointStr.Length];
