@@ -128,16 +128,21 @@ public class ServerListener : MonoBehaviour {
 
                 //send from net
                 byte[] userDataBytes;
-                //MemoryStream ms = new MemoryStream();
-                //BinaryFormatter bf1 = new BinaryFormatter();
-                //bf1.Serialize(ms, serializeJoints(frame.GetSkeleton(0).Joints));
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    BinaryFormatter bf1 = new BinaryFormatter();
+                    // bf1.Serialize(ms, serializeJoints(frame.GetSkeleton(0)));
+                    bf1.Serialize(ms, frame.GetSkeleton(0));
+                    userDataBytes = ms.ToArray();
+                    sendData(userDataBytes);
+                }
 
-                userDataBytes = Encoding.ASCII.GetBytes(serializeJoints(frame.GetSkeleton(0).Joints));
+                //userDataBytes = Encoding.ASCII.GetBytes(serializeJoints(frame.GetSkeleton(0).Joints));
                 ////send to client
                 //if(sendlock == 4)
                 //{
                 //    sendlock -= 4;
-                    sendData(userDataBytes);
+                    //sendData(userDataBytes);
                 //}
                 sendlock++;
 
