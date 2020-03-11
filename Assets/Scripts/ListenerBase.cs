@@ -31,6 +31,8 @@ public class ListenerBase : MonoBehaviour {
         public Transform Head;// id = 20
         public Transform position;
     }
+
+    public Transform modelPosition = null;
     private readonly int jointNum = 21;
     Quaternion[] bodyRotations = new Quaternion[21];
     Vector3 bodyPosition = new Vector3();
@@ -257,7 +259,7 @@ public class ListenerBase : MonoBehaviour {
         rot1 = joint1.Orientation;
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
-        q = new Quaternion(r.x, r.y, r.z, r.w);
+        q = new Quaternion(r.x, -r.y, -r.z, r.w);
         chan.ElbowRight.rotation = q;
 
 
@@ -344,7 +346,7 @@ public class ListenerBase : MonoBehaviour {
         //model position
         var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.002f;
         var restore = new Vector3(-2, 3, -2); //決定起始點
-        chan.position.position = v - restore;
+        modelPosition.position = v - restore;
 
     }
 

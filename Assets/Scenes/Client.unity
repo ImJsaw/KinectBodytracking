@@ -149,7 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 968bd405504ab4a4c82336f64a475172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderer: {fileID: 547268627}
   chan:
     Pelvis: {fileID: 1714869286}
     SpinNaval: {fileID: 1714869287}
@@ -172,7 +171,8 @@ MonoBehaviour:
     AnkleRight: {fileID: 1714869301}
     FootRight: {fileID: 0}
     Head: {fileID: 1714869294}
-  count: {fileID: 0}
+    position: {fileID: 0}
+  modelPosition: {fileID: 1714869305}
 --- !u!4 &115024478
 Transform:
   m_ObjectHideFlags: 0
@@ -1520,6 +1520,12 @@ Transform:
 --- !u!4 &1714869304 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1335332873302423171, guid: 1c647812118c3c844b95dd496bd8205b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1714869285}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1714869305 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4707223158574779643, guid: 1c647812118c3c844b95dd496bd8205b,
     type: 3}
   m_PrefabInstance: {fileID: 1714869285}
   m_PrefabAsset: {fileID: 0}
