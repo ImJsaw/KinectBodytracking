@@ -46,6 +46,7 @@ public class DebugRenderer : MonoBehaviour
         public Transform AnkleRight;// id = 18
         public Transform FootRight;// id = 19
         public Transform Head;// id = 20
+        public Transform Position;
     }
 
     private void OnEnable()
@@ -182,6 +183,7 @@ public class DebugRenderer : MonoBehaviour
     void updateModel() {
         //       0            
         var joint1 = this.skeleton.Joints[0];
+        var pos = joint1.Position;
         var rot1 = joint1.Orientation;
         var rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         Quaternion r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
@@ -210,38 +212,6 @@ public class DebugRenderer : MonoBehaviour
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.Neck.rotation = q;
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            x += 90;
-            Debug.Log("x" + x + "y" + y + "z" + z);
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            x -= 90;
-            Debug.Log("x" + x + "y" + y + "z" + z);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            y += 90;
-            Debug.Log("x" + x + "y" + y + "z" + z);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            y -= 90;
-            Debug.Log("x" + x + "y" + y + "z" + z);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            z -= 90;
-            Debug.Log("x" + x + "y" + y + "z" + z);
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            z += 90;
-            Debug.Log("x" + x + "y" + y + "z" + z);
-        }
-
-
         Quaternion a = Quaternion.LookRotation(Vector3.forward, Vector3.up);
 
         ////4
@@ -388,6 +358,12 @@ public class DebugRenderer : MonoBehaviour
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.Head.rotation = q;
+
+        //model position
+        var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.004f;
+        var restore = new Vector3(0, 0, 0); //決定起始點
+        chan.Position.position = v - restore;
+
     }
 
     void updateFromData()

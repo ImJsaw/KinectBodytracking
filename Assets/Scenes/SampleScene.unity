@@ -959,6 +959,7 @@ MonoBehaviour:
     AnkleRight: {fileID: 226415541}
     FootRight: {fileID: 0}
     Head: {fileID: 2989701458705161673}
+    Position: {fileID: 300015265524561862}
 --- !u!4 &1879236552 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4280991613773869716, guid: 1c647812118c3c844b95dd496bd8205b,
@@ -1045,6 +1046,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c647812118c3c844b95dd496bd8205b, type: 3}
+--- !u!4 &300015265524561862 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4707223158574779643, guid: 1c647812118c3c844b95dd496bd8205b,
+    type: 3}
+  m_PrefabInstance: {fileID: 300015265524561861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1401826838652936923 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1683664968266634526, guid: 1c647812118c3c844b95dd496bd8205b,
