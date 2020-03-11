@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\ClientListener.cs" />
      <Compile Include="Assets\Scripts\ClientMgr.cs" />
      <Compile Include="Assets\Scripts\DebugRenderer.cs" />
+     <Compile Include="Assets\Scripts\ListenerBase.cs" />
      <Compile Include="Assets\Scripts\M4A\AzureKinectException.cs" />
      <Compile Include="Assets\Scripts\M4A\BGRA.cs" />
      <Compile Include="Assets\Scripts\M4A\Calibration.cs" />
