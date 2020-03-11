@@ -101,17 +101,15 @@ public class ListenerBase : MonoBehaviour {
         //head
         Quaternion.LookRotation(Vector3.left, Vector3.back),
      };
-
-    protected static MainMgr mainMgr = null;
+    
     protected static TcpClient client = null;
     protected static TcpServer server = null;
 
     // Use this for initialization
     void Awake() {
         //get client & server from persist node
-        mainMgr = GameObject.Find("MainMgr").GetComponent<MainMgr>();
-        client = mainMgr.client;
-        server = mainMgr.server;
+        client = MainMgr.inst.client;
+        server = MainMgr.inst.server;
     }
 
     void applyModel() {

@@ -480,7 +480,7 @@ public class DebugRenderer : MonoBehaviour
         //model position
         var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.002f;
         var restore = new Vector3(-2, 3, -2); //決定起始點
-        chan.Position.position = v - restore;
+        chan.position.position = v - restore;
 
     }
 

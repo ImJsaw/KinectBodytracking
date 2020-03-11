@@ -76,12 +76,13 @@ public class TcpServer : MonoBehaviour {
                 continue;
             }
             //輸出接收到的資料
-            recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
+            //recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
+            //將接收到的資料經過處理再發送出去
+            //sendStr = "From Server: " + recvStr;
+            //SocketSend(Encoding.ASCII.GetBytes(sendStr));
             //get data
             //MainMgr.inst.onMsgRcv(recvStr);
-            //將接收到的資料經過處理再發送出去
-            sendStr = "From Server: " + recvStr;
-            SocketSend(Encoding.ASCII.GetBytes(sendStr));
+            NetMgr.OnMsgRcv(recvData);
         }
     }
 

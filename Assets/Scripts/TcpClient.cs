@@ -62,11 +62,10 @@ public class TcpClient : MonoBehaviour {
                 SocketConnet();
                 continue;
             }
-            //get data
-            recvStr = "";
             //recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
             //Debug.Log("/////SOCKET LEN" + recvStr.Length);
-            MainMgr.inst.onMsgRcv(recvData);
+            //MainMgr.inst.onMsgRcv(recvData);
+            NetMgr.OnMsgRcv(recvData);
         }
     }
 

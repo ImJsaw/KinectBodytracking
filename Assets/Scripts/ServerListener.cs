@@ -66,13 +66,18 @@ public class ServerListener : ListenerBase {
             if (frame.NumBodies > 0) {
                 //send from net
                 skeleton = frame.GetSkeleton(0);
-                byte[] userDataBytes;
-                using (MemoryStream ms = new MemoryStream()){
-                    BinaryFormatter bf1 = new BinaryFormatter();
-                    bf1.Serialize(ms, frame.GetSkeleton(0));
-                    userDataBytes = ms.ToArray();
-                    sendData(userDataBytes);
-                }
+
+                //byte[] userDataBytes;
+                //using (MemoryStream ms = new MemoryStream()){
+                //    BinaryFormatter bf1 = new BinaryFormatter();
+                //    bf1.Serialize(ms, frame.GetSkeleton(0));
+                //    userDataBytes = ms.ToArray();
+                //    server.SocketSend(userDataBytes);
+                //}
+
+                byte[] modelDataBytes = NetMgr.Trans2byte(skeleton);
+                NetMgr.sendMsg(packageType.model, modelDataBytes, false);
+
                 //update cube
                 for (var i = 0; i < (int)JointId.Count; i++) {
                     var joint = skeleton.Joints[i];
@@ -262,11 +267,6 @@ public class ServerListener : ListenerBase {
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.Head.rotation = q;
-    }
-
-    void sendData(byte[] data) {
-        //TODO:
-        server.SocketSend(data);
     }
 
 }
