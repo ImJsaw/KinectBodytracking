@@ -7,8 +7,7 @@ using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-public class DebugRenderer : MonoBehaviour
-{
+public class DebugRenderer : MonoBehaviour {
     Device device;
     BodyTracker tracker;
     Skeleton skeleton;
@@ -23,8 +22,7 @@ public class DebugRenderer : MonoBehaviour
     Quaternion rot;
 
     [System.Serializable]
-    public struct JointChan
-    {
+    public struct JointChan {
         public Transform Pelvis;// id = 0
         public Transform SpinNaval;// id = 1
         public Transform SpinChest;// id = 2
@@ -120,12 +118,10 @@ public class DebugRenderer : MonoBehaviour
         Quaternion.LookRotation(Vector3.left, Vector3.back),
      };
 
-    private void OnEnable()
-    {
+    private void OnEnable() {
         // KINECT INITIALIZE
         this.device = Device.Open(0);
-        var config = new DeviceConfiguration
-        {
+        var config = new DeviceConfiguration {
             ColorResolution = ColorResolution.r720p,
             ColorFormat = ImageFormat.ColorBGRA32,
             DepthMode = DepthMode.NFOV_Unbinned
@@ -136,38 +132,31 @@ public class DebugRenderer : MonoBehaviour
         this.tracker = BodyTracker.Create(calibration);
         //cubes?
         debugObjects = new GameObject[(int)JointId.Count];
-        for (var i = 0; i < (int)JointId.Count; i++)
-        {
+        for (var i = 0; i < (int)JointId.Count; i++) {
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.name = Enum.GetName(typeof(JointId), i);
             cube.transform.localScale = Vector3.one * 0.4f;
             debugObjects[i] = cube;
-         
+
         }
 
     }
 
-    private void OnDisable()
-    {
-        if (tracker != null)
-        {
+    private void OnDisable() {
+        if (tracker != null) {
             tracker.Dispose();
         }
-        if (device != null)
-        {
+        if (device != null) {
             device.Dispose();
         }
     }
 
-    void Update()
-    {
+    void Update() {
         //SCREEN
-        using (Capture capture = device.GetCapture())
-        {
+        using (Capture capture = device.GetCapture()) {
             tracker.EnqueueCapture(capture);
             var color = capture.Color;
-            if (color.WidthPixels > 0)
-            {
+            if (color.WidthPixels > 0) {
                 Texture2D tex = new Texture2D(color.WidthPixels, color.HeightPixels, TextureFormat.BGRA32, false);
                 tex.LoadRawTextureData(color.GetBufferCopy());
                 tex.Apply();
@@ -221,9 +210,9 @@ public class DebugRenderer : MonoBehaviour
             //Debug.LogFormat("{0} bodies found.", frame.NumBodies);
             if (frame.NumBodies > 0) {
                 var bodyId = frame.GetBodyId(0);
-               // Debug.LogFormat("bodyId={0}", bodyId);
+                // Debug.LogFormat("bodyId={0}", bodyId);
                 //send skeleton
-               this.skeleton = frame.GetSkeleton(0);
+                this.skeleton = frame.GetSkeleton(0);
 
                 for (var i = 0; i < 26; i++) {
                     var joint = this.skeleton.Joints[i];
@@ -233,7 +222,7 @@ public class DebugRenderer : MonoBehaviour
                     var r1 = new Quaternion(rot[1], rot[2], rot[3], rot[0]);
                     var obj = debugObjects[i];
                     obj.transform.SetPositionAndRotation(v1, r1);
-                    
+
 
                 }
                 //updateModel();
@@ -243,8 +232,7 @@ public class DebugRenderer : MonoBehaviour
     }
 
 
-    void applyModel()
-    {
+    void applyModel() {
         //mid body
         chan.Pelvis.rotation = bodyDatas[0].rotation;
         chan.SpinNaval.rotation = bodyDatas[1].rotation;
@@ -278,11 +266,9 @@ public class DebugRenderer : MonoBehaviour
 
     }
 
-    protected void updateModelFromSkeleton()
-    {
+    protected void updateModelFromSkeleton() {
         //get model position/orientation from skeleton, save it
-        for (int i = 0; i < jointNum; i++)
-        {
+        for (int i = 0; i < jointNum; i++) {
             var rot1 = skeleton.Joints[i].Orientation;
             var rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
             bodyDatas[i].rotation = initialModel[i].rotation * rot2 * modelOffset[i] * axisTrans[i];
@@ -296,34 +282,6 @@ public class DebugRenderer : MonoBehaviour
         applyModel();
     }
 
-    Vector3[] ways = {
-        Vector3.left,
-        Vector3.forward,
-        Vector3.up,
-        Vector3.right,
-        Vector3.back,
-        Vector3.down
-    };
-
-    string getStr(int index) {
-        switch (index) {
-            case 0:
-                return "left";
-            case 1:
-                return "forward";
-            case 2:
-                return "up";
-            case 3:
-                return "right";
-            case 4:
-                return "back";
-            case 5:
-                return "down";
-            default:
-                return "???";
-        }
-    }
-
     void updateModel() {
         //       0            
         var joint1 = this.skeleton.Joints[0];
@@ -332,14 +290,6 @@ public class DebugRenderer : MonoBehaviour
         var rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         Quaternion r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         Quaternion q = new Quaternion(r.z, -r.x, -r.y, r.w);
-        for(int i = 0;i < 6; i++) {
-            for(int j = -2;j < 3; j++) {
-                if (j == 0) j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("pelvis : " + getStr(i) + "," + getStr(j));
-            }
-        }
         chan.Pelvis.rotation = q;
 
         ////         1          
@@ -349,15 +299,6 @@ public class DebugRenderer : MonoBehaviour
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.SpinNaval.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("SpinNaval : " + getStr(i) + "," + getStr(j));
-            }
-        }
 
         //        2           
         joint1 = this.skeleton.Joints[2];
@@ -366,15 +307,6 @@ public class DebugRenderer : MonoBehaviour
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.SpinChest.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("SpinChest : " + getStr(i) + "," + getStr(j));
-            }
-        }
         //        3           
         joint1 = this.skeleton.Joints[3];
         rot1 = joint1.Orientation;
@@ -382,15 +314,6 @@ public class DebugRenderer : MonoBehaviour
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.Neck.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("Neck : " + getStr(i) + "," + getStr(j));
-            }
-        }
         Quaternion a = Quaternion.LookRotation(Vector3.forward, Vector3.up);
 
         ////4
@@ -399,17 +322,8 @@ public class DebugRenderer : MonoBehaviour
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Euler(180, 0, 180) * rot2);
         //q = new Quaternion(r.x, r.y, r.z, r.w);
-        q =  r;
+        q = r;
         chan.ClavicleLeft.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("ClavicleLeft : " + getStr(i) + "," + getStr(j));
-            }
-        }
 
 
         //         5         
@@ -418,17 +332,8 @@ public class DebugRenderer : MonoBehaviour
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Euler(180, 0, 180) * rot2);
         //q = new Quaternion(r.z, r.y, r.x, r.w);
-        q =  r;
+        q = r;
         chan.ShoulderLeft.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("ShoulderLeft : " + getStr(i) + "," + getStr(j));
-            }
-        }
 
 
         ////         6         
@@ -436,18 +341,9 @@ public class DebugRenderer : MonoBehaviour
         rot1 = joint1.Orientation;
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(180, 0, 180)) * rot2);
-        q = new Quaternion(r.y,r.x, r.z, r.w);
-        q =  r;
+        q = new Quaternion(r.y, r.x, r.z, r.w);
+        q = r;
         chan.ElbowLeft.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("ElbowLeft : " + getStr(i) + "," + getStr(j));
-            }
-        }
 
 
 
@@ -464,15 +360,6 @@ public class DebugRenderer : MonoBehaviour
         r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
         q = new Quaternion(r.x, -r.y, -r.z, r.w);
         chan.ClavicleRight.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("ClavicleRight : " + getStr(i) + "," + getStr(j));
-            }
-        }
 
 
 
@@ -483,15 +370,6 @@ public class DebugRenderer : MonoBehaviour
         r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
         q = new Quaternion(r.x, -r.y, -r.z, r.w);
         chan.ShoulderRight.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("ShoulderRight : " + getStr(i) + "," + getStr(j));
-            }
-        }
 
 
         //        10           
@@ -501,15 +379,6 @@ public class DebugRenderer : MonoBehaviour
         r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
         q = new Quaternion(r.x, r.y, r.z, r.w);
         chan.ElbowRight.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("ElbowRight : " + getStr(i) + "," + getStr(j));
-            }
-        }
 
 
 
@@ -526,15 +395,6 @@ public class DebugRenderer : MonoBehaviour
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.HipLeft.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("HipLeft : " + getStr(i) + "," + getStr(j));
-            }
-        }
 
         //        13           
         joint1 = this.skeleton.Joints[13];
@@ -543,15 +403,6 @@ public class DebugRenderer : MonoBehaviour
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.KneeLeft.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("KneeLeft : " + getStr(i) + "," + getStr(j));
-            }
-        }
 
         //        14           
         joint1 = this.skeleton.Joints[14];
@@ -560,15 +411,6 @@ public class DebugRenderer : MonoBehaviour
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.AnkleLeft.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("AnkleLeft : " + getStr(i) + "," + getStr(j));
-            }
-        }
 
         //////        15           
         ////joint1 = this.skeleton.Joints[15];
@@ -585,15 +427,6 @@ public class DebugRenderer : MonoBehaviour
         r = (Quaternion.Inverse(Quaternion.Euler(180, 90, -90)) * rot2);
         q = new Quaternion(r.z, r.x, r.y, r.w);
         chan.HipRight.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("HipRight : " + getStr(i) + "," + getStr(j));
-            }
-        }
 
 
         //        17           
@@ -603,15 +436,6 @@ public class DebugRenderer : MonoBehaviour
         r = (Quaternion.Inverse(Quaternion.Euler(180, 90, -90)) * rot2);
         q = new Quaternion(r.z, r.x, r.y, r.w);
         chan.KneeRight.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("KneeRight : " + getStr(i) + "," + getStr(j));
-            }
-        }
 
 
         //        18           
@@ -621,15 +445,6 @@ public class DebugRenderer : MonoBehaviour
         r = (Quaternion.Inverse(Quaternion.Euler(180, 90, -90)) * rot2);
         q = new Quaternion(r.z, r.x, r.y, r.w);
         chan.AnkleRight.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("AnkleRight : " + getStr(i) + "," + getStr(j));
-            }
-        }
 
 
         //////        19           
@@ -645,15 +460,6 @@ public class DebugRenderer : MonoBehaviour
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.Head.rotation = q;
-        for (int i = 0; i < 6; i++) {
-            for (int j = -2; j < 3; j++) {
-                if (j == 0)
-                    j++;
-                Quaternion t1 = Quaternion.LookRotation(ways[i], ways[(i + j + 6) % 6]);
-                if ((r * t1).eulerAngles == q.eulerAngles)
-                    Debug.Log("Head : " + getStr(i) + "," + getStr(j));
-            }
-        }
 
         //model position
         var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.002f;
@@ -662,21 +468,19 @@ public class DebugRenderer : MonoBehaviour
 
     }
 
-    void updateFromData()
-    {
-        if (!readComplete) return;
+    void updateFromData() {
+        if (!readComplete)
+            return;
 
 
-        for (var i = 0; i < 26; i++)
-        {
+        for (var i = 0; i < 26; i++) {
             getData();
             var obj = debugObjects[i];
             obj.transform.SetPositionAndRotation(pos, rot);
 
         }
 
-        for (var i = 0; i < 1; i++)
-        {
+        for (var i = 0; i < 1; i++) {
             Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.forward * 5.0f), Color.blue);
             Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.up * 5.0f), Color.green);
             Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.right * 5.0f), Color.red);
@@ -858,20 +662,17 @@ public class DebugRenderer : MonoBehaviour
         }
     }
 
-    void readData()
-    {
+    void readData() {
         string text = File.ReadAllText(@"C:\Users\CGAL\Downloads\moving.txt");
         string[] txts = text.Split('|');
-        for (int i = 0; i < txts.Length; i++)
-        {
+        for (int i = 0; i < txts.Length; i++) {
             dataQueue.Enqueue(txts[i]);
         }
         Debug.Log("readData complete");
         readComplete = true;
     }
 
-    void getData()
-    {
+    void getData() {
         string data = dataQueue.Dequeue();
 
         string[] spData = data.Split('*');
@@ -879,8 +680,7 @@ public class DebugRenderer : MonoBehaviour
         Debug.Log("rot." + spData[1] + ".");
 
         // Remove the parentheses
-        if (spData[0].StartsWith("(") && spData[0].EndsWith(")"))
-        {
+        if (spData[0].StartsWith("(") && spData[0].EndsWith(")")) {
             spData[0] = spData[0].Substring(1, spData[0].Length - 2);
         }
         // split the items
@@ -893,8 +693,7 @@ public class DebugRenderer : MonoBehaviour
             float.Parse(sArray[2]));
         Debug.Log("pos fin");
         // Remove the parentheses
-        if (spData[1].StartsWith("(") && spData[1].EndsWith(")"))
-        {
+        if (spData[1].StartsWith("(") && spData[1].EndsWith(")")) {
             spData[1] = spData[1].Substring(1, spData[1].Length - 2);
         }
 
