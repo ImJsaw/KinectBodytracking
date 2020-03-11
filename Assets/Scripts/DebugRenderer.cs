@@ -46,8 +46,79 @@ public class DebugRenderer : MonoBehaviour
         public Transform AnkleRight;// id = 18
         public Transform FootRight;// id = 19
         public Transform Head;// id = 20
-        public Transform Position;
+        public Transform position;
     }
+
+    private readonly int jointNum = 21;
+    Transform[] bodyDatas = new Transform[21];
+    Vector3 bodyPosition = new Vector3();
+    Transform[] initialModel = new Transform[21];
+
+    private static readonly Quaternion[] modelOffset = {
+        //body
+        Quaternion.Euler(0f, 90f, 90f),
+        Quaternion.Euler(0f, 90f, 90f),
+        Quaternion.Euler(0f, 90f, 90f),
+        Quaternion.Euler(0f, 90f, 90f),
+
+        //left arm
+        Quaternion.Euler(180f, 0f, 180f),
+        Quaternion.Euler(180f, 0f, 180f),
+        Quaternion.Euler(180f, 0f, 180f),
+        Quaternion.Euler(-90f, 0f, 180f),
+
+        //right arm //(0,180,0)?
+        Quaternion.Euler(0f, 0f, 180f),
+        Quaternion.Euler(0f, 0f, 180f),
+        Quaternion.Euler(0f, 0f, 180f),
+        Quaternion.Euler(-90f, 0f, 180f),
+
+        //left leg
+        Quaternion.Euler(0f, 90f, 90f),
+        Quaternion.Euler(0f, 90f, 90f),
+        Quaternion.Euler(0f, 90f, 90f),
+        Quaternion.Euler(90f, 0f, 0f),
+
+        //right leg  //0,90,-90(?)
+        Quaternion.Euler(180f, -90f, 90f),
+        Quaternion.Euler(180f, -90f, 90f),
+        Quaternion.Euler(180f, -90f, 90f),
+        Quaternion.Euler(90f, 0f, 180f),
+
+        //head
+        Quaternion.Euler(0f, 90f, -90f),
+
+    };
+
+    private static readonly Quaternion[] axisTrans ={
+        //body
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        //left arm
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        //right arm
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        //left leg
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        //right leg
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+        //head
+        Quaternion.LookRotation(Vector3.left, Vector3.back),
+     };
 
     private void OnEnable()
     {
@@ -165,20 +236,67 @@ public class DebugRenderer : MonoBehaviour
                     
 
                 }
-                for(int i=6;i<8;i++)
-                {
-                    Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.forward * 5.0f), Color.blue);
-                    Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.up * 5.0f), Color.green);
-                    Debug.DrawLine(debugObjects[i].transform.position, debugObjects[i].transform.TransformPoint(Vector3.right * 5.0f), Color.red);
-                }
-                updateModel();
+                //updateModel();
+                updateModelFromSkeleton();
             }
         }
     }
 
-    int x = 0;
-    int y = 180;
-    int z = 0;
+
+    void applyModel()
+    {
+        //mid body
+        chan.Pelvis.rotation = bodyDatas[0].rotation;
+        chan.SpinNaval.rotation = bodyDatas[1].rotation;
+        chan.SpinChest.rotation = bodyDatas[2].rotation;
+        chan.Neck.rotation = bodyDatas[3].rotation;
+        //left arm
+        chan.ClavicleLeft.rotation = bodyDatas[4].rotation;
+        chan.ShoulderLeft.rotation = bodyDatas[5].rotation;
+        chan.ElbowLeft.rotation = bodyDatas[6].rotation;
+        chan.WristLeft.rotation = bodyDatas[7].rotation;
+        //right arm
+        chan.ClavicleRight.rotation = bodyDatas[8].rotation;
+        chan.ShoulderRight.rotation = bodyDatas[9].rotation;
+        chan.ElbowRight.rotation = bodyDatas[10].rotation;
+        chan.WristRight.rotation = bodyDatas[11].rotation;
+        //left leg
+        chan.HipLeft.rotation = bodyDatas[12].rotation;
+        chan.KneeLeft.rotation = bodyDatas[13].rotation;
+        chan.AnkleLeft.rotation = bodyDatas[14].rotation;
+        chan.FootLeft.rotation = bodyDatas[15].rotation;
+        //right leg
+        chan.HipRight.rotation = bodyDatas[16].rotation;
+        chan.KneeRight.rotation = bodyDatas[17].rotation;
+        chan.AnkleRight.rotation = bodyDatas[18].rotation;
+        chan.FootRight.rotation = bodyDatas[19].rotation;
+        //head
+        chan.Head.rotation = bodyDatas[20].rotation;
+
+        //position
+        chan.position.position = bodyPosition;
+
+    }
+
+    protected void updateModelFromSkeleton()
+    {
+        //get model position/orientation from skeleton, save it
+        for (int i = 0; i < jointNum; i++)
+        {
+            var rot1 = skeleton.Joints[i].Orientation;
+            var rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+            bodyDatas[i].rotation = initialModel[i].rotation * rot2 * modelOffset[i] * axisTrans[i];
+        }
+        var pos = skeleton.Joints[0].Position;
+        Vector3 move = new Vector3(pos[0], -pos[1], pos[2]) * 0.001f;
+        Vector3 initPos = new Vector3(2, -3, 2); //決定起始點
+        bodyPosition = move + initPos;
+
+        //apply
+        applyModel();
+    }
+
+
 
     void updateModel() {
         //       0            
