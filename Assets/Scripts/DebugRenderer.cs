@@ -255,8 +255,8 @@ public class DebugRenderer : MonoBehaviour
         joint1 = this.skeleton.Joints[8];
         rot1 = joint1.Orientation;
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-        r = (Quaternion.Inverse(Quaternion.Euler(0, 180, 0)) * rot2);
-        q = new Quaternion(r.x, r.y, r.z, r.w);
+        r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
+        q = new Quaternion(r.x, -r.y, -r.z, r.w);
         chan.ClavicleRight.rotation = q;
 
 
@@ -265,8 +265,8 @@ public class DebugRenderer : MonoBehaviour
         joint1 = this.skeleton.Joints[9];
         rot1 = joint1.Orientation;
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-        r = (Quaternion.Inverse(Quaternion.Euler(0, 180, 0)) * rot2);
-        q = new Quaternion(r.x, r.y, r.z, r.w);
+        r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
+        q = new Quaternion(r.x, -r.y, -r.z, r.w);
         chan.ShoulderRight.rotation = q;
 
 
@@ -274,7 +274,7 @@ public class DebugRenderer : MonoBehaviour
         joint1 = this.skeleton.Joints[10];
         rot1 = joint1.Orientation;
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-        r = (Quaternion.Inverse(Quaternion.Euler(0, 180, 0)) * rot2);
+        r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
         q = new Quaternion(r.x, r.y, r.z, r.w);
         chan.ElbowRight.rotation = q;
 
