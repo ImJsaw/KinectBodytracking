@@ -1,87 +1,32 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Text;
 using Microsoft.Azure.Kinect.Sensor;
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-public class ServerListener : MonoBehaviour {
+public class ServerListener : ListenerBase {
 
     Device device;
     BodyTracker tracker;
-    Skeleton skeleton;
     GameObject[] debugObjects;
-    public Renderer renderer;
-    public JointChan chan;
-    int sendlock = 0;
-
-    MainMgr mainMgr = null;
-    public Text count = null;
     
-    private TcpServer server = null;
-    private int curPackage = 0;
-    static byte[] nullByte = new byte[4096];
-    static string nullByteStr = Encoding.ASCII.GetString(nullByte);
-
-    [System.Serializable]
-    public struct JointChan {
-        public Transform Pelvis;// id = 0
-        public Transform SpinNaval;// id = 1
-        public Transform SpinChest;// id = 2
-        public Transform Neck;// id = 3
-        public Transform ClavicleLeft;// id = 4
-        public Transform ShoulderLeft;// id = 5
-        public Transform ElbowLeft;// id = 6
-        public Transform WristLeft;// id = 7
-        public Transform ClavicleRight;// id = 8
-        public Transform ShoulderRight;// id = 9
-        public Transform ElbowRight;// id = 10
-        public Transform WristRight;// id = 11
-        public Transform HipLeft;// id = 12
-        public Transform KneeLeft;// id = 13
-        public Transform AnkleLeft;// id = 14
-        public Transform FootLeft;// id = 15
-        public Transform HipRight;// id = 16
-        public Transform KneeRight;// id = 17
-        public Transform AnkleRight;// id = 18
-        public Transform FootRight;// id = 19
-        public Transform Head;// id = 20
-    }
-
     //make sure initial complete
     private bool initial = false;
 
-    // Use this for initialization
-    void Awake() {
-        //get client & server from persist node
-        mainMgr = GameObject.Find("MainMgr").GetComponent<MainMgr>();
-        server = mainMgr.server;
-        if (server == null)
-            Debug.LogWarning("null server");
-    }
-
     void Start() {
-        
         // KINECT INITIALIZE
-        this.device = Device.Open(0);
-        Debug.Log("open device");
+        device = Device.Open(0);
         var config = new DeviceConfiguration {
             ColorResolution = ColorResolution.r720p,
             ColorFormat = ImageFormat.ColorBGRA32,
             DepthMode = DepthMode.NFOV_Unbinned
         };
         device.StartCameras(config);
-        Debug.Log("start camera");
-
         var calibration = device.GetCalibration(config.DepthMode, config.ColorResolution);
-        this.tracker = BodyTracker.Create(calibration);
-        Debug.Log("create trcker complete");
-        //tell update init complete
+        tracker = BodyTracker.Create(calibration);
         initial = true;
-        
-        //cubes?
+        //cubes
         debugObjects = new GameObject[(int)JointId.Count];
         for (var i = 0; i < (int)JointId.Count; i++) {
             var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -89,14 +34,13 @@ public class ServerListener : MonoBehaviour {
             cube.transform.localScale = Vector3.one * 0.4f;
             debugObjects[i] = cube;
         }
-        Debug.Log("init cube");
-
     }
-
-    // Update is called once per frame
+    
     void Update() {
+        if (server == null)
+            Debug.LogWarning("null server");
         Debug.Log("enter update");
-        updateBody();
+        updateSkeleton();
     }
 
     private void OnDisable() {
@@ -108,7 +52,7 @@ public class ServerListener : MonoBehaviour {
         }
     }
 
-    void updateBody() {
+    void updateSkeleton() {
         if (!initial) {
             Debug.Log("init not complete yet");
             return;
@@ -118,36 +62,20 @@ public class ServerListener : MonoBehaviour {
             tracker.EnqueueCapture(capture);
         }
         using (var frame = tracker.PopResult()) {
-            Debug.Log("using");
             Debug.LogFormat("{0} bodies found.", frame.NumBodies);
             if (frame.NumBodies > 0) {
-                var bodyId = frame.GetBodyId(0);
-                Debug.LogFormat("bodyId={0}", bodyId);
-                //send skeleton
-                this.skeleton = frame.GetSkeleton(0);
-
                 //send from net
+                skeleton = frame.GetSkeleton(0);
                 byte[] userDataBytes;
-                using (MemoryStream ms = new MemoryStream())
-                {
+                using (MemoryStream ms = new MemoryStream()){
                     BinaryFormatter bf1 = new BinaryFormatter();
-                    // bf1.Serialize(ms, serializeJoints(frame.GetSkeleton(0)));
                     bf1.Serialize(ms, frame.GetSkeleton(0));
                     userDataBytes = ms.ToArray();
                     sendData(userDataBytes);
                 }
-
-                //userDataBytes = Encoding.ASCII.GetBytes(serializeJoints(frame.GetSkeleton(0).Joints));
-                ////send to client
-                //if(sendlock == 4)
-                //{
-                //    sendlock -= 4;
-                    //sendData(userDataBytes);
-                //}
-                sendlock++;
-
+                //update cube
                 for (var i = 0; i < (int)JointId.Count; i++) {
-                    var joint = this.skeleton.Joints[i];
+                    var joint = skeleton.Joints[i];
                     var pos = joint.Position;
                     var rot = joint.Orientation;
                     var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.004f;
@@ -155,10 +83,10 @@ public class ServerListener : MonoBehaviour {
                     var obj = debugObjects[i];
                     obj.transform.SetPositionAndRotation(v, r);
                 }
-
             }
         }
         updateModel();
+        //updateModelFromSkeleton();
     }
 
     void updateModel() {
@@ -340,29 +268,5 @@ public class ServerListener : MonoBehaviour {
         //TODO:
         server.SocketSend(data);
     }
-
-
-    string serializeJoints(Microsoft.Azure.Kinect.Sensor.BodyTracking.Joint[] joints)
-    {
-        string s = "";
-        for (int i = 0; i < 26; i++)
-        {
-            for (int j = 0; j < joints[i].Orientation.Length; j++)
-            {
-                s += joints[i].Orientation[j] + "#";
-            }
-            s = s.Remove(s.Length - 1);
-            s += "$";
-            for (int j = 0; j < joints[i].Position.Length; j++)
-            {
-                s += joints[i].Position[j] + "|";
-            }
-            s = s.Remove(s.Length - 1);
-            s += "^";
-        }
-        s = s.Remove(s.Length - 1);
-        return s+"@";
-    }
-
 
 }

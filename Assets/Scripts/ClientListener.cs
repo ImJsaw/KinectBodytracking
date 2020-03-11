@@ -1,12 +1,7 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.UI;
-using System.Text;
-using Microsoft.Azure.Kinect.Sensor;
+﻿using UnityEngine;
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using Joint = Microsoft.Azure.Kinect.Sensor.BodyTracking.Joint;
 
 public class ClientListener : ListenerBase {
 
@@ -23,30 +18,12 @@ public class ClientListener : ListenerBase {
     }
 
     public void updateBody(byte[] bodyData) { //get data from net
-
         MemoryStream ms = new MemoryStream(bodyData);
         BinaryFormatter bf = new BinaryFormatter();
         ms.Position = 0;
         skeleton = (Skeleton)bf.Deserialize(ms);
-        Debug.Log("/////body LEN" + bodyData.Length);
 
-        //this.skeleton = deserializeJoints(bodyData);
         startUpdate = true;
-        //Debug.Log("count" + (int)JointId.Count);
-        //for (var i = 0; i < (int)JointId.Count; i++) {
-        //    Debug.Log(i);
-        //    var joint = this.skeleton.Joints[i];
-        //    var pos = joint.Position;
-        //    Debug.Log("pos" + joint.Position);
-        //    var rot = joint.Orientation;
-        //    Debug.Log("rot" + joint.Orientation);
-        //    var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.004f;
-        //    var r = new Quaternion(rot[1], rot[2], rot[3], rot[0]);
-        //    var obj = debugObjects[i];
-        //    //obj.transform.SetPositionAndRotation(v, r);
-        //}
-
-        //updateModel();
     }
 
     void updateModel() {
@@ -226,5 +203,3 @@ public class ClientListener : ListenerBase {
     }
 
 }
-
-

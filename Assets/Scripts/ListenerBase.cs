@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 using Joint = Microsoft.Azure.Kinect.Sensor.BodyTracking.Joint;
 
