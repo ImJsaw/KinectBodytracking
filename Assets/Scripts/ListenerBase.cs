@@ -34,7 +34,7 @@ public class ListenerBase : MonoBehaviour {
     private readonly int jointNum = 21;
     Quaternion[] bodyRotations = new Quaternion[21];
     Vector3 bodyPosition = new Vector3();
-    Transform[] initialModel = new Transform[21];
+    //Transform[] initialModel = new Transform[21];
 
     private static readonly Quaternion[] modelOffset = {
         //body
@@ -151,7 +151,7 @@ public class ListenerBase : MonoBehaviour {
         for (int i = 0; i < jointNum; i++) {
             var rot1 = skeleton.Joints[i].Orientation;
             var rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-            bodyRotations[i] = initialModel[i].rotation * rot2 * modelOffset[i] * axisTrans[i];
+            bodyRotations[i] = rot2 * modelOffset[i] * axisTrans[i];
         }
         var pos = skeleton.Joints[0].Position;
         Vector3 move = new Vector3(pos[0], -pos[1], pos[2]) * 0.001f;
