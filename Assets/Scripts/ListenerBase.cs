@@ -32,7 +32,7 @@ public class ListenerBase : MonoBehaviour {
         public Transform position;
     }
     private readonly int jointNum = 21;
-    Transform[] bodyDatas = new Transform[21];
+    Quaternion[] bodyRotations = new Quaternion[21];
     Vector3 bodyPosition = new Vector3();
     Transform[] initialModel = new Transform[21];
 
@@ -116,32 +116,32 @@ public class ListenerBase : MonoBehaviour {
 
     void applyModel() {
         //mid body
-        chan.Pelvis.rotation = bodyDatas[0].rotation;
-        chan.SpinNaval.rotation = bodyDatas[1].rotation;
-        chan.SpinChest.rotation = bodyDatas[2].rotation;
-        chan.Neck.rotation = bodyDatas[3].rotation;
+        chan.Pelvis.rotation = bodyRotations[0];
+        chan.SpinNaval.rotation = bodyRotations[1];
+        chan.SpinChest.rotation = bodyRotations[2];
+        chan.Neck.rotation = bodyRotations[3];
         //left arm
-        chan.ClavicleLeft.rotation = bodyDatas[4].rotation;
-        chan.ShoulderLeft.rotation = bodyDatas[5].rotation;
-        chan.ElbowLeft.rotation = bodyDatas[6].rotation;
-        chan.WristLeft.rotation = bodyDatas[7].rotation;
+        chan.ClavicleLeft.rotation = bodyRotations[4];
+        chan.ShoulderLeft.rotation = bodyRotations[5];
+        chan.ElbowLeft.rotation = bodyRotations[6];
+        chan.WristLeft.rotation = bodyRotations[7];
         //right arm
-        chan.ClavicleRight.rotation = bodyDatas[8].rotation;
-        chan.ShoulderRight.rotation = bodyDatas[9].rotation;
-        chan.ElbowRight.rotation = bodyDatas[10].rotation;
-        chan.WristRight.rotation = bodyDatas[11].rotation;
+        chan.ClavicleRight.rotation = bodyRotations[8];
+        chan.ShoulderRight.rotation = bodyRotations[9];
+        chan.ElbowRight.rotation = bodyRotations[10];
+        chan.WristRight.rotation = bodyRotations[11];
         //left leg
-        chan.HipLeft.rotation = bodyDatas[12].rotation;
-        chan.KneeLeft.rotation = bodyDatas[13].rotation;
-        chan.AnkleLeft.rotation = bodyDatas[14].rotation;
-        chan.FootLeft.rotation = bodyDatas[15].rotation;
+        chan.HipLeft.rotation = bodyRotations[12];
+        chan.KneeLeft.rotation = bodyRotations[13];
+        chan.AnkleLeft.rotation = bodyRotations[14];
+        chan.FootLeft.rotation = bodyRotations[15];
         //right leg
-        chan.HipRight.rotation = bodyDatas[16].rotation;
-        chan.KneeRight.rotation = bodyDatas[17].rotation;
-        chan.AnkleRight.rotation = bodyDatas[18].rotation;
-        chan.FootRight.rotation = bodyDatas[19].rotation;
+        chan.HipRight.rotation = bodyRotations[16];
+        chan.KneeRight.rotation = bodyRotations[17];
+        chan.AnkleRight.rotation = bodyRotations[18];
+        chan.FootRight.rotation = bodyRotations[19];
         //head
-        chan.Head.rotation = bodyDatas[20].rotation;
+        chan.Head.rotation = bodyRotations[20];
 
         //position
         chan.position.position = bodyPosition;
@@ -153,7 +153,7 @@ public class ListenerBase : MonoBehaviour {
         for (int i = 0; i < jointNum; i++) {
             var rot1 = skeleton.Joints[i].Orientation;
             var rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-            bodyDatas[i].rotation = initialModel[i].rotation * rot2 * modelOffset[i] * axisTrans[i];
+            bodyRotations[i] = initialModel[i].rotation * rot2 * modelOffset[i] * axisTrans[i];
         }
         var pos = skeleton.Joints[0].Position;
         Vector3 move = new Vector3(pos[0], -pos[1], pos[2]) * 0.001f;
