@@ -29,7 +29,7 @@ public class ControlChatRoom : MonoBehaviour
                 chatInput.text = "";
                 chatInput.ActivateInputField();
                 Canvas.ForceUpdateCanvases();       
-                scrollRect.verticalNormalizedPosition = 0f;  
+                scrollRect.verticalNormalizedPosition = 1;  
                 Canvas.ForceUpdateCanvases();   
             }
         }

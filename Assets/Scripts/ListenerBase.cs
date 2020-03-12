@@ -2,9 +2,17 @@
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 using Joint = Microsoft.Azure.Kinect.Sensor.BodyTracking.Joint;
 using System;
+using UnityEngine.UI;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 [CLSCompliant(false)]
 public class ListenerBase : MonoBehaviour {
+
+    public InputField chatInput;
+    public Text chatText;
+    public ScrollRect scrollRect;
+    string username = "DHX";
 
     protected Skeleton skeleton;
     public JointChan chan;
@@ -403,6 +411,48 @@ public class ListenerBase : MonoBehaviour {
         }
         s = s.Remove(s.Length - 1);
         return s + "@";
+    }
+
+    public void updateChatRoom(byte[] bodyData) //接訊息方
+    {
+        MemoryStream ms = new MemoryStream(bodyData);
+        BinaryFormatter bf = new BinaryFormatter();
+        ms.Position = 0;
+
+        Messege content = (Messege)bf.Deserialize(ms);
+
+        string addText = "\n  " + "<color=red>" + content.username + "</color>: " + content.text;
+        chatText.text += addText;
+
+        Canvas.ForceUpdateCanvases();
+        scrollRect.verticalNormalizedPosition = 1;
+        Canvas.ForceUpdateCanvases();
+    }
+
+    public void updateChatRoom() //送訊息方
+    {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            if (chatInput.text != "")
+            {
+
+                Messege content;
+                content.username = username;
+                content.text = chatInput.text;
+
+                string addText = "\n  " + "<color=red>" + username + "</color>: " + chatInput.text;
+                chatText.text += addText;
+                chatInput.text = "";
+                chatInput.ActivateInputField();
+                Canvas.ForceUpdateCanvases();
+                scrollRect.verticalNormalizedPosition = 1;
+                Canvas.ForceUpdateCanvases();
+
+
+                byte[] modelDataBytes = NetMgr.Trans2byte(content);
+                NetMgr.sendMsg(packageType.messege, modelDataBytes, true);
+            }
+        }
     }
 
 }

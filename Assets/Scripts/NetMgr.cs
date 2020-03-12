@@ -18,6 +18,7 @@ public struct Messege {
 
 public enum packageType {
     model = 0,
+    messege
 }
 
 public static class NetMgr{
@@ -37,6 +38,14 @@ public static class NetMgr{
                     break;
                 }
                 MainMgr.inst.clientListener.updateBody(socketPackage.data);
+                break;
+            case packageType.messege:
+                if (!MainMgr.inst.getListenerComplete || MainMgr.inst.serverListener == null)
+                {
+                    Debug.Log("[NetMgr]null server");
+                    break;
+                }
+                MainMgr.inst.serverListener.updateChatRoom(socketPackage.data);
                 break;
             default:
                 Debug.Log("[NetMgr]receive unknown package type");

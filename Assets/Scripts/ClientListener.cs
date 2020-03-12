@@ -17,6 +17,8 @@ public class ClientListener : ListenerBase {
             updateModel();
             //updateModelFromSkeleton();
         }
+
+        updateChatRoom();
     }
 
     public void updateBody(byte[] bodyData) { //get data from net
