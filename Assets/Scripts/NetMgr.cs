@@ -9,6 +9,13 @@ public struct SocketPackage {
     public byte[] data;
 }
 
+[Serializable]
+public struct Messege {
+    public string username;
+    public string text;
+}
+
+
 public enum packageType {
     model = 0,
 }
