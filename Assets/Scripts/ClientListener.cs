@@ -22,11 +22,11 @@ public class ClientListener : ListenerBase {
     }
 
     public void updateBody(byte[] bodyData) { //get data from net
-        MemoryStream ms = new MemoryStream(bodyData);
-        BinaryFormatter bf = new BinaryFormatter();
-        ms.Position = 0;
-        skeleton = (Skeleton)bf.Deserialize(ms);
-
+        //MemoryStream ms = new MemoryStream(bodyData);
+        //BinaryFormatter bf = new BinaryFormatter();
+        //ms.Position = 0;
+        //skeleton = (Skeleton)bf.Deserialize(ms);
+        skeleton = Utility.byte2Origin<Skeleton>(bodyData);
         startUpdate = true;
     }
 

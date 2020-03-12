@@ -3,8 +3,6 @@ using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 using Joint = Microsoft.Azure.Kinect.Sensor.BodyTracking.Joint;
 using System;
 using UnityEngine.UI;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 
 [CLSCompliant(false)]
 public class ListenerBase : MonoBehaviour {
@@ -14,9 +12,8 @@ public class ListenerBase : MonoBehaviour {
     public ScrollRect scrollRect;
     string username = "DHX";
 
-
-    
-    protected Skeleton skeleton;
+    protected Skeleton skeleton = new Skeleton();
+    private static readonly Skeleton newSkeleton = new Skeleton();
     protected Messege content;
     public JointChan chan;
     [System.Serializable]
@@ -43,7 +40,7 @@ public class ListenerBase : MonoBehaviour {
         public Transform FootRight;// id = 19
         public Transform Head;// id = 20
     }
-    
+
     public Transform modelPosition = null;
     private readonly int jointNum = 21;
     Quaternion[] bodyRotations = new Quaternion[21];
@@ -115,7 +112,7 @@ public class ListenerBase : MonoBehaviour {
         //head
         Quaternion.LookRotation(Vector3.left, Vector3.back),
      };
-    
+
     protected static TcpClient client = null;
     protected static TcpServer server = null;
 
@@ -177,14 +174,14 @@ public class ListenerBase : MonoBehaviour {
     }
 
     protected void updateModel() {
-
-        if (ReferenceEquals(skeleton, null))
+        //check already got first data
+        if (ReferenceEquals(skeleton, newSkeleton)) {
             Debug.Log("sksleton null");
-        if (ReferenceEquals(skeleton.Joints[0], null))
-            Debug.Log("sksleton.joints[0] null");
+            return;
+        }
 
         //       0
-        var joint1 = this.skeleton.Joints[0];
+        Joint joint1 = skeleton.Joints[0];
         var pos = joint1.Position;
         var rot1 = joint1.Orientation;
         var rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
@@ -422,16 +419,12 @@ public class ListenerBase : MonoBehaviour {
         return s + "@";
     }
 
-
-
-    public void updateChatRoom() //送訊息方
+    protected void updateChatRoom() //接訊息方
     {
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            if (chatInput.text != "")
-            {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) {
+            if (chatInput.text != "") {
 
-                Messege content;
+                Messege content = new Messege();
                 content.username = username;
                 content.text = chatInput.text;
 
@@ -444,7 +437,7 @@ public class ListenerBase : MonoBehaviour {
                 Canvas.ForceUpdateCanvases();
 
 
-                byte[] modelDataBytes = NetMgr.Trans2byte(content);
+                byte[] modelDataBytes = Utility.Trans2byte(content);
                 NetMgr.sendMsg(packageType.messege, modelDataBytes, true);
             }
         }

@@ -40,9 +40,14 @@ public class TcpClient : MonoBehaviour {
         serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         Debug.Log("ready to connect");
         //連線
-        serverSocket.Connect(ipEnd);
-
-        //輸出初次連線收到的字串
+        try {
+            serverSocket.Connect(ipEnd);
+        }
+        catch (SocketException e) {
+            Debug.Log("error" + e);
+        }
+        
+        ////輸出初次連線收到的字串
         //recvLen = serverSocket.Receive(recvData);
         //recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
         //print(recvStr);
@@ -50,31 +55,29 @@ public class TcpClient : MonoBehaviour {
 
     public void SocketSend(byte[] sendMsg) {
         //傳送
+        Debug.Log("SocketSend");
         serverSocket.Send(sendMsg, sendMsg.Length, SocketFlags.None);
     }
 
     void SocketReceive() {
-        try {
-            SocketConnet();
-        }
-        catch (SocketException e) {
-            Debug.Log("error" + e);
-        }
+        SocketConnet();
         //不斷接收伺服器發來的資料
         while (true) {
-                recvData = new byte[4096];
-                recvLen = 0;
-                recvLen = serverSocket.Receive(recvData);
-                if (recvLen == 0) {
-                    SocketConnet();
-                    continue;
-                }
-                //recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
-                //Debug.Log("/////SOCKET LEN" + recvStr.Length);
-                //MainMgr.inst.onMsgRcv(recvData);
-                NetMgr.OnMsgRcv(recvData);
+            if (!serverSocket.Connected)
+                continue;
+            recvData = new byte[4096];
+            recvLen = 0;
+            recvLen = serverSocket.Receive(recvData);
+            if (recvLen == 0) {
+                SocketConnet();
+                continue;
             }
-        
+            recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
+            Debug.Log("/////SOCKET rcv : " + recvStr);
+            //MainMgr.inst.onMsgRcv(recvData);
+            NetMgr.OnMsgRcv(recvData);
+        }
+
     }
 
     void SocketQuit() {

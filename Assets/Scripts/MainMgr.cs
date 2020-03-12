@@ -16,27 +16,26 @@ public enum SceneID : int {
 [CLSCompliant(false)]
 public class MainMgr : MonoBehaviour {
 
-    public static MainMgr inst = null;
+    private static MainMgr _inst = null;
+    public static MainMgr inst {
+        get {
+            if (_inst == null) {
+                _inst = new MainMgr();
+            }
+            return _inst;
+        }
+    }
 
     public TcpClient client = null;
     public TcpServer server = null;
     public ClientListener clientListener = null;
     public ServerListener serverListener = null;
     public bool getListenerComplete = false;
-
-    private int test = 0;
-    SceneID curScene = SceneID.None;
     
+    SceneID curScene = SceneID.None;
+
     void Awake() {
-        if (inst == null) {
-            Debug.Log("init");
-            inst = this;
-            DontDestroyOnLoad(this);
-        }
-        else if (this != inst) {
-            Debug.Log("del duplicate");
-            Destroy(gameObject);
-        }
+        DontDestroyOnLoad(this);
     }
 
     void Start() {
@@ -57,7 +56,8 @@ public class MainMgr : MonoBehaviour {
     public void setServerIP(string ip) {
         try {
             client.InitSocket(ip);
-        }catch(SocketException e) {
+        }
+        catch (SocketException e) {
             Debug.Log(e);
         }
     }
@@ -82,7 +82,8 @@ public class MainMgr : MonoBehaviour {
         switch (id) {
             case SceneID.Client:
                 clientListener = GameObject.Find("Listener").GetComponent<ClientListener>();
-                if (clientListener == null) Debug.Log("null remote");
+                if (clientListener == null)
+                    Debug.Log("null remote");
                 else {
                     getListenerComplete = true;
                     Debug.Log("complete find listener");

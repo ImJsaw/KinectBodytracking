@@ -75,7 +75,7 @@ public class ServerListener : ListenerBase {
             if (frame.NumBodies > 0) {
                 skeleton = frame.GetSkeleton(0);
                 //send from net
-                byte[] modelDataBytes = NetMgr.Trans2byte(skeleton);
+                byte[] modelDataBytes = Utility.Trans2byte(skeleton);
                 NetMgr.sendMsg(packageType.model, modelDataBytes, false);
                 //update cube
                 for (var i = 0; i < (int)JointId.Count; i++) {
@@ -92,15 +92,10 @@ public class ServerListener : ListenerBase {
         updateModel();
     }
 
-    public void updateChatRoom(byte[] bodyData) //接訊息方
+    public void updateChatRoom(byte[] msgData) //接訊息方
     {
         Debug.Log("updateChatRoom");
-        MemoryStream ms = new MemoryStream(bodyData);
-        BinaryFormatter bf = new BinaryFormatter();
-        ms.Position = 0;
-
-        content = (Messege)bf.Deserialize(ms);
-
+        content = Utility.byte2Origin<Messege>(msgData);
         updatechat = true;
         Debug.Log("updatechat   :"+updatechat);
     }

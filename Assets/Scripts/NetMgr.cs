@@ -62,19 +62,9 @@ public static class NetMgr{
         sendData.data = data;
 
         if (isClient) {
-            MainMgr.inst.client.SocketSend(Trans2byte(sendData));
+            MainMgr.inst.client.SocketSend(Utility.Trans2byte(sendData));
         } else {
-            MainMgr.inst.server.SocketSend(Trans2byte(sendData));
+            MainMgr.inst.server.SocketSend(Utility.Trans2byte(sendData));
         }
-    }
-
-    public static byte[] Trans2byte(object data) {
-        byte[] dataBytes;
-        using (MemoryStream ms = new MemoryStream()) {
-            BinaryFormatter bf1 = new BinaryFormatter();
-            bf1.Serialize(ms, data);
-            dataBytes = ms.ToArray();
-        }
-        return dataBytes;
     }
 }
