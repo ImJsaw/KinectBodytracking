@@ -3,13 +3,16 @@ using UnityEngine;
 using Microsoft.Azure.Kinect.Sensor;
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
 [CLSCompliant(false)]
 public class ServerListener : ListenerBase {
 
     Device device;
     BodyTracker tracker;
     GameObject[] debugObjects;
-    
+    bool updatechat = false;
     //make sure initial complete
     private bool initial = false;
 
@@ -40,6 +43,13 @@ public class ServerListener : ListenerBase {
             Debug.LogWarning("null server");
         Debug.Log("enter update");
         updateSkeleton();
+
+        if (updatechat)
+        {
+            Debug.Log("update true");
+            UpdateChat();
+        }
+
     }
 
     private void OnDisable() {
@@ -80,5 +90,31 @@ public class ServerListener : ListenerBase {
             }
         }
         updateModel();
+    }
+
+    public void updateChatRoom(byte[] bodyData) //接訊息方
+    {
+        Debug.Log("updateChatRoom");
+        MemoryStream ms = new MemoryStream(bodyData);
+        BinaryFormatter bf = new BinaryFormatter();
+        ms.Position = 0;
+
+        content = (Messege)bf.Deserialize(ms);
+
+        updatechat = true;
+        Debug.Log("updatechat   :"+updatechat);
+    }
+
+    void UpdateChat()
+    {
+        Debug.Log("UpdateChat()");
+        string addText = "\n  " + "<color=red>" + content.username + "</color>: " + content.text;
+        chatText.text += addText;
+
+        Canvas.ForceUpdateCanvases();
+        scrollRect.verticalNormalizedPosition = 1;
+        Canvas.ForceUpdateCanvases();
+
+        updatechat = false;
     }
 }

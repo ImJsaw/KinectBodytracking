@@ -51,8 +51,8 @@ public class TcpServer : MonoBehaviour {
         //輸出客戶端的IP和埠
         print("Connect with " + ipEndClient.Address.ToString() + ":" + ipEndClient.Port.ToString());
         //連線成功則傳送資料
-        sendStr = "Welcome to my server";
-        SocketSend(Encoding.ASCII.GetBytes(sendStr));
+        //sendStr = "Welcome to my server";
+        //SocketSend(Encoding.ASCII.GetBytes(sendStr));
     }
 
     public void SocketSend(byte[] sendMsg) {
@@ -84,6 +84,7 @@ public class TcpServer : MonoBehaviour {
             //SocketSend(Encoding.ASCII.GetBytes(sendStr));
             //get data
             //MainMgr.inst.onMsgRcv(recvStr);
+            Debug.Log("receive");
             NetMgr.OnMsgRcv(recvData);
         }
     }

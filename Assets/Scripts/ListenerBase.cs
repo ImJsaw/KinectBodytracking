@@ -14,7 +14,10 @@ public class ListenerBase : MonoBehaviour {
     public ScrollRect scrollRect;
     string username = "DHX";
 
+
+    
     protected Skeleton skeleton;
+    protected Messege content;
     public JointChan chan;
     [System.Serializable]
     public struct JointChan {
@@ -174,6 +177,12 @@ public class ListenerBase : MonoBehaviour {
     }
 
     protected void updateModel() {
+
+        if (ReferenceEquals(skeleton, null))
+            Debug.Log("sksleton null");
+        if (ReferenceEquals(skeleton.Joints[0], null))
+            Debug.Log("sksleton.joints[0] null");
+
         //       0
         var joint1 = this.skeleton.Joints[0];
         var pos = joint1.Position;
@@ -413,21 +422,7 @@ public class ListenerBase : MonoBehaviour {
         return s + "@";
     }
 
-    public void updateChatRoom(byte[] bodyData) //接訊息方
-    {
-        MemoryStream ms = new MemoryStream(bodyData);
-        BinaryFormatter bf = new BinaryFormatter();
-        ms.Position = 0;
 
-        Messege content = (Messege)bf.Deserialize(ms);
-
-        string addText = "\n  " + "<color=red>" + content.username + "</color>: " + content.text;
-        chatText.text += addText;
-
-        Canvas.ForceUpdateCanvases();
-        scrollRect.verticalNormalizedPosition = 1;
-        Canvas.ForceUpdateCanvases();
-    }
 
     public void updateChatRoom() //送訊息方
     {

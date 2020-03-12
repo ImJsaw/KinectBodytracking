@@ -24,6 +24,7 @@ public enum packageType {
 public static class NetMgr{
 
     public static void OnMsgRcv(byte[] socketData) {
+        Debug.Log("==============");
         SocketPackage socketPackage = new SocketPackage();
 
         MemoryStream ms = new MemoryStream(socketData);
@@ -31,6 +32,7 @@ public static class NetMgr{
         ms.Position = 0;
         socketPackage = (SocketPackage)bf.Deserialize(ms);
 
+        
         switch (socketPackage.type) {
             case packageType.model:
                 if (!MainMgr.inst.getListenerComplete || MainMgr.inst.clientListener == null) {
@@ -40,6 +42,7 @@ public static class NetMgr{
                 MainMgr.inst.clientListener.updateBody(socketPackage.data);
                 break;
             case packageType.messege:
+
                 if (!MainMgr.inst.getListenerComplete || MainMgr.inst.serverListener == null)
                 {
                     Debug.Log("[NetMgr]null server");

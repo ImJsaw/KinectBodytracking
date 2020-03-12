@@ -43,9 +43,9 @@ public class TcpClient : MonoBehaviour {
         serverSocket.Connect(ipEnd);
 
         //輸出初次連線收到的字串
-        recvLen = serverSocket.Receive(recvData);
-        recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
-        print(recvStr);
+        //recvLen = serverSocket.Receive(recvData);
+        //recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
+        //print(recvStr);
     }
 
     public void SocketSend(byte[] sendMsg) {
