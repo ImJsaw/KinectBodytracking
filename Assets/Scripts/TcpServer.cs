@@ -5,7 +5,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System;
 
+[CLSCompliant(false)]
 public class TcpServer : MonoBehaviour {
     //以下預設都是私有的成員
     Socket serverSocket; //伺服器端socket

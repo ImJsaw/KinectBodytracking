@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[CLSCompliant(false)]
 public class SceneMgr : MonoBehaviour {
 
     public InputField ipAddress = null;
@@ -13,7 +15,7 @@ public class SceneMgr : MonoBehaviour {
     public
     // Use this for initialization
     void Start() {
-        mainMgr = GameObject.Find("MainMgr").GetComponent<MainMgr>();
+        mainMgr = MainMgr.inst;
         //default
         ipAddress.text = "140.118.127.113";
     }

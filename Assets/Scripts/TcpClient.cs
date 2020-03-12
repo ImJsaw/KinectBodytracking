@@ -5,7 +5,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System;
 
+[CLSCompliant(false)]
 public class TcpClient : MonoBehaviour {
     string editString = "hello wolrd"; //編輯框文字
 
@@ -52,21 +54,27 @@ public class TcpClient : MonoBehaviour {
     }
 
     void SocketReceive() {
-        SocketConnet();
+        try {
+            SocketConnet();
+        }
+        catch (SocketException e) {
+            Debug.Log("error" + e);
+        }
         //不斷接收伺服器發來的資料
         while (true) {
-            recvData = new byte[4096];
-            recvLen = 0;
-            recvLen = serverSocket.Receive(recvData);
-            if (recvLen == 0) {
-                SocketConnet();
-                continue;
+                recvData = new byte[4096];
+                recvLen = 0;
+                recvLen = serverSocket.Receive(recvData);
+                if (recvLen == 0) {
+                    SocketConnet();
+                    continue;
+                }
+                //recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
+                //Debug.Log("/////SOCKET LEN" + recvStr.Length);
+                //MainMgr.inst.onMsgRcv(recvData);
+                NetMgr.OnMsgRcv(recvData);
             }
-            //recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
-            //Debug.Log("/////SOCKET LEN" + recvStr.Length);
-            //MainMgr.inst.onMsgRcv(recvData);
-            NetMgr.OnMsgRcv(recvData);
-        }
+        
     }
 
     void SocketQuit() {

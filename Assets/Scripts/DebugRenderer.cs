@@ -7,12 +7,13 @@ using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
+[CLSCompliant(false)]
 public class DebugRenderer : MonoBehaviour {
     Device device;
     BodyTracker tracker;
     Skeleton skeleton;
     GameObject[] debugObjects;
-    public Renderer renderer;
+    public new Renderer renderer;
     public JointChan chan;
 
     Queue<string> dataQueue = new Queue<string>();

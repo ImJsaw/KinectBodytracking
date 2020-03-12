@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 using Joint = Microsoft.Azure.Kinect.Sensor.BodyTracking.Joint;
+using System;
 
+[CLSCompliant(false)]
 public class ListenerBase : MonoBehaviour {
 
     protected Skeleton skeleton;
@@ -29,9 +31,8 @@ public class ListenerBase : MonoBehaviour {
         public Transform AnkleRight;// id = 18
         public Transform FootRight;// id = 19
         public Transform Head;// id = 20
-        public Transform position;
     }
-
+    
     public Transform modelPosition = null;
     private readonly int jointNum = 21;
     Quaternion[] bodyRotations = new Quaternion[21];
@@ -144,7 +145,7 @@ public class ListenerBase : MonoBehaviour {
         chan.Head.rotation = bodyRotations[20];
 
         //position
-        chan.position.position = bodyPosition;
+        modelPosition.position = bodyPosition;
 
     }
 

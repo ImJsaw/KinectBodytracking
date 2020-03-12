@@ -2,7 +2,9 @@
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System;
 
+[CLSCompliant(false)]
 public class ClientListener : ListenerBase {
 
     bool startUpdate = false;

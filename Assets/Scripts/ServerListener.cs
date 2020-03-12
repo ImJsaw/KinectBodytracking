@@ -3,6 +3,7 @@ using UnityEngine;
 using Microsoft.Azure.Kinect.Sensor;
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 
+[CLSCompliant(false)]
 public class ServerListener : ListenerBase {
 
     Device device;

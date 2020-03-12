@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +13,7 @@ public enum SceneID : int {
     Client,
 };
 
+[CLSCompliant(false)]
 public class MainMgr : MonoBehaviour {
 
     public static MainMgr inst = null;
@@ -37,36 +40,9 @@ public class MainMgr : MonoBehaviour {
     }
 
     void Start() {
-        printCur();
         client = GameObject.Find("TCP_Client").GetComponent<TcpClient>();
         server = GameObject.Find("TCP_Server").GetComponent<TcpServer>();
         SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    
-    void Update() {
-    }
-
-    //public void onMsgRcv(byte[] data) {
-    //    switch (curScene) {
-    //        case SceneID.Client:
-    //            //if(remoteListener == null)
-    //            //    remoteListener = GameObject.Find("Listener").GetComponent<ClientListener>();
-    //            if(!getListenerComplete || clientListener == null) {
-    //                Debug.Log("null remote");
-    //                break;
-    //            }
-    //            clientListener.updateBody(data);
-    //            Debug.Log("/////MGR LEN" + data.Length);
-    //            break;
-    //        default:
-    //            Debug.Log("[msg rcv]Scene error!"); ;
-    //            break;
-    //    }
-    //}
-
-    public void printCur() {
-        Debug.Log("Cur : " + test);
-        test++;
     }
 
     public void gotoServerSelect() {
@@ -79,7 +55,11 @@ public class MainMgr : MonoBehaviour {
     }
 
     public void setServerIP(string ip) {
-        client.InitSocket(ip);
+        try {
+            client.InitSocket(ip);
+        }catch(SocketException e) {
+            Debug.Log(e);
+        }
     }
 
     SceneID getCurScenID(Scene scene) {
