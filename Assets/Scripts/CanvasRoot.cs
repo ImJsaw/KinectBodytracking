@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CLSCompliant(false)]
-public class UIRootHandler : MonoBehaviour {
+public class CanvasRoot : MonoBehaviour {
     void Awake() {
         UIMgr.inst.canvasRoot = gameObject;
     }

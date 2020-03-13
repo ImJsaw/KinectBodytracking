@@ -443,6 +443,13 @@ public class ListenerBase : MonoBehaviour {
         }
     }
 
+    //check if there any error msg
+    protected void checkError() {
+        if(MainMgr.inst.panelWaitingList.Count != 0) {
+            string panelName = MainMgr.inst.panelWaitingList.Dequeue();
+            UIMgr.inst.generatePanel(panelName);
+        }
+    }
 }
 
 

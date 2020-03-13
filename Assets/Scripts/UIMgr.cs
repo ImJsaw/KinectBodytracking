@@ -18,7 +18,7 @@ public class UIMgr {
     //save opening panel
     public Dictionary<string, GameObject> panelList = new Dictionary<string, GameObject>();
     //panel prefab route
-    private string UI_GAMEPANEL_ROOT = "Prefabs/GamePanel/";
+    private readonly string UI_GAMEPANEL_ROOT = "Prefabs/Panels/";
 
     private bool isCanvasRootNull() {
         if (canvasRoot == null) {

@@ -45,6 +45,8 @@ public class TcpClient : MonoBehaviour {
         }
         catch (SocketException e) {
             Debug.Log("error" + e);
+            MainMgr.inst.panelWaitingList.Enqueue("NetErrorPanel");
+            //UIMgr.inst.generatePanel("NetErrorPanel");
         }
         
         ////輸出初次連線收到的字串

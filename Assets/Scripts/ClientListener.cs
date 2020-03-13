@@ -11,6 +11,7 @@ public class ClientListener : ListenerBase {
 
     // Update is called once per frame
     void Update() {
+        checkError();
         if (client == null)
             Debug.LogWarning("null server");
         if (startUpdate) {

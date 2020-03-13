@@ -15,16 +15,8 @@ public enum SceneID : int {
 
 [CLSCompliant(false)]
 public class MainMgr : MonoBehaviour {
-
-    private static MainMgr _inst = null;
-    public static MainMgr inst {
-        get {
-            if (_inst == null) {
-                _inst = new MainMgr();
-            }
-            return _inst;
-        }
-    }
+    
+    public static MainMgr inst;
 
     public TcpClient client = null;
     public TcpServer server = null;
@@ -32,10 +24,18 @@ public class MainMgr : MonoBehaviour {
     public ServerListener serverListener = null;
     public bool getListenerComplete = false;
     
+    //panel queue
+    public Queue<string> panelWaitingList = new Queue<string>();
+    
     SceneID curScene = SceneID.None;
 
     void Awake() {
-        DontDestroyOnLoad(this);
+        if (inst == null) {
+            inst = this;
+            DontDestroyOnLoad(this);
+        } else if (this != inst) {
+            Destroy(gameObject);
+        }
     }
 
     void Start() {
