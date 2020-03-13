@@ -295,13 +295,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 148761309}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.23, y: 1.04, z: 10}
+  m_LocalRotation: {x: -0, y: 0.5657591, z: -0, w: 0.8245706}
+  m_LocalPosition: {x: 2.44, y: 2.79, z: 14.64}
   m_LocalScale: {x: 8, y: 4.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 68.91, z: 0}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,6 +541,7 @@ MonoBehaviour:
     FootRight: {fileID: 1744300792}
     Head: {fileID: 1744300783}
   modelPosition: {fileID: 1954228039}
+  renderer: {fileID: 148761311}
 --- !u!1 &510415968
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,10 +672,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1964876012}
     m_Modifications:
-    - target: {fileID: 7540538742783378831, guid: 22bea14b91eb56d4890c53c8cf47331f,
+    - target: {fileID: 7540538741441679259, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
-      propertyPath: m_Name
-      value: ChatRoom
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7540538741441679259, guid: 22bea14b91eb56d4890c53c8cf47331f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7540538741446935416, guid: 22bea14b91eb56d4890c53c8cf47331f,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7540538742783378827, guid: 22bea14b91eb56d4890c53c8cf47331f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7540538742783378828, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
@@ -734,22 +750,22 @@ PrefabInstance:
     - target: {fileID: 7540538742783378828, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -333
+      value: -376.2
       objectReference: {fileID: 0}
     - target: {fileID: 7540538742783378828, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -97
+      value: -97.7
       objectReference: {fileID: 0}
     - target: {fileID: 7540538742783378828, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -792.7
+      value: -879.1
       objectReference: {fileID: 0}
     - target: {fileID: 7540538742783378828, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -315
+      value: -316.3
       objectReference: {fileID: 0}
     - target: {fileID: 7540538742783378828, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
@@ -781,25 +797,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7540538741441679259, guid: 22bea14b91eb56d4890c53c8cf47331f,
+    - target: {fileID: 7540538742783378831, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7540538741441679259, guid: 22bea14b91eb56d4890c53c8cf47331f,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7540538741446935416, guid: 22bea14b91eb56d4890c53c8cf47331f,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7540538742783378827, guid: 22bea14b91eb56d4890c53c8cf47331f,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: m_Name
+      value: ChatRoom
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22bea14b91eb56d4890c53c8cf47331f, type: 3}

@@ -24,7 +24,6 @@ public enum packageType {
 public static class NetMgr{
 
     public static void OnMsgRcv(byte[] socketData) {
-        Debug.Log("==============");
         SocketPackage socketPackage = new SocketPackage();
 
         MemoryStream ms = new MemoryStream(socketData);

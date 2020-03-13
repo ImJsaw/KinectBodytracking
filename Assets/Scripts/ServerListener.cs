@@ -12,9 +12,10 @@ public class ServerListener : ListenerBase {
     Device device;
     BodyTracker tracker;
     GameObject[] debugObjects;
-    bool updatechat = false;
+    bool updatechat = true;
     //make sure initial complete
     private bool initial = false;
+    public new Renderer renderer;
 
     void Start() {
         // KINECT INITIALIZE
@@ -42,7 +43,6 @@ public class ServerListener : ListenerBase {
         if (server == null)
             Debug.LogWarning("null server");
         Debug.Log("enter update");
-        updateSkeleton();
 
         if (updatechat)
         {
@@ -50,6 +50,7 @@ public class ServerListener : ListenerBase {
             UpdateChat();
         }
 
+        updateSkeleton();
     }
 
     private void OnDisable() {
@@ -97,7 +98,6 @@ public class ServerListener : ListenerBase {
         Debug.Log("updateChatRoom");
         content = Utility.byte2Origin<Messege>(msgData);
         updatechat = true;
-        Debug.Log("updatechat   :"+updatechat);
     }
 
     void UpdateChat()

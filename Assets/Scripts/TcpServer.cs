@@ -59,7 +59,6 @@ public class TcpServer : MonoBehaviour {
         //傳送
         if (clientSocket != null)
             clientSocket.Send(sendMsg, sendMsg.Length, SocketFlags.None);
-        print(Encoding.ASCII.GetString(sendMsg, 0, sendMsg.Length));
     }
 
     //伺服器接收
