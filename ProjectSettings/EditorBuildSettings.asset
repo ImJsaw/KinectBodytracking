@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Client.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Calibration.unity
+    guid: 2d02c8f6a6ccff240b213879c7be0ff0
   m_configObjects: {}

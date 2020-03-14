@@ -11,12 +11,13 @@ public enum SceneID : int {
     Connect,
     Server,
     Client,
+    Calibration,
 };
 
 [CLSCompliant(false)]
 public class MainMgr : MonoBehaviour {
     
-    public static MainMgr inst;
+    public static MainMgr inst = null;
 
     public TcpClient client = null;
     public TcpServer server = null;

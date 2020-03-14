@@ -42,8 +42,8 @@ public class ListenerBase : MonoBehaviour {
     }
 
     public Transform modelPosition = null;
-    private readonly int jointNum = 21;
-    Quaternion[] bodyRotations = new Quaternion[21];
+    protected readonly int jointNum = 21;
+    protected Quaternion[] bodyRotations = new Quaternion[21];
     Vector3 bodyPosition = new Vector3();
     //Transform[] initialModel = new Transform[21];
 
@@ -448,6 +448,106 @@ public class ListenerBase : MonoBehaviour {
         if(MainMgr.inst.panelWaitingList.Count != 0) {
             string panelName = MainMgr.inst.panelWaitingList.Dequeue();
             UIMgr.inst.generatePanel(panelName);
+        }
+    }
+
+    protected Transform getModelTransform(int index) {
+        switch (index) {
+            case 0:
+                return chan.Pelvis;
+            case 1:
+                return chan.SpinNaval;
+            case 2:
+                return chan.SpinChest;
+            case 3:
+                return chan.Neck;
+            case 4:
+                return chan.ClavicleLeft;
+            case 5:
+                return chan.ShoulderLeft;
+            case 6:
+                return chan.ElbowLeft;
+            case 7:
+                return chan.WristLeft;
+            case 8:
+                return chan.ClavicleRight;
+            case 9:
+                return chan.ShoulderRight;
+            case 10:
+                return chan.ElbowRight;
+            case 11:
+                return chan.WristRight;
+            case 12:
+                return chan.HipLeft;
+            case 13:
+                return chan.KneeLeft;
+            case 14:
+                return chan.AnkleLeft;
+            case 15:
+                return chan.FootLeft;
+            case 16:
+                return chan.HipRight;
+            case 17:
+                return chan.KneeRight;
+            case 18:
+                return chan.AnkleRight;
+            case 19:
+                return chan.FootRight;
+            case 20:
+                return chan.Head;
+            default:
+                Debug.LogError("[listenerBase] model index fault");
+                return chan.Pelvis;
+        }
+    }
+
+    protected string getModelName(int index) {
+        switch (index) {
+            case 0:
+                return "Pelvis";
+            case 1:
+                return "SpinNaval";
+            case 2:
+                return "SpinChest";
+            case 3:
+                return "Neck";
+            case 4:
+                return "ClavicleLeft";
+            case 5:
+                return "ShoulderLeft";
+            case 6:
+                return "ElbowLeft";
+            case 7:
+                return "WristLeft";
+            case 8:
+                return "ClavicleRight";
+            case 9:
+                return "ShoulderRight";
+            case 10:
+                return "ElbowRight";
+            case 11:
+                return "WristRight";
+            case 12:
+                return "HipLeft";
+            case 13:
+                return "KneeLeft";
+            case 14:
+                return "AnkleLeft";
+            case 15:
+                return "FootLeft";
+            case 16:
+                return "HipRight";
+            case 17:
+                return "KneeRight";
+            case 18:
+                return "AnkleRight";
+            case 19:
+                return "FootRight";
+            case 20:
+                return "Head";
+            default:
+                Debug.LogError("[GetName] model index fault");
+                return "unknown";
         }
     }
 }

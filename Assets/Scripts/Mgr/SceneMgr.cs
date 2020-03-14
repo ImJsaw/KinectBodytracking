@@ -35,8 +35,12 @@ public class SceneMgr : MonoBehaviour {
         //set server ip
         mainMgr.setServerIP(ipAddress.text);
     }
+
+    public void gotoCalibration() {
+        mainMgr.changeScene(SceneID.Calibration);
+    }
     ////////////////////////////
-    
+
     // change scene
 
 }
