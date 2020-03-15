@@ -12,9 +12,11 @@ public class Calibration : ListenerBase {
     Device device;
     BodyTracker tracker;
     public new Renderer renderer;
+    public UnityEngine.UI.Text time_UI = null;
     // threshold of pose calibration
     private float angleThershold = 20;
-    private bool isStop = false;
+    private bool isTimeUp = false;
+    private int timeCount = 3;
 
     private void OnEnable() {
         // KINECT INITIALIZE
@@ -84,8 +86,11 @@ public class Calibration : ListenerBase {
     }
 
     private void checkTPose() {
+        //count down
+        InvokeRepeating("countDown", 1, 1);
+
         bool tPoseCorrect = false;
-        while (!tPoseCorrect) {
+        while (!tPoseCorrect || !isTimeUp) {
             bool correct = true;
             for (int i = 0; i < jointNum; i++) {
                 correct = true;
@@ -97,6 +102,7 @@ public class Calibration : ListenerBase {
                 if (!correct) {
                     Debug.Log("[Calibration]" + getModelName(i) + "  incorrect");
                     UIMgr.inst.generatePanel("NetErrorPanel");
+                    calibrationFail();
                     break;
                 }
             }
@@ -104,4 +110,24 @@ public class Calibration : ListenerBase {
         }
     }
 
+    private void countDown() {
+        if(!UIMgr.inst.isStop)
+            timeCount -= 1;
+
+        time_UI.text = timeCount + "";
+
+        if (timeCount <= 0) {
+
+            time_UI.text = "time\nup";
+
+            CancelInvoke("countDown");
+            isTimeUp = true;
+
+        }
+    }
+
+    private void calibrationFail() {
+        //time count reset
+        timeCount = 3;
+    }
 }

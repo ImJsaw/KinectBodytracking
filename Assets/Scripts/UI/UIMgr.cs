@@ -20,6 +20,9 @@ public class UIMgr {
     //panel prefab route
     private readonly string UI_GAMEPANEL_ROOT = "Prefabs/Panels/";
 
+    //stop runnung when UI shows
+    public bool isStop = false;
+
     private bool isCanvasRootNull() {
         if (canvasRoot == null) {
             Debug.LogError("forget add CanvasRoot.cs on canvas?");
@@ -49,6 +52,7 @@ public class UIMgr {
         panel.name = name;
         //save opened panel
         panelList.Add(name, panel);
+        isStop = true;
         return panel;
     }
 
@@ -76,6 +80,7 @@ public class UIMgr {
             if (item.Value != null)
                 item.Value.SetActive(false);
         }
+        isStop = false;
     }
 
     public void destroyAllPanel() {
