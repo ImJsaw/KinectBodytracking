@@ -10,7 +10,7 @@ public class ListenerBase : MonoBehaviour {
     public InputField chatInput;
     public Text chatText;
     public ScrollRect scrollRect;
-    string username = "DHX";
+
 
     protected Skeleton skeleton = new Skeleton();
     private static readonly Skeleton newSkeleton = new Skeleton();
@@ -419,29 +419,6 @@ public class ListenerBase : MonoBehaviour {
         return s + "@";
     }
 
-    protected void updateChatRoom() //接訊息方
-    {
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) {
-            if (chatInput.text != "") {
-
-                Messege content = new Messege();
-                content.username = username;
-                content.text = chatInput.text;
-
-                string addText = "\n  " + "<color=red>" + username + "</color>: " + chatInput.text;
-                chatText.text += addText;
-                chatInput.text = "";
-                chatInput.ActivateInputField();
-                Canvas.ForceUpdateCanvases();
-                scrollRect.verticalNormalizedPosition = 1;
-                Canvas.ForceUpdateCanvases();
-
-
-                byte[] modelDataBytes = Utility.Trans2byte(content);
-                NetMgr.sendMsg(packageType.messege, modelDataBytes, true);
-            }
-        }
-    }
 
     //check if there any error msg
     protected void checkError() {

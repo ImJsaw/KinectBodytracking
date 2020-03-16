@@ -77,7 +77,7 @@ public class TcpClient : MonoBehaviour {
             recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
             Debug.Log("/////SOCKET rcv : " + recvStr);
             //MainMgr.inst.onMsgRcv(recvData);
-            NetMgr.OnMsgRcv(recvData);
+            NetMgr.OnMsgRcv(recvData,true);
         }
 
     }

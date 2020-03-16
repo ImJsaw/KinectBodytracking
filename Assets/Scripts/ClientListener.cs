@@ -9,17 +9,75 @@ public class ClientListener : ListenerBase {
 
     bool startUpdate = false;
 
+    string username = "client";
+    bool updatechat = false;
     // Update is called once per frame
+
     void Update() {
         checkError();
         if (client == null)
             Debug.LogWarning("null server");
+
+        updateChatRoom();
+
+        if (updatechat)
+        {
+            Debug.Log("update true");
+            UpdateChat();
+        }
+
         if (startUpdate) {
             updateModel();
             //updateModelFromSkeleton();
         }
 
-        updateChatRoom();
+
+    }
+
+    protected void updateChatRoom() //接訊息方
+    {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            if (chatInput.text != "")
+            {
+
+                Messege content = new Messege();
+                content.username = username;
+                content.text = chatInput.text;
+
+                string addText = "\n  " + "<color=red>" + username + "</color>: " + chatInput.text;
+                chatText.text += addText;
+                chatInput.text = "";
+                chatInput.ActivateInputField();
+                Canvas.ForceUpdateCanvases();
+                scrollRect.verticalNormalizedPosition = 1;
+                Canvas.ForceUpdateCanvases();
+
+
+                byte[] modelDataBytes = Utility.Trans2byte(content);
+                NetMgr.sendMsg(packageType.messege, modelDataBytes, true);
+            }
+        }
+    }
+
+    public void updateChatRoom(byte[] msgData) //接訊息方
+    {
+        Debug.Log("updateChatRoom");
+        content = Utility.byte2Origin<Messege>(msgData);
+        updatechat = true;
+    }
+
+    void UpdateChat()
+    {
+        Debug.Log("UpdateChat()");
+        string addText = "\n  " + "<color=red>" + content.username + "</color>: " + content.text;
+        chatText.text += addText;
+
+        Canvas.ForceUpdateCanvases();
+        scrollRect.verticalNormalizedPosition = 1;
+        Canvas.ForceUpdateCanvases();
+
+        updatechat = false;
     }
 
     public void updateBody(byte[] bodyData) { //get data from net

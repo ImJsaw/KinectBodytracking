@@ -672,6 +672,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1964876012}
     m_Modifications:
+    - target: {fileID: 7540538742783378831, guid: 22bea14b91eb56d4890c53c8cf47331f,
+        type: 3}
+      propertyPath: m_Name
+      value: ChatRoom
+      objectReference: {fileID: 0}
     - target: {fileID: 7540538741441679259, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -690,7 +695,7 @@ PrefabInstance:
     - target: {fileID: 7540538742783378827, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7540538742783378828, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
@@ -796,11 +801,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7540538742783378831, guid: 22bea14b91eb56d4890c53c8cf47331f,
-        type: 3}
-      propertyPath: m_Name
-      value: ChatRoom
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22bea14b91eb56d4890c53c8cf47331f, type: 3}

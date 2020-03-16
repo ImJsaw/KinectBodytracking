@@ -6,12 +6,14 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System;
+using System.Collections.Generic;
 
 [CLSCompliant(false)]
 public class TcpServer : MonoBehaviour {
     //以下預設都是私有的成員
     Socket serverSocket; //伺服器端socket
     Socket clientSocket; //客戶端socket
+    static List<Socket> client = new List<Socket>();
     IPEndPoint ipEnd; //偵聽埠
     string recvStr; //接收的字串
     string sendStr; //傳送的字串
@@ -19,6 +21,8 @@ public class TcpServer : MonoBehaviour {
     //byte[] sendData = new byte[1024]; //傳送的資料，必須為位元組
     int recvLen; //接收的資料長度
     Thread connectThread; //連線執行緒
+
+    
 
     //初始化
     void InitSocket() {
@@ -84,7 +88,7 @@ public class TcpServer : MonoBehaviour {
             //get data
             //MainMgr.inst.onMsgRcv(recvStr);
             Debug.Log("receive");
-            NetMgr.OnMsgRcv(recvData);
+            NetMgr.OnMsgRcv(recvData,false);
         }
     }
 

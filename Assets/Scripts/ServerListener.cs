@@ -12,10 +12,12 @@ public class ServerListener : ListenerBase {
     Device device;
     BodyTracker tracker;
     GameObject[] debugObjects;
-    bool updatechat = true;
     //make sure initial complete
     private bool initial = false;
     public new Renderer renderer;
+    //chatRoom
+    string username = "server";
+    bool updatechat = false;
 
     void Start() {
         // KINECT INITIALIZE
@@ -43,6 +45,8 @@ public class ServerListener : ListenerBase {
         if (server == null)
             Debug.LogWarning("null server");
         Debug.Log("enter update");
+
+        updateChatRoom();
 
         if (updatechat)
         {
@@ -98,6 +102,32 @@ public class ServerListener : ListenerBase {
         Debug.Log("updateChatRoom");
         content = Utility.byte2Origin<Messege>(msgData);
         updatechat = true;
+    }
+
+    private void updateChatRoom() //接訊息方
+    {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            if (chatInput.text != "")
+            {
+
+                Messege content = new Messege();
+                content.username = username;
+                content.text = chatInput.text;
+
+                string addText = "\n  " + "<color=red>" + username + "</color>: " + chatInput.text;
+                chatText.text += addText;
+                chatInput.text = "";
+                chatInput.ActivateInputField();
+                Canvas.ForceUpdateCanvases();
+                scrollRect.verticalNormalizedPosition = 1;
+                Canvas.ForceUpdateCanvases();
+
+
+                byte[] modelDataBytes = Utility.Trans2byte(content);
+                NetMgr.sendMsg(packageType.messege, modelDataBytes, false);
+            }
+        }
     }
 
     void UpdateChat()

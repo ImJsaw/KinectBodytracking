@@ -23,7 +23,7 @@ public enum packageType {
 
 public static class NetMgr{
 
-    public static void OnMsgRcv(byte[] socketData) {
+    public static void OnMsgRcv(byte[] socketData , Boolean isCient) {
         SocketPackage socketPackage = new SocketPackage();
 
         MemoryStream ms = new MemoryStream(socketData);
@@ -41,13 +41,25 @@ public static class NetMgr{
                 MainMgr.inst.clientListener.updateBody(socketPackage.data);
                 break;
             case packageType.messege:
-
-                if (!MainMgr.inst.getListenerComplete || MainMgr.inst.serverListener == null)
+                if(!isCient)
                 {
-                    Debug.Log("[NetMgr]null server");
-                    break;
+                    if (!MainMgr.inst.getListenerComplete || MainMgr.inst.serverListener == null)
+                    {
+                        Debug.Log("[NetMgr]null server");
+                        break;
+                    }
+                    MainMgr.inst.serverListener.updateChatRoom(socketPackage.data);
                 }
-                MainMgr.inst.serverListener.updateChatRoom(socketPackage.data);
+                else
+                {
+                    if (!MainMgr.inst.getListenerComplete || MainMgr.inst.clientListener == null)
+                    {
+                        Debug.Log("[NetMgr]null client");
+                        break;
+                    }
+                    MainMgr.inst.clientListener.updateChatRoom(socketPackage.data);
+                }
+
                 break;
             default:
                 Debug.Log("[NetMgr]receive unknown package type");
