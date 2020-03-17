@@ -309,13 +309,13 @@ public class ListenerBase : MonoBehaviour {
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.AnkleLeft.rotation = q;
 
-        //////        15           
-        ////joint1 = this.skeleton.Joints[15];
-        ////pos1 = joint1.Position;
-        ////rot1 = joint1.Orientation;
-        ////v = new Vector3(pos1[0], -pos1[1], pos1[2]) * 0.004f;
-        ////r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-        ////chan.FootLeft.rotation = r;
+        //        15           
+        joint1 = this.skeleton.Joints[15];
+        rot1 = joint1.Orientation;
+        rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+        r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
+        q = new Quaternion(r.z, -r.x, -r.y, r.w);
+        chan.AnkleLeft.rotation = q;
 
         //        16           
         joint1 = this.skeleton.Joints[16];
@@ -344,11 +344,11 @@ public class ListenerBase : MonoBehaviour {
         chan.AnkleRight.rotation = q;
 
 
-        //////        19           
-        ////joint1 = this.skeleton.Joints[19];
-        ////rot1 = joint1.Orientation;
-        ////r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-        ////chan.FootRight.rotation = Quaternion.Euler(-r.eulerAngles.x +180, r.eulerAngles.y, -r.eulerAngles.z );
+        //        19           
+        joint1 = this.skeleton.Joints[19];
+        rot1 = joint1.Orientation;
+        r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+        chan.FootRight.rotation = Quaternion.Euler(-r.eulerAngles.x + 180, r.eulerAngles.y, -r.eulerAngles.z);
 
         //        20           
         joint1 = this.skeleton.Joints[20];
@@ -422,7 +422,7 @@ public class ListenerBase : MonoBehaviour {
 
     //check if there any error msg
     protected void checkError() {
-        if(MainMgr.inst.panelWaitingList.Count != 0) {
+        if (MainMgr.inst.panelWaitingList.Count != 0) {
             string panelName = MainMgr.inst.panelWaitingList.Dequeue();
             UIMgr.inst.generatePanel(panelName);
         }

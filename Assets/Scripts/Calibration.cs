@@ -4,8 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Microsoft.Azure.Kinect.Sensor;
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+
+public enum calibrationState {
+    None = 0,
+    TPose,
+    HandRising,
+    Complete
+}
 
 [CLSCompliant(false)]
 public class Calibration : ListenerBase {
@@ -17,8 +22,12 @@ public class Calibration : ListenerBase {
     private float angleThershold = 20;
     private bool isTimeUp = false;
     private int timeCount = 3;
+    private bool getPosFirst = false;
+    //make sure initial complete
+    private bool initial = false;
+    private calibrationState curState;
 
-    private void OnEnable() {
+    void Start() {
         // KINECT INITIALIZE
         device = Device.Open(0);
         var config = new DeviceConfiguration {
@@ -29,6 +38,9 @@ public class Calibration : ListenerBase {
         device.StartCameras(config);
         var calibration = device.GetCalibration(config.DepthMode, config.ColorResolution);
         tracker = BodyTracker.Create(calibration);
+        Debug.Log("initial complete");
+        curState = calibrationState.None;
+        initial = true;
     }
 
     private void OnDisable() {
@@ -40,13 +52,13 @@ public class Calibration : ListenerBase {
         }
     }
 
-    void Start() {
-        startCalibration();
-    }
-
     void Update() {
         //SCREEN
+        if (!initial)
+            return;
+
         using (Capture capture = device.GetCapture()) {
+            //Debug.Log("screen update");
             tracker.EnqueueCapture(capture);
             var color = capture.Color;
             if (color.WidthPixels > 0) {
@@ -58,6 +70,7 @@ public class Calibration : ListenerBase {
         }
 
         using (var frame = tracker.PopResult()) {
+            //Debug.Log("skeleton update");
             if (frame.NumBodies > 0) {
                 //send skeleton
                 skeleton = frame.GetSkeleton(0);
@@ -67,51 +80,78 @@ public class Calibration : ListenerBase {
         //split for force update
         updateModel();
         getModelRotation();
+        calibrationThread();
     }
 
     private void getModelRotation() {
         for (int i = 0; i < jointNum; i++) {
+            //Debug.Log("get i=" + i);
             bodyRotations[i] = getModelTransform(i).rotation;
+        }
+        getPosFirst = true;
+    }
+
+    private void calibrationThread() {
+        switch (curState) {
+            case calibrationState.None:
+                //start count down
+                InvokeRepeating("countDown", 1, 1);
+                isTimeUp = false;
+                curState = calibrationState.TPose;
+                break;
+            case calibrationState.TPose:
+                checkTPose();
+                break;
+            case calibrationState.HandRising:
+                checkHandRising();
+                break;
+            case calibrationState.Complete:
+                calibrationComplete();
+                break;
+            default:
+                Debug.Log("unknown calibration state");
+                break;
         }
     }
 
-    private void startCalibration() {
-        checkTPose();
-        checkHandRising();
-    }
-
     private void checkHandRising() {
-
-
+        Debug.Log("check habd rising");
     }
 
     private void checkTPose() {
-        //count down
-        InvokeRepeating("countDown", 1, 1);
+        if (!getPosFirst) {
+            Debug.Log("waiting first rotation");
+            return;
+        }
 
-        bool tPoseCorrect = false;
-        while (!tPoseCorrect || !isTimeUp) {
-            bool correct = true;
-            for (int i = 0; i < jointNum; i++) {
-                correct = true;
-                for (int j = 0; j < 3; j++) {
-                    if (Math.Abs(bodyRotations[i].eulerAngles[j]) > angleThershold)
-                        correct = false;
-                }
-                
-                if (!correct) {
-                    Debug.Log("[Calibration]" + getModelName(i) + "  incorrect");
-                    UIMgr.inst.generatePanel("NetErrorPanel");
-                    calibrationFail();
-                    break;
-                }
+        Debug.Log("check pose");
+        bool correct = true;
+
+        for (int i = 0; i < jointNum; i++) {
+            correct = true;
+            for (int j = 0; j < 3; j++) {
+                if (Math.Abs(bodyRotations[i].eulerAngles[j]) > angleThershold)
+                    correct = false;
             }
-            tPoseCorrect = correct;
+            //calibration fail
+            if (!correct) {
+                Debug.Log("[Calibration]" + getModelName(i) + "  incorrect");
+                UIMgr.inst.generatePanel("NetErrorPanel");
+                calibrationFail();
+                break;
+            }
+        }
+        //t pose check complete, goto next state
+        if (correct && isTimeUp) {
+            InvokeRepeating("countDown", 1, 1);
+            isTimeUp = false;
+            curState = calibrationState.HandRising;
         }
     }
 
     private void countDown() {
-        if(!UIMgr.inst.isStop)
+        Debug.Log("countDown");
+        if (!UIMgr.inst.isStop)
             timeCount -= 1;
 
         time_UI.text = timeCount + "";
@@ -129,5 +169,9 @@ public class Calibration : ListenerBase {
     private void calibrationFail() {
         //time count reset
         timeCount = 3;
+    }
+
+    private void calibrationComplete() {
+        Debug.Log("complete calibration");
     }
 }

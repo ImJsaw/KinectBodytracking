@@ -544,11 +544,11 @@ MonoBehaviour:
     HipLeft: {fileID: 1879236552}
     KneeLeft: {fileID: 1481545527}
     AnkleLeft: {fileID: 772360565}
-    FootLeft: {fileID: 0}
+    FootLeft: {fileID: 300015265524561864}
     HipRight: {fileID: 2146901498}
     KneeRight: {fileID: 214408002}
     AnkleRight: {fileID: 226415541}
-    FootRight: {fileID: 0}
+    FootRight: {fileID: 300015265524561863}
     Head: {fileID: 2989701458705161673}
   modelPosition: {fileID: 300015265524561862}
   renderer: {fileID: 907009271}
@@ -833,6 +833,18 @@ PrefabInstance:
 --- !u!4 &300015265524561862 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4707223158574779643, guid: 1c647812118c3c844b95dd496bd8205b,
+    type: 3}
+  m_PrefabInstance: {fileID: 300015265524561861}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &300015265524561863 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8712759442081519188, guid: 1c647812118c3c844b95dd496bd8205b,
+    type: 3}
+  m_PrefabInstance: {fileID: 300015265524561861}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &300015265524561864 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1349209677045021112, guid: 1c647812118c3c844b95dd496bd8205b,
     type: 3}
   m_PrefabInstance: {fileID: 300015265524561861}
   m_PrefabAsset: {fileID: 0}
