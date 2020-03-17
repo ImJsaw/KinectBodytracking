@@ -19,6 +19,8 @@ public class Calibration : ListenerBase {
     public new Renderer renderer;
     public UnityEngine.UI.Text time_UI = null;
     public UnityEngine.UI.Text joint_UI = null;
+    public UnityEngine.UI.Text rot_UI = null;
+
     // threshold of pose calibration
     private float angleThershold = 20;
     private bool isTimeUp = false;
@@ -129,16 +131,24 @@ public class Calibration : ListenerBase {
         bool correct = true;
         joint_UI.text = "";
 
-        for (int i = 0; i < jointNum; i++) {
+        for (int i = 1; i < jointNum; i++) {
             correct = true;
+            string jointRot = "";
             for (int j = 0; j < 3; j++) {
-                if (Math.Abs(bodyRotations[i].eulerAngles[j]) > angleThershold)
+                //jointRot += bodyRotations[i].eulerAngles[j] + ",";
+                int angle = (int)bodyRotations[i].eulerAngles[j];
+                if (angle > 180)
+                    angle -= 180;
+                if (Math.Abs(angle) > angleThershold)
                     correct = false;
             }
             //calibration fail
             if (!correct) {
                 Debug.Log("[Calibration]" + getModelName(i) + "  incorrect");
-                joint_UI.text = getModelName(i) + "  error!";
+                string str = getModelName(i) + "  error!" + jointRot;
+                Debug.Log(str);
+                joint_UI.text = str;
+                rot_UI.text = bodyRotations[i].eulerAngles.ToString();
                 calibrationFail();
                 break;
             }
