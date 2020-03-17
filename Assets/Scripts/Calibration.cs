@@ -18,6 +18,7 @@ public class Calibration : ListenerBase {
     BodyTracker tracker;
     public new Renderer renderer;
     public UnityEngine.UI.Text time_UI = null;
+    public UnityEngine.UI.Text joint_UI = null;
     // threshold of pose calibration
     private float angleThershold = 20;
     private bool isTimeUp = false;
@@ -126,6 +127,7 @@ public class Calibration : ListenerBase {
 
         Debug.Log("check pose");
         bool correct = true;
+        joint_UI.text = "";
 
         for (int i = 0; i < jointNum; i++) {
             correct = true;
@@ -136,14 +138,14 @@ public class Calibration : ListenerBase {
             //calibration fail
             if (!correct) {
                 Debug.Log("[Calibration]" + getModelName(i) + "  incorrect");
-                UIMgr.inst.generatePanel("NetErrorPanel");
+                joint_UI.text = getModelName(i) + "  error!";
                 calibrationFail();
                 break;
             }
         }
         //t pose check complete, goto next state
         if (correct && isTimeUp) {
-            InvokeRepeating("countDown", 1, 1);
+            InvokeRepeating("countDown", 1, 2);
             isTimeUp = false;
             curState = calibrationState.HandRising;
         }
@@ -158,7 +160,7 @@ public class Calibration : ListenerBase {
 
         if (timeCount <= 0) {
 
-            time_UI.text = "time\nup";
+            time_UI.text = "success!";
 
             CancelInvoke("countDown");
             isTimeUp = true;
