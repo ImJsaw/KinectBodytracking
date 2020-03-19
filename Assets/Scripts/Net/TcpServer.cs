@@ -12,7 +12,6 @@ using System.Collections.Generic;
 public class TcpServer : MonoBehaviour {
     //以下預設都是私有的成員
     Socket serverSocket; //伺服器端socket
-    Socket clientSocket; //客戶端socket
     static List<Socket> client = new List<Socket>();
     IPEndPoint ipEnd; //偵聽埠
     string recvStr; //接收的字串
@@ -21,8 +20,9 @@ public class TcpServer : MonoBehaviour {
     //byte[] sendData = new byte[1024]; //傳送的資料，必須為位元組
     int recvLen; //接收的資料長度
     Thread connectThread; //連線執行緒
+    Thread connectThread2; //連線執行緒
+    Boolean connectlock = true;
 
-    
 
     //初始化
     void InitSocket() {
@@ -40,12 +40,16 @@ public class TcpServer : MonoBehaviour {
         //開啟一個執行緒連線，必須的，否則主執行緒卡死
         connectThread = new Thread(new ThreadStart(SocketReceive));
         connectThread.Start();
+
     }
 
     //連線
-    void SocketConnet() {
-        if (clientSocket != null)
-            clientSocket.Close();
+    Socket SocketConnet() {
+        //if (clientSocket != null)
+        //   clientSocket.Close();
+
+        Socket clientSocket; //客戶端socket
+
         //控制檯輸出偵聽狀態
         print("Waiting for a client");
         //一旦接受連線，建立一個客戶端
@@ -54,6 +58,11 @@ public class TcpServer : MonoBehaviour {
         IPEndPoint ipEndClient = (IPEndPoint)clientSocket.RemoteEndPoint;
         //輸出客戶端的IP和埠
         print("Connect with " + ipEndClient.Address.ToString() + ":" + ipEndClient.Port.ToString());
+
+        client.Add(clientSocket);
+
+        return clientSocket;
+
         //連線成功則傳送資料
         //sendStr = "Welcome to my server";
         //SocketSend(Encoding.ASCII.GetBytes(sendStr));
@@ -61,22 +70,27 @@ public class TcpServer : MonoBehaviour {
 
     public void SocketSend(byte[] sendMsg) {
         //傳送
-        if (clientSocket != null)
-            clientSocket.Send(sendMsg, sendMsg.Length, SocketFlags.None);
+        foreach(Socket curS in client)
+        {
+            curS.Send(sendMsg, sendMsg.Length, SocketFlags.None);
+        }
     }
+
 
     //伺服器接收
     void SocketReceive() {
         //連線
-        SocketConnet();
+        Socket curSocket = SocketConnet();
         //進入接收迴圈
         while (true) {
             //對data清零
             recvData = new byte[4096];
             //獲取收到的資料的長度
-            recvLen = clientSocket.Receive(recvData);
+            recvLen = curSocket.Receive(recvData);
             //如果收到的資料長度為0，則重連並進入下一個迴圈
             if (recvLen == 0) {
+                Debug.Log("socket close : " + client.Count);
+                client.Remove(curSocket);
                 SocketConnet();
                 continue;
             }
@@ -95,8 +109,15 @@ public class TcpServer : MonoBehaviour {
     //連線關閉
     void SocketQuit() {
         //先關閉客戶端
-        if (clientSocket != null)
-            clientSocket.Close();
+
+        if (client.Count > 0)
+        {
+            foreach (Socket curS in client)
+            {
+                curS.Close();
+            }
+        }
+
         //再關閉執行緒
         if (connectThread != null) {
             connectThread.Interrupt();
@@ -119,7 +140,12 @@ public class TcpServer : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        if(client.Count == 1 && connectlock)
+        {
+            connectThread2 = new Thread(new ThreadStart(SocketReceive));
+            connectThread2.Start();
+            connectlock = false;
+        }
     }
 
     void OnApplicationQuit() {
