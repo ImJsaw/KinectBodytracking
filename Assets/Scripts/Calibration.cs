@@ -22,7 +22,7 @@ public class Calibration : ListenerBase {
     public Text rot_UI = null;
 
     // threshold of pose calibration
-    private float angleThershold = 20;
+    private readonly float angleThershold = 30;
     private bool isTimeUp = false;
     private int timeCount = 3;
     private bool getPosFirst = false;
@@ -57,6 +57,37 @@ public class Calibration : ListenerBase {
         new Vector3(0,180,0),
         //head
         new Vector3(0,180,0),
+    };
+
+    //ignore wrist,foot,all armX
+    private bool[][] tPoseCheck = {
+        //body
+        new bool[3]{ true,true,true},
+        new bool[3]{ true,true,true},
+        new bool[3]{ true,true,true},
+        new bool[3]{ true,true,true},
+        //L arm
+        new bool[3]{ false,true,true},
+        new bool[3]{ false,true,true},
+        new bool[3]{ false,true,true},
+        new bool[3]{ false, false, false},
+        //R arm
+        new bool[3]{ false,true,true},
+        new bool[3]{ false,true,true},
+        new bool[3]{ false,true,true},
+        new bool[3]{ false, false, false},
+        //L leg
+        new bool[3]{ true,true,true},
+        new bool[3]{ true,true,true},
+        new bool[3]{ false, false, false},
+        new bool[3]{ false, false, false},
+        //R leg
+        new bool[3]{ true,true,true},
+        new bool[3]{ true,true,true},
+        new bool[3]{ false, false, false},
+        new bool[3]{ false, false, false},
+        //head
+        new bool[3]{ true,true,true},
     };
 
     void Start() {
@@ -160,10 +191,13 @@ public class Calibration : ListenerBase {
         bool correct = true;
         joint_UI.text = "";
 
-        for (int i = 1; i < jointNum; i++) {
+        for (int i = 0; i < jointNum; i++) {
             correct = true;
             string jointRot = "";
             for (int j = 0; j < 3; j++) {
+                //check this way need to match
+                if (!tPoseCheck[i][j])
+                    continue;
                 //jointRot += bodyRotations[i].eulerAngles[j] + ",";
                 int angle = (int)bodyRotations[i].eulerAngles[j] - (int)tPoseData[i][j];
                 if (angle < -180)
@@ -181,6 +215,7 @@ public class Calibration : ListenerBase {
                 joint_UI.text = str;
                 rot_UI.text = bodyRotations[i].eulerAngles.ToString();
                 calibrationFail();
+                Debug.Log("[Calibration]" + getModelName(i) + " , " + bodyRotations[i].eulerAngles.ToString());
                 break;
             }
         }
