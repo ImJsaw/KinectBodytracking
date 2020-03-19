@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 using Microsoft.Azure.Kinect.Sensor;
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 
@@ -17,9 +17,9 @@ public class Calibration : ListenerBase {
     Device device;
     BodyTracker tracker;
     public new Renderer renderer;
-    public UnityEngine.UI.Text time_UI = null;
-    public UnityEngine.UI.Text joint_UI = null;
-    public UnityEngine.UI.Text rot_UI = null;
+    public Text time_UI = null;
+    public Text joint_UI = null;
+    public Text rot_UI = null;
 
     // threshold of pose calibration
     private float angleThershold = 20;
@@ -29,6 +29,35 @@ public class Calibration : ListenerBase {
     //make sure initial complete
     private bool initial = false;
     private calibrationState curState;
+    private Vector3[] tPoseData = {
+        //body
+        new Vector3(0,180,0),
+        new Vector3(0,180,0),
+        new Vector3(0,180,0),
+        new Vector3(0,180,0),
+        //L arm
+        new Vector3(0,180,0),
+        new Vector3(0,180,0),
+        new Vector3(0,180,0),
+        new Vector3(0,180,0),
+        //R arm
+        new Vector3(0,180,0),
+        new Vector3(0,180,0),
+        new Vector3(0,180,0),
+        new Vector3(0,180,0),
+        //L leg
+        new Vector3(0,180,0),
+        new Vector3(0,180,0),
+        new Vector3(0,180,0),
+        new Vector3(0,180,0),
+        //R leg
+        new Vector3(0,180,0),
+        new Vector3(0,180,0),
+        new Vector3(0,180,0),
+        new Vector3(0,180,0),
+        //head
+        new Vector3(0,180,0),
+    };
 
     void Start() {
         // KINECT INITIALIZE
@@ -136,9 +165,11 @@ public class Calibration : ListenerBase {
             string jointRot = "";
             for (int j = 0; j < 3; j++) {
                 //jointRot += bodyRotations[i].eulerAngles[j] + ",";
-                int angle = (int)bodyRotations[i].eulerAngles[j];
+                int angle = (int)bodyRotations[i].eulerAngles[j] - (int)tPoseData[i][j];
+                if (angle < -180)
+                    angle += 360;
                 if (angle > 180)
-                    angle -= 180;
+                    angle -= 360;
                 if (Math.Abs(angle) > angleThershold)
                     correct = false;
             }
