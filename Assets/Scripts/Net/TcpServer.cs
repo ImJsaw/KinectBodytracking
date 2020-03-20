@@ -156,4 +156,9 @@ public class TcpServer : MonoBehaviour {
     public byte[] getData() {
         return recvData;
     }
+
+    public int getConnectNum()
+    {
+        return client.Count;
+    }
 }

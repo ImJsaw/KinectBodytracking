@@ -2,7 +2,7 @@
 using UnityEngine;
 using Microsoft.Azure.Kinect.Sensor;
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
-
+using UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -18,6 +18,8 @@ public class ServerListener : ListenerBase {
     //chatRoom
     string username = "server";
     bool updatechat = false;
+
+    public Text connectNum;
 
     void Start() {
         // KINECT INITIALIZE
@@ -45,6 +47,8 @@ public class ServerListener : ListenerBase {
         if (server == null)
             Debug.LogWarning("null server");
         Debug.Log("enter update");
+
+        updateConnectNum();
 
         updateChatRoom();
 
@@ -141,5 +145,10 @@ public class ServerListener : ListenerBase {
         Canvas.ForceUpdateCanvases();
 
         updatechat = false;
+    }
+
+    void updateConnectNum()
+    {
+        connectNum.text = MainMgr.inst.server.getConnectNum().ToString();
     }
 }
