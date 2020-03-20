@@ -158,7 +158,7 @@ public class Calibration : ListenerBase {
         switch (curState) {
             case calibrationState.None:
                 //start count down
-                InvokeRepeating("countDown", 1, 1);
+                InvokeRepeating("countDown", 1, 2);
                 isTimeUp = false;
                 curState = calibrationState.TPose;
                 break;
@@ -232,11 +232,11 @@ public class Calibration : ListenerBase {
         if (!UIMgr.inst.isStop)
             timeCount -= 1;
 
-        time_UI.text = timeCount + "";
+        time_UI.text = "維持" + timeCount + "秒完成校正!";
 
         if (timeCount <= 0) {
 
-            time_UI.text = "success!";
+            time_UI.text = "校正完成!";
 
             CancelInvoke("countDown");
             isTimeUp = true;
@@ -246,10 +246,11 @@ public class Calibration : ListenerBase {
 
     private void calibrationFail() {
         //time count reset
-        timeCount = 3;
+        timeCount = 5;
     }
 
-    private void calibrationComplete() {
+    public void calibrationComplete() {
         Debug.Log("complete calibration");
+        MainMgr.inst.changeScene(SceneID.Server);
     }
 }
