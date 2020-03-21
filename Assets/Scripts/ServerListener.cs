@@ -105,6 +105,8 @@ public class ServerListener : ListenerBase {
     {
         Debug.Log("updateChatRoom");
         content = Utility.byte2Origin<Messege>(msgData);
+
+        NetMgr.sendMsg(packageType.messege, msgData, false);
         updatechat = true;
     }
 

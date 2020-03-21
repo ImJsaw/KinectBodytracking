@@ -49,7 +49,7 @@ public static class NetMgr{
                         break;
                     }
                     MainMgr.inst.serverListener.updateChatRoom(socketPackage.data);
-                    sendMsg(packageType.messege, socketData, false);
+                    //sendMsg(packageType.messege, socketData, false);
                 }
                 else
                 {

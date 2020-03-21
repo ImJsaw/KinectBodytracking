@@ -41,11 +41,11 @@ public class ClientListener : ListenerBase {
             if (chatInput.text != "")
             {
 
-                /*Messege content = new Messege();
+                Messege content = new Messege();
                 content.username = username;
                 content.text = chatInput.text;
 
-                string addText = "\n  " + "<color=red>" + username + "</color>: " + chatInput.text;
+                /*string addText = "\n  " + "<color=red>" + username + "</color>: " + chatInput.text;
                 chatText.text += addText;
                 chatInput.text = "";
                 chatInput.ActivateInputField();
@@ -53,6 +53,8 @@ public class ClientListener : ListenerBase {
                 scrollRect.verticalNormalizedPosition = 1;
                 Canvas.ForceUpdateCanvases();*/
 
+                chatInput.ActivateInputField();
+                Canvas.ForceUpdateCanvases();
 
                 byte[] modelDataBytes = Utility.Trans2byte(content);
                 NetMgr.sendMsg(packageType.messege, modelDataBytes, true);
