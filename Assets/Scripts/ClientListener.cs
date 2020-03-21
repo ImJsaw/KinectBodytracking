@@ -41,7 +41,7 @@ public class ClientListener : ListenerBase {
             if (chatInput.text != "")
             {
 
-                Messege content = new Messege();
+                /*Messege content = new Messege();
                 content.username = username;
                 content.text = chatInput.text;
 
@@ -51,7 +51,7 @@ public class ClientListener : ListenerBase {
                 chatInput.ActivateInputField();
                 Canvas.ForceUpdateCanvases();
                 scrollRect.verticalNormalizedPosition = 1;
-                Canvas.ForceUpdateCanvases();
+                Canvas.ForceUpdateCanvases();*/
 
 
                 byte[] modelDataBytes = Utility.Trans2byte(content);
