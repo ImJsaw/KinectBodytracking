@@ -344,11 +344,11 @@ public class ListenerBase : MonoBehaviour {
         chan.AnkleRight.rotation = q;
 
 
-        //        19           
-        joint1 = this.skeleton.Joints[19];
-        rot1 = joint1.Orientation;
-        r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-        chan.FootRight.rotation = Quaternion.Euler(-r.eulerAngles.x + 180, r.eulerAngles.y, -r.eulerAngles.z);
+        ////        19           
+        //joint1 = this.skeleton.Joints[19];
+        //rot1 = joint1.Orientation;
+        //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+        //chan.FootRight.rotation = Quaternion.Euler(-r.eulerAngles.x + 180, r.eulerAngles.y, -r.eulerAngles.z);
 
         //        20           
         joint1 = this.skeleton.Joints[20];
@@ -362,6 +362,8 @@ public class ListenerBase : MonoBehaviour {
         var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.002f;
         var restore = new Vector3(-2, 3, -2); //決定起始點
         modelPosition.position = v - restore;
+
+
 
     }
 

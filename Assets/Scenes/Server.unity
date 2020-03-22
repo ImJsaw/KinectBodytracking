@@ -375,7 +375,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: -2.8668041e-24, z: 8.49e-43, w: -2.1422843e-24}
+  m_BoundingSphereOverride: {x: 4.522e-42, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -536,9 +536,9 @@ MonoBehaviour:
     AnkleLeft: {fileID: 1744300792}
     FootLeft: {fileID: 0}
     HipRight: {fileID: 1744300788}
-    KneeRight: {fileID: 0}
-    AnkleRight: {fileID: 1744300789}
-    FootRight: {fileID: 1744300792}
+    KneeRight: {fileID: 1744300789}
+    AnkleRight: {fileID: 1744300793}
+    FootRight: {fileID: 0}
     Head: {fileID: 1744300783}
   modelPosition: {fileID: 1954228039}
   renderer: {fileID: 148761311}
@@ -815,22 +815,22 @@ PrefabInstance:
     - target: {fileID: 7540538742783378828, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -372
+      value: -349.06
       objectReference: {fileID: 0}
     - target: {fileID: 7540538742783378828, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -128
+      value: -93.34
       objectReference: {fileID: 0}
     - target: {fileID: 7540538742783378828, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -766.4
+      value: -720.51
       objectReference: {fileID: 0}
     - target: {fileID: 7540538742783378828, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -287.3
+      value: -217.98
       objectReference: {fileID: 0}
     - target: {fileID: 7540538742783378828, guid: 22bea14b91eb56d4890c53c8cf47331f,
         type: 3}
@@ -1754,6 +1754,12 @@ Transform:
 --- !u!4 &1744300792 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1335332873302423171, guid: 1c647812118c3c844b95dd496bd8205b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1744300774}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1744300793 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3245080492727709693, guid: 1c647812118c3c844b95dd496bd8205b,
     type: 3}
   m_PrefabInstance: {fileID: 1744300774}
   m_PrefabAsset: {fileID: 0}
