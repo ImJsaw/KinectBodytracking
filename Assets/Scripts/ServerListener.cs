@@ -153,4 +153,13 @@ public class ServerListener : ListenerBase {
     {
         connectNum.text = MainMgr.inst.server.getConnectNum().ToString();
     }
+
+    Color[] GetRenderTexturePixels(RenderTexture tex)
+    {
+        RenderTexture.active = tex;
+        Texture2D tempTex = new Texture2D(tex.width, tex.height);
+        tempTex.ReadPixels(new Rect(0, 0, tex.width, tex.height), 0, 0);
+        tempTex.Apply();
+        return tempTex.GetPixels();
+    }
 }
