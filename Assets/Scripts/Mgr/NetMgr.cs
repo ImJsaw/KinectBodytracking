@@ -15,10 +15,18 @@ public struct Messege {
     public string text;
 }
 
+[Serializable]
+public struct CamModel {
+    public int index;
+    public Quaternion[] rot;
+    public Vector3 pos;
+}
+
 
 public enum packageType {
     model = 0,
-    messege
+    messege,
+    camModel
 }
 
 public static class NetMgr{
@@ -60,6 +68,12 @@ public static class NetMgr{
                     MainMgr.inst.clientListener.updateChatRoom(socketPackage.data);
                 }
 
+                break;
+            case packageType.camModel:
+                CamModel msg = Utility.byte2Origin<CamModel>(socketPackage.data);
+                int index = msg.index;
+                MainMgr.inst.modelRot[index] = msg.rot;
+                MainMgr.inst.modelPos[index] = msg.pos;
                 break;
             default:
                 Debug.Log("[NetMgr]receive unknown package type");

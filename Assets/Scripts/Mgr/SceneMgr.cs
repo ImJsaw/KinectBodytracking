@@ -39,6 +39,10 @@ public class SceneMgr : MonoBehaviour {
     public void gotoCalibration() {
         mainMgr.changeScene(SceneID.Calibration);
     }
+    public void gotoGeneral() {
+        mainMgr.changeScene(SceneID.General);
+    }
+
     ////////////////////////////
 
     // change scene

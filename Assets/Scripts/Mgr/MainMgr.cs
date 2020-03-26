@@ -12,6 +12,7 @@ public enum SceneID : int {
     Server,
     Client,
     Calibration,
+    General
 };
 
 [CLSCompliant(false)]
@@ -19,6 +20,7 @@ public class MainMgr : MonoBehaviour {
     
     public static MainMgr inst = null;
 
+    public ModelController model = null;
     public TcpClient client = null;
     public TcpServer server = null;
     public ClientListener clientListener = null;
@@ -27,7 +29,17 @@ public class MainMgr : MonoBehaviour {
     
     //panel queue
     public Queue<string> panelWaitingList = new Queue<string>();
-    
+
+    //models data
+    public List<Quaternion[]> modelRot = new List<Quaternion[]>();
+    public List<Vector3> modelPos = new List<Vector3>();
+    public List<Vector3> mapPos = new List<Vector3>();
+    public int modelSum = 0;
+
+    //default instantiate
+    private Vector3 initPos = new Vector3(-12, -2.5f, -6.16f);
+
+
     SceneID curScene = SceneID.None;
 
     void Awake() {
@@ -43,6 +55,24 @@ public class MainMgr : MonoBehaviour {
         client = GameObject.Find("TCP_Client").GetComponent<TcpClient>();
         server = GameObject.Find("TCP_Server").GetComponent<TcpServer>();
         SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    //called when new user enter
+    public void addNewModel() {
+        modelRot.Add(new Quaternion[21]);
+        modelPos.Add(initPos);
+        mapPos.Add(new Vector3());
+        //TODO:
+        //instantiate model to scene
+        addModel();
+
+        modelSum++;
+    }
+
+    void addModel() {
+        ModelController modelInstant = Instantiate(model);
+        modelInstant.modelIndex = modelSum;
+        Debug.Log("[model instantiate] generate " + modelSum + " th model");
     }
 
     public void gotoServerSelect() {
@@ -74,6 +104,11 @@ public class MainMgr : MonoBehaviour {
                 return SceneID.Server;
             case 3:
                 return SceneID.Client;
+            case 4:
+                return SceneID.Calibration;
+            case 5:
+                return SceneID.General;
+
         }
         return SceneID.None;
     }
@@ -98,6 +133,12 @@ public class MainMgr : MonoBehaviour {
                     getListenerComplete = true;
                     Debug.Log("complete find listener");
                 }
+                break;
+            case SceneID.General:
+                addNewModel();
+                break;
+            default:
+                Debug.Log("[Scene] goto "+id+" scene");
                 break;
         }
     }
