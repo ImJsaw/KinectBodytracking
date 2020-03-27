@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Azure.Kinect.Sensor.BodyTracking;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -31,9 +32,11 @@ public class MainMgr : MonoBehaviour {
     public Queue<string> panelWaitingList = new Queue<string>();
 
     //models data
-    public List<Quaternion[]> modelRot = new List<Quaternion[]>();
-    public List<Vector3> modelPos = new List<Vector3>();
+    //public List<Quaternion[]> modelRot = new List<Quaternion[]>();
+    //public List<Vector3> modelPos = new List<Vector3>();
     public List<Vector3> mapPos = new List<Vector3>();
+    public List<Skeleton> skeletons = new List<Skeleton>();
+    public List<bool> isFirstDataGet = new List<bool>();
     public int modelSum = 0;
 
     //default instantiate
@@ -59,9 +62,11 @@ public class MainMgr : MonoBehaviour {
 
     //called when new user enter
     public void addNewModel() {
-        modelRot.Add(new Quaternion[21]);
-        modelPos.Add(initPos);
+        //modelRot.Add(new Quaternion[21]);
+        //modelPos.Add(initPos);
         mapPos.Add(new Vector3());
+        skeletons.Add(new Skeleton());
+        isFirstDataGet.Add(false);
         //TODO:
         //instantiate model to scene
         addModel();

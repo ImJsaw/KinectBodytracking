@@ -91,9 +91,21 @@ public class ModelController : MonoBehaviour {
             Debug.Log("[modelController] No valid modelIndex");
             return;
         }
+        if (!MainMgr.inst.isFirstDataGet[modelIndex]) {
+            Debug.Log("[modelController] no." + modelIndex + " first data not get yet");
+            return;
+        }
         Debug.Log("[modelController] update "+modelIndex);
-        bodyRotations = MainMgr.inst.modelRot[modelIndex];
-        bodyPosition = MainMgr.inst.modelPos[modelIndex];
+        //bodyRotations = MainMgr.inst.modelRot[modelIndex];
+        //bodyPosition = MainMgr.inst.modelPos[modelIndex];
+        for(int i = 0;i < 21; i++) {
+            var rot = MainMgr.inst.skeletons[modelIndex].Joints[i].Orientation;
+            bodyRotations[i] = new Quaternion(rot[0], rot[1], rot[2], rot[3]);
+        }
+        var pos = MainMgr.inst.skeletons[modelIndex].Joints[0].Position;
+        bodyPosition = new Vector3(pos[0], pos[1], pos[2]);
+
+
         mapPosition = MainMgr.inst.mapPos[modelIndex];
         applyModel();
     }

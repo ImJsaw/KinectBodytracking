@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Azure.Kinect.Sensor.BodyTracking;
+using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -18,8 +19,9 @@ public struct Messege {
 [Serializable]
 public struct CamModel {
     public int index;
-    public Quaternion[] rot;
-    public Vector3 pos;
+    //public Quaternion[] rot;
+    //public Vector3 pos;
+    public Skeleton skeleton;
 }
 
 
@@ -72,8 +74,10 @@ public static class NetMgr{
             case packageType.camModel:
                 CamModel msg = Utility.byte2Origin<CamModel>(socketPackage.data);
                 int index = msg.index;
-                MainMgr.inst.modelRot[index] = msg.rot;
-                MainMgr.inst.modelPos[index] = msg.pos;
+                //MainMgr.inst.modelRot[index] = msg.rot;
+                //MainMgr.inst.modelPos[index] = msg.pos;
+                MainMgr.inst.skeletons[index] = msg.skeleton;
+                MainMgr.inst.isFirstDataGet[index] = true;
                 break;
             default:
                 Debug.Log("[NetMgr]receive unknown package type");

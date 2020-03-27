@@ -22,10 +22,13 @@ public class KinectListener : MonoBehaviour {
     bool updatechat = false;
 
     public Text connectNum;
+    public bool hasCam = false;
 
     int myIndex;
 
     void Start() {
+        if (!hasCam)
+            return;
         // KINECT INITIALIZE
         device = Device.Open(0);
         var config = new DeviceConfiguration {
@@ -86,8 +89,9 @@ public class KinectListener : MonoBehaviour {
     void sendModel() {
         CamModel msg = new CamModel();
         msg.index = myIndex;
-        msg.rot = MainMgr.inst.modelRot[myIndex];
-        msg.pos = MainMgr.inst.modelPos[myIndex];
+        //msg.rot = MainMgr.inst.modelRot[myIndex];
+        //msg.pos = MainMgr.inst.modelPos[myIndex];
+        msg.skeleton = MainMgr.inst.skeletons[myIndex];
         //send from net
         byte[] modelDataBytes = Utility.Trans2byte(msg);
         NetMgr.sendMsg(packageType.camModel, modelDataBytes, false);
@@ -102,7 +106,7 @@ public class KinectListener : MonoBehaviour {
         var rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         Quaternion r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         Quaternion q = new Quaternion(r.z, -r.x, -r.y, r.w);
-        MainMgr.inst.modelRot[myIndex][0] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[0].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
         ////         1          
         joint1 = this.skeleton.Joints[1];
@@ -110,7 +114,7 @@ public class KinectListener : MonoBehaviour {
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
-        MainMgr.inst.modelRot[myIndex][1] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[1].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
         //        2           
         joint1 = this.skeleton.Joints[2];
@@ -118,14 +122,14 @@ public class KinectListener : MonoBehaviour {
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
-        MainMgr.inst.modelRot[myIndex][2] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[2].Orientation = new float[] { q.x, q.y, q.z, q.w};
         //        3           
         joint1 = this.skeleton.Joints[3];
         rot1 = joint1.Orientation;
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
-        MainMgr.inst.modelRot[myIndex][3] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[3].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
         ////4
         joint1 = this.skeleton.Joints[4];
@@ -134,7 +138,7 @@ public class KinectListener : MonoBehaviour {
         r = (Quaternion.Euler(180, 0, 180) * rot2);
         //q = new Quaternion(r.x, r.y, r.z, r.w);
         q = r;
-        MainMgr.inst.modelRot[myIndex][4] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[4].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
 
         //         5         
@@ -144,7 +148,7 @@ public class KinectListener : MonoBehaviour {
         r = (Quaternion.Euler(180, 0, 180) * rot2);
         //q = new Quaternion(r.z, r.y, r.x, r.w);
         q = r;
-        MainMgr.inst.modelRot[myIndex][5] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[5].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
 
         ////         6         
@@ -154,7 +158,7 @@ public class KinectListener : MonoBehaviour {
         r = (Quaternion.Inverse(Quaternion.Euler(180, 0, 180)) * rot2);
         q = new Quaternion(r.y, r.x, r.z, r.w);
         q = r;
-        MainMgr.inst.modelRot[myIndex][6] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[6].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
 
 
@@ -170,7 +174,7 @@ public class KinectListener : MonoBehaviour {
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
         q = new Quaternion(r.x, -r.y, -r.z, r.w);
-        MainMgr.inst.modelRot[myIndex][8] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[8].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
 
 
@@ -180,7 +184,7 @@ public class KinectListener : MonoBehaviour {
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
         q = new Quaternion(r.x, -r.y, -r.z, r.w);
-        MainMgr.inst.modelRot[myIndex][9] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[9].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
 
         //        10           
@@ -189,7 +193,7 @@ public class KinectListener : MonoBehaviour {
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
         q = new Quaternion(r.x, -r.y, -r.z, r.w);
-        MainMgr.inst.modelRot[myIndex][10] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[10].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
 
 
@@ -205,7 +209,7 @@ public class KinectListener : MonoBehaviour {
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
-        MainMgr.inst.modelRot[myIndex][12] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[12].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
         //        13           
         joint1 = this.skeleton.Joints[13];
@@ -213,7 +217,7 @@ public class KinectListener : MonoBehaviour {
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
-        MainMgr.inst.modelRot[myIndex][13] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[13].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
         //        14           
         joint1 = this.skeleton.Joints[14];
@@ -221,7 +225,7 @@ public class KinectListener : MonoBehaviour {
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
-        MainMgr.inst.modelRot[myIndex][14] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[14].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
         //        15           
         joint1 = this.skeleton.Joints[15];
@@ -229,7 +233,7 @@ public class KinectListener : MonoBehaviour {
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
-        MainMgr.inst.modelRot[myIndex][15] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[15].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
         //        16           
         joint1 = this.skeleton.Joints[16];
@@ -237,7 +241,7 @@ public class KinectListener : MonoBehaviour {
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(180, 90, -90)) * rot2);
         q = new Quaternion(r.z, r.x, r.y, r.w);
-        MainMgr.inst.modelRot[myIndex][16] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[16].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
 
         //        17           
@@ -246,7 +250,7 @@ public class KinectListener : MonoBehaviour {
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(180, 90, -90)) * rot2);
         q = new Quaternion(r.z, r.x, r.y, r.w);
-        MainMgr.inst.modelRot[myIndex][17] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[17].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
 
         //        18           
@@ -255,7 +259,7 @@ public class KinectListener : MonoBehaviour {
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(180, 90, -90)) * rot2);
         q = new Quaternion(r.z, r.x, r.y, r.w);
-        MainMgr.inst.modelRot[myIndex][18] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[18].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
 
         ////        19           
@@ -270,12 +274,13 @@ public class KinectListener : MonoBehaviour {
         rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
-        MainMgr.inst.modelRot[myIndex][20] = q;
+        MainMgr.inst.skeletons[myIndex].Joints[20].Orientation = new float[] { q.x, q.y, q.z, q.w};
 
         //model position
         var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.002f;
         var restore = new Vector3(-2, 3, -2); //決定起始點
-        MainMgr.inst.modelPos[myIndex] = v - restore;
+        MainMgr.inst.skeletons[myIndex].Joints[0].Position = new float[] { (v - restore).x, (v - restore).y, (v - restore).z };
+        //MainMgr.inst.modelPos[myIndex] = v - restore;
         
 
     }
