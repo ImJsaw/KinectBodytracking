@@ -95,8 +95,17 @@ public class ClientListener : ListenerBase {
 
     protected void sendCube()
     {
-       controlCubeTransform.cubeVector = controlCube.transform.position;
-       controlCubeTransform.cubRot = controlCube.transform.rotation;
+       
+
+        controlCubeTransform.Vecx = controlCube.transform.position.x;
+        controlCubeTransform.Vecy = controlCube.transform.position.y;
+        controlCubeTransform.Vecz = controlCube.transform.position.z;
+
+        controlCubeTransform.Rotx = controlCube.transform.rotation.x;
+        controlCubeTransform.Roty = controlCube.transform.rotation.y;
+        controlCubeTransform.Rotz = controlCube.transform.rotation.z;
+        controlCubeTransform.Rotw = controlCube.transform.rotation.w;
+
 
 
         byte[] msg;

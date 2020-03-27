@@ -19,8 +19,14 @@ public struct Messege {
 [Serializable]
 public struct Cube
 {
-    public Vector3 cubeVector;
-    public Quaternion cubRot;
+    public float Vecx;
+    public float Vecy;
+    public float Vecz;
+
+    public float Rotx;
+    public float Roty;
+    public float Rotz;
+    public float Rotw;
 }
 
 

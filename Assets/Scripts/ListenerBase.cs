@@ -13,7 +13,8 @@ public class ListenerBase : MonoBehaviour {
 
     public GameObject controlCube;
 
-    protected Cube controlCubeTransform;
+    protected Cube controlCubeTransform = new Cube();
+
     protected Skeleton skeleton = new Skeleton();
     private static readonly Skeleton newSkeleton = new Skeleton();
     protected Messege content;
@@ -534,8 +535,12 @@ public class ListenerBase : MonoBehaviour {
 
     protected void updateCube()
     {
-            controlCube.transform.position = controlCubeTransform.cubeVector;
-            controlCube.transform.rotation = controlCubeTransform.cubRot;
+        Vector3 cubPosition = new Vector3(controlCubeTransform.Vecx, controlCubeTransform.Vecy, controlCubeTransform.Vecz);
+        controlCube.transform.position = cubPosition;
+
+        Quaternion cubRotation = new Quaternion(controlCubeTransform.Rotx, controlCubeTransform.Roty, controlCubeTransform.Rotz, controlCubeTransform.Rotw);
+        controlCube.transform.rotation = cubRotation;
+
     }
 }
 
