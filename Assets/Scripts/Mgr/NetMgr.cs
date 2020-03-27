@@ -19,8 +19,6 @@ public struct Messege {
 [Serializable]
 public struct CamModel {
     public int index;
-    //public Quaternion[] rot;
-    //public Vector3 pos;
     public Skeleton skeleton;
 }
 
@@ -31,9 +29,9 @@ public enum packageType {
     camModel
 }
 
-public static class NetMgr{
+public static class NetMgr {
 
-    public static void OnMsgRcv(byte[] socketData , Boolean isCient) {
+    public static void OnMsgRcv(byte[] socketData, Boolean isCient) {
         SocketPackage socketPackage = new SocketPackage();
 
         MemoryStream ms = new MemoryStream(socketData);
@@ -41,7 +39,7 @@ public static class NetMgr{
         ms.Position = 0;
         socketPackage = (SocketPackage)bf.Deserialize(ms);
 
-        
+
         switch (socketPackage.type) {
             case packageType.model:
                 if (!MainMgr.inst.getListenerComplete || MainMgr.inst.clientListener == null) {
@@ -51,19 +49,14 @@ public static class NetMgr{
                 MainMgr.inst.clientListener.updateBody(socketPackage.data);
                 break;
             case packageType.messege:
-                if(!isCient)
-                {
-                    if (!MainMgr.inst.getListenerComplete || MainMgr.inst.serverListener == null)
-                    {
+                if (!isCient) {
+                    if (!MainMgr.inst.getListenerComplete || MainMgr.inst.serverListener == null) {
                         Debug.Log("[NetMgr]null server");
                         break;
                     }
                     MainMgr.inst.serverListener.updateChatRoom(socketPackage.data);
-                }
-                else
-                {
-                    if (!MainMgr.inst.getListenerComplete || MainMgr.inst.clientListener == null)
-                    {
+                } else {
+                    if (!MainMgr.inst.getListenerComplete || MainMgr.inst.clientListener == null) {
                         Debug.Log("[NetMgr]null client");
                         break;
                     }
@@ -72,12 +65,15 @@ public static class NetMgr{
 
                 break;
             case packageType.camModel:
+                Debug.Log("[NetMgr]receive camModel package type");
                 CamModel msg = Utility.byte2Origin<CamModel>(socketPackage.data);
                 int index = msg.index;
-                //MainMgr.inst.modelRot[index] = msg.rot;
-                //MainMgr.inst.modelPos[index] = msg.pos;
-                MainMgr.inst.skeletons[index] = msg.skeleton;
-                MainMgr.inst.isFirstDataGet[index] = true;
+                Debug.Log("[NetMgr]index" + index);
+                if (MainMgr.inst.skeletons.Count > index)
+                    MainMgr.inst.skeletons[index] = msg.skeleton;
+                if (MainMgr.inst.isFirstDataGet.Count > index)
+                    MainMgr.inst.isFirstDataGet[index] = true;
+                Debug.Log("[NetMgr]receive complete");
                 break;
             default:
                 Debug.Log("[NetMgr]receive unknown package type");
