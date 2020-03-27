@@ -21,7 +21,7 @@ public class ClientListener : ListenerBase {
             Debug.LogWarning("null server");
 
         updateChatRoom();
-
+        sendCube();
         if (updatechat)
         {
             Debug.Log("update true");
@@ -95,15 +95,13 @@ public class ClientListener : ListenerBase {
 
     protected void sendCube()
     {
-        Cube temp = new Cube();
-        for(int i=0;i<4;i++)
-        {
-            temp.cubeTransform[i].transform.position = controlCube[i].transform.position;
-        }
+       controlCubeTransform.cubeVector = controlCube.transform.position;
+       controlCubeTransform.cubRot = controlCube.transform.rotation;
+
 
         byte[] msg;
-        msg = Utility.Trans2byte<Cube>(temp);
-        NetMgr.sendMsg(packageType.messege, msg, true);
+        msg = Utility.Trans2byte<Cube>(controlCubeTransform);
+        NetMgr.sendMsg(packageType.cube, msg, true);
 
     }
 

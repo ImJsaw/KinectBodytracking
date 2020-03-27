@@ -11,7 +11,7 @@ public class ListenerBase : MonoBehaviour {
     public Text chatText;
     public ScrollRect scrollRect;
 
-    public GameObject[] controlCube;
+    public GameObject controlCube;
 
     protected Cube controlCubeTransform;
     protected Skeleton skeleton = new Skeleton();
@@ -534,11 +534,8 @@ public class ListenerBase : MonoBehaviour {
 
     protected void updateCube()
     {
-        for(int i=0;i<4;i++)
-        {
-            controlCube[i].transform.position = controlCubeTransform.cubeTransform[i].position;
-            controlCube[i].transform.rotation = controlCubeTransform.cubeTransform[i].rotation;
-        }
+            controlCube.transform.position = controlCubeTransform.cubeVector;
+            controlCube.transform.rotation = controlCubeTransform.cubRot;
     }
 }
 

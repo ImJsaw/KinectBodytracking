@@ -19,7 +19,8 @@ public struct Messege {
 [Serializable]
 public struct Cube
 {
-    public Transform[] cubeTransform;
+    public Vector3 cubeVector;
+    public Quaternion cubRot;
 }
 
 

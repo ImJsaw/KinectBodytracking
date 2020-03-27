@@ -31,7 +31,7 @@ public class SceneMgr : MonoBehaviour {
     }
 
     public void gotoClientScene() {
-        mainMgr.changeScene(SceneID.General);
+        mainMgr.changeScene(SceneID.Client);
         //set server ip
         mainMgr.setServerIP(ipAddress.text);
     }
