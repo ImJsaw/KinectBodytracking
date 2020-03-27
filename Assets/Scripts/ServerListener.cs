@@ -12,12 +12,15 @@ public class ServerListener : ListenerBase {
     Device device;
     BodyTracker tracker;
     GameObject[] debugObjects;
+
+
     //make sure initial complete
     private bool initial = false;
     public new Renderer renderer;
     //chatRoom
     string username = "server";
     bool updatechat = false;
+    bool updatecube = false;
 
     public Text connectNum;
 
@@ -57,6 +60,9 @@ public class ServerListener : ListenerBase {
             Debug.Log("update true");
             UpdateChat();
         }
+
+        if (updatecube)
+            updateCube();
 
         updateSkeleton();
     }
@@ -109,6 +115,15 @@ public class ServerListener : ListenerBase {
         NetMgr.sendMsg(packageType.messege, msgData, false);
         updatechat = true;
     }
+
+    public void rcvCube(byte[] msgData) //接訊息方
+    {
+        Debug.Log("updateCube");
+        controlCubeTransform = Utility.byte2Origin<Cube>(msgData);
+
+        updatecube = true;
+    }
+
 
     private void updateChatRoom() //接訊息方
     {

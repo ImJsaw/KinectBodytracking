@@ -11,7 +11,9 @@ public class ListenerBase : MonoBehaviour {
     public Text chatText;
     public ScrollRect scrollRect;
 
+    public GameObject[] controlCube;
 
+    protected Cube controlCubeTransform;
     protected Skeleton skeleton = new Skeleton();
     private static readonly Skeleton newSkeleton = new Skeleton();
     protected Messege content;
@@ -527,6 +529,15 @@ public class ListenerBase : MonoBehaviour {
             default:
                 Debug.LogError("[GetName] model index fault");
                 return "unknown";
+        }
+    }
+
+    protected void updateCube()
+    {
+        for(int i=0;i<4;i++)
+        {
+            controlCube[i].transform.position = controlCubeTransform.cubeTransform[i].position;
+            controlCube[i].transform.rotation = controlCubeTransform.cubeTransform[i].rotation;
         }
     }
 }

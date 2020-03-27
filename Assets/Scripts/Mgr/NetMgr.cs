@@ -17,6 +17,13 @@ public struct Messege {
 }
 
 [Serializable]
+public struct Cube
+{
+    public Transform[] cubeTransform;
+}
+
+
+[Serializable]
 public struct CamModel {
     public int index;
     public Skeleton skeleton;
@@ -26,7 +33,8 @@ public struct CamModel {
 public enum packageType {
     model = 0,
     messege,
-    camModel
+    camModel,
+    cube
 }
 
 public static class NetMgr {
@@ -74,6 +82,14 @@ public static class NetMgr {
                 if (MainMgr.inst.isFirstDataGet.Count > index)
                     MainMgr.inst.isFirstDataGet[index] = true;
                 Debug.Log("[NetMgr]receive complete");
+                break;
+            case packageType.cube:
+                if (!MainMgr.inst.getListenerComplete || MainMgr.inst.serverListener == null)
+                {
+                    Debug.Log("[NetMgr]null server");
+                    break;
+                }
+                MainMgr.inst.serverListener.rcvCube(socketPackage.data);
                 break;
             default:
                 Debug.Log("[NetMgr]receive unknown package type");

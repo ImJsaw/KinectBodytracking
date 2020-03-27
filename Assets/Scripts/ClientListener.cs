@@ -13,6 +13,8 @@ public class ClientListener : ListenerBase {
     bool updatechat = false;
     // Update is called once per frame
 
+
+
     void Update() {
         checkError();
         if (client == null)
@@ -89,6 +91,20 @@ public class ClientListener : ListenerBase {
         //skeleton = (Skeleton)bf.Deserialize(ms);
         skeleton = Utility.byte2Origin<Skeleton>(bodyData);
         startUpdate = true;
+    }
+
+    protected void sendCube()
+    {
+        Cube temp = new Cube();
+        for(int i=0;i<4;i++)
+        {
+            temp.cubeTransform[i].transform.position = controlCube[i].transform.position;
+        }
+
+        byte[] msg;
+        msg = Utility.Trans2byte<Cube>(temp);
+        NetMgr.sendMsg(packageType.messege, msg, true);
+
     }
 
 }
