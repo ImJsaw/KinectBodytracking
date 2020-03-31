@@ -27,7 +27,11 @@ public class MainMgr : MonoBehaviour {
     public ClientListener clientListener = null;
     public ServerListener serverListener = null;
     public bool getListenerComplete = false;
-    
+    //game settings
+    public static bool isClient = false;
+    public static bool isVRValid = false;
+    public static bool isCamValid = false;
+
     //panel queue
     public Queue<string> panelWaitingList = new Queue<string>();
 

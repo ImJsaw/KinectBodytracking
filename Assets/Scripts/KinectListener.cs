@@ -6,6 +6,7 @@ using Joint = Microsoft.Azure.Kinect.Sensor.BodyTracking.Joint;
 using UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Valve.VR;
 
 [CLSCompliant(false)]
 public class KinectListener : MonoBehaviour {
@@ -16,14 +17,22 @@ public class KinectListener : MonoBehaviour {
     //make sure initial complete
     private bool initial = false;
     
-    public bool hasCam = false;
+    public GameObject screenCam = null;
+    public GameObject VRroot = null;
+    public GameObject VRCam = null;
 
     int myIndex;
 
     void Start() {
-        if (!hasCam)
-            return;
-        // KINECT INITIALIZE
+        //only open one cam at a time
+        VRroot.SetActive(MainMgr.isVRValid);
+        screenCam.SetActive(!MainMgr.isVRValid);
+
+        if (MainMgr.isCamValid)
+            initialCamera();
+    }
+
+    void initialCamera() {
         device = Device.Open(0);
         var config = new DeviceConfiguration {
             ColorResolution = ColorResolution.r720p,
@@ -41,8 +50,12 @@ public class KinectListener : MonoBehaviour {
     
     void Update() {
         Debug.Log("enter update");
-        
+        if (!initial) {
+            Debug.Log("init not complete yet");
+            return;
+        }
         updateSkeleton();
+        updatePosition();
     }
 
     private void OnDisable() {
@@ -55,11 +68,7 @@ public class KinectListener : MonoBehaviour {
     }
 
     void updateSkeleton() {
-        if (!initial) {
-            Debug.Log("init not complete yet");
-            return;
-        }
-        Debug.Log("Enter updateBody");
+        Debug.Log("Enter update skeleton");
         using (Capture capture = device.GetCapture()) {
             tracker.EnqueueCapture(capture);
         }
@@ -68,9 +77,14 @@ public class KinectListener : MonoBehaviour {
             if (frame.NumBodies > 0) {
                 skeleton = frame.GetSkeleton(0);
                 MainMgr.inst.skeletons[myIndex] = skeleton;
+                MainMgr.inst.isFirstDataGet[myIndex] = true;
             }
         }
         sendModel();
+    }
+
+    private void updatePosition() {
+        MainMgr.inst.mapPos[myIndex] = VRCam.transform.position;
     }
 
     private int getIndex() {
@@ -83,8 +97,6 @@ public class KinectListener : MonoBehaviour {
     void sendModel() {
         CamModel msg = new CamModel();
         msg.index = myIndex;
-        //msg.rot = MainMgr.inst.modelRot[myIndex];
-        //msg.pos = MainMgr.inst.modelPos[myIndex];
         msg.skeleton = MainMgr.inst.skeletons[myIndex];
         //send from net
         byte[] modelDataBytes = Utility.Trans2byte(msg);

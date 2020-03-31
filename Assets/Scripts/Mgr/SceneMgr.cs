@@ -10,6 +10,9 @@ public class SceneMgr : MonoBehaviour {
 
     public InputField ipAddress = null;
 
+    public Toggle isCamConnect = null;
+    public Toggle isVRConnect = null;
+
     MainMgr mainMgr = null;
 
     public
@@ -22,7 +25,8 @@ public class SceneMgr : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
+        MainMgr.isCamValid = isCamConnect.isOn;
+        MainMgr.isVRValid = isVRConnect.isOn;
     }
 
     /// for button event /////
@@ -40,6 +44,11 @@ public class SceneMgr : MonoBehaviour {
         mainMgr.changeScene(SceneID.Calibration);
     }
     public void gotoGeneral() {
+        mainMgr.changeScene(SceneID.General);
+    }
+
+    public void gotoNewClient() {
+        mainMgr.setServerIP(ipAddress.text);
         mainMgr.changeScene(SceneID.General);
     }
 

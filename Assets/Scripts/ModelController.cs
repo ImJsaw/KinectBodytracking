@@ -233,9 +233,12 @@ public class ModelController : MonoBehaviour {
         chan.Head.rotation = q;
 
         //model position
-        var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.002f;
-        var restore = new Vector3(-2, 3, -2); //決定起始點
-        modelPosition.position = v + mapPosition;
+        //var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.002f;
+        //modelPosition.position = v + mapPosition;
+        Debug.Log("before: " + mapPosition.ToString() + ", " + chan.Head.position.ToString() + ", " + modelPosition.position.ToString());
+        modelPosition.position = mapPosition - chan.Head.position + modelPosition.position;
+        Debug.Log("after: " + mapPosition.ToString() + ", " + chan.Head.position.ToString() + ", " + modelPosition.position.ToString());
+
     }
 
     void Update() {
