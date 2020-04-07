@@ -235,10 +235,14 @@ public class ModelController : MonoBehaviour {
         //model position
         //var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.002f;
         //modelPosition.position = v + mapPosition;
+    }
+
+    private void updateCamPos() {
+        mapPosition = MainMgr.inst.mapPos[modelIndex];
         Debug.Log("before: " + mapPosition.ToString() + ", " + chan.Head.position.ToString() + ", " + modelPosition.position.ToString());
+        //cam pos = original position + vector(head to model anchor)
         modelPosition.position = mapPosition - chan.Head.position + modelPosition.position;
         Debug.Log("after: " + mapPosition.ToString() + ", " + chan.Head.position.ToString() + ", " + modelPosition.position.ToString());
-
     }
 
     void Update() {
@@ -246,13 +250,13 @@ public class ModelController : MonoBehaviour {
             Debug.Log("[modelController] No valid modelIndex");
             return;
         }
+        updateCamPos();
         if (!MainMgr.inst.isFirstDataGet[modelIndex]) {
             Debug.Log("[modelController] no." + modelIndex + " first data not get yet");
             return;
         }
         Debug.Log("[modelController] update "+modelIndex);
         skeleton = MainMgr.inst.skeletons[modelIndex];
-        mapPosition = MainMgr.inst.mapPos[modelIndex];
         applyModel();
     }
 

@@ -21,12 +21,19 @@ public class KinectListener : MonoBehaviour {
     public GameObject VRroot = null;
     public GameObject VRCam = null;
 
+    private GameObject curCam = null;
+
     int myIndex;
 
     void Start() {
         //only open one cam at a time
+        screenCam.transform.position = new Vector3(0, 0, -10);
         VRroot.SetActive(MainMgr.isVRValid);
         screenCam.SetActive(!MainMgr.isVRValid);
+        if (MainMgr.isVRValid)
+            curCam = VRroot;
+        else
+            curCam = screenCam;
 
         if (MainMgr.isCamValid)
             initialCamera();
@@ -49,13 +56,12 @@ public class KinectListener : MonoBehaviour {
     }
     
     void Update() {
-        Debug.Log("enter update");
+        updatePosition();
         if (!initial) {
             Debug.Log("init not complete yet");
             return;
         }
         updateSkeleton();
-        updatePosition();
     }
 
     private void OnDisable() {
@@ -84,7 +90,8 @@ public class KinectListener : MonoBehaviour {
     }
 
     private void updatePosition() {
-        MainMgr.inst.mapPos[myIndex] = VRCam.transform.position;
+        Debug.Log("[CamPosTracker] update index" + myIndex + " cam pos" + curCam.transform.position);
+        MainMgr.inst.mapPos[myIndex] = curCam.transform.position;
     }
 
     private int getIndex() {

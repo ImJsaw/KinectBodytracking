@@ -31,6 +31,8 @@ public class MainMgr : MonoBehaviour {
     public static bool isClient = false;
     public static bool isVRValid = false;
     public static bool isCamValid = false;
+    //read only settings
+    private static readonly Vector3 INIT_CAM_POS = new Vector3(0, 0, -10);
 
     //panel queue
     public Queue<string> panelWaitingList = new Queue<string>();
@@ -68,7 +70,7 @@ public class MainMgr : MonoBehaviour {
     public void addNewModel() {
         //modelRot.Add(new Quaternion[21]);
         //modelPos.Add(initPos);
-        mapPos.Add(new Vector3());
+        mapPos.Add(INIT_CAM_POS);
         skeletons.Add(new Skeleton());
         isFirstDataGet.Add(false);
         //TODO:
