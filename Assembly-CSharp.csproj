@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\DebugRenderer.cs" />
      <Compile Include="Assets\Scripts\KinectListener.cs" />
      <Compile Include="Assets\Scripts\ListenerBase.cs" />
+     <Compile Include="Assets\Scripts\Lobby.cs" />
      <Compile Include="Assets\Scripts\Mgr\MainMgr.cs" />
      <Compile Include="Assets\Scripts\Mgr\NetMgr.cs" />
      <Compile Include="Assets\Scripts\Mgr\SceneMgr.cs" />
@@ -99,7 +100,6 @@
      <Compile Include="Assets\Scripts\ServerListener.cs" />
      <Compile Include="Assets\Scripts\UI\CanvasRoot.cs" />
      <Compile Include="Assets\Scripts\UI\ControlChatRoom.cs" />
-     <Compile Include="Assets\Scripts\UI\TTTTT.cs" />
      <Compile Include="Assets\Scripts\UI\UIMgr.cs" />
      <Compile Include="Assets\Scripts\Utility.cs" />
  <Reference Include="Unity.Timeline.Editor">

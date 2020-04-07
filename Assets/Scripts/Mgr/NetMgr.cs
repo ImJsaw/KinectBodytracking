@@ -31,9 +31,12 @@ public struct Cube
 
 
 [Serializable]
-public struct CamModel {
-    public int index;
+public struct playerPose {
+    public string UID;
     public Skeleton skeleton;
+    public float posX;
+    public float posY;
+    public float posZ;
 }
 
 
@@ -81,11 +84,13 @@ public static class NetMgr {
                 break;
             case packageType.camModel:
                 Debug.Log("[NetMgr]receive camModel package type");
-                CamModel msg = Utility.byte2Origin<CamModel>(socketPackage.data);
-                int index = msg.index;
+                playerPose msg = Utility.byte2Origin<playerPose>(socketPackage.data);
+                int index = MainMgr.inst.getIndexfromUID(msg.UID);
                 Debug.Log("[NetMgr]index" + index);
                 if (MainMgr.inst.skeletons.Count > index)
                     MainMgr.inst.skeletons[index] = msg.skeleton;
+                if (MainMgr.inst.mapPos.Count > index)
+                    MainMgr.inst.mapPos[index] = new Vector3(msg.posX, msg.posY, msg.posZ);
                 if (MainMgr.inst.isFirstDataGet.Count > index)
                     MainMgr.inst.isFirstDataGet[index] = true;
                 Debug.Log("[NetMgr]receive complete");

@@ -23,8 +23,6 @@ public class KinectListener : MonoBehaviour {
 
     private GameObject curCam = null;
 
-    int myIndex;
-
     void Start() {
         //only open one cam at a time
         screenCam.transform.position = new Vector3(0, 0, -10);
@@ -49,8 +47,6 @@ public class KinectListener : MonoBehaviour {
         device.StartCameras(config);
         var calibration = device.GetCalibration(config.DepthMode, config.ColorResolution);
         tracker = BodyTracker.Create(calibration);
-
-        myIndex = getIndex();
 
         initial = true;
     }
@@ -82,16 +78,16 @@ public class KinectListener : MonoBehaviour {
             Debug.LogFormat("{0} bodies found.", frame.NumBodies);
             if (frame.NumBodies > 0) {
                 skeleton = frame.GetSkeleton(0);
-                MainMgr.inst.skeletons[myIndex] = skeleton;
-                MainMgr.inst.isFirstDataGet[myIndex] = true;
+                MainMgr.inst.skeletons[0] = skeleton;
+                MainMgr.inst.isFirstDataGet[0] = true;
             }
         }
         sendModel();
     }
 
     private void updatePosition() {
-        Debug.Log("[CamPosTracker] update index" + myIndex + " cam pos" + curCam.transform.position);
-        MainMgr.inst.mapPos[myIndex] = curCam.transform.position;
+        Debug.Log("[CamPosTracker] update index" + 0 + " cam pos" + curCam.transform.position);
+        MainMgr.inst.mapPos[0] = curCam.transform.position;
     }
 
     private int getIndex() {
@@ -102,9 +98,12 @@ public class KinectListener : MonoBehaviour {
     }
 
     void sendModel() {
-        CamModel msg = new CamModel();
-        msg.index = myIndex;
-        msg.skeleton = MainMgr.inst.skeletons[myIndex];
+        playerPose msg = new playerPose();
+        msg.UID = MainMgr.inst.myUID();
+        msg.skeleton = MainMgr.inst.skeletons[0];
+        msg.posX = MainMgr.inst.mapPos[0].x;
+        msg.posY = MainMgr.inst.mapPos[0].y;
+        msg.posZ = MainMgr.inst.mapPos[0].z;
         //send from net
         byte[] modelDataBytes = Utility.Trans2byte(msg);
         NetMgr.sendMsg(packageType.camModel, modelDataBytes, false);

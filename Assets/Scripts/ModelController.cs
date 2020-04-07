@@ -8,6 +8,8 @@ public class ModelController : MonoBehaviour {
 
     //model index
     int _modelIndex;
+
+    [HideInInspector]
     public int modelIndex {
         get {
             if (_modelIndex == -1)
