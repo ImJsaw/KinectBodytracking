@@ -45,10 +45,14 @@ public class HandController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
+        print("trigger!!");
         if (!other.gameObject.CompareTag("interactable"))
             return;
 
         m_ContactInteractables.Add(other.gameObject.GetComponent<Interactable>());
+
+        print("m_ContactInteractables :" + m_ContactInteractables);
     }
 
     private void OnTriggerExit(Collider other)
@@ -63,7 +67,7 @@ public class HandController : MonoBehaviour
     {
         //Get nearest 
         m_CurrentInteractable = GetNearestInteractable();
-
+        print("connectbody :" + m_CurrentInteractable);
         //null check
         if (!m_CurrentInteractable)
             return;
@@ -77,7 +81,9 @@ public class HandController : MonoBehaviour
 
         //Attach
         Rigidbody targetBody = m_CurrentInteractable.GetComponent<Rigidbody>();
+        m_Joint.connectedBody = targetBody;
 
+       
         //Set Active Hand
         m_CurrentInteractable.m_ActiveHand = this;
     }
@@ -119,6 +125,6 @@ public class HandController : MonoBehaviour
                 nearest = interactable;
             }
         }
-        return null;
+        return nearest;
     }
 }
