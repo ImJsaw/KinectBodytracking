@@ -9,15 +9,20 @@ public class HandController : MonoBehaviour
     public SteamVR_Action_Boolean m_GrabAction = null;
 
     private SteamVR_Behaviour_Pose m_Pose = null;
-    private FixedJoint m_Joint = null;
+    [HideInInspector]
+    public FixedJoint m_Joint = null;
+
+    [HideInInspector]
+    public Modelhand modelHand = null;
 
     private Interactable m_CurrentInteractable = null;
-    private List<Interactable> m_ContactInteractables = new List<Interactable>();
+    [HideInInspector]
+    public List<Interactable> m_ContactInteractables = new List<Interactable>();
 
     private void Awake()
     {
         m_Pose = GetComponent<SteamVR_Behaviour_Pose>();
-        m_Joint = GetComponent<FixedJoint>();
+        //m_Joint = modelHand.GetComponent<FixedJoint>();
     }
     // Start is called before the first frame update
     void Start()
@@ -45,22 +50,20 @@ public class HandController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-        print("trigger!!");
-        if (!other.gameObject.CompareTag("interactable"))
+        /*if (!other.gameObject.CompareTag("interactable"))
             return;
 
         m_ContactInteractables.Add(other.gameObject.GetComponent<Interactable>());
 
-        print("m_ContactInteractables :" + m_ContactInteractables);
+        print("m_ContactInteractables :" + m_ContactInteractables);*/
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.gameObject.CompareTag("interactable"))
+        /*if (!other.gameObject.CompareTag("interactable"))
             return;
 
-        m_ContactInteractables.Remove(other.gameObject.GetComponent<Interactable>());
+        m_ContactInteractables.Remove(other.gameObject.GetComponent<Interactable>());*/
     }
 
     public void Pickup()
@@ -77,7 +80,7 @@ public class HandController : MonoBehaviour
             m_CurrentInteractable.m_ActiveHand.Drop();
 
         //Position
-        m_CurrentInteractable.transform.position = transform.position;
+        m_CurrentInteractable.transform.position = modelHand.transform.position;
 
         //Attach
         Rigidbody targetBody = m_CurrentInteractable.GetComponent<Rigidbody>();
@@ -117,7 +120,7 @@ public class HandController : MonoBehaviour
 
         foreach(Interactable interactable in m_ContactInteractables)
         {
-            distance = (interactable.transform.position - transform.position).sqrMagnitude;
+            distance = (interactable.transform.position - modelHand.transform.position).sqrMagnitude;
 
             if(distance < minDistant)
             {
