@@ -15,6 +15,7 @@ public class General : MonoBehaviour {
 
     private void checkNewPlayer() {
         foreach (KeyValuePair<string, int> kvp in MainMgr.inst.getUIDDect()) {
+            Debug.Log("key : " + kvp.Key + ", " + kvp.Value);
             if (!localPlayerUIDDict.ContainsKey(kvp.Key))
                 addNewPlayer( kvp.Key, kvp.Value);
         }

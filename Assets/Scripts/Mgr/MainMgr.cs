@@ -133,6 +133,9 @@ public class MainMgr : MonoBehaviour {
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         SceneID id = getCurScenID(scene);
         switch (id) {
+            case SceneID.Connect:
+                addNewModel(_myUID);
+                break;
             case SceneID.Client:
                 clientListener = GameObject.Find("Listener").GetComponent<ClientListener>();
                 if (clientListener == null)
@@ -152,7 +155,7 @@ public class MainMgr : MonoBehaviour {
                 }
                 break;
             case SceneID.General:
-                addNewModel(_myUID);
+                
                 break;
             default:
                 Debug.Log("[Scene] goto "+id+" scene");
