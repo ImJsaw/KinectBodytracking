@@ -13,18 +13,19 @@ public class KinectListener : MonoBehaviour {
     private bool initial = false;
     
     public GameObject screenCam = null;
-    public GameObject VRroot = null;
-    public GameObject VRCam = null;
+    public GameObject VrPrefab = null;
+    private GameObject VRroot = null;
 
     private GameObject curCam = null;
 
     void Start() {
         //only open one cam at a time
         screenCam.transform.position = new Vector3(0, 0, -10);
-        VRroot.SetActive(MainMgr.isVRValid);
-        screenCam.SetActive(!MainMgr.isVRValid);
-        if (MainMgr.isVRValid)
-            curCam = VRroot;
+        if (MainMgr.isVRValid) {
+            //generate VR camera if vr valid
+            VRroot = Instantiate(VrPrefab);
+            curCam = VRroot.GetComponentInChildren<Transform>().Find("Camera").gameObject;
+        }
         else
             curCam = screenCam;
 
