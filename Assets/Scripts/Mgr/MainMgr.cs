@@ -22,7 +22,6 @@ public class MainMgr : MonoBehaviour {
     
     public static MainMgr inst = null;
 
-    public ModelController modelPrefab = null;
     //components
     [HideInInspector]
     public TcpClient client = null;
@@ -89,10 +88,6 @@ public class MainMgr : MonoBehaviour {
         mapPos.Add(INIT_CAM_POS);
         skeletons.Add(new Skeleton());
         isFirstDataGet.Add(false);
-        //instantiate model & set index
-        ModelController modelInstant = Instantiate(modelPrefab);
-        modelInstant.modelIndex = modelSum;
-        Debug.Log("[model instantiate] generate " + modelSum + " th model");
         modelSum++;
     }
 
@@ -173,6 +168,10 @@ public class MainMgr : MonoBehaviour {
 
     public string myUID() {
         return _myUID;
+    }
+
+    public Dictionary<string, int> getUIDDect() {
+        return playerUIDDict;
     }
 
 }

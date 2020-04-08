@@ -2,11 +2,6 @@
 using UnityEngine;
 using Microsoft.Azure.Kinect.Sensor;
 using Microsoft.Azure.Kinect.Sensor.BodyTracking;
-using Joint = Microsoft.Azure.Kinect.Sensor.BodyTracking.Joint;
-using UnityEngine.UI;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using Valve.VR;
 
 [CLSCompliant(false)]
 public class KinectListener : MonoBehaviour {
@@ -52,6 +47,7 @@ public class KinectListener : MonoBehaviour {
     }
     
     void Update() {
+        Debug.Log("update");
         updatePosition();
         if (!initial) {
             Debug.Log("init not complete yet");
@@ -88,13 +84,6 @@ public class KinectListener : MonoBehaviour {
     private void updatePosition() {
         Debug.Log("[CamPosTracker] update index" + 0 + " cam pos" + curCam.transform.position);
         MainMgr.inst.mapPos[0] = curCam.transform.position;
-    }
-
-    private int getIndex() {
-        //get index from server
-
-        //暫時server0 client1 測試
-        return 0;
     }
 
     void sendModel() {

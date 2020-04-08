@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\Calibration.cs" />
      <Compile Include="Assets\Scripts\ClientListener.cs" />
      <Compile Include="Assets\Scripts\DebugRenderer.cs" />
+     <Compile Include="Assets\Scripts\General.cs" />
      <Compile Include="Assets\Scripts\KinectListener.cs" />
      <Compile Include="Assets\Scripts\ListenerBase.cs" />
      <Compile Include="Assets\Scripts\Lobby.cs" />
