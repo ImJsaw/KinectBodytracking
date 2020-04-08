@@ -11,19 +11,16 @@ public class Modelhand : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(m_model.modelIndex == 0)
-        {
-            m_hand.modelHand = this;
-            m_hand.m_Joint = GetComponent<FixedJoint>();
 
-            if (is_Left)
-                m_hand = GameObject.Find("Controller (left)").GetComponent<HandController>();
-            else
-                m_hand = GameObject.Find("Controller (right)").GetComponent<HandController>();
-        }
+        if (is_Left)
+            m_hand = GameObject.Find("Controller (left)").GetComponent<HandController>();
+        else
+            m_hand = GameObject.Find("Controller (right)").GetComponent<HandController>();
 
+        m_hand.modelHand = this;
+        m_hand.m_Joint = GetComponent<FixedJoint>();
 
-
+        Debug.Log("mhand :", m_hand);
     }
 
     // Update is called once per frame
@@ -38,10 +35,11 @@ public class Modelhand : MonoBehaviour
         if (!other.gameObject.CompareTag("interactable"))
             return;
 
-        if (m_model.modelIndex != 0)  //確定是不是自己
-            return;
-
+        //if (m_model.modelIndex != 0)  //確定是不是自己
+        //    return;
+        
         m_hand.m_ContactInteractables.Add(other.gameObject.GetComponent<Interactable>());
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -50,8 +48,8 @@ public class Modelhand : MonoBehaviour
         if (!other.gameObject.CompareTag("interactable"))
             return;
 
-        if (m_model.modelIndex != 0)  //確定是不是自己
-            return;
+        //if (m_model.modelIndex != 0)  //確定是不是自己
+        //    return;
 
         m_hand.m_ContactInteractables.Remove(other.gameObject.GetComponent<Interactable>());
     }

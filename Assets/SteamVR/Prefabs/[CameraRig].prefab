@@ -340,7 +340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_GrabAction:
-    actionPath: 
+    actionPath: /actions/default/in/GrabPinch
     needsReinit: 0
   m_Joint: {fileID: 0}
   modelHand: {fileID: 0}
