@@ -20,7 +20,7 @@ public class KinectListener : MonoBehaviour {
 
     void Start() {
         //only open one cam at a time
-        screenCam.transform.position = new Vector3(0, 0, -10);
+        screenCam.transform.position = MainMgr.INIT_CAM_POS;
         if (MainMgr.isVRValid) {
             //generate VR camera if vr valid
             VRroot = Instantiate(VrPrefab);

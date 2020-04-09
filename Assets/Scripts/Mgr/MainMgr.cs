@@ -38,7 +38,7 @@ public class MainMgr : MonoBehaviour {
     public static bool isVRValid = false;
     public static bool isCamValid = false;
     //read only settings
-    private static readonly Vector3 INIT_CAM_POS = new Vector3(0, 0, -10);
+    public static readonly Vector3 INIT_CAM_POS = new Vector3(1, 2, -5);
 
     //panel queue
     public Queue<string> panelWaitingList = new Queue<string>();
