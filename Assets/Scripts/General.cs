@@ -5,6 +5,7 @@ using UnityEngine;
 [CLSCompliant(false)]
 public class General : MonoBehaviour {
 
+    public ModelController modelPrefabVR = null;
     public ModelController modelPrefab = null;
     private Dictionary<string, int> localPlayerUIDDict = new Dictionary<string, int>();
 
@@ -25,7 +26,15 @@ public class General : MonoBehaviour {
         //log  UID/index in local dictionary
         localPlayerUIDDict.Add(UID, index);
         //instantiate model & set index
-        ModelController modelInstant = Instantiate(modelPrefab);
+        ModelController modelInstant;
+        if (MainMgr.isVRValid)
+        {
+            modelInstant = Instantiate(modelPrefabVR);
+        }
+        else
+        {
+            modelInstant = Instantiate(modelPrefab);
+        }
         modelInstant.modelIndex = index;
         Debug.Log("[model instantiate] generate " + index + " th model");
     }
