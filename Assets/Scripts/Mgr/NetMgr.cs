@@ -19,6 +19,8 @@ public struct Messege {
 [Serializable]
 public struct Cube
 {
+    public int id;
+
     public float Vecx;
     public float Vecy;
     public float Vecz;
@@ -101,7 +103,9 @@ public static class NetMgr {
                     Debug.Log("[NetMgr]null server");
                     break;
                 }
-                MainMgr.inst.serverListener.rcvCube(socketPackage.data);
+                Cube Cubemsg = Utility.byte2Origin<Cube>(socketPackage.data);
+                Moveable target = MainMgr.inst.moveableList.Find(x => Cubemsg.id == x.id);
+                target.rcvCube(Cubemsg);
                 break;
             default:
                 Debug.Log("[NetMgr]receive unknown package type");

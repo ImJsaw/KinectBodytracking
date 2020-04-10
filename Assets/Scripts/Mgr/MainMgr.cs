@@ -55,6 +55,12 @@ public class MainMgr : MonoBehaviour {
     [HideInInspector]
     public int modelSum = 0;
 
+
+    [HideInInspector]
+    public List<Moveable> moveableList = new List<Moveable>();
+    [HideInInspector]
+    public int moveableid = 0;
+
     //default instantiate
     private Vector3 initPos = new Vector3(-12, -2.5f, -6.16f);
     private Dictionary<string, int> playerUIDDict = new Dictionary<string, int>();
