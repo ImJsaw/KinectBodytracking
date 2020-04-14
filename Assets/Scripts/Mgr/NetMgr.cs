@@ -42,11 +42,27 @@ public struct playerPose {
 }
 
 
+[Serializable]
+public struct register {
+    public string UID;
+    //cam position
+    public float posX;
+    public float posY;
+    public float posZ;
+    //init model rotation
+    public float rotX;
+    public float rotY;
+    public float rotZ;
+    public float rotW;
+}
+
+
 public enum packageType {
     model = 0,
     messege,
     camModel,
-    cube
+    cube,
+    register
 }
 
 public static class NetMgr {
@@ -106,6 +122,16 @@ public static class NetMgr {
                 Cube Cubemsg = Utility.byte2Origin<Cube>(socketPackage.data);
                 Moveable target = MainMgr.inst.moveableList.Find(x => Cubemsg.id == x.id);
                 target.rcvCube(Cubemsg);
+                break;
+            case packageType.register:
+                Debug.Log("[NetMgr]receive new observer get in");
+                register registerMsg = Utility.byte2Origin<register>(socketPackage.data);
+                int registerIndex = MainMgr.inst.getIndexfromUID(registerMsg.UID);
+                Debug.Log("[NetMgr]index" + registerIndex);
+                if (MainMgr.inst.mapPos.Count > registerIndex)
+                    MainMgr.inst.mapPos[registerIndex] = new Vector3(registerMsg.posX, registerMsg.posY, registerMsg.posZ);
+                if (MainMgr.inst.initRot.Count > registerIndex)
+                    MainMgr.inst.initRot[registerIndex] = new Quaternion(registerMsg.rotX, registerMsg.rotY, registerMsg.rotZ, registerMsg.rotW);
                 break;
             default:
                 Debug.Log("[NetMgr]receive unknown package type");

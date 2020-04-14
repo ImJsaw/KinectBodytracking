@@ -47,6 +47,8 @@ public class MainMgr : MonoBehaviour {
     //public List<Quaternion[]> modelRot = new List<Quaternion[]>();
     //public List<Vector3> modelPos = new List<Vector3>();
     [HideInInspector]
+    public List<Quaternion> initRot = new List<Quaternion>();
+    [HideInInspector]
     public List<Vector3> mapPos = new List<Vector3>();
     [HideInInspector]
     public List<Skeleton> skeletons = new List<Skeleton>();
@@ -94,6 +96,7 @@ public class MainMgr : MonoBehaviour {
         mapPos.Add(INIT_CAM_POS);
         skeletons.Add(new Skeleton());
         isFirstDataGet.Add(false);
+        initRot.Add(Quaternion.identity);
         modelSum++;
     }
 

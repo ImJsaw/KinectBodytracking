@@ -31,6 +31,9 @@ public class KinectListener : MonoBehaviour {
 
         if (MainMgr.isCamValid)
             initialCamera();
+        //if is a client without cam, send register to server 
+        if (MainMgr.isClient)
+            sendRegister();
     }
 
     void initialCamera() {
@@ -98,5 +101,16 @@ public class KinectListener : MonoBehaviour {
         byte[] modelDataBytes = Utility.Trans2byte(msg);
         NetMgr.sendMsg(packageType.camModel, modelDataBytes, false);
     }
-    
+
+    void sendRegister() {
+        register msg = new register();
+        msg.UID = MainMgr.inst.myUID();
+        msg.posX = MainMgr.inst.mapPos[0].x;
+        msg.posY = MainMgr.inst.mapPos[0].y;
+        msg.posZ = MainMgr.inst.mapPos[0].z;
+        //send from net
+        byte[] registerDataByte = Utility.Trans2byte(msg);
+        NetMgr.sendMsg(packageType.camModel, registerDataByte, true);
+    }
+
 }

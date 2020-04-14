@@ -239,7 +239,13 @@ public class ModelController : MonoBehaviour {
         //modelPosition.position = v + mapPosition;
     }
 
-    private void updateCamPos() {
+    private void updateModelTransform() {
+        //rotation
+
+        //camera VR空間 offset
+        modelPosition.rotation = Quaternion.Inverse(MainMgr.inst.initRot[modelIndex]);
+
+        //position
         mapPosition = MainMgr.inst.mapPos[modelIndex];
         Debug.Log("before: " + mapPosition.ToString() + ", " + chan.Head.position.ToString() + ", " + modelPosition.position.ToString());
         //cam pos = original position + vector(head to model anchor)
@@ -252,7 +258,7 @@ public class ModelController : MonoBehaviour {
             Debug.Log("[modelController] No valid modelIndex");
             return;
         }
-        updateCamPos();
+        updateModelTransform();
         if (!MainMgr.inst.isFirstDataGet[modelIndex]) {
             Debug.Log("[modelController] no." + modelIndex + " first data not get yet");
             return;
