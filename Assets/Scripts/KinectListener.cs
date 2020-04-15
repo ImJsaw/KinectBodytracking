@@ -99,7 +99,7 @@ public class KinectListener : MonoBehaviour {
         msg.posZ = MainMgr.inst.mapPos[0].z;
         //send from net
         byte[] modelDataBytes = Utility.Trans2byte(msg);
-        NetMgr.sendMsg(packageType.camModel, modelDataBytes, false);
+        NetMgr.sendMsg(packageType.camModel, modelDataBytes);
     }
 
     void sendRegister() {
@@ -110,7 +110,7 @@ public class KinectListener : MonoBehaviour {
         msg.posZ = MainMgr.inst.mapPos[0].z;
         //send from net
         byte[] registerDataByte = Utility.Trans2byte(msg);
-        NetMgr.sendMsg(packageType.camModel, registerDataByte, true);
+        NetMgr.sendMsg(packageType.register, registerDataByte);
     }
 
 }

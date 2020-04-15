@@ -12,12 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Connect.unity
     guid: ed5e9a5660f470947a5a310b9c8797f9
   - enabled: 1
-    path: Assets/Scenes/Server.unity
-    guid: 0e67cc2fc4448c442add1e9b8260b1b0
-  - enabled: 1
-    path: Assets/Scenes/Client.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
     path: Assets/Scenes/Calibration.unity
     guid: 2d02c8f6a6ccff240b213879c7be0ff0
   - enabled: 1

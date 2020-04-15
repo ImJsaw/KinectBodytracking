@@ -59,7 +59,7 @@ public class Moveable : MonoBehaviour
 
         byte[] msg;
         msg = Utility.Trans2byte<Cube>(controlCubeTransform);
-        NetMgr.sendMsg(packageType.cube, msg, false);
+        NetMgr.sendMsg(packageType.cube, msg);
 
     }
 

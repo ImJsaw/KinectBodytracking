@@ -251,6 +251,6 @@ public class Calibration : ListenerBase {
 
     public void calibrationComplete() {
         Debug.Log("complete calibration");
-        MainMgr.inst.changeScene(SceneID.Server);
+        MainMgr.inst.changeScene(SceneID.General);
     }
 }

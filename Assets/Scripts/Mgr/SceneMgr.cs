@@ -29,17 +29,6 @@ public class SceneMgr : MonoBehaviour {
         MainMgr.isVRValid = isVRConnect.isOn;
     }
 
-    /// for button event /////
-    public void gotoServerScene() {
-        mainMgr.changeScene(SceneID.Server);
-    }
-
-    public void gotoClientScene() {
-        mainMgr.changeScene(SceneID.Client);
-        //set server ip
-        mainMgr.setServerIP(ipAddress.text);
-    }
-
     public void gotoCalibration() {
         mainMgr.changeScene(SceneID.Calibration);
     }

@@ -11,8 +11,6 @@ public enum SceneID : int {
     None = -1,
     Start,
     Connect,
-    Server,
-    Client,
     Calibration,
     General
 };
@@ -27,12 +25,6 @@ public class MainMgr : MonoBehaviour {
     public TcpClient client = null;
     [HideInInspector]
     public TcpServer server = null;
-    [HideInInspector]
-    public ClientListener clientListener = null;
-    [HideInInspector]
-    public ServerListener serverListener = null;
-    [HideInInspector]
-    public bool getListenerComplete = false;
     //game settings
     public static bool isClient = false;
     public static bool isVRValid = false;
@@ -127,12 +119,8 @@ public class MainMgr : MonoBehaviour {
             case 1:
                 return SceneID.Connect;
             case 2:
-                return SceneID.Server;
-            case 3:
-                return SceneID.Client;
-            case 4:
                 return SceneID.Calibration;
-            case 5:
+            case 3:
                 return SceneID.General;
 
         }
@@ -144,24 +132,6 @@ public class MainMgr : MonoBehaviour {
         switch (id) {
             case SceneID.Connect:
                 addNewModel(_myUID);
-                break;
-            case SceneID.Client:
-                clientListener = GameObject.Find("Listener").GetComponent<ClientListener>();
-                if (clientListener == null)
-                    Debug.Log("null remote");
-                else {
-                    getListenerComplete = true;
-                    Debug.Log("complete find listener");
-                }
-                break;
-            case SceneID.Server:
-                serverListener = GameObject.Find("Listener").GetComponent<ServerListener>();
-                if (serverListener == null)
-                    Debug.Log("null remote");
-                else {
-                    getListenerComplete = true;
-                    Debug.Log("complete find listener");
-                }
                 break;
             case SceneID.General:
                 

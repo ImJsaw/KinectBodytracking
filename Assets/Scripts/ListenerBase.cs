@@ -17,7 +17,6 @@ public class ListenerBase : MonoBehaviour {
 
     protected Skeleton skeleton = new Skeleton();
     private static readonly Skeleton newSkeleton = new Skeleton();
-    protected Messege content;
     public JointChan chan;
     [System.Serializable]
     public struct JointChan {

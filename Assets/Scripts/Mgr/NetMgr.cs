@@ -11,12 +11,6 @@ public struct SocketPackage {
 }
 
 [Serializable]
-public struct Messege {
-    public string username;
-    public string text;
-}
-
-[Serializable]
 public struct Cube
 {
     public int id;
@@ -58,9 +52,7 @@ public struct register {
 
 
 public enum packageType {
-    model = 0,
-    messege,
-    camModel,
+    camModel = 0,
     cube,
     register
 }
@@ -77,29 +69,6 @@ public static class NetMgr {
 
 
         switch (socketPackage.type) {
-            case packageType.model:
-                if (!MainMgr.inst.getListenerComplete || MainMgr.inst.clientListener == null) {
-                    Debug.Log("[NetMgr]null client");
-                    break;
-                }
-                MainMgr.inst.clientListener.updateBody(socketPackage.data);
-                break;
-            case packageType.messege:
-                if (!isCient) {
-                    if (!MainMgr.inst.getListenerComplete || MainMgr.inst.serverListener == null) {
-                        Debug.Log("[NetMgr]null server");
-                        break;
-                    }
-                    MainMgr.inst.serverListener.updateChatRoom(socketPackage.data);
-                } else {
-                    if (!MainMgr.inst.getListenerComplete || MainMgr.inst.clientListener == null) {
-                        Debug.Log("[NetMgr]null client");
-                        break;
-                    }
-                    MainMgr.inst.clientListener.updateChatRoom(socketPackage.data);
-                }
-
-                break;
             case packageType.camModel:
                 Debug.Log("[NetMgr]receive camModel package type");
                 playerPose msg = Utility.byte2Origin<playerPose>(socketPackage.data);
@@ -114,11 +83,6 @@ public static class NetMgr {
                 Debug.Log("[NetMgr]receive complete");
                 break;
             case packageType.cube:
-                if (!MainMgr.inst.getListenerComplete || MainMgr.inst.serverListener == null)
-                {
-                    Debug.Log("[NetMgr]null server");
-                    break;
-                }
                 Cube Cubemsg = Utility.byte2Origin<Cube>(socketPackage.data);
                 Moveable target = MainMgr.inst.moveableList.Find(x => Cubemsg.id == x.id);
                 target.rcvCube(Cubemsg);
@@ -139,12 +103,12 @@ public static class NetMgr {
         }
     }
 
-    public static void sendMsg(packageType type, byte[] data, bool isClient = true) {
+    public static void sendMsg(packageType type, byte[] data) {
         SocketPackage sendData = new SocketPackage();
         sendData.type = type;
         sendData.data = data;
 
-        if (isClient) {
+        if (MainMgr.isClient) {
             MainMgr.inst.client.SocketSend(Utility.Trans2byte(sendData));
         } else {
             MainMgr.inst.server.SocketSend(Utility.Trans2byte(sendData));
