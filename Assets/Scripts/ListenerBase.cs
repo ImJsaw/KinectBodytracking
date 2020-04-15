@@ -7,16 +7,7 @@ using UnityEngine.UI;
 [CLSCompliant(false)]
 public class ListenerBase : MonoBehaviour {
 
-    public InputField chatInput;
-    public Text chatText;
-    public ScrollRect scrollRect;
-
-    public GameObject controlCube;
-
-    protected Cube controlCubeTransform = new Cube();
-
     protected Skeleton skeleton = new Skeleton();
-    private static readonly Skeleton newSkeleton = new Skeleton();
     public JointChan chan;
     [System.Serializable]
     public struct JointChan {
@@ -176,11 +167,6 @@ public class ListenerBase : MonoBehaviour {
     }
 
     protected void updateModel() {
-        //check already got first data
-        if (ReferenceEquals(skeleton, newSkeleton)) {
-            Debug.Log("sksleton null");
-            return;
-        }
 
         //       0
         Joint joint1 = skeleton.Joints[0];
@@ -369,61 +355,6 @@ public class ListenerBase : MonoBehaviour {
 
     }
 
-    Skeleton deserializeJoints(string s) {
-        Debug.Log(s);
-        //avoid get two data same time
-        s = s.Split('@')[0];
-        //get joint array
-        string[] jointStr = s.Split('^');
-        Skeleton skeleton = new Skeleton();
-        skeleton.Joints = new Joint[jointStr.Length];
-        Debug.Log("*****JOINT" + jointStr.Length);
-        Joint[] joints = skeleton.Joints;
-        for (int i = 0; i < 26; i++) {
-            joints[i] = new Joint();
-            //get single joint
-            string[] oriAndPos = jointStr[i].Split('$');
-            Debug.Log("*****rot" + oriAndPos[0] + "//" + i);
-            //orientation
-            string[] orientationStr = oriAndPos[0].Split('#');
-            float[] orientations = new float[orientationStr.Length];
-            for (int j = 0; j < orientations.Length; j++) {
-                Debug.Log(orientationStr[j]);
-                orientations[j] = float.Parse(orientationStr[j]);
-            }
-            joints[i].Orientation = orientations;
-            //position
-            Debug.Log("*****Pos" + oriAndPos[1] + "//" + i);
-            string[] positionStr = oriAndPos[1].Split('|');
-            float[] positions = new float[positionStr.Length];
-            for (int j = 0; j < positions.Length; j++) {
-                Debug.Log(positionStr[j]);
-                positions[j] = float.Parse(positionStr[j]);
-            }
-            joints[i].Position = positions;
-        }
-        return skeleton;
-    }
-
-    string serializeJoints(Joint[] joints) {
-        string s = "";
-        for (int i = 0; i < 26; i++) {
-            for (int j = 0; j < joints[i].Orientation.Length; j++) {
-                s += joints[i].Orientation[j] + "#";
-            }
-            s = s.Remove(s.Length - 1);
-            s += "$";
-            for (int j = 0; j < joints[i].Position.Length; j++) {
-                s += joints[i].Position[j] + "|";
-            }
-            s = s.Remove(s.Length - 1);
-            s += "^";
-        }
-        s = s.Remove(s.Length - 1);
-        return s + "@";
-    }
-
-
     //check if there any error msg
     protected void checkError() {
         if (MainMgr.inst.panelWaitingList.Count != 0) {
@@ -532,15 +463,6 @@ public class ListenerBase : MonoBehaviour {
         }
     }
 
-    protected void updateCube()
-    {
-        Vector3 cubPosition = new Vector3(controlCubeTransform.Vecx, controlCubeTransform.Vecy, controlCubeTransform.Vecz);
-        controlCube.transform.position = cubPosition;
-
-        Quaternion cubRotation = new Quaternion(controlCubeTransform.Rotx, controlCubeTransform.Roty, controlCubeTransform.Rotz, controlCubeTransform.Rotw);
-        controlCube.transform.rotation = cubRotation;
-
-    }
 }
 
 

@@ -7,6 +7,7 @@ using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 
 public enum calibrationState {
     None = 0,
+    VR,
     TPose,
     HandRising,
     Complete
@@ -20,6 +21,8 @@ public class Calibration : ListenerBase {
     public Text time_UI = null;
     public Text joint_UI = null;
     public Text rot_UI = null;
+
+    public GameObject VRCam = null;
 
     // threshold of pose calibration
     private readonly float angleThershold = 30;
@@ -140,8 +143,6 @@ public class Calibration : ListenerBase {
                 updateModel();
             }
         }
-        //split for force update
-        updateModel();
         getModelRotation();
         calibrationThread();
     }
@@ -158,9 +159,12 @@ public class Calibration : ListenerBase {
         switch (curState) {
             case calibrationState.None:
                 //start count down
-                InvokeRepeating("countDown", 1, 2);
+                InvokeRepeating("countDown", 1, 1);
                 isTimeUp = false;
-                curState = calibrationState.TPose;
+                curState = calibrationState.VR;
+                break;
+            case calibrationState.VR:
+                checkHelmet();
                 break;
             case calibrationState.TPose:
                 checkTPose();
@@ -174,6 +178,22 @@ public class Calibration : ListenerBase {
             default:
                 Debug.Log("unknown calibration state");
                 break;
+        }
+    }
+
+    private void checkHelmet() {
+        rot_UI.text = "VR rot : " + VRCam.transform.rotation.eulerAngles.ToString();
+
+        bool correct = true;
+
+        Vector3 angle = VRCam.transform.rotation.eulerAngles;
+        if (Math.Abs(angle.x) > 10 || Math.Abs(angle.y) > 10 || Math.Abs(angle.z) > 10)
+            calibrationFail();
+        // check complete, goto next state
+        if (correct && isTimeUp) {
+            InvokeRepeating("countDown", 1, 1);
+            isTimeUp = false;
+            curState = calibrationState.TPose;
         }
     }
 
@@ -221,7 +241,7 @@ public class Calibration : ListenerBase {
         }
         //t pose check complete, goto next state
         if (correct && isTimeUp) {
-            InvokeRepeating("countDown", 1, 2);
+            InvokeRepeating("countDown", 1, 1);
             isTimeUp = false;
             curState = calibrationState.HandRising;
         }
