@@ -23,7 +23,7 @@ public class KinectListener : MonoBehaviour {
         screenCam.transform.position = MainMgr.INIT_CAM_POS;
         if (MainMgr.isVRValid) {
             //generate VR camera if vr valid
-            VRroot = Instantiate(VrPrefab);
+            VRroot = Instantiate(VrPrefab, new Vector3(1, 2, 0), Quaternion.identity);
             curCam = VRroot.GetComponentInChildren<Transform>().Find("Camera").gameObject;
         }
         else
