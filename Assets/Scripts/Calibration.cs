@@ -183,7 +183,7 @@ public class Calibration : ListenerBase {
 
     private void checkHelmet() {
         rot_UI.text = "VR rot : " + VRCam.transform.rotation.eulerAngles.ToString();
-
+        Debug.Log("Pelvis : " + chan.Pelvis.rotation.eulerAngles.ToString());
         bool correct = true;
 
         Vector3 angle = VRCam.transform.rotation.eulerAngles;
@@ -191,9 +191,12 @@ public class Calibration : ListenerBase {
             calibrationFail();
         // check complete, goto next state
         if (correct && isTimeUp) {
+            //save init rotation
+            MainMgr.inst.initRot[0] = chan.Pelvis.rotation;
             InvokeRepeating("countDown", 1, 1);
             isTimeUp = false;
-            curState = calibrationState.TPose;
+            //goto complete state
+            curState = calibrationState.Complete;
         }
     }
 
