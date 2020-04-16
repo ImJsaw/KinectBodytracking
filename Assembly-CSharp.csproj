@@ -113,6 +113,7 @@
     <Compile Include="Assets\Scripts\VR\Interactable.cs" />
     <Compile Include="Assets\Scripts\VR\Modelhand.cs" />
     <Compile Include="Assets\Scripts\VR\Moveable.cs" />
+    <Compile Include="Assets\Scripts\VR\Teleporter.cs" />
     <None Include="Assets\Resources\moving.txt" />
     <None Include="Assets\Third-Party-Notices.txt" />
     <Reference Include="Unity.Timeline.Editor">
