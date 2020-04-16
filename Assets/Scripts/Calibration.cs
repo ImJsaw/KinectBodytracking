@@ -187,7 +187,12 @@ public class Calibration : ListenerBase {
         bool correct = true;
 
         Vector3 angle = VRCam.transform.rotation.eulerAngles;
-        if (Math.Abs(angle.x) > 10 || Math.Abs(angle.y) > 10 || Math.Abs(angle.z) > 10)
+        float angleY = angle.y;
+        //change 0~360 to +-180
+        if (angleY > 180)
+            angleY -= 180;
+        //if over threshold, fail.
+        if (Math.Abs(angleY) > 5)
             calibrationFail();
         // check complete, goto next state
         if (correct && isTimeUp) {

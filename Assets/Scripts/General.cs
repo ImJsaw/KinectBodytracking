@@ -30,6 +30,7 @@ public class General : MonoBehaviour {
         if (MainMgr.isVRValid)
         {
             modelInstant = Instantiate(modelPrefabVR);
+           // modelInstant.gameObject.transform.Rotate(0,)
         }
         else
         {

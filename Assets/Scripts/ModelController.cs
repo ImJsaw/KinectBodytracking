@@ -234,16 +234,29 @@ public class ModelController : MonoBehaviour {
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.Head.rotation = q;
 
+        //0
+        joint1 = skeleton.Joints[0];
+        pos = joint1.Position;
+        rot1 = joint1.Orientation;
+        rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+        r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
+        q = new Quaternion(r.z, -r.x, -r.y, r.w);
+        chan.Pelvis.localRotation = Quaternion.Inverse(MainMgr.inst.initRot[modelIndex]) * q;
+
         //model position
         //var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.002f;
         //modelPosition.position = v + mapPosition;
+        //Vector3 offset = Quaternion.Inverse(MainMgr.inst.initRot[modelIndex]).eulerAngles;
+        //modelPosition.transform.localRotation = Quaternion.Inverse(MainMgr.inst.initRot[modelIndex]);
+        Debug.Log("calibrstion" + Quaternion.Inverse(MainMgr.inst.initRot[modelIndex]).eulerAngles.ToString());
+
     }
 
     private void updateModelTransform() {
         //rotation
 
         //camera VR空間 offset
-        modelPosition.rotation = Quaternion.Inverse(MainMgr.inst.initRot[modelIndex]);
+        
 
         //position
         mapPosition = MainMgr.inst.mapPos[modelIndex];
