@@ -31,26 +31,26 @@ public class Modelhand : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("isTrigger!");
-        if (!other.gameObject.CompareTag("interactable"))
-            return;
-
-        //if (m_model.modelIndex != 0)  //確定是不是自己
+        //print("isTrigger!");
+        //if (!other.gameObject.CompareTag("interactable"))
         //    return;
+
+        ////if (m_model.modelIndex != 0)  //確定是不是自己
+        ////    return;
         
-        m_hand.m_ContactInteractables.Add(other.gameObject.GetComponent<Interactable>());
+        //m_hand.m_ContactInteractables.Add(other.gameObject.GetComponent<Interactable>());
 
     }
 
     private void OnTriggerExit(Collider other)
     {
 
-        if (!other.gameObject.CompareTag("interactable"))
-            return;
-
-        //if (m_model.modelIndex != 0)  //確定是不是自己
+        //if (!other.gameObject.CompareTag("interactable"))
         //    return;
 
-        m_hand.m_ContactInteractables.Remove(other.gameObject.GetComponent<Interactable>());
+        ////if (m_model.modelIndex != 0)  //確定是不是自己
+        ////    return;
+
+        //m_hand.m_ContactInteractables.Remove(other.gameObject.GetComponent<Interactable>());
     }
 }

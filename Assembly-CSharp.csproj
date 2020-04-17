@@ -65,7 +65,6 @@
     <Compile Include="Assets\FurnishedCabin\Scripts\MoveableObject.cs" />
     <Compile Include="Assets\FurnishedCabin\Scripts\MoveObjectController.cs" />
     <Compile Include="Assets\Scripts\Calibration.cs" />
-    <Compile Include="Assets\Scripts\Controller.cs" />
     <Compile Include="Assets\Scripts\DebugRenderer.cs" />
     <Compile Include="Assets\Scripts\General.cs" />
     <Compile Include="Assets\Scripts\KinectListener.cs" />
@@ -114,8 +113,6 @@
     <Compile Include="Assets\Scripts\VR\Modelhand.cs" />
     <Compile Include="Assets\Scripts\VR\Moveable.cs" />
     <Compile Include="Assets\Scripts\VR\Teleporter.cs" />
-    <None Include="Assets\Resources\moving.txt" />
-    <None Include="Assets\Third-Party-Notices.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/powen/Desktop/KinectBodytracking/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

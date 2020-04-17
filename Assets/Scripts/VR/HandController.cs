@@ -22,7 +22,7 @@ public class HandController : MonoBehaviour
     private void Awake()
     {
         m_Pose = GetComponent<SteamVR_Behaviour_Pose>();
-        //m_Joint = modelHand.GetComponent<FixedJoint>();
+        m_Joint = modelHand.GetComponent<FixedJoint>();
     }
     // Start is called before the first frame update
     void Start()
@@ -50,20 +50,20 @@ public class HandController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        /*if (!other.gameObject.CompareTag("interactable"))
+        if (!other.gameObject.CompareTag("interactable"))
             return;
 
         m_ContactInteractables.Add(other.gameObject.GetComponent<Interactable>());
 
-        print("m_ContactInteractables :" + m_ContactInteractables);*/
+        print("m_ContactInteractables :" + m_ContactInteractables);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        /*if (!other.gameObject.CompareTag("interactable"))
+        if (!other.gameObject.CompareTag("interactable"))
             return;
 
-        m_ContactInteractables.Remove(other.gameObject.GetComponent<Interactable>());*/
+        m_ContactInteractables.Remove(other.gameObject.GetComponent<Interactable>());
     }
 
     public void Pickup()

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 458974}
   - component: {fileID: 114000010876603736}
   - component: {fileID: 3852610310576271528}
+  - component: {fileID: 6272682989444933711}
   m_Layer: 0
   m_Name: Controller (left)
   m_TagString: Untagged
@@ -94,6 +95,19 @@ MonoBehaviour:
   m_Joint: {fileID: 0}
   modelHand: {fileID: 0}
   m_ContactInteractables: []
+--- !u!135 &6272682989444933711
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124034}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &146900
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,6 +277,7 @@ GameObject:
   - component: {fileID: 114000010110554832}
   - component: {fileID: 1694557454286940506}
   - component: {fileID: 3928379400641486614}
+  - component: {fileID: 5802686121620313489}
   m_Layer: 0
   m_Name: Controller (right)
   m_TagString: Untagged
@@ -363,6 +378,19 @@ MonoBehaviour:
   m_TeleportAction:
     actionPath: /actions/default/in/Teleport
     needsReinit: 0
+--- !u!135 &5802686121620313489
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159396}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &192944
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,7 +455,7 @@ GameObject:
   - component: {fileID: 907651325039173428}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: camera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -12,6 +12,7 @@ public class Teleporter : MonoBehaviour
     private SteamVR_Behaviour_Pose m_Pose = null;
     private bool m_HasPosition = false;
     private bool m_IsTeleporting = false;
+    private bool m_IsGround = false;
     private float m_FadeTime = 0.5f;
 
     // Start is called before the first frame update
@@ -24,8 +25,9 @@ public class Teleporter : MonoBehaviour
     void Update()
     {
         //Pointer
-        m_HasPosition = UpdatePointer();
-        m_Pointer.SetActive(m_HasPosition);
+        if (m_TeleportAction.GetStateDown(m_Pose.inputSource))
+            m_HasPosition = UpdatePointer();
+            m_Pointer.SetActive(m_HasPosition);
 
         //Teleport
         if (m_TeleportAction.GetStateUp(m_Pose.inputSource))
@@ -43,7 +45,7 @@ public class Teleporter : MonoBehaviour
         Vector3 headPosition = SteamVR_Render.Top().head.position;
 
         //Figure out translation
-        Vector3 grounPosition = new Vector3(headPosition.x, headPosition.y, headPosition.z);
+        Vector3 grounPosition = new Vector3(headPosition.x, cameraRig.position.y, headPosition.z);
         Vector3 translateVector = m_Pointer.transform.position - grounPosition;
 
         //Move
@@ -80,8 +82,11 @@ public class Teleporter : MonoBehaviour
         //if it's a hit
         if (Physics.Raycast(ray, out hit))
         {
-            m_Pointer.transform.position = hit.point;
-            return true;
+            if (hit.transform.tag == "ground")
+            {
+                m_Pointer.transform.position = hit.point;
+                return true;
+            }
         }
         //if it's not a hit
         return false;
