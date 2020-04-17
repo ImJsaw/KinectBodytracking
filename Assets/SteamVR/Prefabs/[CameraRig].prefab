@@ -373,8 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61da44da7ff8d74b9770828004e41a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Pointer: {fileID: 7561493715997637983, guid: d83d2e5cf82bae34c8f807748c553e52,
-    type: 3}
+  m_Pointer: {fileID: 0}
   m_TeleportAction:
     actionPath: /actions/default/in/Teleport
     needsReinit: 0

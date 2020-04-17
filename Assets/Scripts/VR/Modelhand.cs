@@ -20,7 +20,7 @@ public class Modelhand : MonoBehaviour
         m_hand.modelHand = this;
         m_hand.m_Joint = GetComponent<FixedJoint>();
 
-        Debug.Log("mhand :", m_hand);
+        Debug.Log("mhand :", m_hand); Debug.Log("start");
     }
 
     // Update is called once per frame

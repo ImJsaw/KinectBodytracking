@@ -23,6 +23,7 @@ public class HandController : MonoBehaviour
     {
         m_Pose = GetComponent<SteamVR_Behaviour_Pose>();
         m_Joint = modelHand.GetComponent<FixedJoint>();
+        print("m_Joint  :" + m_Joint);
     }
     // Start is called before the first frame update
     void Start()
@@ -131,3 +132,4 @@ public class HandController : MonoBehaviour
         return nearest;
     }
 }
+

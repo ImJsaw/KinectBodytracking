@@ -6,7 +6,7 @@ using Valve.VR;
 public class Teleporter : MonoBehaviour
 {
 
-    public GameObject m_Pointer;
+    private GameObject m_Pointer;
     public SteamVR_Action_Boolean m_TeleportAction;
 
     private SteamVR_Behaviour_Pose m_Pose = null;
@@ -15,10 +15,12 @@ public class Teleporter : MonoBehaviour
     private bool m_IsGround = false;
     private float m_FadeTime = 0.5f;
 
+
     // Start is called before the first frame update
     void Start()
     {
         m_Pose = GetComponent<SteamVR_Behaviour_Pose>();
+        m_Pointer = GameObject.FindWithTag("target");
     }
 
     // Update is called once per frame

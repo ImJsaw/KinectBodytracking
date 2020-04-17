@@ -5,8 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - interactable
-  - camera
-  - ground
+  - target
   layers:
   - Default
   - TransparentFX
