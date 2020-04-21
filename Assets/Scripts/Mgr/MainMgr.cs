@@ -38,6 +38,8 @@ public class MainMgr : MonoBehaviour {
     //models data
     //public List<Quaternion[]> modelRot = new List<Quaternion[]>();
     //public List<Vector3> modelPos = new List<Vector3>();
+
+    //calibration model rotaion
     [HideInInspector]
     public List<Quaternion> initRot = new List<Quaternion>();
     [HideInInspector]
@@ -46,6 +48,8 @@ public class MainMgr : MonoBehaviour {
     public List<Skeleton> skeletons = new List<Skeleton>();
     [HideInInspector]
     public List<bool> isFirstDataGet = new List<bool>();
+    [HideInInspector]
+    public List<bool> hasVR = new List<bool>();
     [HideInInspector]
     public int modelSum = 0;
 
@@ -88,6 +92,7 @@ public class MainMgr : MonoBehaviour {
         mapPos.Add(INIT_CAM_POS);
         skeletons.Add(new Skeleton());
         isFirstDataGet.Add(false);
+        hasVR.Add(false);
         initRot.Add(Quaternion.identity);
         modelSum++;
     }
@@ -132,6 +137,8 @@ public class MainMgr : MonoBehaviour {
         switch (id) {
             case SceneID.Connect:
                 addNewModel(_myUID);
+                //save vr setting
+                hasVR[0] = isVRValid;
                 break;
             case SceneID.General:
                 

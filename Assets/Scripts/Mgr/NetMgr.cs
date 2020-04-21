@@ -25,7 +25,7 @@ public struct Cube
     public float Rotw;
 }
 
-
+[CLSCompliant(false)]
 [Serializable]
 public struct playerPose {
     public string UID;
@@ -33,6 +33,9 @@ public struct playerPose {
     public float posX;
     public float posY;
     public float posZ;
+    //only use if VR valid
+    public SerializableTransform leftHandTransform;
+    public SerializableTransform rightHandTransform;
 }
 
 

@@ -3,6 +3,52 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 [CLSCompliant(false)]
+public class SerializableTransform {
+    SerializableTransform(Vector3 position, Quaternion rotation) {
+        _pos = new SerializablePos(position);
+        _rot = new SerializableRot(rotation);
+    }
+    private SerializablePos _pos;
+    private SerializableRot _rot;
+    public Vector3 pos { get { return _pos.v3(); } }
+    public Quaternion rot { get { return _rot.Quat(); } }
+}
+
+public class SerializablePos {
+    public float x;
+    public float y;
+    public float z;
+
+    public SerializablePos(Vector3 vector) {
+        x = vector.x;
+        y = vector.y;
+        z = vector.z;
+    }
+
+    public Vector3 v3() {
+        return new Vector3(x, y, z);
+    }
+}
+
+public class SerializableRot {
+    public float x;
+    public float y;
+    public float z;
+    public float w;
+
+
+    public SerializableRot(Quaternion r) {
+        x = r.x;
+        y = r.y;
+        z = r.z;
+        w = r.w;
+    }
+
+    public Quaternion Quat() {
+        return new Quaternion(x, y, z, w);
+    }
+}
+
 public class Utility{
 
     public static byte[] Trans2byte<T>(T data) {

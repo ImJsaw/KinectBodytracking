@@ -17,6 +17,9 @@ public class KinectListener : MonoBehaviour {
     private GameObject VRroot = null;
 
     private GameObject curCam = null;
+    private Transform leftController = null;
+    private Transform rightController = null;
+
 
     void Start() {
         //only open one cam at a time
@@ -25,8 +28,10 @@ public class KinectListener : MonoBehaviour {
             //generate VR camera if vr valid
             VRroot = Instantiate(VrPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             curCam = VRroot.GetComponentInChildren<Transform>().Find("Camera").gameObject;
-        }
-        else
+            leftController = VRroot.GetComponentInChildren<Transform>().Find("Controller (left)");
+            rightController = VRroot.GetComponentInChildren<Transform>().Find("Controller (right)");
+
+        } else
             curCam = screenCam;
 
         if (MainMgr.isCamValid)
