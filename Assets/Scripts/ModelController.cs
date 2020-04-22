@@ -234,6 +234,7 @@ public class ModelController : MonoBehaviour {
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.Head.rotation = q;
 
+        //calibrate model rotate
         //0
         joint1 = skeleton.Joints[0];
         pos = joint1.Position;
@@ -242,14 +243,7 @@ public class ModelController : MonoBehaviour {
         r = (Quaternion.Inverse(Quaternion.Euler(0, -90, -90)) * rot2);
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.Pelvis.localRotation = Quaternion.Inverse(MainMgr.inst.initRot[modelIndex]) * q;
-
-        //model position
-        //var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.002f;
-        //modelPosition.position = v + mapPosition;
-        //Vector3 offset = Quaternion.Inverse(MainMgr.inst.initRot[modelIndex]).eulerAngles;
-        //modelPosition.transform.localRotation = Quaternion.Inverse(MainMgr.inst.initRot[modelIndex]);
-        Debug.Log("calibrstion" + Quaternion.Inverse(MainMgr.inst.initRot[modelIndex]).eulerAngles.ToString());
-
+        
     }
 
     private void updateModelTransform() {
@@ -279,6 +273,19 @@ public class ModelController : MonoBehaviour {
         Debug.Log("[modelController] update "+modelIndex);
         skeleton = MainMgr.inst.skeletons[modelIndex];
         applyModel();
+        if (MainMgr.inst.hasVR[modelIndex]) {
+            IK_calibration();
+        }
+    }
+
+    void IK_calibration() {
+        Debug.Log("using ccd ik");
+        //left
+        Transform[] leftIK = { chan.ClavicleLeft, chan.ShoulderLeft, chan.ElbowLeft, chan.WristLeft };
+        Utility.CCDIK( leftIK , MainMgr.inst.leftCtr[modelIndex].pos);
+        //right
+        Transform[] rightIK = { chan.ClavicleRight, chan.ShoulderRight, chan.ElbowRight, chan.WristRight };
+        Utility.CCDIK(rightIK, MainMgr.inst.rightCtr[modelIndex].pos);
     }
 
 }

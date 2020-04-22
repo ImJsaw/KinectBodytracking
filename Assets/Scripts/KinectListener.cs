@@ -102,6 +102,10 @@ public class KinectListener : MonoBehaviour {
         msg.posX = MainMgr.inst.mapPos[0].x;
         msg.posY = MainMgr.inst.mapPos[0].y;
         msg.posZ = MainMgr.inst.mapPos[0].z;
+        if (MainMgr.isVRValid) {
+            msg.leftHandTransform = new SerializableTransform(leftController.position, leftController.rotation);
+            msg.rightHandTransform = new SerializableTransform(rightController.position, rightController.rotation);
+        }
         //send from net
         byte[] modelDataBytes = Utility.Trans2byte(msg);
         NetMgr.sendMsg(packageType.camModel, modelDataBytes);

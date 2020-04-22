@@ -4,9 +4,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 [CLSCompliant(false)]
 public class SerializableTransform {
-    SerializableTransform(Vector3 position, Quaternion rotation) {
+    public SerializableTransform(Vector3 position, Quaternion rotation) {
         _pos = new SerializablePos(position);
         _rot = new SerializableRot(rotation);
+    }
+    public SerializableTransform() {
+        _pos = new SerializablePos(new Vector3(0, 0, 0));
+        _rot = new SerializableRot(Quaternion.identity);
     }
     private SerializablePos _pos;
     private SerializableRot _rot;
@@ -49,7 +53,7 @@ public class SerializableRot {
     }
 }
 
-public class Utility{
+public class Utility {
 
     public static byte[] Trans2byte<T>(T data) {
         byte[] dataBytes;
@@ -105,5 +109,36 @@ public class Utility{
             return default(T);
         }
         return res;
+    }
+
+    // Multiply a 4x4Matrix with a Vector3 (position i.e. translation)
+    static Vector3 Matrix4x4_Mult_Translation(Vector3 Translation, Matrix4x4 TransformationMatrix) {
+        Vector4 TempV4 = new Vector4(Translation.x, Translation.y, Translation.z, 1);
+        TempV4 = TransformationMatrix * TempV4;
+        Translation = new Vector3(TempV4.x, TempV4.y, TempV4.z);
+        return Translation;
+    }
+
+    static public void CCDIK(Transform[] KinematicJoints, Vector3 targetPos) {
+        // Iteration from end-effector to root in the kinematic chain
+        for (int i = KinematicJoints.Length - 1; i >= 0; i--) {
+            //世界 ->local 座標轉換矩陣
+            Matrix4x4 InverseTransformMatrix = KinematicJoints[i].localToWorldMatrix.inverse;
+            //把末端座標轉為本地 並normalize
+            Vector3 EndEffectorDirection = Matrix4x4_Mult_Translation(KinematicJoints[KinematicJoints.Length - 1].position, InverseTransformMatrix).normalized;
+            //目標座標=>本地座標
+            Vector3 TargetDirection = Matrix4x4_Mult_Translation(targetPos, InverseTransformMatrix).normalized;
+            //當前點到末端的向量 & 當前點到目標的向量  (cos)
+            float DotProduct = Vector3.Dot(EndEffectorDirection, TargetDirection);
+            //若不共線
+            if (DotProduct < 1.0f - 1.0e-6f) {
+                //求出cos theta 的theta角
+                float RotationAngle = Mathf.Acos(DotProduct) * Mathf.Rad2Deg;
+                //求出旋轉軸
+                Vector3 RotationAxis = Vector3.Cross(EndEffectorDirection, TargetDirection).normalized;
+                //轉到目標方向
+                KinematicJoints[i].Rotate(RotationAxis, RotationAngle);
+            }
+        }
     }
 }

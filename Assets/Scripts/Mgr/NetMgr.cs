@@ -83,6 +83,11 @@ public static class NetMgr {
                     MainMgr.inst.mapPos[index] = new Vector3(msg.posX, msg.posY, msg.posZ);
                 if (MainMgr.inst.isFirstDataGet.Count > index)
                     MainMgr.inst.isFirstDataGet[index] = true;
+                if (MainMgr.inst.hasVR[index]) {
+                    //for ik
+                    MainMgr.inst.leftCtr[index] = msg.leftHandTransform;
+                    MainMgr.inst.rightCtr[index] = msg.rightHandTransform;
+                }
                 Debug.Log("[NetMgr]receive complete");
                 break;
             case packageType.cube:
