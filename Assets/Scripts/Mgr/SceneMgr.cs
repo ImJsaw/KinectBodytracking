@@ -20,7 +20,7 @@ public class SceneMgr : MonoBehaviour {
     void Start() {
         mainMgr = MainMgr.inst;
         //default
-        ipAddress.text = "140.118.127.113";
+        ipAddress.text = "140.118.127.42";
     }
 
     // Update is called once per frame
@@ -43,6 +43,7 @@ public class SceneMgr : MonoBehaviour {
     public void gotoNewClient() {
         mainMgr.setServerIP(ipAddress.text);
         mainMgr.changeScene(SceneID.General);
+        MainMgr.isClient = true;
     }
 
     ////////////////////////////
