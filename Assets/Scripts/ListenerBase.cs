@@ -346,10 +346,10 @@ public class ListenerBase : MonoBehaviour {
         q = new Quaternion(r.z, -r.x, -r.y, r.w);
         chan.Head.rotation = q;
 
-        //model position
-        var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.002f;
-        var restore = new Vector3(-2, 3, -2); //決定起始點
-        modelPosition.position = v - restore;
+        ////model position
+        //var v = new Vector3(pos[0], -pos[1], pos[2]) * 0.002f;
+        //var restore = new Vector3(-2, 3, -2); //決定起始點
+        //modelPosition.position = v - restore;
 
 
 
