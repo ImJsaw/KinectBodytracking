@@ -2,7 +2,9 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+
 [CLSCompliant(false)]
+[Serializable]
 public class SerializableTransform {
     public SerializableTransform(Vector3 position, Quaternion rotation) {
         _pos = new SerializablePos(position);
@@ -18,6 +20,8 @@ public class SerializableTransform {
     public Quaternion rot { get { return _rot.Quat(); } }
 }
 
+[CLSCompliant(false)]
+[Serializable]
 public class SerializablePos {
     public float x;
     public float y;
@@ -34,6 +38,8 @@ public class SerializablePos {
     }
 }
 
+[CLSCompliant(false)]
+[Serializable]
 public class SerializableRot {
     public float x;
     public float y;
@@ -138,6 +144,7 @@ public class Utility {
                 Vector3 RotationAxis = Vector3.Cross(EndEffectorDirection, TargetDirection).normalized;
                 //轉到目標方向
                 KinematicJoints[i].Rotate(RotationAxis, RotationAngle);
+                //Debug.Log("[CCDIK] rotate" + RotationAngle);
             }
         }
     }

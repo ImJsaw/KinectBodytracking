@@ -11,7 +11,7 @@ public class KinectListener : MonoBehaviour {
     BodyTracker tracker;
     //make sure initial complete
     private bool initial = false;
-    
+
     public GameObject screenCam = null;
     public GameObject VrPrefab = null;
     private GameObject VRroot = null;
@@ -27,7 +27,7 @@ public class KinectListener : MonoBehaviour {
         if (MainMgr.isVRValid) {
             //generate VR camera if vr valid
             VRroot = Instantiate(VrPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            curCam = VRroot.GetComponentInChildren<Transform>().Find("Camera").gameObject;
+            curCam = GameObject.FindWithTag("camera");
             leftController = VRroot.GetComponentInChildren<Transform>().Find("Controller (left)");
             rightController = VRroot.GetComponentInChildren<Transform>().Find("Controller (right)");
 
@@ -54,9 +54,9 @@ public class KinectListener : MonoBehaviour {
 
         initial = true;
     }
-    
+
     void Update() {
-        Debug.Log("update");
+        //Debug.Log("update");
         updatePosition();
         if (!initial) {
             Debug.Log("init not complete yet");
@@ -87,6 +87,12 @@ public class KinectListener : MonoBehaviour {
                 MainMgr.inst.isFirstDataGet[0] = true;
             }
         }
+
+        //VR
+        if (MainMgr.isVRValid) {
+            MainMgr.inst.leftCtr[0] = new SerializableTransform(leftController.position, leftController.rotation);
+            MainMgr.inst.rightCtr[0] = new SerializableTransform(rightController.position, rightController.rotation);
+        }
         sendModel();
     }
 
@@ -103,8 +109,8 @@ public class KinectListener : MonoBehaviour {
         msg.posY = MainMgr.inst.mapPos[0].y;
         msg.posZ = MainMgr.inst.mapPos[0].z;
         if (MainMgr.isVRValid) {
-            msg.leftHandTransform = new SerializableTransform(leftController.position, leftController.rotation);
-            msg.rightHandTransform = new SerializableTransform(rightController.position, rightController.rotation);
+            msg.leftHandTransform = MainMgr.inst.leftCtr[0];
+            msg.rightHandTransform = MainMgr.inst.rightCtr[0];
         }
         //send from net
         byte[] modelDataBytes = Utility.Trans2byte(msg);

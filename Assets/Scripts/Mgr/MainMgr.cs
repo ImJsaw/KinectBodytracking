@@ -145,8 +145,7 @@ public class MainMgr : MonoBehaviour {
         switch (id) {
             case SceneID.Connect:
                 addNewModel(_myUID);
-                //save vr setting
-                hasVR[0] = isVRValid;
+               
                 break;
             case SceneID.General:
                 

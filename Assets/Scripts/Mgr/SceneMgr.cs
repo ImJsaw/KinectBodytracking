@@ -30,10 +30,14 @@ public class SceneMgr : MonoBehaviour {
     }
 
     public void gotoCalibration() {
+        //save vr setting
+        MainMgr.inst.hasVR[0] = MainMgr.isVRValid;
         mainMgr.changeScene(SceneID.Calibration);
     }
     public void gotoGeneral() {
         mainMgr.changeScene(SceneID.General);
+        //save vr setting
+        MainMgr.inst.hasVR[0] = MainMgr.isVRValid;
     }
 
     public void gotoNewClient() {

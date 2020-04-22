@@ -89,34 +89,34 @@ public class ModelController : MonoBehaviour {
         chan.Neck.rotation = q;
         Quaternion a = Quaternion.LookRotation(Vector3.forward, Vector3.up);
 
-        ////4
-        joint1 = this.skeleton.Joints[4];
-        rot1 = joint1.Orientation;
-        rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-        r = (Quaternion.Euler(180, 0, 180) * rot2);
-        //q = new Quaternion(r.x, r.y, r.z, r.w);
-        q = r;
-        chan.ClavicleLeft.rotation = q;
+        //////4
+        //joint1 = this.skeleton.Joints[4];
+        //rot1 = joint1.Orientation;
+        //rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+        //r = (Quaternion.Euler(180, 0, 180) * rot2);
+        ////q = new Quaternion(r.x, r.y, r.z, r.w);
+        //q = r;
+        //chan.ClavicleLeft.rotation = q;
 
 
-        //         5         
-        joint1 = this.skeleton.Joints[5];
-        rot1 = joint1.Orientation;
-        rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-        r = (Quaternion.Euler(180, 0, 180) * rot2);
-        //q = new Quaternion(r.z, r.y, r.x, r.w);
-        q = r;
-        chan.ShoulderLeft.rotation = q;
+        ////         5         
+        //joint1 = this.skeleton.Joints[5];
+        //rot1 = joint1.Orientation;
+        //rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+        //r = (Quaternion.Euler(180, 0, 180) * rot2);
+        ////q = new Quaternion(r.z, r.y, r.x, r.w);
+        //q = r;
+        //chan.ShoulderLeft.rotation = q;
 
 
-        ////         6         
-        joint1 = this.skeleton.Joints[6];
-        rot1 = joint1.Orientation;
-        rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-        r = (Quaternion.Inverse(Quaternion.Euler(180, 0, 180)) * rot2);
-        q = new Quaternion(r.y, r.x, r.z, r.w);
-        q = r;
-        chan.ElbowLeft.rotation = q;
+        //////         6         
+        //joint1 = this.skeleton.Joints[6];
+        //rot1 = joint1.Orientation;
+        //rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+        //r = (Quaternion.Inverse(Quaternion.Euler(180, 0, 180)) * rot2);
+        //q = new Quaternion(r.y, r.x, r.z, r.w);
+        //q = r;
+        //chan.ElbowLeft.rotation = q;
 
 
 
@@ -126,32 +126,32 @@ public class ModelController : MonoBehaviour {
         //r = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
         //chan.WristLeft.rotation = r;
 
-        //8
-        joint1 = this.skeleton.Joints[8];
-        rot1 = joint1.Orientation;
-        rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-        r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
-        q = new Quaternion(r.x, -r.y, -r.z, r.w);
-        chan.ClavicleRight.rotation = q;
+        ////8
+        //joint1 = this.skeleton.Joints[8];
+        //rot1 = joint1.Orientation;
+        //rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+        //r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
+        //q = new Quaternion(r.x, -r.y, -r.z, r.w);
+        //chan.ClavicleRight.rotation = q;
 
 
 
-        //        9           
-        joint1 = this.skeleton.Joints[9];
-        rot1 = joint1.Orientation;
-        rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-        r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
-        q = new Quaternion(r.x, -r.y, -r.z, r.w);
-        chan.ShoulderRight.rotation = q;
+        ////        9           
+        //joint1 = this.skeleton.Joints[9];
+        //rot1 = joint1.Orientation;
+        //rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+        //r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
+        //q = new Quaternion(r.x, -r.y, -r.z, r.w);
+        //chan.ShoulderRight.rotation = q;
 
 
-        //        10           
-        joint1 = this.skeleton.Joints[10];
-        rot1 = joint1.Orientation;
-        rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
-        r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
-        q = new Quaternion(r.x, -r.y, -r.z, r.w);
-        chan.ElbowRight.rotation = q;
+        ////        10           
+        //joint1 = this.skeleton.Joints[10];
+        //rot1 = joint1.Orientation;
+        //rot2 = new Quaternion(rot1[1], rot1[2], rot1[3], rot1[0]);
+        //r = (Quaternion.Inverse(Quaternion.Euler(0, 0, 180)) * rot2);
+        //q = new Quaternion(r.x, -r.y, -r.z, r.w);
+        //chan.ElbowRight.rotation = q;
 
 
 
@@ -254,10 +254,10 @@ public class ModelController : MonoBehaviour {
 
         //position
         mapPosition = MainMgr.inst.mapPos[modelIndex];
-        Debug.Log("before: " + mapPosition.ToString() + ", " + chan.Head.position.ToString() + ", " + modelPosition.position.ToString());
+        //Debug.Log("before: " + mapPosition.ToString() + ", " + chan.Head.position.ToString() + ", " + modelPosition.position.ToString());
         //cam pos = original position + vector(head to model anchor)
         modelPosition.position = mapPosition - chan.Head.position + modelPosition.position;
-        Debug.Log("after: " + mapPosition.ToString() + ", " + chan.Head.position.ToString() + ", " + modelPosition.position.ToString());
+        //Debug.Log("after: " + mapPosition.ToString() + ", " + chan.Head.position.ToString() + ", " + modelPosition.position.ToString());
     }
 
     void Update() {
@@ -275,17 +275,23 @@ public class ModelController : MonoBehaviour {
         applyModel();
         if (MainMgr.inst.hasVR[modelIndex]) {
             IK_calibration();
-        }
+        } else
+            Debug.Log("NO VR, skip IK");
     }
 
     void IK_calibration() {
-        Debug.Log("using ccd ik");
+        Debug.Log("using ccd ik, "+ MainMgr.inst.leftCtr[modelIndex].pos.ToString());
         //left
         Transform[] leftIK = { chan.ClavicleLeft, chan.ShoulderLeft, chan.ElbowLeft, chan.WristLeft };
         Utility.CCDIK( leftIK , MainMgr.inst.leftCtr[modelIndex].pos);
         //right
+        Debug.Log("using ccd ik right" + MainMgr.inst.rightCtr[modelIndex].pos.ToString());
         Transform[] rightIK = { chan.ClavicleRight, chan.ShoulderRight, chan.ElbowRight, chan.WristRight };
         Utility.CCDIK(rightIK, MainMgr.inst.rightCtr[modelIndex].pos);
+        //hand trabsform
+        chan.WristRight.rotation = Quaternion.Euler(0, 0, 0)* MainMgr.inst.rightCtr[modelIndex].rot;
+        chan.WristLeft.rotation = Quaternion.Euler(0, 0, 0) * MainMgr.inst.leftCtr[modelIndex].rot;
+
     }
 
 }
