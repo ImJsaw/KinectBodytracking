@@ -145,7 +145,68 @@ public class Utility {
                 //轉到目標方向
                 KinematicJoints[i].Rotate(RotationAxis, RotationAngle);
                 //Debug.Log("[CCDIK] rotate" + RotationAngle);
+
+                //min/max rotate, default not limit
+                Vector3 min = new Vector3(-180, -180, -180);
+                Vector3 max = new Vector3(180, 180, 180);
+
+                //handle human limit
+                switch (i) {
+                    //clavicle
+                    case 0:
+                        min = new Vector3(-20, -20, -20);
+                        max = new Vector3(20, 20, 20);
+                        break;
+                    //shoulder
+                    case 1:
+                        min = new Vector3(-90, -90, -90);
+                        max = new Vector3(90, 25, 90);
+                        break;
+                    //elbow
+                    case 2:
+
+                        Vector3 sholder_elbow = (KinematicJoints[1].position - KinematicJoints[2].position).normalized;
+                        Vector3 shoulder_target = (targetPos - KinematicJoints[2].position).normalized;
+                        float dotProduct = Vector3.Dot(sholder_elbow, shoulder_target);
+                        if (Vector3.Cross(sholder_elbow, shoulder_target).normalized.y < 0) {
+                            //restore rotate if not correct
+                            KinematicJoints[i].Rotate(RotationAxis, -RotationAngle);
+                        }
+
+
+                        min = new Vector3(-180, -150, -150);
+                        max = new Vector3(180, 0, 0);
+
+                        break;
+                    default:
+                        break;
+                }
+                //limit max rotate of each
+                limRot(KinematicJoints[i], min, max);
+
             }
         }
+    }
+
+    static void limRot(Transform obj, Vector3 min, Vector3 max) {
+        Vector3 localRot = obj.localEulerAngles;
+        obj.localEulerAngles = limVec(localRot, min, max);
+    }
+
+    static Vector3 limVec(Vector3 origin, Vector3 min, Vector3 max) {
+        Vector3 limitedVec = formatVec(origin);
+        //lim +-45
+        limitedVec.x = Mathf.Clamp(limitedVec.x, min.x, max.x);
+        limitedVec.y = Mathf.Clamp(limitedVec.y, min.y, max.y);
+        limitedVec.z = Mathf.Clamp(limitedVec.z, min.z, max.z);
+        return limitedVec;
+    }
+
+    static Vector3 formatVec(Vector3 ori) {
+        Vector3 formatedVec = new Vector3(0, 0, 0);
+        formatedVec.x = ori.x > 180 ? ori.x - 360 : ori.x;
+        formatedVec.y = ori.y > 180 ? ori.y - 360 : ori.y;
+        formatedVec.z = ori.z > 180 ? ori.z - 360 : ori.z;
+        return formatedVec;
     }
 }
