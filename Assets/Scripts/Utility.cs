@@ -151,6 +151,7 @@ public class Utility {
                 Vector3 max = new Vector3(180, 180, 180);
 
                 //handle human limit
+                //handle human limit
                 switch (i) {
                     //clavicle
                     case 0:
@@ -164,19 +165,12 @@ public class Utility {
                         break;
                     //elbow
                     case 2:
-
                         Vector3 sholder_elbow = (KinematicJoints[1].position - KinematicJoints[2].position).normalized;
-                        Vector3 shoulder_target = (targetPos - KinematicJoints[2].position).normalized;
-                        float dotProduct = Vector3.Dot(sholder_elbow, shoulder_target);
-                        if (Vector3.Cross(sholder_elbow, shoulder_target).normalized.y < 0) {
-                            //restore rotate if not correct
-                            KinematicJoints[i].Rotate(RotationAxis, -RotationAngle);
+                        Vector3 elbow_target = (targetPos - KinematicJoints[2].position).normalized;
+                        //Debug.Log(Vector3.Cross(sholder_elbow, elbow_target));
+                        if (Vector3.Cross(sholder_elbow, elbow_target).y < 0) {
+                                KinematicJoints[i].localRotation = Quaternion.identity;
                         }
-
-
-                        min = new Vector3(-180, -150, -150);
-                        max = new Vector3(180, 0, 0);
-
                         break;
                     default:
                         break;
