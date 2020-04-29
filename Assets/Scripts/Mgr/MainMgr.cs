@@ -54,6 +54,11 @@ public class MainMgr : MonoBehaviour {
     public List<SerializableTransform> leftCtr = new List<SerializableTransform>();
     [HideInInspector]
     public List<SerializableTransform> rightCtr = new List<SerializableTransform>();
+    [HideInInspector]
+    public List<SerializableTransform> leftTkr = new List<SerializableTransform>();
+    [HideInInspector]
+    public List<SerializableTransform> rightTkr = new List<SerializableTransform>();
+
 
 
     [HideInInspector]
@@ -101,6 +106,8 @@ public class MainMgr : MonoBehaviour {
         hasVR.Add(false);
         leftCtr.Add(new SerializableTransform());
         rightCtr.Add(new SerializableTransform());
+        leftTkr.Add(new SerializableTransform());
+        rightTkr.Add(new SerializableTransform());
         initRot.Add(Quaternion.identity);
         modelSum++;
     }

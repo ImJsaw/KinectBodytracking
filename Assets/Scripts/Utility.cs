@@ -125,7 +125,7 @@ public class Utility {
         return Translation;
     }
 
-    static public void CCDIK(Transform[] KinematicJoints, Vector3 targetPos, bool isRight = true) {
+    static public void CCDIK(Transform[] KinematicJoints, Vector3 targetPos, bool isArm, bool isRight = true) {
         // Iteration from end-effector to root in the kinematic chain
         for (int i = KinematicJoints.Length - 1; i >= 0; i--) {
             //世界 ->local 座標轉換矩陣
@@ -151,38 +151,53 @@ public class Utility {
                 Vector3 max = new Vector3(180, 180, 180);
 
                 //handle human limit
-                //handle human limit
-                switch (i) {
-                    //clavicle
-                    case 0:
-                        min = new Vector3(-20, -20, -20);
-                        max = new Vector3(20, 20, 20);
-                        break;
-                    //shoulder
-                    case 1:
-                        if (isRight) {
 
-                            min = new Vector3(-90, -90, -90);
-                            max = new Vector3(90, 25, 90);
-                        } else {
-                            min = new Vector3(-90, -25, -90);
-                            max = new Vector3(90, 90, 90);
-                        }
-                        break;
-                    //elbow
-                    case 2:
-                        Vector3 sholder_elbow = (KinematicJoints[1].position - KinematicJoints[2].position).normalized;
-                        Vector3 elbow_target = (targetPos - KinematicJoints[2].position).normalized;
-                        //Debug.Log(Vector3.Cross(sholder_elbow, elbow_target));
-                        if (Vector3.Cross(sholder_elbow, elbow_target).y < 0 && isRight) {
-                            KinematicJoints[i].localRotation = Quaternion.identity;
-                        }
-                        if (Vector3.Cross(sholder_elbow, elbow_target).y > 0 && !isRight) {
-                            KinematicJoints[i].localRotation = Quaternion.identity;
-                        }
-                        break;
-                    default:
-                        break;
+                if (isArm) {
+
+                    switch (i) {
+                        //clavicle
+                        case 0:
+                            min = new Vector3(-20, -20, -20);
+                            max = new Vector3(20, 20, 20);
+                            break;
+                        //shoulder
+                        case 1:
+                            if (isRight) {
+                                min = new Vector3(-90, -90, -90);
+                                max = new Vector3(90, 25, 90);
+                            } else {
+                                min = new Vector3(-90, -25, -90);
+                                max = new Vector3(90, 90, 90);
+                            }
+                            break;
+                        //elbow
+                        case 2:
+                            Vector3 sholder_elbow = (KinematicJoints[1].position - KinematicJoints[2].position).normalized;
+                            Vector3 elbow_target = (targetPos - KinematicJoints[2].position).normalized;
+                            //Debug.Log(Vector3.Cross(sholder_elbow, elbow_target));
+                            if (Vector3.Cross(sholder_elbow, elbow_target).y < 0 && isRight) {
+                                KinematicJoints[i].localRotation = Quaternion.identity;
+                            }
+                            if (Vector3.Cross(sholder_elbow, elbow_target).y > 0 && !isRight) {
+                                KinematicJoints[i].localRotation = Quaternion.identity;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                } else {
+                    switch (i) {
+                        //大腿
+                        case 0:
+                            break;
+                        //膝蓋
+                        case 1:
+                            min = new Vector3(-10, -90, -25);
+                            max = new Vector3(135, 90, 25);
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 //limit max rotate of each
                 limRot(KinematicJoints[i], min, max);

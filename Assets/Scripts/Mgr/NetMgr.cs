@@ -36,6 +36,9 @@ public struct playerPose {
     //only use if VR valid
     public SerializableTransform leftHandTransform;
     public SerializableTransform rightHandTransform;
+    public SerializableTransform leftFeetTransform;
+    public SerializableTransform rightFeetTransform;
+
 }
 
 
@@ -87,6 +90,8 @@ public static class NetMgr {
                     //for ik
                     MainMgr.inst.leftCtr[index] = msg.leftHandTransform;
                     MainMgr.inst.rightCtr[index] = msg.rightHandTransform;
+                    MainMgr.inst.leftTkr[index] = msg.leftFeetTransform;
+                    MainMgr.inst.rightTkr[index] = msg.rightFeetTransform;
                 }
                 Debug.Log("[NetMgr]receive complete");
                 break;

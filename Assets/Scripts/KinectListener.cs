@@ -19,7 +19,8 @@ public class KinectListener : MonoBehaviour {
     private GameObject curCam = null;
     private Transform leftController = null;
     private Transform rightController = null;
-
+    private Transform leftTracker = null;
+    private Transform rightTracker = null;
 
     void Start() {
         //only open one cam at a time
@@ -30,7 +31,8 @@ public class KinectListener : MonoBehaviour {
             curCam = GameObject.FindWithTag("camera");
             leftController = VRroot.GetComponentInChildren<Transform>().Find("Controller (left)");
             rightController = VRroot.GetComponentInChildren<Transform>().Find("Controller (right)");
-
+            leftTracker = VRroot.GetComponentInChildren<Transform>().Find("Tracker (left)");
+            rightTracker = VRroot.GetComponentInChildren<Transform>().Find("Tracker (right)");
         } else
             curCam = screenCam;
 
@@ -92,6 +94,8 @@ public class KinectListener : MonoBehaviour {
         if (MainMgr.isVRValid) {
             MainMgr.inst.leftCtr[0] = new SerializableTransform(leftController.position, leftController.rotation);
             MainMgr.inst.rightCtr[0] = new SerializableTransform(rightController.position, rightController.rotation);
+            MainMgr.inst.leftTkr[0] = new SerializableTransform(leftTracker.position, leftTracker.rotation);
+            MainMgr.inst.rightTkr[0] = new SerializableTransform(rightTracker.position, rightTracker.rotation);
         }
         sendModel();
     }
@@ -111,6 +115,9 @@ public class KinectListener : MonoBehaviour {
         if (MainMgr.isVRValid) {
             msg.leftHandTransform = MainMgr.inst.leftCtr[0];
             msg.rightHandTransform = MainMgr.inst.rightCtr[0];
+            msg.leftFeetTransform = MainMgr.inst.leftTkr[0];
+            msg.rightFeetTransform = MainMgr.inst.rightTkr[0];
+
         }
         //send from net
         byte[] modelDataBytes = Utility.Trans2byte(msg);
