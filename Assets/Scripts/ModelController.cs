@@ -283,7 +283,7 @@ public class ModelController : MonoBehaviour {
         Debug.Log("using ccd ik, "+ MainMgr.inst.leftCtr[modelIndex].pos.ToString());
         //left
         Transform[] leftIK = { chan.ClavicleLeft, chan.ShoulderLeft, chan.ElbowLeft, chan.WristLeft };
-        Utility.CCDIK( leftIK , MainMgr.inst.leftCtr[modelIndex].pos);
+        Utility.CCDIK( leftIK , MainMgr.inst.leftCtr[modelIndex].pos,false);
         //right
         Debug.Log("using ccd ik right" + MainMgr.inst.rightCtr[modelIndex].pos.ToString());
         Transform[] rightIK = { chan.ClavicleRight, chan.ShoulderRight, chan.ElbowRight, chan.WristRight };

@@ -125,7 +125,7 @@ public class Utility {
         return Translation;
     }
 
-    static public void CCDIK(Transform[] KinematicJoints, Vector3 targetPos) {
+    static public void CCDIK(Transform[] KinematicJoints, Vector3 targetPos, bool isRight = true) {
         // Iteration from end-effector to root in the kinematic chain
         for (int i = KinematicJoints.Length - 1; i >= 0; i--) {
             //世界 ->local 座標轉換矩陣
@@ -160,16 +160,25 @@ public class Utility {
                         break;
                     //shoulder
                     case 1:
-                        min = new Vector3(-90, -90, -90);
-                        max = new Vector3(90, 25, 90);
+                        if (isRight) {
+
+                            min = new Vector3(-90, -90, -90);
+                            max = new Vector3(90, 25, 90);
+                        } else {
+                            min = new Vector3(-90, -25, -90);
+                            max = new Vector3(90, 90, 90);
+                        }
                         break;
                     //elbow
                     case 2:
                         Vector3 sholder_elbow = (KinematicJoints[1].position - KinematicJoints[2].position).normalized;
                         Vector3 elbow_target = (targetPos - KinematicJoints[2].position).normalized;
                         //Debug.Log(Vector3.Cross(sholder_elbow, elbow_target));
-                        if (Vector3.Cross(sholder_elbow, elbow_target).y < 0) {
-                                KinematicJoints[i].localRotation = Quaternion.identity;
+                        if (Vector3.Cross(sholder_elbow, elbow_target).y < 0 && isRight) {
+                            KinematicJoints[i].localRotation = Quaternion.identity;
+                        }
+                        if (Vector3.Cross(sholder_elbow, elbow_target).y > 0 && !isRight) {
+                            KinematicJoints[i].localRotation = Quaternion.identity;
                         }
                         break;
                     default:
