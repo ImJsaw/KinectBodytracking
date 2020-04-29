@@ -256,7 +256,12 @@ public class ModelController : MonoBehaviour {
         mapPosition = MainMgr.inst.mapPos[modelIndex];
         //Debug.Log("before: " + mapPosition.ToString() + ", " + chan.Head.position.ToString() + ", " + modelPosition.position.ToString());
         //cam pos = original position + vector(head to model anchor)
-        modelPosition.position = mapPosition - chan.Head.position + modelPosition.position;
+
+        //modelPosition.position = mapPosition - chan.Head.position + modelPosition.position;
+
+        //make model horizon move with cam
+        modelPosition.position = new Vector3(mapPosition.x, modelPosition.position.y,mapPosition.z);
+
         //Debug.Log("after: " + mapPosition.ToString() + ", " + chan.Head.position.ToString() + ", " + modelPosition.position.ToString());
     }
 
@@ -266,13 +271,12 @@ public class ModelController : MonoBehaviour {
             return;
         }
         updateModelTransform();
-        if (!MainMgr.inst.isFirstDataGet[modelIndex]) {
-            Debug.Log("[modelController] no." + modelIndex + " first data not get yet");
-            return;
-        }
-        Debug.Log("[modelController] update "+modelIndex);
-        skeleton = MainMgr.inst.skeletons[modelIndex];
-        applyModel();
+        //if (!MainMgr.inst.isFirstDataGet[modelIndex]) {
+        //    Debug.Log("[modelController] no." + modelIndex + " first cam data not get yet");
+        //}
+        //Debug.Log("[modelController] update " + modelIndex);
+        //skeleton = MainMgr.inst.skeletons[modelIndex];
+        //applyModel();
         if (MainMgr.inst.hasVR[modelIndex]) {
             IK_calibration();
         } else
@@ -289,16 +293,17 @@ public class ModelController : MonoBehaviour {
         Transform[] rightIK = { chan.ClavicleRight, chan.ShoulderRight, chan.ElbowRight, chan.WristRight };
         Utility.CCDIK(rightIK, MainMgr.inst.rightCtr[modelIndex].pos, true);
         //hand transform
-        chan.WristRight.rotation = Quaternion.Euler(0, 0, 0)* MainMgr.inst.rightCtr[modelIndex].rot;
-        chan.WristLeft.rotation = Quaternion.Euler(0, 0, 0) * MainMgr.inst.leftCtr[modelIndex].rot;
+        chan.WristRight.rotation = Quaternion.Euler(0, 0, -90)* MainMgr.inst.rightCtr[modelIndex].rot;
+        chan.WristLeft.rotation = Quaternion.Euler(0, 0, 90) * MainMgr.inst.leftCtr[modelIndex].rot;
 
-        //leg
-        Transform[] leftLegIK = { chan.HipLeft, chan.KneeLeft, chan.FootLeft};
-        Utility.CCDIK(leftLegIK, MainMgr.inst.leftTkr[modelIndex].pos, false, false);
 
-        //leg
-        Transform[] rightLegIK = { chan.HipRight, chan.KneeRight, chan.FootRight };
-        Utility.CCDIK(rightLegIK, MainMgr.inst.rightTkr[modelIndex].pos, false);
+        ////leg
+        //Transform[] leftLegIK = { chan.HipLeft, chan.KneeLeft, chan.FootLeft};
+        //Utility.CCDIK(leftLegIK, MainMgr.inst.leftTkr[modelIndex].pos, false, false);
+
+        ////leg
+        //Transform[] rightLegIK = { chan.HipRight, chan.KneeRight, chan.FootRight };
+        //Utility.CCDIK(rightLegIK, MainMgr.inst.rightTkr[modelIndex].pos, false);
 
     }
 

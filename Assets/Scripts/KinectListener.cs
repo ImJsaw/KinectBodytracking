@@ -38,9 +38,8 @@ public class KinectListener : MonoBehaviour {
 
         if (MainMgr.isCamValid)
             initialCamera();
-        //if is a client without cam, send register to server 
-        if (MainMgr.isClient)
-            sendRegister();
+        //tell other my stat
+        sendRegister();
     }
 
     void initialCamera() {
@@ -60,11 +59,13 @@ public class KinectListener : MonoBehaviour {
     void Update() {
         //Debug.Log("update");
         updatePosition();
-        if (!initial) {
-            Debug.Log("init not complete yet");
-            return;
+        if (initial) {
+            updateSkeleton();
         }
-        updateSkeleton();
+        if (MainMgr.isVRValid) {
+            updateVRpos();
+        }
+        sendModel();
     }
 
     private void OnDisable() {
@@ -89,15 +90,13 @@ public class KinectListener : MonoBehaviour {
                 MainMgr.inst.isFirstDataGet[0] = true;
             }
         }
+    }
 
-        //VR
-        if (MainMgr.isVRValid) {
-            MainMgr.inst.leftCtr[0] = new SerializableTransform(leftController.position, leftController.rotation);
-            MainMgr.inst.rightCtr[0] = new SerializableTransform(rightController.position, rightController.rotation);
-            MainMgr.inst.leftTkr[0] = new SerializableTransform(leftTracker.position, leftTracker.rotation);
-            MainMgr.inst.rightTkr[0] = new SerializableTransform(rightTracker.position, rightTracker.rotation);
-        }
-        sendModel();
+    void updateVRpos() {
+        MainMgr.inst.leftCtr[0] = new SerializableTransform(leftController.position, leftController.rotation);
+        MainMgr.inst.rightCtr[0] = new SerializableTransform(rightController.position, rightController.rotation);
+        MainMgr.inst.leftTkr[0] = new SerializableTransform(leftTracker.position, leftTracker.rotation);
+        MainMgr.inst.rightTkr[0] = new SerializableTransform(rightTracker.position, rightTracker.rotation);
     }
 
     private void updatePosition() {
@@ -108,7 +107,9 @@ public class KinectListener : MonoBehaviour {
     void sendModel() {
         playerPose msg = new playerPose();
         msg.UID = MainMgr.inst.myUID();
-        msg.skeleton = MainMgr.inst.skeletons[0];
+        if (MainMgr.isCamValid) {
+            msg.skeleton = MainMgr.inst.skeletons[0];
+        }
         msg.posX = MainMgr.inst.mapPos[0].x;
         msg.posY = MainMgr.inst.mapPos[0].y;
         msg.posZ = MainMgr.inst.mapPos[0].z;
@@ -117,7 +118,6 @@ public class KinectListener : MonoBehaviour {
             msg.rightHandTransform = MainMgr.inst.rightCtr[0];
             msg.leftFeetTransform = MainMgr.inst.leftTkr[0];
             msg.rightFeetTransform = MainMgr.inst.rightTkr[0];
-
         }
         //send from net
         byte[] modelDataBytes = Utility.Trans2byte(msg);
