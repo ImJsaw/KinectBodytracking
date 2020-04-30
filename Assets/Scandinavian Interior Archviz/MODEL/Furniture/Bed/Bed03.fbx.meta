@@ -1,0 +1,210 @@
+fileFormatVersion: 2
+guid: 021bfa8d08aa09e4db4d877eeeaa4d19
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Loopa_Bed_Cover1
+    100004: Loopa_Bed_Mattress
+    100006: polySurface10
+    100008: polySurface11
+    100010: polySurface12
+    100012: polySurface22
+    100014: polySurface26
+    100016: polySurface3
+    100018: polySurface45
+    100020: polySurface46
+    100022: polySurface47
+    100024: polySurface54
+    100026: polySurface55
+    100028: polySurface56
+    100030: polySurface57
+    100032: polySurface58
+    100034: polySurface59
+    100036: polySurface6
+    100038: polySurface60
+    100040: polySurface61
+    100042: polySurface62
+    100044: polySurface63
+    100046: polySurface65
+    100048: polySurface7
+    400000: //RootNode
+    400002: Loopa_Bed_Cover1
+    400004: Loopa_Bed_Mattress
+    400006: polySurface10
+    400008: polySurface11
+    400010: polySurface12
+    400012: polySurface22
+    400014: polySurface26
+    400016: polySurface3
+    400018: polySurface45
+    400020: polySurface46
+    400022: polySurface47
+    400024: polySurface54
+    400026: polySurface55
+    400028: polySurface56
+    400030: polySurface57
+    400032: polySurface58
+    400034: polySurface59
+    400036: polySurface6
+    400038: polySurface60
+    400040: polySurface61
+    400042: polySurface62
+    400044: polySurface63
+    400046: polySurface65
+    400048: polySurface7
+    2100000: Bed3_Fabric
+    2100002: Bed3_Basal
+    2300000: Loopa_Bed_Cover1
+    2300002: Loopa_Bed_Mattress
+    2300004: polySurface10
+    2300006: polySurface11
+    2300008: polySurface12
+    2300010: polySurface22
+    2300012: polySurface26
+    2300014: polySurface3
+    2300016: polySurface45
+    2300018: polySurface46
+    2300020: polySurface47
+    2300022: polySurface54
+    2300024: polySurface55
+    2300026: polySurface56
+    2300028: polySurface57
+    2300030: polySurface58
+    2300032: polySurface59
+    2300034: polySurface6
+    2300036: polySurface60
+    2300038: polySurface61
+    2300040: polySurface62
+    2300042: polySurface63
+    2300044: polySurface65
+    2300046: polySurface7
+    3300000: Loopa_Bed_Cover1
+    3300002: Loopa_Bed_Mattress
+    3300004: polySurface10
+    3300006: polySurface11
+    3300008: polySurface12
+    3300010: polySurface22
+    3300012: polySurface26
+    3300014: polySurface3
+    3300016: polySurface45
+    3300018: polySurface46
+    3300020: polySurface47
+    3300022: polySurface54
+    3300024: polySurface55
+    3300026: polySurface56
+    3300028: polySurface57
+    3300030: polySurface58
+    3300032: polySurface59
+    3300034: polySurface6
+    3300036: polySurface60
+    3300038: polySurface61
+    3300040: polySurface62
+    3300042: polySurface63
+    3300044: polySurface65
+    3300046: polySurface7
+    4300000: Loopa_Bed_Cover1
+    4300002: polySurface12
+    4300004: polySurface26
+    4300006: Loopa_Bed_Mattress
+    4300008: polySurface6
+    4300010: polySurface7
+    4300012: polySurface10
+    4300014: polySurface11
+    4300016: polySurface22
+    4300018: polySurface3
+    4300020: polySurface54
+    4300022: polySurface47
+    4300024: polySurface45
+    4300026: polySurface46
+    4300028: polySurface63
+    4300030: polySurface62
+    4300032: polySurface61
+    4300034: polySurface60
+    4300036: polySurface59
+    4300038: polySurface58
+    4300040: polySurface57
+    4300042: polySurface56
+    4300044: polySurface55
+    4300046: polySurface65
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
