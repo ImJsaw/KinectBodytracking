@@ -985,7 +985,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: -8.144743e+20, z: 5.02e-43, w: -7.7267865e+20}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -6412,7 +6412,7 @@ GameObject:
   - component: {fileID: 821732767}
   - component: {fileID: 821732766}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: General
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6430,7 +6430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b14f1935cce724448e31a14c0160338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelPrefabVR: {fileID: 2150127980178394793, guid: f7a6ebac7daad114585ff2d28d6bb12a,
+  modelPrefabVR: {fileID: 2869819689109724088, guid: 5ca498d1201c08d4f874d801e61259bb,
     type: 3}
   modelPrefab: {fileID: 2158758488639643795, guid: 2a005acd987b7e547927f19131b99df5,
     type: 3}
@@ -12128,7 +12128,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1321667385}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c5c0f3f794187f4cb32049b047ec7c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 032e978ae67fa854e999ba35d499e8c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   screenCam: {fileID: 1360507662}
@@ -18325,6 +18325,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 33c1a4f56c0c4e74289d68ee291c0621, type: 2}
+    - target: {fileID: 23654252438838320, guid: 0bb8a900f95274f4f9fe316ca09db4ec,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47b2b8d830246164ab1a3281f3718de1, type: 2}
     - target: {fileID: 4840323847506882, guid: 0bb8a900f95274f4f9fe316ca09db4ec, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.17041174
@@ -18349,11 +18354,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 19.624
       objectReference: {fileID: 0}
-    - target: {fileID: 23654252438838320, guid: 0bb8a900f95274f4f9fe316ca09db4ec,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 47b2b8d830246164ab1a3281f3718de1, type: 2}
     - target: {fileID: 4541763637693522, guid: 0bb8a900f95274f4f9fe316ca09db4ec, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.12421052

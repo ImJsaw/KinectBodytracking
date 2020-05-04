@@ -253,7 +253,7 @@ public class ModelController : MonoBehaviour {
         
 
         //position
-        mapPosition = MainMgr.inst.mapPos[modelIndex];
+        mapPosition = MainMgr.inst.headPos[modelIndex].pos;
         //Debug.Log("before: " + mapPosition.ToString() + ", " + chan.Head.position.ToString() + ", " + modelPosition.position.ToString());
         //cam pos = original position + vector(head to model anchor)
 

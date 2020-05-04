@@ -5,7 +5,7 @@ using UnityEngine;
 [CLSCompliant(false)]
 public class General : MonoBehaviour {
 
-    public ModelController modelPrefabVR = null;
+    public IKModelController modelPrefabVR = null;
     public ModelController modelPrefab = null;
     private Dictionary<string, int> localPlayerUIDDict = new Dictionary<string, int>();
 
@@ -18,7 +18,7 @@ public class General : MonoBehaviour {
         foreach (KeyValuePair<string, int> kvp in MainMgr.inst.getUIDDect()) {
             Debug.Log("key : " + kvp.Key + ", " + kvp.Value);
             if (!localPlayerUIDDict.ContainsKey(kvp.Key))
-                addNewPlayer( kvp.Key, kvp.Value);
+                addNewPlayer(kvp.Key, kvp.Value);
         }
     }
 
@@ -26,17 +26,11 @@ public class General : MonoBehaviour {
         //log  UID/index in local dictionary
         localPlayerUIDDict.Add(UID, index);
         //instantiate model & set index
-        ModelController modelInstant;
-        if (MainMgr.isVRValid)
-        {
-            modelInstant = Instantiate(modelPrefabVR);
-           // modelInstant.gameObject.transform.Rotate(0,)
+        if (MainMgr.isVRValid) {
+            Instantiate(modelPrefabVR).modelIndex = index;
+        } else {
+            Instantiate(modelPrefab).modelIndex = index;
         }
-        else
-        {
-            modelInstant = Instantiate(modelPrefab);
-        }
-        modelInstant.modelIndex = index;
         Debug.Log("[model instantiate] generate " + index + " th model");
     }
 }

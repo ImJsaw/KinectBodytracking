@@ -43,13 +43,13 @@ public class MainMgr : MonoBehaviour {
     [HideInInspector]
     public List<Quaternion> initRot = new List<Quaternion>();
     [HideInInspector]
-    public List<Vector3> mapPos = new List<Vector3>();
-    [HideInInspector]
     public List<Skeleton> skeletons = new List<Skeleton>();
     [HideInInspector]
     public List<bool> isFirstDataGet = new List<bool>();
     [HideInInspector]
     public List<bool> hasVR = new List<bool>();
+    [HideInInspector]
+    public List<SerializableTransform> headPos = new List<SerializableTransform>();
     [HideInInspector]
     public List<SerializableTransform> leftCtr = new List<SerializableTransform>();
     [HideInInspector]
@@ -58,6 +58,16 @@ public class MainMgr : MonoBehaviour {
     public List<SerializableTransform> leftTkr = new List<SerializableTransform>();
     [HideInInspector]
     public List<SerializableTransform> rightTkr = new List<SerializableTransform>();
+    [HideInInspector]
+    public List<SerializableTransform> headInitPos = new List<SerializableTransform>();
+    [HideInInspector]
+    public List<SerializableTransform> leftInitCtr = new List<SerializableTransform>();
+    [HideInInspector]
+    public List<SerializableTransform> rightInitCtr = new List<SerializableTransform>();
+    [HideInInspector]
+    public List<SerializableTransform> leftInitTkr = new List<SerializableTransform>();
+    [HideInInspector]
+    public List<SerializableTransform> rightInitTkr = new List<SerializableTransform>();
 
 
 
@@ -100,7 +110,7 @@ public class MainMgr : MonoBehaviour {
         //log  UID/index in dictionary
         playerUIDDict.Add(UID, modelSum);
         //init data
-        mapPos.Add(INIT_CAM_POS);
+        headPos.Add(new SerializableTransform(INIT_CAM_POS, Quaternion.identity));
         skeletons.Add(new Skeleton());
         isFirstDataGet.Add(false);
         hasVR.Add(false);
@@ -108,6 +118,12 @@ public class MainMgr : MonoBehaviour {
         rightCtr.Add(new SerializableTransform());
         leftTkr.Add(new SerializableTransform());
         rightTkr.Add(new SerializableTransform());
+        headInitPos.Add(new SerializableTransform());
+        leftInitCtr.Add(new SerializableTransform());
+        rightInitCtr.Add(new SerializableTransform());
+        leftInitTkr.Add(new SerializableTransform());
+        rightInitTkr.Add(new SerializableTransform());
+
         initRot.Add(Quaternion.identity);
         modelSum++;
     }

@@ -30,30 +30,25 @@ public struct Cube
 public struct playerPose {
     public string UID;
     public Skeleton skeleton;
-    public float posX;
-    public float posY;
-    public float posZ;
+    public SerializableTransform headTransform;
     //only use if VR valid
     public SerializableTransform leftHandTransform;
     public SerializableTransform rightHandTransform;
-    public SerializableTransform leftFeetTransform;
-    public SerializableTransform rightFeetTransform;
+    public SerializableTransform leftLegTransform;
+    public SerializableTransform rightLegTransform;
 
 }
 
-
+[CLSCompliant(false)]
 [Serializable]
 public struct register {
     public string UID;
-    //cam position
-    public float posX;
-    public float posY;
-    public float posZ;
-    //init model rotation
-    public float rotX;
-    public float rotY;
-    public float rotZ;
-    public float rotW;
+    public SerializableTransform headInitTransform;
+    //only use if VR valid
+    public SerializableTransform leftHandInitTransform;
+    public SerializableTransform rightHandInitTransform;
+    public SerializableTransform leftLegInitTransform;
+    public SerializableTransform rightLegInitTransform;
 }
 
 
@@ -82,16 +77,16 @@ public static class NetMgr {
                 Debug.Log("[NetMgr]index" + index);
                 if (MainMgr.inst.skeletons.Count > index)
                     MainMgr.inst.skeletons[index] = msg.skeleton;
-                if (MainMgr.inst.mapPos.Count > index)
-                    MainMgr.inst.mapPos[index] = new Vector3(msg.posX, msg.posY, msg.posZ);
+                if (MainMgr.inst.headPos.Count > index)
+                    MainMgr.inst.headPos[index] = msg.headTransform;
                 if (MainMgr.inst.isFirstDataGet.Count > index)
                     MainMgr.inst.isFirstDataGet[index] = true;
                 if (MainMgr.inst.hasVR[index]) {
                     //for ik
                     MainMgr.inst.leftCtr[index] = msg.leftHandTransform;
                     MainMgr.inst.rightCtr[index] = msg.rightHandTransform;
-                    MainMgr.inst.leftTkr[index] = msg.leftFeetTransform;
-                    MainMgr.inst.rightTkr[index] = msg.rightFeetTransform;
+                    MainMgr.inst.leftTkr[index] = msg.leftLegTransform;
+                    MainMgr.inst.rightTkr[index] = msg.rightLegTransform;
                 }
                 Debug.Log("[NetMgr]receive complete");
                 break;
@@ -105,10 +100,17 @@ public static class NetMgr {
                 register registerMsg = Utility.byte2Origin<register>(socketPackage.data);
                 int registerIndex = MainMgr.inst.getIndexfromUID(registerMsg.UID);
                 Debug.Log("[NetMgr]index" + registerIndex);
-                if (MainMgr.inst.mapPos.Count > registerIndex)
-                    MainMgr.inst.mapPos[registerIndex] = new Vector3(registerMsg.posX, registerMsg.posY, registerMsg.posZ);
-                if (MainMgr.inst.initRot.Count > registerIndex)
-                    MainMgr.inst.initRot[registerIndex] = new Quaternion(registerMsg.rotX, registerMsg.rotY, registerMsg.rotZ, registerMsg.rotW);
+                if (MainMgr.inst.headPos.Count > registerIndex)
+                    MainMgr.inst.headPos[registerIndex] = registerMsg.headInitTransform;
+                if (MainMgr.inst.leftInitCtr.Count > registerIndex)
+                    MainMgr.inst.leftInitCtr[registerIndex] = registerMsg.leftHandInitTransform;
+                if (MainMgr.inst.rightInitCtr.Count > registerIndex)
+                    MainMgr.inst.rightInitCtr[registerIndex] = registerMsg.rightHandInitTransform;
+                if (MainMgr.inst.leftInitTkr.Count > registerIndex)
+                    MainMgr.inst.leftInitTkr[registerIndex] = registerMsg.leftLegInitTransform;
+                if (MainMgr.inst.rightInitTkr.Count > registerIndex)
+                    MainMgr.inst.rightInitTkr[registerIndex] = registerMsg.rightLegInitTransform;
+
                 break;
             default:
                 Debug.Log("[NetMgr]receive unknown package type");

@@ -1,16 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using Microsoft.Azure.Kinect.Sensor;
-using Microsoft.Azure.Kinect.Sensor.BodyTracking;
 
 [CLSCompliant(false)]
-public class KinectListener : MonoBehaviour {
-
-    Device device;
-    Skeleton skeleton = new Skeleton();
-    BodyTracker tracker;
-    //make sure initial complete
-    private bool initial = false;
+public class UserListener : MonoBehaviour {
 
     public GameObject screenCam = null;
     public GameObject VrPrefab = null;
@@ -36,80 +28,32 @@ public class KinectListener : MonoBehaviour {
         } else
             curCam = screenCam;
 
-        if (MainMgr.isCamValid)
-            initialCamera();
         //tell other my stat
         sendRegister();
     }
 
-    void initialCamera() {
-        device = Device.Open(0);
-        var config = new DeviceConfiguration {
-            ColorResolution = ColorResolution.r720p,
-            ColorFormat = ImageFormat.ColorBGRA32,
-            DepthMode = DepthMode.NFOV_Unbinned
-        };
-        device.StartCameras(config);
-        var calibration = device.GetCalibration(config.DepthMode, config.ColorResolution);
-        tracker = BodyTracker.Create(calibration);
-
-        initial = true;
-    }
-
     void Update() {
         //Debug.Log("update");
+        if (!MainMgr.isVRValid) {
+            Debug.LogError("NO VR !");
+            return;
+        }
         updatePosition();
-        if (initial) {
-            updateSkeleton();
-        }
-        if (MainMgr.isVRValid) {
-            updateVRpos();
-        }
         sendModel();
     }
 
-    private void OnDisable() {
-        if (tracker != null) {
-            tracker.Dispose();
-        }
-        if (device != null) {
-            device.Dispose();
-        }
-    }
-
-    void updateSkeleton() {
-        Debug.Log("Enter update skeleton");
-        using (Capture capture = device.GetCapture()) {
-            tracker.EnqueueCapture(capture);
-        }
-        using (var frame = tracker.PopResult()) {
-            Debug.LogFormat("{0} bodies found.", frame.NumBodies);
-            if (frame.NumBodies > 0) {
-                skeleton = frame.GetSkeleton(0);
-                MainMgr.inst.skeletons[0] = skeleton;
-                MainMgr.inst.isFirstDataGet[0] = true;
-            }
-        }
-    }
-
-    void updateVRpos() {
+    private void updatePosition() {
+        Debug.Log("[CamPosTracker] update index" + 0 + " cam pos" + curCam.transform.position);
+        MainMgr.inst.headPos[0] = new SerializableTransform(curCam.transform.position, curCam.transform.rotation);
         MainMgr.inst.leftCtr[0] = new SerializableTransform(leftController.position, leftController.rotation);
         MainMgr.inst.rightCtr[0] = new SerializableTransform(rightController.position, rightController.rotation);
         MainMgr.inst.leftTkr[0] = new SerializableTransform(leftTracker.position, leftTracker.rotation);
         MainMgr.inst.rightTkr[0] = new SerializableTransform(rightTracker.position, rightTracker.rotation);
     }
 
-    private void updatePosition() {
-        Debug.Log("[CamPosTracker] update index" + 0 + " cam pos" + curCam.transform.position);
-        MainMgr.inst.headPos[0].pos = curCam.transform.position;
-    }
-
     void sendModel() {
         playerPose msg = new playerPose();
         msg.UID = MainMgr.inst.myUID();
-        if (MainMgr.isCamValid) {
-            msg.skeleton = MainMgr.inst.skeletons[0];
-        }
         msg.headTransform = MainMgr.inst.headPos[0];
         if (MainMgr.isVRValid) {
             msg.leftHandTransform = MainMgr.inst.leftCtr[0];
@@ -126,6 +70,10 @@ public class KinectListener : MonoBehaviour {
         register msg = new register();
         msg.UID = MainMgr.inst.myUID();
         msg.headInitTransform = MainMgr.inst.headPos[0];
+        msg.leftHandInitTransform = MainMgr.inst.leftInitCtr[0];
+        msg.rightHandInitTransform = MainMgr.inst.rightInitCtr[0];
+        msg.leftLegInitTransform = MainMgr.inst.leftInitTkr[0];
+        msg.rightLegInitTransform = MainMgr.inst.rightInitTkr[0];
         //send from net
         byte[] registerDataByte = Utility.Trans2byte(msg);
         NetMgr.sendMsg(packageType.register, registerDataByte);

@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\Calibration.cs" />
      <Compile Include="Assets\Scripts\DebugRenderer.cs" />
      <Compile Include="Assets\Scripts\General.cs" />
+     <Compile Include="Assets\Scripts\IKModelController.cs" />
      <Compile Include="Assets\Scripts\KinectListener.cs" />
      <Compile Include="Assets\Scripts\ListenerBase.cs" />
      <Compile Include="Assets\Scripts\Lobby.cs" />
@@ -99,6 +100,7 @@
      <Compile Include="Assets\Scripts\UI\CanvasRoot.cs" />
      <Compile Include="Assets\Scripts\UI\ControlChatRoom.cs" />
      <Compile Include="Assets\Scripts\UI\UIMgr.cs" />
+     <Compile Include="Assets\Scripts\UserListener.cs" />
      <Compile Include="Assets\Scripts\Utility.cs" />
      <Compile Include="Assets\Scripts\VR\HandController.cs" />
      <Compile Include="Assets\Scripts\VR\Interactable.cs" />

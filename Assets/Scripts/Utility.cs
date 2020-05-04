@@ -16,8 +16,8 @@ public class SerializableTransform {
     }
     private SerializablePos _pos;
     private SerializableRot _rot;
-    public Vector3 pos { get { return _pos.v3(); } }
-    public Quaternion rot { get { return _rot.Quat(); } }
+    public Vector3 pos { get { return _pos.v3(); }  set { _pos.setPos(value); } }
+    public Quaternion rot { get { return _rot.Quat(); }  set { _rot.setRot(value); } }
 }
 
 [CLSCompliant(false)]
@@ -28,13 +28,17 @@ public class SerializablePos {
     public float z;
 
     public SerializablePos(Vector3 vector) {
-        x = vector.x;
-        y = vector.y;
-        z = vector.z;
+        setPos(vector);
     }
 
     public Vector3 v3() {
         return new Vector3(x, y, z);
+    }
+
+    public void setPos(Vector3 vector) {
+        x = vector.x;
+        y = vector.y;
+        z = vector.z;
     }
 }
 
@@ -48,14 +52,18 @@ public class SerializableRot {
 
 
     public SerializableRot(Quaternion r) {
-        x = r.x;
-        y = r.y;
-        z = r.z;
-        w = r.w;
+        setRot(r);
     }
 
     public Quaternion Quat() {
         return new Quaternion(x, y, z, w);
+    }
+
+    public void setRot(Quaternion r) {
+        x = r.x;
+        y = r.y;
+        z = r.z;
+        w = r.w;
     }
 }
 
