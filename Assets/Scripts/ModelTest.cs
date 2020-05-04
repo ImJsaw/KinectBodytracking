@@ -55,8 +55,8 @@ public class ModelTest : MonoBehaviour {
         leftHandTarget.position = leftCtr.position;
         rightHandTarget.position = rightCtr.position;
 
-        leftHandTarget.rotation = leftCtr.rotation * Quaternion.Inverse(leftArmInitRot);
-        rightHandTarget.rotation = rightCtr.rotation * Quaternion.Inverse(rightArmInitRot);
+        leftHandTarget.rotation = leftCtr.rotation * Quaternion.Inverse(leftArmInitRot) * Quaternion.Euler(0, 180, 0);
+        rightHandTarget.rotation = rightCtr.rotation * Quaternion.Inverse(rightArmInitRot) * Quaternion.Euler(0, 180, 0);
 
         leftLegTarget.position = leftTkr.position;
         rightLegTarget.position = rightTkr.position;
