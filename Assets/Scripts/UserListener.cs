@@ -2,53 +2,19 @@
 using UnityEngine;
 
 [CLSCompliant(false)]
-public class UserListener : MonoBehaviour {
+public class UserListener : ListenerBase {
 
-    public GameObject screenCam = null;
-    public GameObject VrPrefab = null;
-    private GameObject VRroot = null;
-
-    private GameObject curCam = null;
-    private Transform leftController = null;
-    private Transform rightController = null;
-    private Transform leftTracker = null;
-    private Transform rightTracker = null;
-
-    void Start() {
-        //only open one cam at a time
-        screenCam.transform.position = MainMgr.INIT_CAM_POS;
-        if (MainMgr.isVRValid) {
-            //generate VR camera if vr valid
+    new void Start() {
+        if (MainMgr.isVRValid)
             VRroot = Instantiate(VrPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            curCam = GameObject.FindWithTag("camera");
-            leftController = VRroot.GetComponentInChildren<Transform>().Find("Controller (left)");
-            rightController = VRroot.GetComponentInChildren<Transform>().Find("Controller (right)");
-            leftTracker = VRroot.GetComponentInChildren<Transform>().Find("Tracker (left)");
-            rightTracker = VRroot.GetComponentInChildren<Transform>().Find("Tracker (right)");
-        } else
-            curCam = screenCam;
-
+        base.Start();
         //tell other my stat
         sendRegister();
     }
 
-    void Update() {
-        //Debug.Log("update");
-        if (!MainMgr.isVRValid) {
-            Debug.LogError("NO VR !");
-            return;
-        }
-        updatePosition();
+    new void Update() {
+        base.Update();
         sendModel();
-    }
-
-    private void updatePosition() {
-        Debug.Log("[CamPosTracker] update index" + 0 + " cam pos" + curCam.transform.position);
-        MainMgr.inst.headPos[0] = new SerializableTransform(curCam.transform.position, curCam.transform.rotation);
-        MainMgr.inst.leftCtr[0] = new SerializableTransform(leftController.position, leftController.rotation);
-        MainMgr.inst.rightCtr[0] = new SerializableTransform(rightController.position, rightController.rotation);
-        MainMgr.inst.leftTkr[0] = new SerializableTransform(leftTracker.position, leftTracker.rotation);
-        MainMgr.inst.rightTkr[0] = new SerializableTransform(rightTracker.position, rightTracker.rotation);
     }
 
     void sendModel() {

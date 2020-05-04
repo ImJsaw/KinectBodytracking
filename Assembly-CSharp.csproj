@@ -55,11 +55,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Calibration.cs" />
+     <Compile Include="Assets\Scripts\CalibrationListener.cs" />
      <Compile Include="Assets\Scripts\DebugRenderer.cs" />
      <Compile Include="Assets\Scripts\General.cs" />
      <Compile Include="Assets\Scripts\IKModelController.cs" />
-     <Compile Include="Assets\Scripts\KinectListener.cs" />
      <Compile Include="Assets\Scripts\ListenerBase.cs" />
      <Compile Include="Assets\Scripts\Lobby.cs" />
      <Compile Include="Assets\Scripts\Mgr\MainMgr.cs" />

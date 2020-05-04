@@ -51,9 +51,7 @@ public class IKModelController : MonoBehaviour {
         rightCtr = MainMgr.inst.rightCtr[modelIndex];
         leftTkr = MainMgr.inst.leftTkr[modelIndex];
         rightTkr = MainMgr.inst.rightTkr[modelIndex];
-
-        updateInitRotation();
-
+        
         updateModelTransform();
         //arm
         leftHandTarget.position = leftCtr.pos;

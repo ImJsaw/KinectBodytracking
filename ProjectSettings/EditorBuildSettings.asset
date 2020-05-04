@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Connect.unity
     guid: ed5e9a5660f470947a5a310b9c8797f9
   - enabled: 1
-    path: Assets/Scenes/Calibration.unity
-    guid: 2d02c8f6a6ccff240b213879c7be0ff0
+    path: Assets/Scenes/newCalibration.unity
+    guid: 5f6b2915299c35a4f89ba5078da49469
   - enabled: 1
     path: Assets/Scenes/General.unity
     guid: e76ac00f89d238940bcd085b95d77206
