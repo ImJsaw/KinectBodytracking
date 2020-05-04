@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System;
-using Microsoft.Azure.Kinect.Sensor.BodyTracking;
-using Joint = Microsoft.Azure.Kinect.Sensor.BodyTracking.Joint;
+using Valve.VR;
 
 [CLSCompliant(false)]
 public class ModelTest : MonoBehaviour {
@@ -20,7 +19,15 @@ public class ModelTest : MonoBehaviour {
     public Transform rightHandTarget = null;
     public Transform leftLegTarget = null;
     public Transform rightLegTarget = null;
+    //init rotation
+    private Quaternion leftArmInitRot = Quaternion.identity;
+    private Quaternion rightArmInitRot = Quaternion.identity;
+    private Quaternion leftLegInitRot = Quaternion.identity;
+    private Quaternion rightLegInitRot = Quaternion.identity;
 
+
+    public SteamVR_Action_Boolean m_InitAction;
+    private SteamVR_Behaviour_Pose m_Pose = null;
 
     private Vector3 hmtPos;
 
@@ -30,21 +37,45 @@ public class ModelTest : MonoBehaviour {
         modelPosition.position = new Vector3(hmtPos.x, modelPosition.position.y, hmtPos.z);
     }
 
+    void Start() {
+        m_Pose = rightCtr.GetComponent<SteamVR_Behaviour_Pose>();
+    }
+
     void Update() {
-        if(helmetPosition != null) {
+        if (m_InitAction.GetStateDown(m_Pose.inputSource)) {
+            Debug.Log("trigger");
+            updateInitRotation();
+        }
+
+        if (helmetPosition != null) {
             //position
             hmtPos = helmetPosition.position;
         }
 
         leftHandTarget.position = leftCtr.position;
         rightHandTarget.position = rightCtr.position;
+
+        leftHandTarget.rotation = leftCtr.rotation * Quaternion.Inverse(leftArmInitRot);
+        rightHandTarget.rotation = rightCtr.rotation * Quaternion.Inverse(rightArmInitRot);
+
         leftLegTarget.position = leftTkr.position;
         rightLegTarget.position = rightTkr.position;
+        leftLegTarget.rotation = leftTkr.rotation * Quaternion.Inverse(leftLegInitRot);
+        rightLegTarget.rotation = rightTkr.rotation * Quaternion.Inverse(rightLegInitRot);
+
 
         updateModelTransform();
        
     }
-    
+
+    private void updateInitRotation() {
+        leftArmInitRot = leftCtr.rotation;
+        rightArmInitRot = rightCtr.rotation;
+        leftLegInitRot = leftTkr.rotation;
+        rightLegInitRot = rightTkr.rotation;
+
+    }
+
 }
 
 
