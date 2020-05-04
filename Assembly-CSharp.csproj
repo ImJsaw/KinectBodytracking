@@ -55,8 +55,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\FurnishedCabin\Scripts\MoveableObject.cs" />
-     <Compile Include="Assets\FurnishedCabin\Scripts\MoveObjectController.cs" />
      <Compile Include="Assets\Scripts\Calibration.cs" />
      <Compile Include="Assets\Scripts\DebugRenderer.cs" />
      <Compile Include="Assets\Scripts\General.cs" />
@@ -67,6 +65,7 @@
      <Compile Include="Assets\Scripts\Mgr\NetMgr.cs" />
      <Compile Include="Assets\Scripts\Mgr\SceneMgr.cs" />
      <Compile Include="Assets\Scripts\ModelController.cs" />
+     <Compile Include="Assets\Scripts\ModelTest.cs" />
      <Compile Include="Assets\Scripts\Native\M4A\AzureKinectException.cs" />
      <Compile Include="Assets\Scripts\Native\M4A\BGRA.cs" />
      <Compile Include="Assets\Scripts\Native\M4A\Calibration.cs" />
@@ -106,6 +105,12 @@
      <Compile Include="Assets\Scripts\VR\Modelhand.cs" />
      <Compile Include="Assets\Scripts\VR\Moveable.cs" />
      <Compile Include="Assets\Scripts\VR\Teleporter.cs" />
+     <None Include="Assets\Scandinavian Interior Archviz\Shaders\Glass.shader" />
+     <None Include="Assets\Scandinavian Interior Archviz\Shaders\Fabric_Carpet.shader" />
+     <None Include="Assets\Scandinavian Interior Archviz\Shaders\Fabric.shader" />
+     <None Include="Assets\Scandinavian Interior Archviz\Shaders\Env.shader" />
+     <None Include="Assets\Scandinavian Interior Archviz\Shaders\DoubleSided Alpha Cutout.shader" />
+     <None Include="Assets\Scandinavian Interior Archviz\Shaders\DoubleSided Alpha Cutout (Specular).shader" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/lab/Unity/Kinect_curiosity/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
@@ -678,6 +683,10 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{29A3E55B-583A-39A9-FF32-5B332F6132FD}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="SteamVR_Actions.csproj">
       <Project>{23C2C419-3B4E-64B4-25FB-4261BC8D442C}</Project>
       <Name>SteamVR_Actions</Name>

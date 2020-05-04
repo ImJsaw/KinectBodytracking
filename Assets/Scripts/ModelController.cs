@@ -292,9 +292,10 @@ public class ModelController : MonoBehaviour {
         Debug.Log("using ccd ik right" + MainMgr.inst.rightCtr[modelIndex].pos.ToString());
         Transform[] rightIK = { chan.ClavicleRight, chan.ShoulderRight, chan.ElbowRight, chan.WristRight };
         Utility.CCDIK(rightIK, MainMgr.inst.rightCtr[modelIndex].pos, true);
-        //hand transform
-        chan.WristRight.rotation = Quaternion.Euler(0, 0, -90)* MainMgr.inst.rightCtr[modelIndex].rot;
-        chan.WristLeft.rotation = Quaternion.Euler(0, 0, 90) * MainMgr.inst.leftCtr[modelIndex].rot;
+
+        ////hand transform
+        //chan.WristRight.rotation = Quaternion.Euler(0, 0, -90)* MainMgr.inst.rightCtr[modelIndex].rot;
+        //chan.WristLeft.rotation = Quaternion.Euler(0, 0, 90) * MainMgr.inst.leftCtr[modelIndex].rot;
 
 
         ////leg
