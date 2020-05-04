@@ -143,6 +143,9 @@ MonoBehaviour:
   rightHandTarget: {fileID: 692673558}
   leftLegTarget: {fileID: 1688381889}
   rightLegTarget: {fileID: 1358934866}
+  m_InitAction:
+    actionPath: /actions/default/in/GrabPinch
+    needsReinit: 0
 --- !u!114 &1140204536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,7 +198,7 @@ MonoBehaviour:
       sqrMag: 0
       axis: {x: -1, y: -0, z: -0}
     goal: 0
-    bendModifier: 3
+    bendModifier: 1
     maintainRotationWeight: 1
     bendModifierWeight: 1
     bendGoal: {fileID: 0}
@@ -219,7 +222,7 @@ MonoBehaviour:
     target: {fileID: 692673558}
     IKRotationWeight: 1
     IKRotation: {x: -0, y: 1, z: -0, w: 0}
-    bendNormal: {x: -0.000000009162783, y: -0.007127679, z: -0.00072908506}
+    bendNormal: {x: 1, y: 0, z: 0}
     bone1:
       transform: {fileID: 3439826942212734145}
       weight: 1
@@ -251,9 +254,9 @@ MonoBehaviour:
       sqrMag: 0
       axis: {x: -1, y: -0, z: -0}
     goal: 3
-    bendModifier: 3
-    maintainRotationWeight: 1
-    bendModifierWeight: 1
+    bendModifier: 1
+    maintainRotationWeight: 0
+    bendModifierWeight: 0.5
     bendGoal: {fileID: 0}
 --- !u!114 &1140204539
 MonoBehaviour:
@@ -307,7 +310,7 @@ MonoBehaviour:
       sqrMag: 0
       axis: {x: -1, y: -0, z: -0}
     goal: 1
-    bendModifier: 3
+    bendModifier: 1
     maintainRotationWeight: 1
     bendModifierWeight: 1
     bendGoal: {fileID: 0}
@@ -331,7 +334,7 @@ MonoBehaviour:
     target: {fileID: 1432901046}
     IKRotationWeight: 1
     IKRotation: {x: -0, y: 1, z: -0, w: 0}
-    bendNormal: {x: -0.000000009162783, y: -0.007127679, z: -0.00072908506}
+    bendNormal: {x: 1, y: 0, z: 0}
     bone1:
       transform: {fileID: 287658882057367325}
       weight: 1
@@ -363,9 +366,9 @@ MonoBehaviour:
       sqrMag: 0
       axis: {x: -1, y: -0, z: -0}
     goal: 2
-    bendModifier: 3
-    maintainRotationWeight: 1
-    bendModifierWeight: 1
+    bendModifier: 1
+    maintainRotationWeight: 0
+    bendModifierWeight: 0.5
     bendGoal: {fileID: 0}
 --- !u!1001 &8181554869691243869
 PrefabInstance:
@@ -377,7 +380,7 @@ PrefabInstance:
     - target: {fileID: 8577161965837844200, guid: 1c647812118c3c844b95dd496bd8205b,
         type: 3}
       propertyPath: m_Name
-      value: Samba Dancing
+      value: LimbIKModel
       objectReference: {fileID: 0}
     - target: {fileID: 4707223158574779643, guid: 1c647812118c3c844b95dd496bd8205b,
         type: 3}

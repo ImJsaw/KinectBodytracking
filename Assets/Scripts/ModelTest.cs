@@ -24,7 +24,7 @@ public class ModelTest : MonoBehaviour {
     private Quaternion rightArmInitRot = Quaternion.identity;
     private Quaternion leftLegInitRot = Quaternion.identity;
     private Quaternion rightLegInitRot = Quaternion.identity;
-
+    private Quaternion pelvisInitRot = Quaternion.identity;
 
     public SteamVR_Action_Boolean m_InitAction;
     private SteamVR_Behaviour_Pose m_Pose = null;
@@ -32,19 +32,24 @@ public class ModelTest : MonoBehaviour {
     private Vector3 hmtPos;
 
     private void updateModelTransform() {
-
         //make model horizon move with cam
         modelPosition.position = new Vector3(hmtPos.x, modelPosition.position.y, hmtPos.z);
     }
 
     void Start() {
         m_Pose = rightCtr.GetComponent<SteamVR_Behaviour_Pose>();
+        pelvisInitRot = transform.rotation;
+        if (demoMode)
+            updateInitRotation();
     }
 
     void Update() {
-        if (m_InitAction.GetStateDown(m_Pose.inputSource)) {
-            Debug.Log("trigger");
-            updateInitRotation();
+        if (m_Pose != null) {
+
+            if (m_InitAction.GetStateDown(m_Pose.inputSource)) {
+                Debug.Log("trigger");
+                updateInitRotation();
+            }
         }
 
         if (helmetPosition != null) {
@@ -55,8 +60,8 @@ public class ModelTest : MonoBehaviour {
         leftHandTarget.position = leftCtr.position;
         rightHandTarget.position = rightCtr.position;
 
-        leftHandTarget.rotation = leftCtr.rotation * Quaternion.Inverse(leftArmInitRot) * Quaternion.Euler(0, 180, 0);
-        rightHandTarget.rotation = rightCtr.rotation * Quaternion.Inverse(rightArmInitRot) * Quaternion.Euler(0, 180, 0);
+        leftHandTarget.rotation = leftCtr.rotation * Quaternion.Inverse(leftArmInitRot) * Quaternion.Inverse(pelvisInitRot);
+        rightHandTarget.rotation = rightCtr.rotation * Quaternion.Inverse(rightArmInitRot) * Quaternion.Inverse(pelvisInitRot);
 
         leftLegTarget.position = leftTkr.position;
         rightLegTarget.position = rightTkr.position;
@@ -65,7 +70,7 @@ public class ModelTest : MonoBehaviour {
 
 
         updateModelTransform();
-       
+
     }
 
     private void updateInitRotation() {
