@@ -38,7 +38,7 @@ public class ListenerBase : MonoBehaviour {
     }
 
     protected void updatePosition() {
-        Debug.Log("[CamPosTracker] update index" + 0 + " cam pos" + curCam.transform.position);
+        //Debug.Log("[CamPosTracker] update index" + 0 + " cam pos" + curCam.transform.position);
         MainMgr.inst.headPos[0] = new SerializableTransform(curCam.transform.position, curCam.transform.rotation);
         MainMgr.inst.leftCtr[0] = new SerializableTransform(leftCtr.position, leftCtr.rotation);
         MainMgr.inst.rightCtr[0] = new SerializableTransform(rightCtr.position, rightCtr.rotation);

@@ -15,9 +15,9 @@ public class CalibrationListener : ListenerBase {
     public Transform VRRef = null;
 
     new void Start() {
-        m_Pose = rightCtr.GetComponent<SteamVR_Behaviour_Pose>();
         VRroot = VRRef.gameObject;
         base.Start();
+        m_Pose = rightCtr.GetComponent<SteamVR_Behaviour_Pose>();
     }
 
     new void Update() {
@@ -42,6 +42,7 @@ public class CalibrationListener : ListenerBase {
             MainMgr.inst.rightInitCtr[0].rot = rightCtr.rotation;
             MainMgr.inst.leftInitTkr[0].rot = leftTkr.rotation;
             MainMgr.inst.rightInitTkr[0].rot = rightTkr.rotation;
+            curState++;
         }
     }
 

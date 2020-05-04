@@ -77,7 +77,7 @@ public class IKModelController : MonoBehaviour {
     private void updateModelTransform() {
         //make model horizon move with cam
         modelPosition.position = new Vector3(hmt.pos.x, modelPosition.position.y, hmt.pos.z);
-        modelPosition.rotation = Quaternion.Euler(0, hmt.rot.y, 0);
+        modelPosition.rotation = Quaternion.Euler(0, hmt.rot.eulerAngles.y, 0);
     }
 }
 
