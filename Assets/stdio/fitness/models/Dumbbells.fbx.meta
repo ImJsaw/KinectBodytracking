@@ -1,0 +1,207 @@
+fileFormatVersion: 2
+guid: 400d4d53f29344d48bd9c084a47a65cf
+timeCreated: 1534707397
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Dumbbells
+    100004: Dumbbells_1
+    100006: Dumbbells_10
+    100008: Dumbbells_11
+    100010: Dumbbells_12
+    100012: Dumbbells_13
+    100014: Dumbbells_14
+    100016: Dumbbells_2
+    100018: Dumbbells_21
+    100020: Dumbbells_22
+    100022: Dumbbells_23
+    100024: Dumbbells_24
+    100026: Dumbbells_25
+    100028: Dumbbells_26
+    100030: Dumbbells_27
+    100032: Dumbbells_28
+    100034: Dumbbells_29
+    100036: Dumbbells_3
+    100038: Dumbbells_30
+    100040: Dumbbells_4
+    100042: Dumbbells_5
+    100044: Dumbbells_6
+    100046: Dumbbells_7
+    100048: Dumbbells_8
+    100050: Dumbbells_9
+    400000: //RootNode
+    400002: Dumbbells
+    400004: Dumbbells_1
+    400006: Dumbbells_10
+    400008: Dumbbells_11
+    400010: Dumbbells_12
+    400012: Dumbbells_13
+    400014: Dumbbells_14
+    400016: Dumbbells_2
+    400018: Dumbbells_21
+    400020: Dumbbells_22
+    400022: Dumbbells_23
+    400024: Dumbbells_24
+    400026: Dumbbells_25
+    400028: Dumbbells_26
+    400030: Dumbbells_27
+    400032: Dumbbells_28
+    400034: Dumbbells_29
+    400036: Dumbbells_3
+    400038: Dumbbells_30
+    400040: Dumbbells_4
+    400042: Dumbbells_5
+    400044: Dumbbells_6
+    400046: Dumbbells_7
+    400048: Dumbbells_8
+    400050: Dumbbells_9
+    2300000: //RootNode
+    2300002: Dumbbells
+    2300004: Dumbbells_1
+    2300006: Dumbbells_10
+    2300008: Dumbbells_11
+    2300010: Dumbbells_12
+    2300012: Dumbbells_13
+    2300014: Dumbbells_14
+    2300016: Dumbbells_2
+    2300018: Dumbbells_21
+    2300020: Dumbbells_22
+    2300022: Dumbbells_23
+    2300024: Dumbbells_24
+    2300026: Dumbbells_25
+    2300028: Dumbbells_26
+    2300030: Dumbbells_27
+    2300032: Dumbbells_28
+    2300034: Dumbbells_29
+    2300036: Dumbbells_3
+    2300038: Dumbbells_30
+    2300040: Dumbbells_4
+    2300042: Dumbbells_5
+    2300044: Dumbbells_6
+    2300046: Dumbbells_7
+    2300048: Dumbbells_8
+    2300050: Dumbbells_9
+    3300000: //RootNode
+    3300002: Dumbbells
+    3300004: Dumbbells_1
+    3300006: Dumbbells_10
+    3300008: Dumbbells_11
+    3300010: Dumbbells_12
+    3300012: Dumbbells_13
+    3300014: Dumbbells_14
+    3300016: Dumbbells_2
+    3300018: Dumbbells_21
+    3300020: Dumbbells_22
+    3300022: Dumbbells_23
+    3300024: Dumbbells_24
+    3300026: Dumbbells_25
+    3300028: Dumbbells_26
+    3300030: Dumbbells_27
+    3300032: Dumbbells_28
+    3300034: Dumbbells_29
+    3300036: Dumbbells_3
+    3300038: Dumbbells_30
+    3300040: Dumbbells_4
+    3300042: Dumbbells_5
+    3300044: Dumbbells_6
+    3300046: Dumbbells_7
+    3300048: Dumbbells_8
+    3300050: Dumbbells_9
+    4300000: Circle
+    4300002: Dumbbells_30
+    4300004: Dumbbells_29
+    4300006: Dumbbells_28
+    4300008: Dumbbells_27
+    4300010: Dumbbells_26
+    4300012: Dumbbells_25
+    4300014: Dumbbells_24
+    4300016: Dumbbells_23
+    4300018: Dumbbells_22
+    4300020: Dumbbells_21
+    4300022: Dumbbells_14
+    4300024: Dumbbells_13
+    4300026: Dumbbells_12
+    4300028: Dumbbells_11
+    4300030: Dumbbells_10
+    4300032: Dumbbells_9
+    4300034: Dumbbells_8
+    4300036: Dumbbells_7
+    4300038: Dumbbells_6
+    4300040: Dumbbells_5
+    4300042: Dumbbells_4
+    4300044: Dumbbells_3
+    4300046: Dumbbells_2
+    4300048: Dumbbells_1
+    4300050: Dumbbells
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

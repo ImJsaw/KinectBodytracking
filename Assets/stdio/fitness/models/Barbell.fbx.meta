@@ -1,0 +1,153 @@
+fileFormatVersion: 2
+guid: 8e3679e1b125cf640a4de3e9e9c78a1c
+timeCreated: 1534707398
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: cargo_1
+    100004: cargo_1.001
+    100006: cargo_12
+    100008: cargo_2
+    100010: cargo_22
+    100012: cargo_3
+    100014: cargo_33
+    100016: cargo_4
+    100018: cargo_44
+    100020: lock_1
+    100022: lock_2
+    100024: lock_3
+    100026: lock_4
+    100028: rod
+    400000: //RootNode
+    400002: cargo_1
+    400004: cargo_1.001
+    400006: cargo_12
+    400008: cargo_2
+    400010: cargo_22
+    400012: cargo_3
+    400014: cargo_33
+    400016: cargo_4
+    400018: cargo_44
+    400020: lock_1
+    400022: lock_2
+    400024: lock_3
+    400026: lock_4
+    400028: rod
+    2300000: //RootNode
+    2300002: cargo_1
+    2300004: cargo_1.001
+    2300006: cargo_12
+    2300008: cargo_2
+    2300010: cargo_22
+    2300012: cargo_3
+    2300014: cargo_33
+    2300016: cargo_4
+    2300018: cargo_44
+    2300020: lock_1
+    2300022: lock_2
+    2300024: lock_3
+    2300026: lock_4
+    2300028: rod
+    3300000: //RootNode
+    3300002: cargo_1
+    3300004: cargo_1.001
+    3300006: cargo_12
+    3300008: cargo_2
+    3300010: cargo_22
+    3300012: cargo_3
+    3300014: cargo_33
+    3300016: cargo_4
+    3300018: cargo_44
+    3300020: lock_1
+    3300022: lock_2
+    3300024: lock_3
+    3300026: lock_4
+    3300028: rod
+    4300000: Circle
+    4300002: Barbell
+    4300004: lock_4
+    4300006: lock_3
+    4300008: lock_2
+    4300010: lock_1
+    4300012: cargo_44
+    4300014: cargo_4
+    4300016: cargo_33
+    4300018: cargo_3
+    4300020: cargo_22
+    4300022: cargo_2
+    4300024: cargo_12
+    4300026: cargo_1
+    4300028: rod
+    4300030: cargo_1.001
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
