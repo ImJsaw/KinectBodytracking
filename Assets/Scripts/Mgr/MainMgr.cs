@@ -35,11 +35,7 @@ public class MainMgr : MonoBehaviour {
     //panel queue
     public Queue<string> panelWaitingList = new Queue<string>();
 
-    //models data
-    //public List<Quaternion[]> modelRot = new List<Quaternion[]>();
-    //public List<Vector3> modelPos = new List<Vector3>();
-
-    //calibration model rotaion
+    //players' data
     [HideInInspector]
     public List<Quaternion> initRot = new List<Quaternion>();
     [HideInInspector]
@@ -68,7 +64,8 @@ public class MainMgr : MonoBehaviour {
     public List<SerializableTransform> leftInitTkr = new List<SerializableTransform>();
     [HideInInspector]
     public List<SerializableTransform> rightInitTkr = new List<SerializableTransform>();
-
+    [HideInInspector]
+    public List<int> modelType = new List<int>();
 
 
     [HideInInspector]
@@ -123,6 +120,7 @@ public class MainMgr : MonoBehaviour {
         rightInitCtr.Add(new SerializableTransform());
         leftInitTkr.Add(new SerializableTransform());
         rightInitTkr.Add(new SerializableTransform());
+        modelType.Add(0);
 
         initRot.Add(Quaternion.identity);
         modelSum++;

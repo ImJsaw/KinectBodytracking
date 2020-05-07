@@ -985,8 +985,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 2.743971e+20, y: 2.3104108e+20, z: 1.5159741e+23,
-    w: 7.00624e+22}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -1040,7 +1039,7 @@ Transform:
   - {fileID: 500844112}
   - {fileID: 473855334}
   m_Father: {fileID: 897481979}
-  m_RootOrder: 58
+  m_RootOrder: 56
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &189101020
 GameObject:
@@ -1078,7 +1077,7 @@ Transform:
   - {fileID: 1886750141}
   - {fileID: 2132629521}
   m_Father: {fileID: 897481979}
-  m_RootOrder: 50
+  m_RootOrder: 44
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &190625545
 PrefabInstance:
@@ -1445,7 +1444,7 @@ Transform:
   - {fileID: 353248496}
   - {fileID: 1486570390}
   m_Father: {fileID: 897481979}
-  m_RootOrder: 57
+  m_RootOrder: 55
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &239366262
 PrefabInstance:
@@ -4521,7 +4520,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 4.5904e-41, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -6431,8 +6430,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b14f1935cce724448e31a14c0160338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelPrefabVR: {fileID: 2869819689109724088, guid: 5ca498d1201c08d4f874d801e61259bb,
-    type: 3}
+  modelPrefabVR:
+  - {fileID: 2869819689109724088, guid: 5ca498d1201c08d4f874d801e61259bb, type: 3}
+  - {fileID: 425574287, guid: 07e55140bee6b9a408bcd0c781e85f77, type: 3}
   modelPrefab: {fileID: 2158758488639643795, guid: 2a005acd987b7e547927f19131b99df5,
     type: 3}
 --- !u!4 &821732767
@@ -7807,28 +7807,28 @@ Transform:
   - {fileID: 851329387}
   - {fileID: 1866922035}
   - {fileID: 1428958931}
+  - {fileID: 189101021}
+  - {fileID: 2050267891}
   - {fileID: 876824567}
   - {fileID: 1664857308}
   - {fileID: 319499739}
   - {fileID: 881477087}
   - {fileID: 487084252}
   - {fileID: 1091490867}
-  - {fileID: 189101021}
+  - {fileID: 1796876139}
   - {fileID: 428565680}
   - {fileID: 1738383977}
-  - {fileID: 2050267891}
-  - {fileID: 1796876139}
-  - {fileID: 663680492}
-  - {fileID: 1330798057}
   - {fileID: 238786531}
   - {fileID: 175626181}
+  - {fileID: 663680492}
+  - {fileID: 1330798057}
+  - {fileID: 1788751060}
   - {fileID: 836260693}
   - {fileID: 2017318974}
   - {fileID: 1889010808}
   - {fileID: 2076075783}
   - {fileID: 1421671455}
   - {fileID: 372458495}
-  - {fileID: 1788751060}
   - {fileID: 525492198}
   - {fileID: 196041916}
   - {fileID: 1276247326}
@@ -7858,6 +7858,7 @@ Transform:
   - {fileID: 1358346977}
   - {fileID: 405658589}
   - {fileID: 799507274}
+  - {fileID: 987386241}
   - {fileID: 1881358986}
   - {fileID: 1050701949}
   - {fileID: 1730688049}
@@ -7867,7 +7868,6 @@ Transform:
   - {fileID: 1779072713}
   - {fileID: 2103727390}
   - {fileID: 1550971482}
-  - {fileID: 987386241}
   - {fileID: 1434040432}
   m_Father: {fileID: 1030957319}
   m_RootOrder: 1
@@ -8616,7 +8616,7 @@ Transform:
   - {fileID: 1356514922}
   - {fileID: 1413132485}
   m_Father: {fileID: 897481979}
-  m_RootOrder: 104
+  m_RootOrder: 95
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &989623421
 GameObject:
@@ -16786,7 +16786,7 @@ Transform:
   - {fileID: 856600226}
   - {fileID: 1545329490}
   m_Father: {fileID: 897481979}
-  m_RootOrder: 65
+  m_RootOrder: 59
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1792611167
 PrefabInstance:
@@ -16919,7 +16919,7 @@ Transform:
   - {fileID: 823143742}
   - {fileID: 409274850}
   m_Father: {fileID: 897481979}
-  m_RootOrder: 54
+  m_RootOrder: 52
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1798594155
 GameObject:
@@ -19790,7 +19790,7 @@ Transform:
   - {fileID: 398359766}
   - {fileID: 1535988236}
   m_Father: {fileID: 897481979}
-  m_RootOrder: 53
+  m_RootOrder: 45
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2052166538
 GameObject:

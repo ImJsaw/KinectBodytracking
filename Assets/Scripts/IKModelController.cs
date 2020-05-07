@@ -33,16 +33,20 @@ public class IKModelController : MonoBehaviour {
     public Transform leftHandTarget = null;
     public Transform rightLegTarget = null;
     public Transform leftLegTarget = null;
-    //init rotation
+    //tracker init rotation
     private Quaternion leftArmInitRot = Quaternion.identity;
     private Quaternion rightArmInitRot = Quaternion.identity;
     private Quaternion leftLegInitRot = Quaternion.identity;
     private Quaternion rightLegInitRot = Quaternion.identity;
-    private Quaternion pelvisInitRot = Quaternion.identity;
+    //target init
+    private Quaternion leftArmTargetRot = Quaternion.identity;
+    private Quaternion rightArmTargetRot = Quaternion.identity;
+    private Quaternion leftLegTargetRot = Quaternion.identity;
+    private Quaternion rightLegTargetRot = Quaternion.identity;
+
 
     void Start() {
-        pelvisInitRot = transform.rotation;
-        updateInitRotation();
+        logTargetInitRotation();
     }
 
     void Update() {
@@ -51,27 +55,31 @@ public class IKModelController : MonoBehaviour {
         rightCtr = MainMgr.inst.rightCtr[modelIndex];
         leftTkr = MainMgr.inst.leftTkr[modelIndex];
         rightTkr = MainMgr.inst.rightTkr[modelIndex];
-        
+
+        leftArmInitRot = MainMgr.inst.leftInitCtr[modelIndex].rot;
+        rightArmInitRot = MainMgr.inst.rightInitCtr[modelIndex].rot;
+        leftLegInitRot = MainMgr.inst.leftInitTkr[modelIndex].rot;
+        rightLegInitRot = MainMgr.inst.rightInitTkr[modelIndex].rot;
+
         updateModelTransform();
         //arm
         leftHandTarget.position = leftCtr.pos;
         rightHandTarget.position = rightCtr.pos;
-        leftHandTarget.rotation = leftCtr.rot * Quaternion.Inverse(leftArmInitRot) * Quaternion.Inverse(pelvisInitRot);
-        rightHandTarget.rotation = rightCtr.rot * Quaternion.Inverse(rightArmInitRot) * Quaternion.Inverse(pelvisInitRot);
+        leftHandTarget.rotation = leftCtr.rot * Quaternion.Inverse(leftArmInitRot) * leftArmTargetRot;
+        rightHandTarget.rotation = rightCtr.rot * Quaternion.Inverse(rightArmInitRot) * rightArmTargetRot;
         //leg
         leftLegTarget.position = leftTkr.pos;
         rightLegTarget.position = rightTkr.pos;
-        leftLegTarget.rotation = leftTkr.rot * Quaternion.Inverse(leftLegInitRot);
-        rightLegTarget.rotation = rightTkr.rot * Quaternion.Inverse(rightLegInitRot);
+        leftLegTarget.rotation = leftTkr.rot * Quaternion.Inverse(leftLegInitRot) * leftLegTargetRot;
+        rightLegTarget.rotation = rightTkr.rot * Quaternion.Inverse(rightLegInitRot) * rightLegTargetRot;
 
     }
 
-    private void updateInitRotation() {
-        leftArmInitRot = leftCtr.rot;
-        rightArmInitRot = rightCtr.rot;
-        leftLegInitRot = leftTkr.rot;
-        rightLegInitRot = rightTkr.rot;
-
+    private void logTargetInitRotation() {
+        leftArmTargetRot = leftHandTarget.rotation;
+        rightArmTargetRot = rightHandTarget.rotation;
+        leftLegTargetRot = leftLegTarget.rotation;
+        rightLegTargetRot = rightLegTarget.rotation;
     }
 
     private void updateModelTransform() {

@@ -5,7 +5,7 @@ using UnityEngine;
 [CLSCompliant(false)]
 public class General : MonoBehaviour {
 
-    public IKModelController modelPrefabVR = null;
+    public IKModelController[] modelPrefabVR;
     public ModelController modelPrefab = null;
     private Dictionary<string, int> localPlayerUIDDict = new Dictionary<string, int>();
 
@@ -27,7 +27,9 @@ public class General : MonoBehaviour {
         localPlayerUIDDict.Add(UID, index);
         //instantiate model & set index
         if (MainMgr.isVRValid) {
-            Instantiate(modelPrefabVR).modelIndex = index;
+            //generate chosed type
+            IKModelController modelPrefab = Instantiate(modelPrefabVR[MainMgr.inst.modelType[index]]);
+            modelPrefab.modelIndex = index;
         } else {
             Instantiate(modelPrefab).modelIndex = index;
         }
