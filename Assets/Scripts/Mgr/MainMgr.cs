@@ -120,7 +120,7 @@ public class MainMgr : MonoBehaviour {
         rightInitCtr.Add(new SerializableTransform());
         leftInitTkr.Add(new SerializableTransform());
         rightInitTkr.Add(new SerializableTransform());
-        modelType.Add(0);
+        modelType.Add(1);
 
         initRot.Add(Quaternion.identity);
         modelSum++;
