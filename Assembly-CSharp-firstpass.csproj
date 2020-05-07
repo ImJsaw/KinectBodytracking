@@ -432,6 +432,9 @@
  <Reference Include="Vuforia.UnityExtensions">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.11f1/Editor/Data/PlaybackEngines/VuforiaSupport/Managed/Runtime/Vuforia.UnityExtensions.dll</HintPath>
  </Reference>
+ <Reference Include="Valve.Newtonsoft.Json">
+ <HintPath>D:/lab/Unity/Kinect_curiosity/Assets/Plugins/SteamVR/Input/Plugins/JSON.NET/Valve.Newtonsoft.Json.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Analytics.Editor">
  <HintPath>D:/lab/Unity/Kinect_curiosity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
  </Reference>
@@ -440,9 +443,6 @@
  </Reference>
  <Reference Include="Unity.Analytics.Tracker">
  <HintPath>D:/lab/Unity/Kinect_curiosity/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
- </Reference>
- <Reference Include="Valve.Newtonsoft.Json">
- <HintPath>D:/lab/Unity/Kinect_curiosity/Assets/Plugins/SteamVR/Input/Plugins/JSON.NET/Valve.Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.11f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
