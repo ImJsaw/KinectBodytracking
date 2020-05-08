@@ -12,6 +12,7 @@ public class ListenerBase : MonoBehaviour {
     protected Transform rightCtr = null;
     protected Transform leftTkr = null;
     protected Transform rightTkr = null;
+    protected Transform pelvisTkr = null;
 
     public void Start() {
         curCam = GameObject.FindWithTag("camera");
@@ -25,6 +26,7 @@ public class ListenerBase : MonoBehaviour {
             rightCtr = VRroot.GetComponentInChildren<Transform>().Find("Controller (right)");
             leftTkr = VRroot.GetComponentInChildren<Transform>().Find("Tracker (left)");
             rightTkr = VRroot.GetComponentInChildren<Transform>().Find("Tracker (right)");
+            pelvisTkr = VRroot.GetComponentInChildren<Transform>().Find("Tracker (pelvis)");
         }
     }
 
@@ -44,6 +46,7 @@ public class ListenerBase : MonoBehaviour {
         MainMgr.inst.rightCtr[0] = new SerializableTransform(rightCtr.position, rightCtr.rotation);
         MainMgr.inst.leftTkr[0] = new SerializableTransform(leftTkr.position, leftTkr.rotation);
         MainMgr.inst.rightTkr[0] = new SerializableTransform(rightTkr.position, rightTkr.rotation);
+        MainMgr.inst.pelvisTkr[0] = new SerializableTransform(pelvisTkr.position, pelvisTkr.rotation);
     }
 
 }

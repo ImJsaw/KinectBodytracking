@@ -26,6 +26,7 @@ public class UserListener : ListenerBase {
             msg.rightHandTransform = MainMgr.inst.rightCtr[0];
             msg.leftLegTransform = MainMgr.inst.leftTkr[0];
             msg.rightLegTransform = MainMgr.inst.rightTkr[0];
+            msg.pelvisTransform = MainMgr.inst.pelvisTkr[0];
         }
         //send from net
         byte[] modelDataBytes = Utility.Trans2byte(msg);
@@ -40,6 +41,7 @@ public class UserListener : ListenerBase {
         msg.rightHandInitTransform = MainMgr.inst.rightInitCtr[0];
         msg.leftLegInitTransform = MainMgr.inst.leftInitTkr[0];
         msg.rightLegInitTransform = MainMgr.inst.rightInitTkr[0];
+        msg.pelvisInitTransform = MainMgr.inst.pelvisInitTkr[0];
         //send from net
         byte[] registerDataByte = Utility.Trans2byte(msg);
         NetMgr.sendMsg(packageType.register, registerDataByte);

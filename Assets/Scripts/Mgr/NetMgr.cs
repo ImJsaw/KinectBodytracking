@@ -36,7 +36,7 @@ public struct playerPose {
     public SerializableTransform rightHandTransform;
     public SerializableTransform leftLegTransform;
     public SerializableTransform rightLegTransform;
-
+    public SerializableTransform pelvisTransform;
 }
 
 [CLSCompliant(false)]
@@ -49,6 +49,7 @@ public struct register {
     public SerializableTransform rightHandInitTransform;
     public SerializableTransform leftLegInitTransform;
     public SerializableTransform rightLegInitTransform;
+    public SerializableTransform pelvisInitTransform;
 }
 
 
@@ -87,6 +88,7 @@ public static class NetMgr {
                     MainMgr.inst.rightCtr[index] = msg.rightHandTransform;
                     MainMgr.inst.leftTkr[index] = msg.leftLegTransform;
                     MainMgr.inst.rightTkr[index] = msg.rightLegTransform;
+                    MainMgr.inst.pelvisTkr[index] = msg.pelvisTransform;
                 }
                 Debug.Log("[NetMgr]receive complete");
                 break;
@@ -110,7 +112,8 @@ public static class NetMgr {
                     MainMgr.inst.leftInitTkr[registerIndex] = registerMsg.leftLegInitTransform;
                 if (MainMgr.inst.rightInitTkr.Count > registerIndex)
                     MainMgr.inst.rightInitTkr[registerIndex] = registerMsg.rightLegInitTransform;
-
+                if (MainMgr.inst.pelvisInitTkr.Count > registerIndex)
+                    MainMgr.inst.pelvisInitTkr[registerIndex] = registerMsg.pelvisInitTransform;
                 break;
             default:
                 Debug.Log("[NetMgr]receive unknown package type");

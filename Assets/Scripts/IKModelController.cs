@@ -28,16 +28,20 @@ public class IKModelController : MonoBehaviour {
     private SerializableTransform leftCtr = null;
     private SerializableTransform rightTkr = null;
     private SerializableTransform leftTkr = null;
+    private SerializableTransform pelvisTkr = null;
     //apply tracker pos to target
     public Transform rightHandTarget = null;
     public Transform leftHandTarget = null;
     public Transform rightLegTarget = null;
     public Transform leftLegTarget = null;
+    public Transform headTarget = null;
+    
     //tracker init rotation
     private Quaternion leftArmInitRot = Quaternion.identity;
     private Quaternion rightArmInitRot = Quaternion.identity;
     private Quaternion leftLegInitRot = Quaternion.identity;
     private Quaternion rightLegInitRot = Quaternion.identity;
+    private Quaternion pelvisInitRot = Quaternion.identity;
     //target init
     private Quaternion leftArmTargetRot = Quaternion.identity;
     private Quaternion rightArmTargetRot = Quaternion.identity;
@@ -55,13 +59,18 @@ public class IKModelController : MonoBehaviour {
         rightCtr = MainMgr.inst.rightCtr[modelIndex];
         leftTkr = MainMgr.inst.leftTkr[modelIndex];
         rightTkr = MainMgr.inst.rightTkr[modelIndex];
+        pelvisTkr = MainMgr.inst.pelvisTkr[modelIndex];
 
         leftArmInitRot = MainMgr.inst.leftInitCtr[modelIndex].rot;
         rightArmInitRot = MainMgr.inst.rightInitCtr[modelIndex].rot;
         leftLegInitRot = MainMgr.inst.leftInitTkr[modelIndex].rot;
         rightLegInitRot = MainMgr.inst.rightInitTkr[modelIndex].rot;
+        pelvisInitRot = MainMgr.inst.pelvisInitTkr[modelIndex].rot;
 
         updateModelTransform();
+        //pelvis
+        headTarget.position = hmt.pos;
+        headTarget.rotation = hmt.rot;
         //arm
         leftHandTarget.position = leftCtr.pos;
         rightHandTarget.position = rightCtr.pos;
@@ -84,9 +93,11 @@ public class IKModelController : MonoBehaviour {
 
     private void updateModelTransform() {
         //make model horizon move with cam
-        modelPosition.position = new Vector3(hmt.pos.x, modelPosition.position.y, hmt.pos.z);
-        modelPosition.rotation = Quaternion.Euler(0, hmt.rot.eulerAngles.y, 0);
-        modelPosition.localPosition = modelPosition.localPosition + Vector3.Scale(modelPosition.forward, new Vector3(-0.1f,-0.1f,-0.1f));
+        modelPosition.position = pelvisTkr.pos;
+        modelPosition.rotation = Quaternion.Euler(0, pelvisTkr.rot.eulerAngles.y, 0);
+        
+        //offset to avoid cam in face problem
+        //modelPosition.localPosition = modelPosition.localPosition + Vector3.Scale(modelPosition.forward, new Vector3(-0.1f, -0.1f, -0.1f));
     }
 }
 

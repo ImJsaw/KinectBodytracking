@@ -56,6 +56,8 @@ public class MainMgr : MonoBehaviour {
     [HideInInspector]
     public List<SerializableTransform> rightTkr = new List<SerializableTransform>();
     [HideInInspector]
+    public List<SerializableTransform> pelvisTkr = new List<SerializableTransform>();
+    [HideInInspector]
     public List<SerializableTransform> headInitPos = new List<SerializableTransform>();
     [HideInInspector]
     public List<SerializableTransform> leftInitCtr = new List<SerializableTransform>();
@@ -65,6 +67,9 @@ public class MainMgr : MonoBehaviour {
     public List<SerializableTransform> leftInitTkr = new List<SerializableTransform>();
     [HideInInspector]
     public List<SerializableTransform> rightInitTkr = new List<SerializableTransform>();
+    [HideInInspector]
+    public List<SerializableTransform> pelvisInitTkr = new List<SerializableTransform>();
+
     [HideInInspector]
     public List<int> modelType = new List<int>();
 
@@ -117,11 +122,13 @@ public class MainMgr : MonoBehaviour {
         rightCtr.Add(new SerializableTransform());
         leftTkr.Add(new SerializableTransform());
         rightTkr.Add(new SerializableTransform());
+        pelvisTkr.Add(new SerializableTransform());
         headInitPos.Add(new SerializableTransform());
         leftInitCtr.Add(new SerializableTransform());
         rightInitCtr.Add(new SerializableTransform());
         leftInitTkr.Add(new SerializableTransform());
         rightInitTkr.Add(new SerializableTransform());
+        pelvisInitTkr.Add(new SerializableTransform());
         modelType.Add(1);
 
         initRot.Add(Quaternion.identity);
