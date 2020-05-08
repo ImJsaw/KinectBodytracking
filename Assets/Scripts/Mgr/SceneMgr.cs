@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 [CLSCompliant(false)]
 public class SceneMgr : MonoBehaviour {
@@ -32,12 +33,16 @@ public class SceneMgr : MonoBehaviour {
     public void gotoCalibration() {
         //save vr setting
         MainMgr.inst.hasVR[0] = MainMgr.isVRValid;
+        //open vr
+        XRSettings.enabled = true;
         mainMgr.changeScene(SceneID.Calibration);
     }
     public void gotoGeneral() {
-        mainMgr.changeScene(SceneID.General);
         //save vr setting
         MainMgr.inst.hasVR[0] = MainMgr.isVRValid;
+        //open vr
+        XRSettings.enabled = true;
+        mainMgr.changeScene(SceneID.General);
     }
 
     public void gotoNewClient() {

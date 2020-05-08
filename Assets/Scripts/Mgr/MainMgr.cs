@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 public enum SceneID : int {
     None = -1,
@@ -100,6 +101,7 @@ public class MainMgr : MonoBehaviour {
         client = GameObject.Find("TCP_Client").GetComponent<TcpClient>();
         server = GameObject.Find("TCP_Server").GetComponent<TcpServer>();
         SceneManager.sceneLoaded += OnSceneLoaded;
+        XRSettings.enabled = false;
     }
 
     //called when new user enter
