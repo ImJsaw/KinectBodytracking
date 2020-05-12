@@ -21,7 +21,7 @@ public class IKModelController : MonoBehaviour {
                 Debug.LogError("model number not set");
         }
     }
-    public Transform modelPosition = null;
+    public Transform pelvisPosition = null;
     //vr tracker
     private SerializableTransform hmt;
     private SerializableTransform rightCtr = null;
@@ -93,8 +93,8 @@ public class IKModelController : MonoBehaviour {
 
     private void updateModelTransform() {
         //make model horizon move with cam
-        modelPosition.position = pelvisTkr.pos;
-        modelPosition.rotation = Quaternion.Euler(0, pelvisTkr.rot.eulerAngles.y, 0);
+        pelvisPosition.position = pelvisTkr.pos;
+        pelvisPosition.rotation = pelvisTkr.rot * Quaternion.Inverse(pelvisInitRot);
         
         //offset to avoid cam in face problem
         //modelPosition.localPosition = modelPosition.localPosition + Vector3.Scale(modelPosition.forward, new Vector3(-0.1f, -0.1f, -0.1f));

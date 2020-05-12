@@ -356,11 +356,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc8613086932d443b290fdb6c959de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelPosition: {fileID: 3520075806334767526}
+  pelvisPosition: {fileID: 3973020006319682336}
   rightHandTarget: {fileID: 692673558}
   leftHandTarget: {fileID: 1432901046}
   rightLegTarget: {fileID: 1358934866}
   leftLegTarget: {fileID: 1688381889}
+  headTarget: {fileID: 0}
 --- !u!1001 &8181554869691243869
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -610,6 +611,12 @@ GameObject:
 --- !u!4 &3520075806334767526 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4707223158574779643, guid: 1c647812118c3c844b95dd496bd8205b,
+    type: 3}
+  m_PrefabInstance: {fileID: 8181554869691243869}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3973020006319682336 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5091803624299048573, guid: 1c647812118c3c844b95dd496bd8205b,
     type: 3}
   m_PrefabInstance: {fileID: 8181554869691243869}
   m_PrefabAsset: {fileID: 0}
