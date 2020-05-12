@@ -43,6 +43,7 @@ public class CalibrationListener : ListenerBase {
             MainMgr.inst.leftInitTkr[0].rot = leftTkr.rotation;
             MainMgr.inst.rightInitTkr[0].rot = rightTkr.rotation;
             MainMgr.inst.pelvisInitTkr[0].rot = pelvisTkr.rotation;
+            MainMgr.inst.handDist[0] = Vector3.Distance(leftCtr.position, rightCtr.position);
             curState++;
         }
     }

@@ -69,7 +69,8 @@ public class MainMgr : MonoBehaviour {
     public List<SerializableTransform> rightInitTkr = new List<SerializableTransform>();
     [HideInInspector]
     public List<SerializableTransform> pelvisInitTkr = new List<SerializableTransform>();
-
+    [HideInInspector]
+    public List<float> handDist = new List<float>();
     [HideInInspector]
     public List<int> modelType = new List<int>();
 
@@ -129,6 +130,7 @@ public class MainMgr : MonoBehaviour {
         leftInitTkr.Add(new SerializableTransform());
         rightInitTkr.Add(new SerializableTransform());
         pelvisInitTkr.Add(new SerializableTransform());
+        handDist.Add(0);
         modelType.Add(1);
 
         initRot.Add(Quaternion.identity);

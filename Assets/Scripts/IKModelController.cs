@@ -15,6 +15,7 @@ public class IKModelController : MonoBehaviour {
         }
         set {
             _modelIndex = value;
+            scaleByHand(MainMgr.inst.handDist[modelIndex]);
             if (_modelIndex < 0)
                 Debug.LogError("model index < 0 !");
             if (_modelIndex == -1)
@@ -47,6 +48,9 @@ public class IKModelController : MonoBehaviour {
     private Quaternion rightArmTargetRot = Quaternion.identity;
     private Quaternion leftLegTargetRot = Quaternion.identity;
     private Quaternion rightLegTargetRot = Quaternion.identity;
+
+    //controller len
+    float controllerLen = 0.1f;
 
 
     void Start() {
@@ -98,6 +102,14 @@ public class IKModelController : MonoBehaviour {
         
         //offset to avoid cam in face problem
         //modelPosition.localPosition = modelPosition.localPosition + Vector3.Scale(modelPosition.forward, new Vector3(-0.1f, -0.1f, -0.1f));
+    }
+
+    //scale model to fit
+    private void scaleByHand(float handDistance) {
+        float modelHandDis = Vector3.Distance(rightHandTarget.position, leftHandTarget.position);
+        float scale = (handDistance-controllerLen) / (modelHandDis - controllerLen);
+        Debug.Log("scale model " + scale + " time to fit");
+        transform.localScale = new Vector3(scale, scale, scale);
     }
 }
 
