@@ -500,7 +500,7 @@ Transform:
   m_Father: {fileID: 8181554868685503383}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &824687642
+--- !u!21 &641640134
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -534,7 +534,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
---- !u!43 &959264372
+--- !u!43 &843525353
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -933,11 +933,11 @@ PrefabInstance:
     - target: {fileID: 2348914, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 824687642}
+      objectReference: {fileID: 641640134}
     - target: {fileID: 3380982, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 959264372}
+      objectReference: {fileID: 843525353}
     - target: {fileID: 3284663549425535964, guid: 4d293c8e162f3874b982baadd71153d2,
         type: 3}
       propertyPath: index
@@ -952,6 +952,11 @@ PrefabInstance:
         type: 3}
       propertyPath: index
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2314662486919379786, guid: 4d293c8e162f3874b982baadd71153d2,
+        type: 3}
+      propertyPath: index
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d293c8e162f3874b982baadd71153d2, type: 3}
@@ -988,6 +993,12 @@ Transform:
 --- !u!4 &1506274118 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7120031531007427077, guid: 4d293c8e162f3874b982baadd71153d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1506274112}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1672557686 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 159396, guid: 4d293c8e162f3874b982baadd71153d2,
     type: 3}
   m_PrefabInstance: {fileID: 1506274112}
   m_PrefabAsset: {fileID: 0}
@@ -3484,7 +3495,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7241268063902230397}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.941, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6485995712993088461}
@@ -3527,7 +3538,7 @@ Transform:
   m_GameObject: {fileID: 476458725500564412}
   m_LocalRotation: {x: -0.000000085715925, y: 0.0000034113539, z: -0.00010411787,
     w: 1}
-  m_LocalPosition: {x: -0.00007846617, y: 0.8923589, z: -0.001950722}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2891089537556966145}
@@ -3938,6 +3949,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pelvisTracker: {fileID: 1506274118}
+  ctr: {fileID: 1672557686}
+  hip: {fileID: 6187855480000395240}
   m_InitAction:
     actionPath: /actions/default/in/GrabPinch
     needsReinit: 0
