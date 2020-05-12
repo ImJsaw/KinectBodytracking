@@ -57,6 +57,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CalibrationListener.cs" />
      <Compile Include="Assets\Scripts\DebugRenderer.cs" />
+     <Compile Include="Assets\Scripts\Follow.cs" />
      <Compile Include="Assets\Scripts\General.cs" />
      <Compile Include="Assets\Scripts\IKModelController.cs" />
      <Compile Include="Assets\Scripts\ListenerBase.cs" />
