@@ -54,9 +54,9 @@ public struct register {
     public float handDist;
 }
 
-
+[Serializable]
 public enum packageType {
-    camModel = 0,
+    playerPose = 0,
     cube,
     register
 }
@@ -73,7 +73,7 @@ public static class NetMgr {
 
 
         switch (socketPackage.type) {
-            case packageType.camModel:
+            case packageType.playerPose:
                 Debug.Log("[NetMgr]receive camModel package type");
                 playerPose msg = Utility.byte2Origin<playerPose>(socketPackage.data);
                 int index = MainMgr.inst.getIndexfromUID(msg.UID);
@@ -100,10 +100,33 @@ public static class NetMgr {
                 target.rcvCube(Cubemsg);
                 break;
             case packageType.register:
-                Debug.Log("[NetMgr]receive new observer get in");
+                
+                //if is client, give it all exist player init data
+                if (!MainMgr.isClient) {
+                    Debug.Log("[NetMgr]receive new observer get in");
+                    foreach (var playerID in MainMgr.inst.getUIDDect()) {
+                        int i = playerID.Value;
+                        register reg = new register();
+                        reg.UID = playerID.Key;
+                        reg.headInitTransform = MainMgr.inst.headPos[i];
+                        reg.leftHandInitTransform = MainMgr.inst.leftInitCtr[i];
+                        reg.rightHandInitTransform = MainMgr.inst.rightInitCtr[i];
+                        reg.leftLegInitTransform = MainMgr.inst.leftInitTkr[i];
+                        reg.rightLegInitTransform = MainMgr.inst.rightInitTkr[i];
+                        reg.pelvisInitTransform = MainMgr.inst.pelvisInitTkr[i];
+                        //hand dist for scale
+                        reg.handDist = MainMgr.inst.handDist[i];
+                        //model type
+                        reg.modelType = MainMgr.inst.modelType[i];
+                        //send from net
+                        byte[] registerDataByte = Utility.Trans2byte(reg);
+                        sendMsg(packageType.register, registerDataByte);
+
+                    }
+                }
                 register registerMsg = Utility.byte2Origin<register>(socketPackage.data);
                 int registerIndex = MainMgr.inst.getIndexfromUID(registerMsg.UID);
-                Debug.Log("[NetMgr]index" + registerIndex);
+                Debug.Log("[NetMgr]index" + registerIndex + "init get");
                 if (MainMgr.inst.headPos.Count > registerIndex)
                     MainMgr.inst.headPos[registerIndex] = registerMsg.headInitTransform;
                 if (MainMgr.inst.modelType.Count > registerIndex)

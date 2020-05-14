@@ -30,7 +30,7 @@ public class UserListener : ListenerBase {
         }
         //send from net
         byte[] modelDataBytes = Utility.Trans2byte(msg);
-        NetMgr.sendMsg(packageType.camModel, modelDataBytes);
+        NetMgr.sendMsg(packageType.playerPose, modelDataBytes);
     }
 
     void sendRegister() {

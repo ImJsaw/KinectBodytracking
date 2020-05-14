@@ -25,14 +25,12 @@ public class General : MonoBehaviour {
     private void addNewPlayer(string UID, int index) {
         //log  UID/index in local dictionary
         localPlayerUIDDict.Add(UID, index);
+
         //instantiate model & set index
-        if (MainMgr.isVRValid) {
-            //generate chosed type
-            IKModelController modelPrefab = Instantiate(modelPrefabVR[MainMgr.inst.modelType[index]]);
-            modelPrefab.modelIndex = index;
-        } else {
-            Instantiate(modelPrefab).modelIndex = index;
-        }
+        //generate chosed type
+        IKModelController modelPrefab = Instantiate(modelPrefabVR[MainMgr.inst.modelType[index]]);
+        modelPrefab.modelIndex = index;
+
         Debug.Log("[model instantiate] generate " + index + " th model");
     }
 }
