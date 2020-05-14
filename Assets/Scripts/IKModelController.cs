@@ -106,6 +106,9 @@ public class IKModelController : MonoBehaviour {
 
     //scale model to fit
     private void scaleByHand(float handDistance) {
+        if (handDistance == -1)
+            return;
+
         float modelHandDis = Vector3.Distance(rightHandTarget.position, leftHandTarget.position);
         float scale = (handDistance-controllerLen) / (modelHandDis - controllerLen);
         Debug.Log("scale model " + scale + " time to fit");

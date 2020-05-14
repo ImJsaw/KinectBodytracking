@@ -130,7 +130,7 @@ public class MainMgr : MonoBehaviour {
         leftInitTkr.Add(new SerializableTransform());
         rightInitTkr.Add(new SerializableTransform());
         pelvisInitTkr.Add(new SerializableTransform());
-        handDist.Add(0);
+        handDist.Add(-1);
         modelType.Add(1);
 
         initRot.Add(Quaternion.identity);

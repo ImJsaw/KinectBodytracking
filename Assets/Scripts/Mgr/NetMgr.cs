@@ -43,6 +43,7 @@ public struct playerPose {
 [Serializable]
 public struct register {
     public string UID;
+    public int modelType;
     public SerializableTransform headInitTransform;
     //only use if VR valid
     public SerializableTransform leftHandInitTransform;
@@ -50,6 +51,7 @@ public struct register {
     public SerializableTransform leftLegInitTransform;
     public SerializableTransform rightLegInitTransform;
     public SerializableTransform pelvisInitTransform;
+    public float handDist;
 }
 
 
@@ -104,16 +106,15 @@ public static class NetMgr {
                 Debug.Log("[NetMgr]index" + registerIndex);
                 if (MainMgr.inst.headPos.Count > registerIndex)
                     MainMgr.inst.headPos[registerIndex] = registerMsg.headInitTransform;
-                if (MainMgr.inst.leftInitCtr.Count > registerIndex)
+                if (MainMgr.inst.modelType.Count > registerIndex)
+                    MainMgr.inst.modelType[registerIndex] = registerMsg.modelType;
+                if (MainMgr.inst.hasVR[registerIndex]) {
                     MainMgr.inst.leftInitCtr[registerIndex] = registerMsg.leftHandInitTransform;
-                if (MainMgr.inst.rightInitCtr.Count > registerIndex)
                     MainMgr.inst.rightInitCtr[registerIndex] = registerMsg.rightHandInitTransform;
-                if (MainMgr.inst.leftInitTkr.Count > registerIndex)
                     MainMgr.inst.leftInitTkr[registerIndex] = registerMsg.leftLegInitTransform;
-                if (MainMgr.inst.rightInitTkr.Count > registerIndex)
                     MainMgr.inst.rightInitTkr[registerIndex] = registerMsg.rightLegInitTransform;
-                if (MainMgr.inst.pelvisInitTkr.Count > registerIndex)
                     MainMgr.inst.pelvisInitTkr[registerIndex] = registerMsg.pelvisInitTransform;
+                }
                 break;
             default:
                 Debug.Log("[NetMgr]receive unknown package type");

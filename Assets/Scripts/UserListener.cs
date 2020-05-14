@@ -42,6 +42,10 @@ public class UserListener : ListenerBase {
         msg.leftLegInitTransform = MainMgr.inst.leftInitTkr[0];
         msg.rightLegInitTransform = MainMgr.inst.rightInitTkr[0];
         msg.pelvisInitTransform = MainMgr.inst.pelvisInitTkr[0];
+        //hand dist for scale
+        msg.handDist = MainMgr.inst.handDist[0];
+        //model type
+        msg.modelType = MainMgr.inst.modelType[0];
         //send from net
         byte[] registerDataByte = Utility.Trans2byte(msg);
         NetMgr.sendMsg(packageType.register, registerDataByte);
