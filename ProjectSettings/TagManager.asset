@@ -6,6 +6,8 @@ TagManager:
   tags:
   - interactable
   - target
+  - camera
+  - model
   layers:
   - Default
   - TransparentFX

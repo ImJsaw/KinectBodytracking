@@ -202,4 +202,9 @@ public class MainMgr : MonoBehaviour {
         return playerUIDDict;
     }
 
+    public void setModelType(int index, int modelnum)
+    {
+        modelType[index] = modelnum;
+    }
+
 }
