@@ -45,6 +45,7 @@ public struct register {
     public string UID;
     public int modelType;
     public SerializableTransform headInitTransform;
+    public bool hasVR;
     //only use if VR valid
     public SerializableTransform leftHandInitTransform;
     public SerializableTransform rightHandInitTransform;
@@ -108,6 +109,7 @@ public static class NetMgr {
                         int i = playerID.Value;
                         register reg = new register();
                         reg.UID = playerID.Key;
+                        reg.hasVR = MainMgr.inst.hasVR[i];
                         reg.headInitTransform = MainMgr.inst.headPos[i];
                         reg.leftHandInitTransform = MainMgr.inst.leftInitCtr[i];
                         reg.rightHandInitTransform = MainMgr.inst.rightInitCtr[i];
@@ -126,12 +128,13 @@ public static class NetMgr {
                 }
                 register registerMsg = Utility.byte2Origin<register>(socketPackage.data);
                 int registerIndex = MainMgr.inst.getIndexfromUID(registerMsg.UID);
-                Debug.Log("[NetMgr]index" + registerIndex + "init get");
+                Debug.Log("[NetMgr]index" + registerIndex + "init get, name : "+ registerMsg.UID);
                 if (MainMgr.inst.headPos.Count > registerIndex)
                     MainMgr.inst.headPos[registerIndex] = registerMsg.headInitTransform;
                 if (MainMgr.inst.modelType.Count > registerIndex)
                     MainMgr.inst.modelType[registerIndex] = registerMsg.modelType;
-                if (MainMgr.inst.hasVR[registerIndex]) {
+                MainMgr.inst.hasVR[registerIndex] = registerMsg.hasVR;
+                if (registerMsg.hasVR) {
                     MainMgr.inst.leftInitCtr[registerIndex] = registerMsg.leftHandInitTransform;
                     MainMgr.inst.rightInitCtr[registerIndex] = registerMsg.rightHandInitTransform;
                     MainMgr.inst.leftInitTkr[registerIndex] = registerMsg.leftLegInitTransform;

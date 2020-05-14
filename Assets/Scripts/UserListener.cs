@@ -18,6 +18,7 @@ public class UserListener : ListenerBase {
     }
 
     void sendModel() {
+        Debug.Log("send my model");
         playerPose msg = new playerPose();
         msg.UID = MainMgr.inst.myUID();
         msg.headTransform = MainMgr.inst.headPos[0];

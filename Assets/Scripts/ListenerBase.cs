@@ -32,11 +32,12 @@ public class ListenerBase : MonoBehaviour {
 
     public void Update() {
         //Debug.Log("update");
-        if (!MainMgr.isVRValid) {
-            Debug.LogError("NO VR !");
-            return;
+        if (MainMgr.isVRValid) {
+            updatePosition();
+            //return;
+        } else {
+            Debug.Log("NO VR !");
         }
-        updatePosition();
     }
 
     protected void updatePosition() {
