@@ -34,7 +34,6 @@ public class SelectModel : MonoBehaviour
                 modelindex = Array.IndexOf(modelList, hit.transform.gameObject);
                 int index = MainMgr.inst.getIndexfromUID(MainMgr.inst.myUID());
                 MainMgr.inst.setModelType(index, modelindex);
-                MainMgr.inst.setModelType(0, 0);
             }
            // Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
             
