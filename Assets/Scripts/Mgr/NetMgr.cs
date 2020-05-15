@@ -37,6 +37,8 @@ public struct playerPose {
     public SerializableTransform leftLegTransform;
     public SerializableTransform rightLegTransform;
     public SerializableTransform pelvisTransform;
+    public SerializablePos leftArmGoal;
+    public SerializablePos rightArmGoal;
 }
 
 [CLSCompliant(false)]
@@ -93,6 +95,13 @@ public static class NetMgr {
                     MainMgr.inst.rightTkr[index] = msg.rightLegTransform;
                     MainMgr.inst.pelvisTkr[index] = msg.pelvisTransform;
                 }
+                if (msg.leftArmGoal.v3() != new Vector3(0, 0, 0)) {
+                    MainMgr.inst.leftArmGoal[index] = msg.leftArmGoal;
+                }
+                if (msg.rightArmGoal.v3() != new Vector3(0, 0, 0)) {
+                    MainMgr.inst.rightArmGoal[index] = msg.rightArmGoal;
+                }
+
                 Debug.Log("[NetMgr]receive complete");
                 break;
             case packageType.cube:

@@ -32,6 +32,8 @@ public class MainMgr : MonoBehaviour {
     public static bool isCamValid = false;
     //read only settings
     public static readonly Vector3 INIT_CAM_POS = new Vector3(1, 2, -5);
+    public static readonly Vector3 rightGoalDefault = new Vector3(1, 2, -5);
+    public static readonly Vector3 leftGoalDefault = new Vector3(1, 2, -5);
 
     //panel queue
     public Queue<string> panelWaitingList = new Queue<string>();
@@ -53,6 +55,10 @@ public class MainMgr : MonoBehaviour {
     public List<SerializableTransform> rightCtr = new List<SerializableTransform>();
     [HideInInspector]
     public List<SerializableTransform> leftTkr = new List<SerializableTransform>();
+    [HideInInspector]
+    public List<SerializablePos> rightArmGoal = new List<SerializablePos>();
+    [HideInInspector]
+    public List<SerializablePos> leftArmGoal = new List<SerializablePos>();
     [HideInInspector]
     public List<SerializableTransform> rightTkr = new List<SerializableTransform>();
     [HideInInspector]
@@ -121,6 +127,8 @@ public class MainMgr : MonoBehaviour {
         hasVR.Add(false);
         leftCtr.Add(new SerializableTransform());
         rightCtr.Add(new SerializableTransform());
+        leftArmGoal.Add(new SerializablePos(leftGoalDefault));
+        rightArmGoal.Add(new SerializablePos(rightGoalDefault));
         leftTkr.Add(new SerializableTransform());
         rightTkr.Add(new SerializableTransform());
         pelvisTkr.Add(new SerializableTransform());

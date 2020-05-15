@@ -33,10 +33,12 @@ public class IKModelController : MonoBehaviour {
     //apply tracker pos to target
     public Transform rightHandTarget = null;
     public Transform leftHandTarget = null;
+    public Transform rightHandGoal = null;
+    public Transform leftHandGoal = null;
     public Transform rightLegTarget = null;
     public Transform leftLegTarget = null;
     public Transform headTarget = null;
-    
+
     //tracker init rotation
     private Quaternion leftArmInitRot = Quaternion.identity;
     private Quaternion rightArmInitRot = Quaternion.identity;
@@ -81,6 +83,11 @@ public class IKModelController : MonoBehaviour {
         rightHandTarget.position = rightCtr.pos;
         leftHandTarget.rotation = leftCtr.rot * Quaternion.Inverse(leftArmInitRot) * leftArmTargetRot;
         rightHandTarget.rotation = rightCtr.rot * Quaternion.Inverse(rightArmInitRot) * rightArmTargetRot;
+        //assist point from kinect
+        if (leftHandGoal != null)
+            leftHandGoal.position = MainMgr.inst.leftArmGoal[modelIndex].v3();
+        if (rightHandGoal != null)
+            rightHandGoal.position = MainMgr.inst.rightArmGoal[modelIndex].v3();
         //leg
         leftLegTarget.position = leftTkr.pos;
         rightLegTarget.position = rightTkr.pos;
@@ -100,7 +107,7 @@ public class IKModelController : MonoBehaviour {
         //make model horizon move with cam
         pelvisPosition.position = pelvisTkr.pos;
         pelvisPosition.rotation = pelvisTkr.rot * Quaternion.Inverse(pelvisInitRot);
-        
+
         //offset to avoid cam in face problem
         //modelPosition.localPosition = modelPosition.localPosition + Vector3.Scale(modelPosition.forward, new Vector3(-0.1f, -0.1f, -0.1f));
     }
@@ -111,7 +118,7 @@ public class IKModelController : MonoBehaviour {
             return;
 
         float modelHandDis = Vector3.Distance(rightHandTarget.position, leftHandTarget.position);
-        float scale = (handDistance-controllerLen) / (modelHandDis - controllerLen);
+        float scale = (handDistance - controllerLen) / (modelHandDis - controllerLen);
         Debug.Log("scale model " + scale + " time to fit");
         transform.localScale = new Vector3(scale, scale, scale);
     }
