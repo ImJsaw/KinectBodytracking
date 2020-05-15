@@ -30,18 +30,23 @@ public class Selecter : MonoBehaviour
     void Update()
     {
 
-        
+        m_HasPosition = UpdatePointer();
+        m_Pointer.SetActive(m_HasPosition);
+
         //Pointer
         if (m_TeleportAction.GetStateDown(m_Pose.inputSource))
         {
-            m_HasPosition = UpdatePointer();
-            m_Pointer.SetActive(m_HasPosition);
+            
         }
 
 
         //Teleport
         if (m_TeleportAction.GetStateUp(m_Pose.inputSource))
+        {
+            Debug.Log("clickUp");
             SelectModle();
+        }
+            
     }
 
     private void SelectModle()
@@ -70,6 +75,7 @@ public class Selecter : MonoBehaviour
             {
                  m_Pointer.transform.position = hit.point;     
                  modelindex = Array.IndexOf(modelList, hit.transform.gameObject);
+                Debug.Log("find!!");
                 return true;
             }
         }
