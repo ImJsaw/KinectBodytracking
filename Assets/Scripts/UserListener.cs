@@ -4,16 +4,28 @@ using UnityEngine;
 [CLSCompliant(false)]
 public class UserListener : ListenerBase {
 
+    protected Transform leftGoal = null;
+    protected Transform rightGoal = null;
+
     new void Start() {
         if (MainMgr.isVRValid)
             VRroot = Instantiate(VrPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         base.Start();
+        //if elbow tracker avaliable
+        if (true) {
+            leftGoal = VRroot.GetComponentInChildren<Transform>().Find("Tracker (leftGoal)");
+            rightGoal = VRroot.GetComponentInChildren<Transform>().Find("Tracker (rightGoal)");
+        }
         //tell other my stat
         sendRegister();
     }
 
     new void Update() {
         base.Update();
+        //update goal from tracker
+        MainMgr.inst.leftArmGoal[0] = new SerializablePos(leftGoal.position);
+        MainMgr.inst.rightArmGoal[0] = new SerializablePos(rightGoal.position);
+
         sendModel();
     }
 

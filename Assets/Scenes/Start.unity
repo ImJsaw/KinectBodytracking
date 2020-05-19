@@ -38,13 +38,13 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.183734, g: 0.22818904, b: 0.29917026, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -7292,12 +7292,17 @@ MonoBehaviour:
   leftCtr: []
   rightCtr: []
   leftTkr: []
+  rightArmGoal: []
+  leftArmGoal: []
   rightTkr: []
+  pelvisTkr: []
   headInitPos: []
   leftInitCtr: []
   rightInitCtr: []
   leftInitTkr: []
   rightInitTkr: []
+  pelvisInitTkr: []
+  handDist: []
   modelType: 
   modelSum: 0
   moveableList: []

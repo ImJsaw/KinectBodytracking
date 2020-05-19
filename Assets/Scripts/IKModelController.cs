@@ -84,9 +84,9 @@ public class IKModelController : MonoBehaviour {
         leftHandTarget.rotation = leftCtr.rot * Quaternion.Inverse(leftArmInitRot) * leftArmTargetRot;
         rightHandTarget.rotation = rightCtr.rot * Quaternion.Inverse(rightArmInitRot) * rightArmTargetRot;
         //assist point from kinect
-        if (leftHandGoal != null)
+        if (leftHandGoal != null && MainMgr.inst.leftArmGoal[modelIndex].v3() != new Vector3(0,0,0))
             leftHandGoal.position = MainMgr.inst.leftArmGoal[modelIndex].v3();
-        if (rightHandGoal != null)
+        if (rightHandGoal != null && MainMgr.inst.rightArmGoal[modelIndex].v3() != new Vector3(0,0,0))
             rightHandGoal.position = MainMgr.inst.rightArmGoal[modelIndex].v3();
         //leg
         leftLegTarget.position = leftTkr.pos;

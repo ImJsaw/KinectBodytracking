@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -985,7 +985,8 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 492195600, z: 5.83e-43, w: 482308350}
+  m_BoundingSphereOverride: {x: -6.358033e-28, y: 6.344131e-17, z: -2.4921428e+36,
+    w: NaN}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -6432,6 +6433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modelPrefabVR:
   - {fileID: 2869819689109724088, guid: 5ca498d1201c08d4f874d801e61259bb, type: 3}
+  - {fileID: 425574287, guid: 388e61c3aa334ba498f004e24ab0b038, type: 3}
   - {fileID: 425574287, guid: 07e55140bee6b9a408bcd0c781e85f77, type: 3}
   modelPrefab: {fileID: 2158758488639643795, guid: 2a005acd987b7e547927f19131b99df5,
     type: 3}
@@ -7829,13 +7831,13 @@ Transform:
   - {fileID: 2076075783}
   - {fileID: 1421671455}
   - {fileID: 372458495}
+  - {fileID: 987386241}
   - {fileID: 525492198}
   - {fileID: 196041916}
   - {fileID: 1276247326}
   - {fileID: 463732491}
   - {fileID: 1824737755}
   - {fileID: 826152638}
-  - {fileID: 987386241}
   - {fileID: 1248373650}
   - {fileID: 898032990}
   - {fileID: 1579075338}
@@ -8616,7 +8618,7 @@ Transform:
   - {fileID: 1356514922}
   - {fileID: 1413132485}
   m_Father: {fileID: 897481979}
-  m_RootOrder: 72
+  m_RootOrder: 66
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &989623421
 GameObject:

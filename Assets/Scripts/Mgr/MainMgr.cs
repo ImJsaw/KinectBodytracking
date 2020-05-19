@@ -16,6 +16,14 @@ public enum SceneID : int {
     General
 };
 
+public enum HardwareType : int {
+    None = -1,
+    VRHalf,
+    VRFull,
+    VRCam,
+};
+
+
 [CLSCompliant(false)]
 public class MainMgr : MonoBehaviour {
     
@@ -32,8 +40,8 @@ public class MainMgr : MonoBehaviour {
     public static bool isCamValid = false;
     //read only settings
     public static readonly Vector3 INIT_CAM_POS = new Vector3(1, 2, -5);
-    public static readonly Vector3 rightGoalDefault = new Vector3(1, 2, -5);
-    public static readonly Vector3 leftGoalDefault = new Vector3(1, 2, -5);
+    public static readonly Vector3 rightGoalDefault = new Vector3(0, 0, 0);
+    public static readonly Vector3 leftGoalDefault = new Vector3(0, 0, 0);
 
     //panel queue
     public Queue<string> panelWaitingList = new Queue<string>();
