@@ -28,7 +28,7 @@ public class General : MonoBehaviour {
 
         //instantiate model & set index
         //generate chosed type
-        IKModelController modelPrefab = Instantiate(modelPrefabVR[MainMgr.inst.modelType[index]]);
+        IKModelController modelPrefab = Instantiate(modelPrefabVR[MainMgr.inst.modelType[index]], new Vector3(0,0,-6), Quaternion.identity);
         modelPrefab.modelIndex = index;
 
         Debug.Log("[model instantiate] generate " + index + " th model");
