@@ -15,13 +15,14 @@ public class IKModelController : MonoBehaviour {
         }
         set {
             _modelIndex = value;
-            scaleByHand(MainMgr.inst.handDist[modelIndex]);
             if (_modelIndex < 0)
                 Debug.LogError("model index < 0 !");
             if (_modelIndex == -1)
                 Debug.LogError("model number not set");
+            scaleByHand(MainMgr.inst.handDist[modelIndex]);
         }
     }
+
     public Transform pelvisPosition = null;
     //vr tracker
     private SerializableTransform hmt;
@@ -53,6 +54,8 @@ public class IKModelController : MonoBehaviour {
 
     //controller len
     float controllerLen = 0.1f;
+    // initial pos
+    private Vector3 initPos;
 
 
     void Start() {
@@ -75,28 +78,29 @@ public class IKModelController : MonoBehaviour {
 
         updateModelTransform();
         //pelvis
-        headTarget.position = hmt.pos;
+        headTarget.position = hmt.pos + initPos;
         headTarget.rotation = hmt.rot;
         headTarget.localPosition = headTarget.localPosition + Vector3.Scale(headTarget.forward, new Vector3(-0.2f, -0.2f, -0.2f));
         //arm
-        leftHandTarget.position = leftCtr.pos;
-        rightHandTarget.position = rightCtr.pos;
+        leftHandTarget.position = leftCtr.pos + initPos;
+        rightHandTarget.position = rightCtr.pos + initPos;
         leftHandTarget.rotation = leftCtr.rot * Quaternion.Inverse(leftArmInitRot) * leftArmTargetRot;
         rightHandTarget.rotation = rightCtr.rot * Quaternion.Inverse(rightArmInitRot) * rightArmTargetRot;
         //assist point from kinect
-        if (leftHandGoal != null && MainMgr.inst.leftArmGoal[modelIndex].v3() != new Vector3(0,0,0))
+        if (leftHandGoal != null && MainMgr.inst.leftArmGoal[modelIndex].v3() != new Vector3(0, 0, 0))
             leftHandGoal.position = MainMgr.inst.leftArmGoal[modelIndex].v3();
-        if (rightHandGoal != null && MainMgr.inst.rightArmGoal[modelIndex].v3() != new Vector3(0,0,0))
+        if (rightHandGoal != null && MainMgr.inst.rightArmGoal[modelIndex].v3() != new Vector3(0, 0, 0))
             rightHandGoal.position = MainMgr.inst.rightArmGoal[modelIndex].v3();
         //leg
-        leftLegTarget.position = leftTkr.pos;
-        rightLegTarget.position = rightTkr.pos;
+        leftLegTarget.position = leftTkr.pos + initPos;
+        rightLegTarget.position = rightTkr.pos + initPos;
         leftLegTarget.rotation = leftTkr.rot * Quaternion.Inverse(leftLegInitRot) * leftLegTargetRot;
         rightLegTarget.rotation = rightTkr.rot * Quaternion.Inverse(rightLegInitRot) * rightLegTargetRot;
 
     }
 
     private void logTargetInitRotation() {
+        initPos = transform.position;
         leftArmTargetRot = leftHandTarget.rotation;
         rightArmTargetRot = rightHandTarget.rotation;
         leftLegTargetRot = leftLegTarget.rotation;
@@ -105,7 +109,7 @@ public class IKModelController : MonoBehaviour {
 
     private void updateModelTransform() {
         //make model horizon move with cam
-        pelvisPosition.position = pelvisTkr.pos;
+        pelvisPosition.position = pelvisTkr.pos + initPos;
         pelvisPosition.rotation = pelvisTkr.rot * Quaternion.Inverse(pelvisInitRot);
 
         //offset to avoid cam in face problem

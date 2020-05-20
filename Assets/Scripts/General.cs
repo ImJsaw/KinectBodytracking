@@ -5,6 +5,7 @@ using UnityEngine;
 [CLSCompliant(false)]
 public class General : MonoBehaviour {
 
+    public ObsController obsController;
     public IKModelController[] modelPrefabVR;
     public ModelController modelPrefab = null;
     private Dictionary<string, int> localPlayerUIDDict = new Dictionary<string, int>();
@@ -25,12 +26,18 @@ public class General : MonoBehaviour {
     private void addNewPlayer(string UID, int index) {
         //log  UID/index in local dictionary
         localPlayerUIDDict.Add(UID, index);
-
+        
         //instantiate model & set index
         //generate chosed type
-        IKModelController modelPrefab = Instantiate(modelPrefabVR[MainMgr.inst.modelType[index]], new Vector3(0,0,-6), Quaternion.identity);
-        modelPrefab.modelIndex = index;
-
+        
+        if (MainMgr.inst.modelType[index] == -1) {
+            //observer mode
+            ObsController modelPrefab = Instantiate(obsController);
+            modelPrefab.modelIndex = index;
+        } else {
+            IKModelController modelPrefab = Instantiate(modelPrefabVR[MainMgr.inst.modelType[index]], new Vector3(0, 0, -6), Quaternion.identity);
+            modelPrefab.modelIndex = index;
+        }
         Debug.Log("[model instantiate] generate " + index + " th model");
     }
 }

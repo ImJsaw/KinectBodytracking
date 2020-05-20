@@ -8,14 +8,12 @@ public class UserListener : ListenerBase {
     protected Transform rightGoal = null;
 
     new void Start() {
-        if (MainMgr.isVRValid)
-            VRroot = Instantiate(VrPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        base.Start();
-        //if elbow tracker avaliable
-        if (true) {
+        if (MainMgr.isVRValid) { 
+            VRroot = Instantiate(VrPrefab, new Vector3(0, 0, -6), Quaternion.identity);
             leftGoal = VRroot.GetComponentInChildren<Transform>().Find("Tracker (leftGoal)");
             rightGoal = VRroot.GetComponentInChildren<Transform>().Find("Tracker (rightGoal)");
         }
+        base.Start();
         //tell other my stat
         sendRegister();
     }
@@ -25,7 +23,31 @@ public class UserListener : ListenerBase {
         //update goal from tracker
         MainMgr.inst.leftArmGoal[0] = new SerializablePos(leftGoal.position);
         MainMgr.inst.rightArmGoal[0] = new SerializablePos(rightGoal.position);
+        if (!MainMgr.isVRValid) {
+            //move func
+            Vector3 movement = new Vector3(0, 0, 0);
+            if (Input.GetKeyDown(KeyCode.W)) {
+                movement += new Vector3(0, 0, 1);
+            }
+            if (Input.GetKeyDown(KeyCode.S)) {
+                movement += new Vector3(0, 0, -11);
+            }
+            if (Input.GetKeyDown(KeyCode.A)) {
+                movement += new Vector3(-1, 0, 0);
+            }
+            if (Input.GetKeyDown(KeyCode.D)) {
+                movement += new Vector3(1, 0, 0);
+            }
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                movement += new Vector3(0, 1, 0);
+            }
+            if (Input.GetKeyDown(KeyCode.LeftShift)) {
+                movement += new Vector3(0, -1, 0);
+            }
 
+            curCam.transform.position += movement; 
+
+        }
         sendModel();
     }
 

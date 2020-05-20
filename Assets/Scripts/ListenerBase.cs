@@ -7,7 +7,7 @@ public class ListenerBase : MonoBehaviour {
     public GameObject VrPrefab = null;
     protected GameObject VRroot = null;
 
-    private GameObject curCam = null;
+    protected GameObject curCam = null;
     protected Transform leftCtr = null;
     protected Transform rightCtr = null;
     protected Transform leftTkr = null;
@@ -32,6 +32,7 @@ public class ListenerBase : MonoBehaviour {
 
     public void Update() {
         //Debug.Log("update");
+        MainMgr.inst.headPos[0] = new SerializableTransform(curCam.transform.position, curCam.transform.rotation);
         if (MainMgr.isVRValid) {
             updatePosition();
             //return;
@@ -42,7 +43,6 @@ public class ListenerBase : MonoBehaviour {
 
     protected void updatePosition() {
         //Debug.Log("[CamPosTracker] update index" + 0 + " cam pos" + curCam.transform.position);
-        MainMgr.inst.headPos[0] = new SerializableTransform(curCam.transform.position, curCam.transform.rotation);
         MainMgr.inst.leftCtr[0] = new SerializableTransform(leftCtr.position, leftCtr.rotation);
         MainMgr.inst.rightCtr[0] = new SerializableTransform(rightCtr.position, rightCtr.rotation);
         MainMgr.inst.leftTkr[0] = new SerializableTransform(leftTkr.position, leftTkr.rotation);

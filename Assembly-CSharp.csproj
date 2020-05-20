@@ -97,6 +97,7 @@
      <Compile Include="Assets\Scripts\Native\M4ABT\Skeleton.cs" />
      <Compile Include="Assets\Scripts\Net\TcpClient.cs" />
      <Compile Include="Assets\Scripts\Net\TcpServer.cs" />
+     <Compile Include="Assets\Scripts\ObsController.cs" />
      <Compile Include="Assets\Scripts\SelectModel.cs" />
      <Compile Include="Assets\Scripts\UI\CameraCircularMovement.cs" />
      <Compile Include="Assets\Scripts\UI\CanvasRoot.cs" />

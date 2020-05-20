@@ -985,8 +985,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: -6.358033e-28, y: 6.344131e-17, z: -2.4921428e+36,
-    w: NaN}
+  m_BoundingSphereOverride: {x: 0, y: 10922280, z: 6.24e-43, w: 10395728}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -6461,6 +6460,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b14f1935cce724448e31a14c0160338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obsController: {fileID: 3451840916537521215, guid: ec13106713031dc4eb7e0a7ab7bdf88a,
+    type: 3}
   modelPrefabVR:
   - {fileID: 2869819689109724088, guid: 5ca498d1201c08d4f874d801e61259bb, type: 3}
   - {fileID: 425574287, guid: 388e61c3aa334ba498f004e24ab0b038, type: 3}
@@ -7759,6 +7760,11 @@ PrefabInstance:
     - target: {fileID: 4358402395094562, guid: 0858418fb9c6a3842bc15ca0c28a0b5c, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23475164926251942, guid: 0858418fb9c6a3842bc15ca0c28a0b5c,
+        type: 3}
+      propertyPath: m_LightmapParameters
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0858418fb9c6a3842bc15ca0c28a0b5c, type: 3}
