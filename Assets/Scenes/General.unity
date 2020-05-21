@@ -4550,7 +4550,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: NaN, z: 6.14e-43, w: 1.36578225e-30}
+  m_BoundingSphereOverride: {x: 0, y: NaN, z: 7.5e-43, w: -2.1947275e+30}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -6463,9 +6463,10 @@ MonoBehaviour:
   obsController: {fileID: 3451840916537521215, guid: ec13106713031dc4eb7e0a7ab7bdf88a,
     type: 3}
   modelPrefabVR:
-  - {fileID: 2869819689109724088, guid: 5ca498d1201c08d4f874d801e61259bb, type: 3}
+  - {fileID: 5258423464983168360, guid: 563c2ee194ad1cd4181327f9ebbabfcd, type: 3}
   - {fileID: 425574287, guid: 388e61c3aa334ba498f004e24ab0b038, type: 3}
-  - {fileID: 425574287, guid: 07e55140bee6b9a408bcd0c781e85f77, type: 3}
+  - {fileID: 2407406250291528247, guid: fd4ff4af4794b5649b4c14f10a11a9c5, type: 3}
+  - {fileID: 7683044807436157621, guid: b0231be9df64289428a4127bec8f8c2b, type: 3}
   modelPrefab: {fileID: 2158758488639643795, guid: 2a005acd987b7e547927f19131b99df5,
     type: 3}
 --- !u!4 &821732767

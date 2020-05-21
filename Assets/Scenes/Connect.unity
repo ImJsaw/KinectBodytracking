@@ -7068,6 +7068,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: model
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: 2b83b65d57d90e6428327ce72a9e7f28,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 2a8193bb73599bb4dab465e500897fae, type: 2}
     - target: {fileID: -4216859302048453862, guid: 2b83b65d57d90e6428327ce72a9e7f28,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7123,11 +7128,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: 2b83b65d57d90e6428327ce72a9e7f28,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 2a8193bb73599bb4dab465e500897fae, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b83b65d57d90e6428327ce72a9e7f28, type: 3}
 --- !u!4 &1321661943 stripped

@@ -69,7 +69,6 @@
     <Compile Include="Assets\Scripts\IKModelController.cs" />
     <Compile Include="Assets\Scripts\ListenerBase.cs" />
     <Compile Include="Assets\Scripts\Lobby.cs" />
-    <Compile Include="Assets\Scripts\Lockrotation.cs" />
     <Compile Include="Assets\Scripts\Mgr\MainMgr.cs" />
     <Compile Include="Assets\Scripts\Mgr\NetMgr.cs" />
     <Compile Include="Assets\Scripts\Mgr\SceneMgr.cs" />
@@ -122,7 +121,6 @@
     <Compile Include="Assets\Scripts\VR\Selecter.cs" />
     <Compile Include="Assets\Scripts\VR\Teleporter.cs" />
     <None Include="Assets\Resources\Scandinavian Interior Archviz\Shaders\Glass.shader" />
-    <None Include="Assets\Material\highlight.shader" />
     <None Include="Assets\Resources\Scandinavian Interior Archviz\Shaders\Fabric_Carpet.shader" />
     <None Include="Assets\Resources\Scandinavian Interior Archviz\Shaders\Fabric.shader" />
     <None Include="Assets\Resources\Scandinavian Interior Archviz\Shaders\Env.shader" />
