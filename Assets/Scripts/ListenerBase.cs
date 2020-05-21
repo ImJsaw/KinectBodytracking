@@ -15,12 +15,13 @@ public class ListenerBase : MonoBehaviour {
     protected Transform pelvisTkr = null;
 
     public void Start() {
-        curCam = GameObject.FindWithTag("camera");
+        curCam = GameObject.FindWithTag("MainCamera");
         getVRComp();
     }
 
     protected void getVRComp() {
         if (MainMgr.isVRValid) {
+            curCam = GameObject.FindWithTag("camera");
             //generate VR camera if vr valid
             leftCtr = VRroot.GetComponentInChildren<Transform>().Find("Controller (left)");
             rightCtr = VRroot.GetComponentInChildren<Transform>().Find("Controller (right)");

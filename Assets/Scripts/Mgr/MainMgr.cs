@@ -26,7 +26,7 @@ public enum HardwareType : int {
 
 [CLSCompliant(false)]
 public class MainMgr : MonoBehaviour {
-    
+
     public static MainMgr inst = null;
 
     //components
@@ -193,13 +193,15 @@ public class MainMgr : MonoBehaviour {
         switch (id) {
             case SceneID.Connect:
                 addNewModel(_myUID);
-               
+
                 break;
             case SceneID.General:
-                
+                //set to observer if no vr
+                if (!hasVR[0])
+                    modelType[0] = -1;
                 break;
             default:
-                Debug.Log("[Scene] goto "+id+" scene");
+                Debug.Log("[Scene] goto " + id + " scene");
                 break;
         }
     }
@@ -218,8 +220,7 @@ public class MainMgr : MonoBehaviour {
         return playerUIDDict;
     }
 
-    public void setModelType(int index, int modelnum)
-    {
+    public void setModelType(int index, int modelnum) {
         modelType[index] = modelnum;
     }
 

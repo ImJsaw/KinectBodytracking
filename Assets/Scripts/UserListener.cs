@@ -8,7 +8,7 @@ public class UserListener : ListenerBase {
     protected Transform rightGoal = null;
 
     new void Start() {
-        if (MainMgr.isVRValid) { 
+        if (MainMgr.isVRValid) {
             VRroot = Instantiate(VrPrefab, new Vector3(0, 0, -6), Quaternion.identity);
             leftGoal = VRroot.GetComponentInChildren<Transform>().Find("Tracker (leftGoal)");
             rightGoal = VRroot.GetComponentInChildren<Transform>().Find("Tracker (rightGoal)");
@@ -45,7 +45,7 @@ public class UserListener : ListenerBase {
                 movement += new Vector3(0, -1, 0);
             }
 
-            curCam.transform.position += movement; 
+            curCam.transform.position += movement;
 
         }
         sendModel();
@@ -72,15 +72,18 @@ public class UserListener : ListenerBase {
         register msg = new register();
         msg.UID = MainMgr.inst.myUID();
         msg.headInitTransform = MainMgr.inst.headPos[0];
-        msg.leftHandInitTransform = MainMgr.inst.leftInitCtr[0];
-        msg.rightHandInitTransform = MainMgr.inst.rightInitCtr[0];
-        msg.leftLegInitTransform = MainMgr.inst.leftInitTkr[0];
-        msg.rightLegInitTransform = MainMgr.inst.rightInitTkr[0];
-        msg.pelvisInitTransform = MainMgr.inst.pelvisInitTkr[0];
-        //hand dist for scale
-        msg.handDist = MainMgr.inst.handDist[0];
-        //model type
+        if (MainMgr.isVRValid) {
+            msg.leftHandInitTransform = MainMgr.inst.leftInitCtr[0];
+            msg.rightHandInitTransform = MainMgr.inst.rightInitCtr[0];
+            msg.leftLegInitTransform = MainMgr.inst.leftInitTkr[0];
+            msg.rightLegInitTransform = MainMgr.inst.rightInitTkr[0];
+            msg.pelvisInitTransform = MainMgr.inst.pelvisInitTkr[0];
+            //hand dist for scale
+            msg.handDist = MainMgr.inst.handDist[0];
+            //model type
+        }
         msg.modelType = MainMgr.inst.modelType[0];
+
         //send from net
         byte[] registerDataByte = Utility.Trans2byte(msg);
         NetMgr.sendMsg(packageType.register, registerDataByte);
