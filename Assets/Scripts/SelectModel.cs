@@ -9,9 +9,17 @@ public class SelectModel : MonoBehaviour
 
     public GameObject arror;
     public GameObject[] modelList;
+    private Animator[] animatorList;
+    private int lastIndex = -1;
+
     void Start()
     {
-        
+        animatorList = new Animator[modelList.Length];
+        for (int i=0;i<modelList.Length;i++)
+        {
+            animatorList[i] = modelList[i].GetComponent<Animator>();
+        }
+
     }
 
     // Update is called once per frame
@@ -32,11 +40,25 @@ public class SelectModel : MonoBehaviour
                 arror.transform.position = hit.transform.position + new Vector3(0, 2.0f, 0);
 
                 modelindex = Array.IndexOf(modelList, hit.transform.gameObject);
-                int index = MainMgr.inst.getIndexfromUID(MainMgr.inst.myUID());
-                MainMgr.inst.setModelType(index, modelindex);
+               // int index = MainMgr.inst.getIndexfromUID(MainMgr.inst.myUID());
+                //MainMgr.inst.setModelType(index, modelindex);
+                modelAnimator(modelindex);
             }
            // Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
             
         }
+    }
+
+    void modelAnimator(int modelindex)
+    {
+        if(lastIndex != -1)
+        {
+            Debug.Log(lastIndex);
+            animatorList[lastIndex].SetBool("isSelected", false);
+        }
+
+  
+        animatorList[modelindex].SetBool("isSelected", true);
+        lastIndex = modelindex;
     }
 }
