@@ -21,9 +21,15 @@ public class UserListener : ListenerBase {
     new void Update() {
         base.Update();
         //update goal from tracker
-        MainMgr.inst.leftArmGoal[0] = new SerializablePos(leftGoal.position);
-        MainMgr.inst.rightArmGoal[0] = new SerializablePos(rightGoal.position);
         if (!MainMgr.isVRValid) {
+            if(leftGoal == null)
+                MainMgr.inst.leftArmGoal[0] = new SerializablePos(new Vector3(0,0,0));
+            else
+                MainMgr.inst.leftArmGoal[0] = new SerializablePos(leftGoal.position);
+            if (rightGoal == null)
+                MainMgr.inst.rightArmGoal[0] = new SerializablePos(new Vector3(0, 0, 0));
+            else
+                MainMgr.inst.rightArmGoal[0] = new SerializablePos(rightGoal.position);
             //move func
             Vector3 movement = new Vector3(0, 0, 0);
             if (Input.GetKeyDown(KeyCode.W)) {
