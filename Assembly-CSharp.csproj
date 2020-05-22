@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\IKModelController.cs" />
     <Compile Include="Assets\Scripts\ListenerBase.cs" />
     <Compile Include="Assets\Scripts\Lobby.cs" />
+    <Compile Include="Assets\Scripts\Lock.cs" />
     <Compile Include="Assets\Scripts\Mgr\MainMgr.cs" />
     <Compile Include="Assets\Scripts\Mgr\NetMgr.cs" />
     <Compile Include="Assets\Scripts\Mgr\SceneMgr.cs" />

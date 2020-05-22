@@ -36,7 +36,7 @@ public class UserListener : ListenerBase {
                 movement += new Vector3(0, 0, 1);
             }
             if (Input.GetKeyDown(KeyCode.S)) {
-                movement += new Vector3(0, 0, -11);
+                movement += new Vector3(0, 0, -1);
             }
             if (Input.GetKeyDown(KeyCode.A)) {
                 movement += new Vector3(-1, 0, 0);

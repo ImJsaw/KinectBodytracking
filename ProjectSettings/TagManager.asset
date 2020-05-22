@@ -8,6 +8,7 @@ TagManager:
   - target
   - camera
   - model
+  - kMainCamera
   layers:
   - Default
   - TransparentFX
