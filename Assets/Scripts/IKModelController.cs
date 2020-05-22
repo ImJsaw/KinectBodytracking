@@ -55,7 +55,6 @@ public class IKModelController : MonoBehaviour {
     //controller len
     float controllerLen = 0.1f;
     // initial pos
-    private Vector3 initPos;
 
 
     void Start() {
@@ -78,12 +77,12 @@ public class IKModelController : MonoBehaviour {
 
         updateModelTransform();
         //pelvis
-        headTarget.position = hmt.pos + initPos;
+        headTarget.position = hmt.pos ;
         headTarget.rotation = hmt.rot;
         headTarget.localPosition = headTarget.localPosition + Vector3.Scale(headTarget.forward, new Vector3(-0.2f, -0.2f, -0.2f));
         //arm
-        leftHandTarget.position = leftCtr.pos + initPos;
-        rightHandTarget.position = rightCtr.pos + initPos;
+        leftHandTarget.position = leftCtr.pos ;
+        rightHandTarget.position = rightCtr.pos ;
         leftHandTarget.rotation = leftCtr.rot * Quaternion.Inverse(leftArmInitRot) * leftArmTargetRot;
         rightHandTarget.rotation = rightCtr.rot * Quaternion.Inverse(rightArmInitRot) * rightArmTargetRot;
         //assist point from kinect
@@ -92,15 +91,14 @@ public class IKModelController : MonoBehaviour {
         if (rightHandGoal != null && MainMgr.inst.rightArmGoal[modelIndex].v3() != new Vector3(0, 0, 0))
             rightHandGoal.position = MainMgr.inst.rightArmGoal[modelIndex].v3();
         //leg
-        leftLegTarget.position = leftTkr.pos + initPos;
-        rightLegTarget.position = rightTkr.pos + initPos;
+        leftLegTarget.position = leftTkr.pos ;
+        rightLegTarget.position = rightTkr.pos ;
         leftLegTarget.rotation = leftTkr.rot * Quaternion.Inverse(leftLegInitRot) * leftLegTargetRot;
         rightLegTarget.rotation = rightTkr.rot * Quaternion.Inverse(rightLegInitRot) * rightLegTargetRot;
 
     }
 
     private void logTargetInitRotation() {
-        initPos = transform.position;
         leftArmTargetRot = leftHandTarget.rotation;
         rightArmTargetRot = rightHandTarget.rotation;
         leftLegTargetRot = leftLegTarget.rotation;
@@ -109,7 +107,7 @@ public class IKModelController : MonoBehaviour {
 
     private void updateModelTransform() {
         //make model horizon move with cam
-        pelvisPosition.position = pelvisTkr.pos + initPos;
+        pelvisPosition.position = pelvisTkr.pos ;
         pelvisPosition.rotation = pelvisTkr.rot * Quaternion.Inverse(pelvisInitRot);
 
         //offset to avoid cam in face problem

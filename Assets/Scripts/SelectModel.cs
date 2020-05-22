@@ -40,8 +40,8 @@ public class SelectModel : MonoBehaviour
                 arror.transform.position = hit.transform.position + new Vector3(0, 2.0f, 0);
 
                 modelindex = Array.IndexOf(modelList, hit.transform.gameObject);
-               // int index = MainMgr.inst.getIndexfromUID(MainMgr.inst.myUID());
-                //MainMgr.inst.setModelType(index, modelindex);
+                int index = MainMgr.inst.getIndexfromUID(MainMgr.inst.myUID());
+                MainMgr.inst.setModelType(index, modelindex);
                 modelAnimator(modelindex);
             }
            // Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);

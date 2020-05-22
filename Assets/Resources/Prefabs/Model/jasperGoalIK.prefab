@@ -120,6 +120,310 @@ Transform:
   m_Father: {fileID: 5601224325764583236}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &425574282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8926365367143464279}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db3c450680fd4c809d5ad90a2f24e5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fixTransforms: 1
+  solver:
+    IKPosition: {x: 0.65061635, y: 1.2300968, z: -0.06746291}
+    IKPositionWeight: 1
+    root: {fileID: 5601224325764583236}
+    target: {fileID: 1797006117}
+    IKRotationWeight: 1
+    IKRotation: {x: 0.07079071, y: 0.038749464, z: 0.069697365, w: 0.9942985}
+    bendNormal: {x: 0, y: -1, z: 0}
+    bone1:
+      transform: {fileID: 5971458592754508323}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 1}
+      defaultLocalPosition: {x: 0.10679358, y: -0.0018479793, z: -0.023838915}
+      defaultLocalRotation: {x: 0.0000045484194, y: -0.033225495, z: -0.0052209743,
+        w: 0.9994343}
+      length: 0
+      sqrMag: 0
+      axis: {x: -1, y: -0, z: -0}
+    bone2:
+      transform: {fileID: 7960220732457222075}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 1}
+      defaultLocalPosition: {x: 0.27441245, y: 0.0029652312, z: -0.018265808}
+      defaultLocalRotation: {x: 0.0002657129, y: 0.051963955, z: 0.012427696, w: 0.99857163}
+      length: 0
+      sqrMag: 0
+      axis: {x: -1, y: -0, z: -0}
+    bone3:
+      transform: {fileID: 6597245062531729447}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 1}
+      defaultLocalPosition: {x: 0.21289718, y: -0.0029995714, z: 0.007990807}
+      defaultLocalRotation: {x: 0.06961128, y: 0.019604106, z: 0.06400222, w: 0.9953259}
+      length: 0
+      sqrMag: 0
+      axis: {x: -1, y: -0, z: -0}
+    goal: 0
+    bendModifier: 4
+    maintainRotationWeight: 0
+    bendModifierWeight: 1
+    bendGoal: {fileID: 9067675293228289220}
+--- !u!114 &425574283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8926365367143464279}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db3c450680fd4c809d5ad90a2f24e5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fixTransforms: 1
+  solver:
+    IKPosition: {x: -0.65056187, y: 1.2300953, z: -0.06804472}
+    IKPositionWeight: 1
+    root: {fileID: 5601224325764583236}
+    target: {fileID: 209209487}
+    IKRotationWeight: 1
+    IKRotation: {x: 0.07085543, y: -0.036528446, z: -0.069828585, w: 0.9943688}
+    bendNormal: {x: 0, y: 1, z: 0}
+    bone1:
+      transform: {fileID: 9124189113522434559}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 1}
+      defaultLocalPosition: {x: -0.10664843, y: -0.0018845994, z: -0.024407383}
+      defaultLocalRotation: {x: -0.000019945375, y: 0.036718033, z: 0.005432908, w: 0.9993109}
+      length: 0
+      sqrMag: 0
+      axis: {x: -1, y: -0, z: -0}
+    bone2:
+      transform: {fileID: 7360091944300564516}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 1}
+      defaultLocalPosition: {x: -0.27383578, y: 0.0028502583, z: -0.020151054}
+      defaultLocalRotation: {x: 0.00037681684, y: -0.05264427, z: -0.012567046, w: 0.9985342}
+      length: 0
+      sqrMag: 0
+      axis: {x: -1, y: -0, z: -0}
+    bone3:
+      transform: {fileID: 4326125656316681212}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 1}
+      defaultLocalPosition: {x: -0.21293718, y: -0.0031457471, z: 0.0067934017}
+      defaultLocalRotation: {x: 0.06982476, y: -0.020159552, z: -0.06359593, w: 0.9953259}
+      length: 0
+      sqrMag: 0
+      axis: {x: -1, y: -0, z: -0}
+    goal: 0
+    bendModifier: 4
+    maintainRotationWeight: 0
+    bendModifierWeight: 1
+    bendGoal: {fileID: 1702999607952986220}
+--- !u!114 &425574285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8926365367143464279}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db3c450680fd4c809d5ad90a2f24e5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fixTransforms: 1
+  solver:
+    IKPosition: {x: -0.068669125, y: 0.12346417, z: -0.021872615}
+    IKPositionWeight: 1
+    root: {fileID: 5601224325764583236}
+    target: {fileID: 129949758}
+    IKRotationWeight: 1
+    IKRotation: {x: 0.000000011140074, y: -0.000000014924808, z: 0.0000000015791765,
+      w: 1}
+    bendNormal: {x: 0.0066959546, y: 0.000084695355, z: -0.0025783689}
+    bone1:
+      transform: {fileID: 3999691714138009899}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 1}
+      defaultLocalPosition: {x: -0.06857671, y: -0.06739645, z: 0.0031210354}
+      defaultLocalRotation: {x: -0.06260573, y: -0.00052465545, z: -0.008002796, w: 0.9980061}
+      length: 0
+      sqrMag: 0
+      axis: {x: -1, y: -0, z: -0}
+    bone2:
+      transform: {fileID: 5844605977171380651}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 1}
+      defaultLocalPosition: {x: 0.009316587, y: -0.3472095, z: -0.0457245}
+      defaultLocalRotation: {x: 0.0059641358, y: 0.0006862369, z: 0.0001071703, w: 0.999982}
+      length: 0
+      sqrMag: 0
+      axis: {x: -1, y: -0, z: -0}
+    bone3:
+      transform: {fileID: 2189012686224340284}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 1}
+      defaultLocalPosition: {x: 0.0019540295, y: -0.34658107, z: -0.060674157}
+      defaultLocalRotation: {x: 0.056647032, y: -0.00012852027, z: 0.008039282, w: 0.9983619}
+      length: 0
+      sqrMag: 0
+      axis: {x: -1, y: -0, z: -0}
+    goal: 0
+    bendModifier: 1
+    maintainRotationWeight: 0
+    bendModifierWeight: 1
+    bendGoal: {fileID: 0}
+--- !u!114 &425574286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8926365367143464279}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db3c450680fd4c809d5ad90a2f24e5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fixTransforms: 1
+  solver:
+    IKPosition: {x: 0.068668626, y: 0.12350273, z: -0.021869378}
+    IKPositionWeight: 1
+    root: {fileID: 5601224325764583236}
+    target: {fileID: 1090740559}
+    IKRotationWeight: 1
+    IKRotation: {x: -0.00000002238599, y: 8.867573e-12, z: 4.732297e-10, w: 1}
+    bendNormal: {x: 0.0053637167, y: -0.00007963275, z: 0.002436581}
+    bone1:
+      transform: {fileID: 7256301609866642595}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 1}
+      defaultLocalPosition: {x: 0.06876053, y: -0.06733259, z: 0.0030098886}
+      defaultLocalRotation: {x: -0.059051026, y: 0.00042498534, z: 0.007554179, w: 0.9982263}
+      length: 0
+      sqrMag: 0
+      axis: {x: -1, y: -0, z: -0}
+    bone2:
+      transform: {fileID: 72232351162441955}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 1}
+      defaultLocalPosition: {x: -0.008666686, y: -0.3478613, z: -0.04515933}
+      defaultLocalRotation: {x: -0.0005622615, y: -0.00056737784, z: -0.000100703444,
+        w: 0.9999997}
+      length: 0
+      sqrMag: 0
+      axis: {x: -1, y: -0, z: -0}
+    bone3:
+      transform: {fileID: 2441011329536601154}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 1}
+      defaultLocalPosition: {x: -0.0016902476, y: -0.34590715, z: -0.060703315}
+      defaultLocalRotation: {x: 0.05960808, y: 0.00014196835, z: -0.0073836683, w: 0.9981945}
+      length: 0
+      sqrMag: 0
+      axis: {x: -1, y: -0, z: -0}
+    goal: 0
+    bendModifier: 1
+    maintainRotationWeight: 0
+    bendModifierWeight: 1
+    bendGoal: {fileID: 0}
+--- !u!114 &425574287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8926365367143464279}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc8613086932d443b290fdb6c959de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pelvisPosition: {fileID: 5350655928897777090}
+  rightHandTarget: {fileID: 1797006117}
+  leftHandTarget: {fileID: 209209487}
+  rightHandGoal: {fileID: 9067675293228289220}
+  leftHandGoal: {fileID: 1702999607952986220}
+  rightLegTarget: {fileID: 1090740559}
+  leftLegTarget: {fileID: 129949758}
+  headTarget: {fileID: 6284382810810245560}
+--- !u!114 &6113405801111845471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8926365367143464279}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db3c450680fd4c809d5ad90a2f24e5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fixTransforms: 1
+  solver:
+    IKPosition: {x: -0.000054014832, y: 1.3714384, z: -0.019188102}
+    IKPositionWeight: 1
+    root: {fileID: 5601224325764583236}
+    target: {fileID: 6284382810810245560}
+    IKRotationWeight: 1
+    IKRotation: {x: 7.1054274e-15, y: -2.2737368e-13, z: 2.9240737e-13, w: 1}
+    bendNormal: {x: 0.006989801, y: 0.0000012681404, z: -0.00006192076}
+    bone1:
+      transform: {fileID: 9100344076426039318}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 1}
+      defaultLocalPosition: {x: 0.000091500224, y: 0.0866029, z: -0.012749661}
+      defaultLocalRotation: {x: 3.8774097e-26, y: -4.263257e-14, z: 6.82121e-13, w: 1}
+      length: 0
+      sqrMag: 0
+      axis: {x: -1, y: -0, z: -0}
+    bone2:
+      transform: {fileID: 6686646859534491347}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 1}
+      defaultLocalPosition: {x: -0.00016319046, y: 0.114207886, z: -0.0026331663}
+      defaultLocalRotation: {x: -5.20417e-18, y: 4.2632927e-14, z: 2.2737368e-13,
+        w: 1}
+      length: 0
+      sqrMag: 0
+      axis: {x: -1, y: -0, z: -0}
+    bone3:
+      transform: {fileID: 2431014390530681267}
+      weight: 1
+      solverPosition: {x: 0, y: 0, z: 0}
+      solverRotation: {x: 0, y: 0, z: 0, w: 1}
+      defaultLocalPosition: {x: 0.00019248655, y: 0.09262431, z: 0.023625411}
+      defaultLocalRotation: {x: 0, y: -0, z: -5.931316e-31, w: 1}
+      length: 0
+      sqrMag: 0
+      axis: {x: -1, y: -0, z: -0}
+    goal: 0
+    bendModifier: 1
+    maintainRotationWeight: 0
+    bendModifierWeight: 1
+    bendGoal: {fileID: 0}
 --- !u!1 &2198550098204027394
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,310 +514,6 @@ Transform:
   m_Father: {fileID: 5601224325764583236}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &425574282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8926365367143464279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4db3c450680fd4c809d5ad90a2f24e5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fixTransforms: 1
-  solver:
-    IKPosition: {x: 0.65061635, y: 1.2300968, z: -0.06746291}
-    IKPositionWeight: 1
-    root: {fileID: 5601224325764583236}
-    target: {fileID: 1797006117}
-    IKRotationWeight: 1
-    IKRotation: {x: 0.07079071, y: 0.038749464, z: 0.069697365, w: 0.9942985}
-    bendNormal: {x: 0, y: -1, z: 0}
-    bone1:
-      transform: {fileID: 5971458592754508323}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: 0.10679358, y: -0.0018479793, z: -0.023838915}
-      defaultLocalRotation: {x: 0.0000045484194, y: -0.033225495, z: -0.0052209743,
-        w: 0.9994343}
-      length: 0
-      sqrMag: 0
-      axis: {x: -1, y: -0, z: -0}
-    bone2:
-      transform: {fileID: 7960220732457222075}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: 0.27441245, y: 0.0029652312, z: -0.018265808}
-      defaultLocalRotation: {x: 0.0002657129, y: 0.051963955, z: 0.012427696, w: 0.99857163}
-      length: 0
-      sqrMag: 0
-      axis: {x: -1, y: -0, z: -0}
-    bone3:
-      transform: {fileID: 6597245062531729447}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: 0.21289718, y: -0.0029995714, z: 0.007990807}
-      defaultLocalRotation: {x: 0.06961128, y: 0.019604106, z: 0.06400222, w: 0.9953259}
-      length: 0
-      sqrMag: 0
-      axis: {x: -1, y: -0, z: -0}
-    goal: 0
-    bendModifier: 4
-    maintainRotationWeight: 0
-    bendModifierWeight: 1
-    bendGoal: {fileID: 9067675293228289220}
---- !u!114 &425574283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8926365367143464279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4db3c450680fd4c809d5ad90a2f24e5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fixTransforms: 1
-  solver:
-    IKPosition: {x: -0.65056187, y: 1.2300953, z: -0.06804472}
-    IKPositionWeight: 1
-    root: {fileID: 5601224325764583236}
-    target: {fileID: 209209487}
-    IKRotationWeight: 1
-    IKRotation: {x: 0.07085543, y: -0.036528446, z: -0.069828585, w: 0.9943688}
-    bendNormal: {x: 0, y: 1, z: 0}
-    bone1:
-      transform: {fileID: 9124189113522434559}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: -0.10664843, y: -0.0018845994, z: -0.024407383}
-      defaultLocalRotation: {x: -0.000019945375, y: 0.036718033, z: 0.005432908, w: 0.9993109}
-      length: 0
-      sqrMag: 0
-      axis: {x: -1, y: -0, z: -0}
-    bone2:
-      transform: {fileID: 7360091944300564516}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: -0.27383578, y: 0.0028502583, z: -0.020151054}
-      defaultLocalRotation: {x: 0.00037681684, y: -0.05264427, z: -0.012567046, w: 0.9985342}
-      length: 0
-      sqrMag: 0
-      axis: {x: -1, y: -0, z: -0}
-    bone3:
-      transform: {fileID: 4326125656316681212}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: -0.21293718, y: -0.0031457471, z: 0.0067934017}
-      defaultLocalRotation: {x: 0.06982476, y: -0.020159552, z: -0.06359593, w: 0.9953259}
-      length: 0
-      sqrMag: 0
-      axis: {x: -1, y: -0, z: -0}
-    goal: 0
-    bendModifier: 4
-    maintainRotationWeight: 0
-    bendModifierWeight: 1
-    bendGoal: {fileID: 1702999607952986220}
---- !u!114 &425574285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8926365367143464279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4db3c450680fd4c809d5ad90a2f24e5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fixTransforms: 1
-  solver:
-    IKPosition: {x: -0.068669125, y: 0.12346417, z: -0.021872615}
-    IKPositionWeight: 1
-    root: {fileID: 5601224325764583236}
-    target: {fileID: 129949758}
-    IKRotationWeight: 1
-    IKRotation: {x: 0.000000011140074, y: -0.000000014924808, z: 0.0000000015791765,
-      w: 1}
-    bendNormal: {x: 0.0066959546, y: 0.000084695355, z: -0.0025783689}
-    bone1:
-      transform: {fileID: 3999691714138009899}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: -0.06857671, y: -0.06739645, z: 0.0031210354}
-      defaultLocalRotation: {x: -0.06260573, y: -0.00052465545, z: -0.008002796, w: 0.9980061}
-      length: 0
-      sqrMag: 0
-      axis: {x: -1, y: -0, z: -0}
-    bone2:
-      transform: {fileID: 5844605977171380651}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: 0.009316587, y: -0.3472095, z: -0.0457245}
-      defaultLocalRotation: {x: 0.0059641358, y: 0.0006862369, z: 0.0001071703, w: 0.999982}
-      length: 0
-      sqrMag: 0
-      axis: {x: -1, y: -0, z: -0}
-    bone3:
-      transform: {fileID: 2189012686224340284}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: 0.0019540295, y: -0.34658107, z: -0.060674157}
-      defaultLocalRotation: {x: 0.056647032, y: -0.00012852027, z: 0.008039282, w: 0.9983619}
-      length: 0
-      sqrMag: 0
-      axis: {x: -1, y: -0, z: -0}
-    goal: 0
-    bendModifier: 1
-    maintainRotationWeight: 0
-    bendModifierWeight: 1
-    bendGoal: {fileID: 0}
---- !u!114 &425574286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8926365367143464279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4db3c450680fd4c809d5ad90a2f24e5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fixTransforms: 1
-  solver:
-    IKPosition: {x: 0.068668626, y: 0.12350273, z: -0.021869378}
-    IKPositionWeight: 1
-    root: {fileID: 5601224325764583236}
-    target: {fileID: 1090740559}
-    IKRotationWeight: 1
-    IKRotation: {x: -0.00000002238599, y: 8.867573e-12, z: 4.732297e-10, w: 1}
-    bendNormal: {x: 0.0053637167, y: -0.00007963275, z: 0.002436581}
-    bone1:
-      transform: {fileID: 7256301609866642595}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: 0.06876053, y: -0.06733259, z: 0.0030098886}
-      defaultLocalRotation: {x: -0.059051026, y: 0.00042498534, z: 0.007554179, w: 0.9982263}
-      length: 0
-      sqrMag: 0
-      axis: {x: -1, y: -0, z: -0}
-    bone2:
-      transform: {fileID: 72232351162441955}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: -0.008666686, y: -0.3478613, z: -0.04515933}
-      defaultLocalRotation: {x: -0.0005622615, y: -0.00056737784, z: -0.000100703444,
-        w: 0.9999997}
-      length: 0
-      sqrMag: 0
-      axis: {x: -1, y: -0, z: -0}
-    bone3:
-      transform: {fileID: 2441011329536601154}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: -0.0016902476, y: -0.34590715, z: -0.060703315}
-      defaultLocalRotation: {x: 0.05960808, y: 0.00014196835, z: -0.0073836683, w: 0.9981945}
-      length: 0
-      sqrMag: 0
-      axis: {x: -1, y: -0, z: -0}
-    goal: 0
-    bendModifier: 1
-    maintainRotationWeight: 0
-    bendModifierWeight: 1
-    bendGoal: {fileID: 0}
---- !u!114 &425574287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8926365367143464279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfc8613086932d443b290fdb6c959de5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pelvisPosition: {fileID: 5350655928897777090}
-  rightHandTarget: {fileID: 1797006117}
-  leftHandTarget: {fileID: 209209487}
-  rightHandGoal: {fileID: 9067675293228289220}
-  leftHandGoal: {fileID: 1702999607952986220}
-  rightLegTarget: {fileID: 1090740559}
-  leftLegTarget: {fileID: 129949758}
-  headTarget: {fileID: 6284382810810245560}
---- !u!114 &6113405801111845471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8926365367143464279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4db3c450680fd4c809d5ad90a2f24e5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fixTransforms: 1
-  solver:
-    IKPosition: {x: -0.000054014832, y: 1.3714384, z: -0.019188102}
-    IKPositionWeight: 1
-    root: {fileID: 5601224325764583236}
-    target: {fileID: 6284382810810245560}
-    IKRotationWeight: 1
-    IKRotation: {x: 7.1054274e-15, y: -2.2737368e-13, z: 2.9240737e-13, w: 1}
-    bendNormal: {x: 0.006989801, y: 0.0000012681404, z: -0.00006192076}
-    bone1:
-      transform: {fileID: 9100344076426039318}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: 0.000091500224, y: 0.0866029, z: -0.012749661}
-      defaultLocalRotation: {x: 3.8774097e-26, y: -4.263257e-14, z: 6.82121e-13, w: 1}
-      length: 0
-      sqrMag: 0
-      axis: {x: -1, y: -0, z: -0}
-    bone2:
-      transform: {fileID: 6686646859534491347}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: -0.00016319046, y: 0.114207886, z: -0.0026331663}
-      defaultLocalRotation: {x: -5.20417e-18, y: 4.2632927e-14, z: 2.2737368e-13,
-        w: 1}
-      length: 0
-      sqrMag: 0
-      axis: {x: -1, y: -0, z: -0}
-    bone3:
-      transform: {fileID: 2431014390530681267}
-      weight: 1
-      solverPosition: {x: 0, y: 0, z: 0}
-      solverRotation: {x: 0, y: 0, z: 0, w: 1}
-      defaultLocalPosition: {x: 0.00019248655, y: 0.09262431, z: 0.023625411}
-      defaultLocalRotation: {x: 0, y: -0, z: -5.931316e-31, w: 1}
-      length: 0
-      sqrMag: 0
-      axis: {x: -1, y: -0, z: -0}
-    goal: 0
-    bendModifier: 1
-    maintainRotationWeight: 0
-    bendModifierWeight: 1
-    bendGoal: {fileID: 0}
 --- !u!1001 &630854793071436894
 PrefabInstance:
   m_ObjectHideFlags: 0
