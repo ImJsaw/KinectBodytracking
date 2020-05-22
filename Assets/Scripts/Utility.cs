@@ -214,8 +214,9 @@ public class Utility {
         }
     }
 
-    static void limRot(Transform obj, Vector3 min, Vector3 max) {
+    public static void limRot(Transform obj, Vector3 min, Vector3 max) {
         Vector3 localRot = obj.localEulerAngles;
+        Debug.Log("origin : " + localRot.ToString());
         obj.localEulerAngles = limVec(localRot, min, max);
     }
 
@@ -234,5 +235,14 @@ public class Utility {
         formatedVec.y = ori.y > 180 ? ori.y - 360 : ori.y;
         formatedVec.z = ori.z > 180 ? ori.z - 360 : ori.z;
         return formatedVec;
+    }
+
+    public static void dropOutRot(Transform obj, Vector3 min, Vector3 max) {
+        Vector3 localRot = formatVec(obj.localEulerAngles);
+        Debug.Log("origin : " + localRot.ToString());
+        
+        if(localRot.x > max.x || localRot.y > max.y || localRot.z > max.z || localRot.x < min.x || localRot.y < min.y || localRot.z < min.z) {
+            obj.localEulerAngles = new Vector3(0, 0, 0);
+        }
     }
 }
