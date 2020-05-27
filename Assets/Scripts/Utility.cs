@@ -16,8 +16,8 @@ public class SerializableTransform {
     }
     private SerializablePos _pos;
     private SerializableRot _rot;
-    public Vector3 pos { get { return _pos.v3(); }  set { _pos.setPos(value); } }
-    public Quaternion rot { get { return _rot.Quat(); }  set { _rot.setRot(value); } }
+    public Vector3 pos { get { return _pos.v3(); } set { _pos.setPos(value); } }
+    public Quaternion rot { get { return _rot.Quat(); } set { _rot.setRot(value); } }
 }
 
 [CLSCompliant(false)]
@@ -240,9 +240,20 @@ public class Utility {
     public static void dropOutRot(Transform obj, Vector3 min, Vector3 max) {
         Vector3 localRot = formatVec(obj.localEulerAngles);
         Debug.Log("origin : " + localRot.ToString());
-        
-        if(localRot.x > max.x || localRot.y > max.y || localRot.z > max.z || localRot.x < min.x || localRot.y < min.y || localRot.z < min.z) {
+
+        if (localRot.x > max.x || localRot.y > max.y || localRot.z > max.z || localRot.x < min.x || localRot.y < min.y || localRot.z < min.z) {
             obj.localEulerAngles = new Vector3(0, 0, 0);
         }
+    }
+
+    public static bool testRotValid(Transform obj, Vector3 min, Vector3 max) {
+        Vector3 localRot = formatVec(obj.localEulerAngles);
+        //Debug.Log("origin : " + localRot.ToString());
+
+        if (localRot.x > max.x || localRot.y > max.y || localRot.z > max.z || localRot.x < min.x || localRot.y < min.y || localRot.z < min.z) {
+            return false;
+        }
+
+        return true;
     }
 }
