@@ -9,6 +9,8 @@ public class CalibrationListener : ListenerBase {
         finish
     } 
     public SteamVR_Action_Boolean m_InitAction;
+    public Transform pelvis;
+    public Transform pelvisOffset;
     private SteamVR_Behaviour_Pose m_Pose = null;
     private calibrationState curState = calibrationState.initRot;
 
@@ -33,6 +35,7 @@ public class CalibrationListener : ListenerBase {
                 Debug.LogError("unknown state");
                 break;
         }
+        pelvisOffset.position = pelvis.position;
     }
 
     void checkInit() {
@@ -42,6 +45,7 @@ public class CalibrationListener : ListenerBase {
             MainMgr.inst.rightInitCtr[0].rot = rightCtr.rotation;
             MainMgr.inst.leftInitTkr[0].rot = leftTkr.rotation;
             MainMgr.inst.rightInitTkr[0].rot = rightTkr.rotation;
+            MainMgr.inst.pelvisInitTkr[0].pos = pelvisOffset.localPosition;
             MainMgr.inst.pelvisInitTkr[0].rot = pelvisTkr.rotation;
             MainMgr.inst.handDist[0] = Vector3.Distance(leftCtr.position, rightCtr.position);
             curState++;
