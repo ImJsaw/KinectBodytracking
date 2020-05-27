@@ -36,6 +36,7 @@ public class CalibrationListener : ListenerBase {
                 break;
         }
         pelvisOffset.position = pelvis.position;
+        Debug.Log("offset" + Vector3.Scale(pelvisOffset.localPosition, pelvisTkr.localScale).ToString());
     }
 
     void checkInit() {
@@ -45,7 +46,7 @@ public class CalibrationListener : ListenerBase {
             MainMgr.inst.rightInitCtr[0].rot = rightCtr.rotation;
             MainMgr.inst.leftInitTkr[0].rot = leftTkr.rotation;
             MainMgr.inst.rightInitTkr[0].rot = rightTkr.rotation;
-            MainMgr.inst.pelvisInitTkr[0].pos = pelvisOffset.localPosition;
+            MainMgr.inst.pelvisInitTkr[0].pos = Vector3.Scale(pelvisOffset.localPosition, pelvisTkr.localScale);
             MainMgr.inst.pelvisInitTkr[0].rot = pelvisTkr.rotation;
             MainMgr.inst.handDist[0] = Vector3.Distance(leftCtr.position, rightCtr.position);
             curState++;

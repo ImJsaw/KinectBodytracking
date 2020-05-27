@@ -79,7 +79,7 @@ public class IKModelController : MonoBehaviour {
         //pelvis
         headTarget.position = hmt.pos ;
         headTarget.rotation = hmt.rot;
-        headTarget.localPosition = headTarget.localPosition + Vector3.Scale(headTarget.forward, new Vector3(-0.2f, -0.2f, -0.2f));
+        headTarget.localPosition = headTarget.localPosition + Vector3.Scale(headTarget.forward, new Vector3(-0.25f, -0.25f, -0.25f));
         //arm
         leftHandTarget.position = leftCtr.pos ;
         rightHandTarget.position = rightCtr.pos ;
