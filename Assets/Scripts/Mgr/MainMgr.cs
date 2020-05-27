@@ -38,6 +38,13 @@ public class MainMgr : MonoBehaviour {
     public static bool isClient = false;
     public static bool isVRValid = false;
     public static bool isCamValid = false;
+    //log tracker index
+    public static int leftFootTkrIndex = 5;
+    public static int rightFootTkrIndex = 6;
+    public static int pelvisTkrIndex = 7;
+    public static int leftGoalTkrIndex = 8;
+    public static int rightGoalTkrIndex = 9;
+
     //read only settings
     public static readonly Vector3 INIT_CAM_POS = new Vector3(1, 2, -5);
     public static readonly Vector3 rightGoalDefault = new Vector3(0, 0, 0);

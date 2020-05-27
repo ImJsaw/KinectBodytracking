@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
 [CLSCompliant(false)]
 public class CalibrationListener : ListenerBase {
     private enum calibrationState {
-        initRot = 0,
+        checkIndex = 0,
+        initRot,
         finish
-    } 
+    }
+    public SteamVR_TrackedObject[] trackers;
     public SteamVR_Action_Boolean m_InitAction;
     public Transform pelvis;
     public Transform pelvisOffset;
@@ -25,7 +28,12 @@ public class CalibrationListener : ListenerBase {
     new void Update() {
         base.Update();
         switch (curState) {
+            case calibrationState.checkIndex:
+                cleanIndex();
+                checkParts();
+                break;
             case calibrationState.initRot:
+                setIndex();
                 checkInit();
                 break;
             case calibrationState.finish:
@@ -39,13 +47,72 @@ public class CalibrationListener : ListenerBase {
         Debug.Log("offset" + Vector3.Scale(pelvisOffset.localPosition, pelvisTkr.localScale).ToString());
     }
 
+    private bool[] isTkrValid; 
+    //clean index (remove controller, hmt, lighthouse  & unvaliable tracker)
+    void cleanIndex() {
+        isTkrValid = new bool[trackers.Length];
+        //remove unavaliable tracker
+        for(int i = 0;i < trackers.Length; i++) {
+            isTkrValid[i] = trackers[i].isValid;
+        }
+        //remove controller
+        for (int i = 0; i < trackers.Length; i++) {
+            //skip index already check not open
+            if (!isTkrValid[i]) continue;
+
+            if (trackers[i].transform.position == leftCtr.position)
+                isTkrValid[i] = false;
+            if (trackers[i].transform.position == rightCtr.position)
+                isTkrValid[i] = false;
+
+        }
+        //remove lighthouse
+
+
+    }
+
+    void checkParts() {
+        string msg = "";
+        for (int i = 0; i < trackers.Length; i++) {
+            //skip index already check not open
+            if (!isTkrValid[i])
+                continue;
+
+            msg += (i + " ");
+
+        }
+
+        Debug.Log(msg + " is valid");
+        //check goal,pelvis,foot tracker index
+
+        //get left goal
+
+        //get right goal
+
+        //get left foot
+
+        //get right foot
+
+        //get pelvis
+
+    }
+
+    void setIndex() {
+        //set index to tracker component 
+        leftFootTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.leftFootTkrIndex);
+        rightFootTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.rightFootTkrIndex);
+        pelvisTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.pelvisTkrIndex);
+        leftGoalTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.leftGoalTkrIndex);
+        rightGoalTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.rightGoalTkrIndex);
+    }
+
     void checkInit() {
         if (m_InitAction.GetStateDown(m_Pose.inputSource)) {
             Debug.Log("trigger");
             MainMgr.inst.leftInitCtr[0].rot = leftCtr.rotation;
             MainMgr.inst.rightInitCtr[0].rot = rightCtr.rotation;
-            MainMgr.inst.leftInitTkr[0].rot = leftTkr.rotation;
-            MainMgr.inst.rightInitTkr[0].rot = rightTkr.rotation;
+            MainMgr.inst.leftInitTkr[0].rot = leftFootTkr.rotation;
+            MainMgr.inst.rightInitTkr[0].rot = rightFootTkr.rotation;
             MainMgr.inst.pelvisInitTkr[0].pos = Vector3.Scale(pelvisOffset.localPosition, pelvisTkr.localScale);
             MainMgr.inst.pelvisInitTkr[0].rot = pelvisTkr.rotation;
             MainMgr.inst.handDist[0] = Vector3.Distance(leftCtr.position, rightCtr.position);

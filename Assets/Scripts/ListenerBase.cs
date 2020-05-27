@@ -10,9 +10,11 @@ public class ListenerBase : MonoBehaviour {
     protected GameObject curCam = null;
     protected Transform leftCtr = null;
     protected Transform rightCtr = null;
-    protected Transform leftTkr = null;
-    protected Transform rightTkr = null;
+    protected Transform leftFootTkr = null;
+    protected Transform rightFootTkr = null;
     protected Transform pelvisTkr = null;
+    protected Transform leftGoalTkr = null;
+    protected Transform rightGoalTkr = null;
 
     public void Start() {
         curCam = GameObject.FindWithTag("MainCamera");
@@ -25,9 +27,11 @@ public class ListenerBase : MonoBehaviour {
             //generate VR camera if vr valid
             leftCtr = VRroot.GetComponentInChildren<Transform>().Find("Controller (left)");
             rightCtr = VRroot.GetComponentInChildren<Transform>().Find("Controller (right)");
-            leftTkr = VRroot.GetComponentInChildren<Transform>().Find("Tracker (left)");
-            rightTkr = VRroot.GetComponentInChildren<Transform>().Find("Tracker (right)");
+            leftFootTkr = VRroot.GetComponentInChildren<Transform>().Find("Tracker (left)");
+            rightFootTkr = VRroot.GetComponentInChildren<Transform>().Find("Tracker (right)");
             pelvisTkr = VRroot.GetComponentInChildren<Transform>().Find("Tracker (pelvis)");
+            leftGoalTkr = VRroot.GetComponentInChildren<Transform>().Find("Tracker (leftGoal)");
+            rightGoalTkr = VRroot.GetComponentInChildren<Transform>().Find("Tracker (rightGoal)");
         }
     }
 
@@ -45,8 +49,8 @@ public class ListenerBase : MonoBehaviour {
         //Debug.Log("[CamPosTracker] update index" + 0 + " cam pos" + curCam.transform.position);
         MainMgr.inst.leftCtr[0] = new SerializableTransform(leftCtr.position, leftCtr.rotation);
         MainMgr.inst.rightCtr[0] = new SerializableTransform(rightCtr.position, rightCtr.rotation);
-        MainMgr.inst.leftTkr[0] = new SerializableTransform(leftTkr.position, leftTkr.rotation);
-        MainMgr.inst.rightTkr[0] = new SerializableTransform(rightTkr.position, rightTkr.rotation);
+        MainMgr.inst.leftTkr[0] = new SerializableTransform(leftFootTkr.position, leftFootTkr.rotation);
+        MainMgr.inst.rightTkr[0] = new SerializableTransform(rightFootTkr.position, rightFootTkr.rotation);
         MainMgr.inst.pelvisTkr[0] = new SerializableTransform(pelvisTkr.position, pelvisTkr.rotation);
     }
 

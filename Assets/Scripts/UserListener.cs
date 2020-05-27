@@ -3,15 +3,10 @@ using UnityEngine;
 
 [CLSCompliant(false)]
 public class UserListener : ListenerBase {
-
-    protected Transform leftGoal = null;
-    protected Transform rightGoal = null;
-
+    
     new void Start() {
         if (MainMgr.isVRValid) {
             VRroot = Instantiate(VrPrefab, new Vector3(0, 0, -6), Quaternion.identity);
-            leftGoal = VRroot.GetComponentInChildren<Transform>().Find("Tracker (leftGoal)");
-            rightGoal = VRroot.GetComponentInChildren<Transform>().Find("Tracker (rightGoal)");
         }
         base.Start();
         //tell other my stat
@@ -22,14 +17,14 @@ public class UserListener : ListenerBase {
         base.Update();
         //update goal from tracker
         if (!MainMgr.isVRValid) {
-            if(leftGoal == null)
+            if(leftGoalTkr == null)
                 MainMgr.inst.leftArmGoal[0] = new SerializablePos(new Vector3(0,0,0));
             else
-                MainMgr.inst.leftArmGoal[0] = new SerializablePos(leftGoal.position);
-            if (rightGoal == null)
+                MainMgr.inst.leftArmGoal[0] = new SerializablePos(leftGoalTkr.position);
+            if (rightGoalTkr == null)
                 MainMgr.inst.rightArmGoal[0] = new SerializablePos(new Vector3(0, 0, 0));
             else
-                MainMgr.inst.rightArmGoal[0] = new SerializablePos(rightGoal.position);
+                MainMgr.inst.rightArmGoal[0] = new SerializablePos(rightGoalTkr.position);
             //move func
             Vector3 movement = new Vector3(0, 0, 0);
             if (Input.GetKeyDown(KeyCode.W)) {
