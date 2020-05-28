@@ -10,6 +10,8 @@ public class CalibrationListener : ListenerBase {
         initRot,
         finish
     }
+
+    public GameObject[] target;
     public SteamVR_TrackedObject[] trackers;
     public SteamVR_Action_Boolean m_InitAction;
     public Transform pelvis;
@@ -67,7 +69,7 @@ public class CalibrationListener : ListenerBase {
 
         }
         //remove lighthouse
-
+        
 
     }
 
@@ -85,17 +87,84 @@ public class CalibrationListener : ListenerBase {
         Debug.Log(msg + " is valid");
         //check goal,pelvis,foot tracker index
 
-        //get left goal
+        int rightGoalIndex = -1;
+        int leftGoalIndex = -1;
+        int rightFootIndex = -1;
+        int leftFootIndex = -1;
+        int pelvisIndex = -1;
 
-        //get right goal
 
-        //get left foot
+        if (m_InitAction.GetStateDown(m_Pose.inputSource))
+        {
+            for (int i = 0; i < trackers.Length; i++)
+            {
+                //skip index already check not open
+                if (!isTkrValid[i])
+                    continue;
+                //GetRightGoal index
+                float minRightGoal = float.MaxValue;
+                float curRightGoal = (trackers[i].transform.position - rightCtr.transform.position).sqrMagnitude;
+                if (curRightGoal < minRightGoal)
+                {
+                    minRightGoal = curRightGoal;
+                    rightGoalIndex = i;
+                }
 
-        //get right foot
+                //GetLeftGoal index
+                float minLeftGoal = float.MaxValue;
+                float curLeftGoal = (trackers[i].transform.position - leftCtr.transform.position).sqrMagnitude;
+                if (curLeftGoal < minLeftGoal)
+                {
+                    minLeftGoal = curLeftGoal;
+                    leftGoalIndex = i;
+                }
 
-        //get pelvis
+                //GetRightFoot index
+                float minRightFoot = float.MaxValue;
+                float curRightFoot = (trackers[i].transform.position - target[0].transform.position).sqrMagnitude;
+                if (curRightFoot < minRightFoot)
+                {
+                    minRightFoot = curRightFoot;
+                    rightFootIndex = i;
+                }
 
+                //GetLeftFoot index
+                float minLeftFoot = float.MaxValue;
+                float curLeftFoot = (trackers[i].transform.position - target[1].transform.position).sqrMagnitude;
+                if (curLeftFoot < minLeftFoot)
+                {
+                    minLeftFoot = curLeftFoot;
+                    leftFootIndex = i;
+                }
+
+            }
+
+            //get pelvis
+            for (int i = 0; i < trackers.Length; i++)
+            {
+                //skip index already check not open
+                if (!isTkrValid[i])
+                    continue;
+
+                //the only one which did not get index
+                if (i != rightGoalIndex && i != leftGoalIndex && i != rightFootIndex && i != leftFootIndex)
+                {
+                    pelvisIndex = i;
+                }
+
+            }
+
+            MainMgr.leftFootTkrIndex = leftFootIndex;
+            MainMgr.rightFootTkrIndex = rightFootIndex;
+            MainMgr.leftGoalTkrIndex = leftGoalIndex;
+            MainMgr.rightGoalTkrIndex = rightGoalIndex;
+            MainMgr.pelvisTkrIndex = pelvisIndex;
+
+            curState++;
+        }
     }
+
+
 
     void setIndex() {
         //set index to tracker component 
