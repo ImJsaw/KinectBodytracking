@@ -17,7 +17,7 @@ public class CalibrationListener : ListenerBase {
     public Transform pelvis;
     public Transform pelvisOffset;
     private SteamVR_Behaviour_Pose m_Pose = null;
-    private calibrationState curState = calibrationState.initRot;
+    private calibrationState curState = calibrationState.checkIndex;
 
     public Transform VRRef = null;
 
@@ -49,18 +49,21 @@ public class CalibrationListener : ListenerBase {
         Debug.Log("offset" + Vector3.Scale(pelvisOffset.localPosition, pelvisTkr.localScale).ToString());
     }
 
-    private bool[] isTkrValid; 
+    private bool[] isTkrValid;
     //clean index (remove controller, hmt, lighthouse  & unvaliable tracker)
     void cleanIndex() {
         isTkrValid = new bool[trackers.Length];
         //remove unavaliable tracker
-        for(int i = 0;i < trackers.Length; i++) {
+        for (int i = 0; i < trackers.Length; i++) {
             isTkrValid[i] = trackers[i].isValid;
         }
+        Debug.Log("**clean not open index**");
+        logCurValidIndex();
         //remove controller
         for (int i = 0; i < trackers.Length; i++) {
             //skip index already check not open
-            if (!isTkrValid[i]) continue;
+            if (!isTkrValid[i])
+                continue;
 
             if (trackers[i].transform.position == leftCtr.position)
                 isTkrValid[i] = false;
@@ -68,12 +71,37 @@ public class CalibrationListener : ListenerBase {
                 isTkrValid[i] = false;
 
         }
-        //remove lighthouse
-        
 
+        Debug.Log("** remove controller **");
+        logCurValidIndex();
+
+        //remove lighthouse
+        //TODO:
+        for (int lightHouseCount = 0; lightHouseCount < 2; lightHouseCount++) {
+
+            int lightHouseIndex = -1;
+            for (int i = 0; i < trackers.Length; i++) {
+                //skip index already check not open
+                if (!isTkrValid[i])
+                    continue;
+
+                // the 2 most far from (0,0,0)
+                float maxVal = 0;
+                float curLighthouseDis = trackers[i].transform.position.sqrMagnitude;
+                if (maxVal < curLighthouseDis) {
+                    maxVal = curLighthouseDis;
+                    lightHouseIndex = i;
+                }
+
+            }
+            isTkrValid[lightHouseIndex] = false;
+        }
+
+        Debug.Log("** remove lighthouse **");
+        logCurValidIndex();
     }
 
-    void checkParts() {
+    void logCurValidIndex() {
         string msg = "";
         for (int i = 0; i < trackers.Length; i++) {
             //skip index already check not open
@@ -83,8 +111,10 @@ public class CalibrationListener : ListenerBase {
             msg += (i + " ");
 
         }
-
         Debug.Log(msg + " is valid");
+    }
+
+    void checkParts() {
         //check goal,pelvis,foot tracker index
 
         int rightGoalIndex = -1;
@@ -94,18 +124,15 @@ public class CalibrationListener : ListenerBase {
         int pelvisIndex = -1;
 
 
-        if (m_InitAction.GetStateDown(m_Pose.inputSource))
-        {
-            for (int i = 0; i < trackers.Length; i++)
-            {
+        if (m_InitAction.GetStateDown(m_Pose.inputSource)) {
+            for (int i = 0; i < trackers.Length; i++) {
                 //skip index already check not open
                 if (!isTkrValid[i])
                     continue;
                 //GetRightGoal index
                 float minRightGoal = float.MaxValue;
                 float curRightGoal = (trackers[i].transform.position - rightCtr.transform.position).sqrMagnitude;
-                if (curRightGoal < minRightGoal)
-                {
+                if (curRightGoal < minRightGoal) {
                     minRightGoal = curRightGoal;
                     rightGoalIndex = i;
                 }
@@ -113,8 +140,7 @@ public class CalibrationListener : ListenerBase {
                 //GetLeftGoal index
                 float minLeftGoal = float.MaxValue;
                 float curLeftGoal = (trackers[i].transform.position - leftCtr.transform.position).sqrMagnitude;
-                if (curLeftGoal < minLeftGoal)
-                {
+                if (curLeftGoal < minLeftGoal) {
                     minLeftGoal = curLeftGoal;
                     leftGoalIndex = i;
                 }
@@ -122,8 +148,7 @@ public class CalibrationListener : ListenerBase {
                 //GetRightFoot index
                 float minRightFoot = float.MaxValue;
                 float curRightFoot = (trackers[i].transform.position - target[0].transform.position).sqrMagnitude;
-                if (curRightFoot < minRightFoot)
-                {
+                if (curRightFoot < minRightFoot) {
                     minRightFoot = curRightFoot;
                     rightFootIndex = i;
                 }
@@ -131,8 +156,7 @@ public class CalibrationListener : ListenerBase {
                 //GetLeftFoot index
                 float minLeftFoot = float.MaxValue;
                 float curLeftFoot = (trackers[i].transform.position - target[1].transform.position).sqrMagnitude;
-                if (curLeftFoot < minLeftFoot)
-                {
+                if (curLeftFoot < minLeftFoot) {
                     minLeftFoot = curLeftFoot;
                     leftFootIndex = i;
                 }
@@ -140,15 +164,13 @@ public class CalibrationListener : ListenerBase {
             }
 
             //get pelvis
-            for (int i = 0; i < trackers.Length; i++)
-            {
+            for (int i = 0; i < trackers.Length; i++) {
                 //skip index already check not open
                 if (!isTkrValid[i])
                     continue;
 
                 //the only one which did not get index
-                if (i != rightGoalIndex && i != leftGoalIndex && i != rightFootIndex && i != leftFootIndex)
-                {
+                if (i != rightGoalIndex && i != leftGoalIndex && i != rightFootIndex && i != leftFootIndex) {
                     pelvisIndex = i;
                 }
 

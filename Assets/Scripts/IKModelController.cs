@@ -110,8 +110,6 @@ public class IKModelController : MonoBehaviour {
         pelvisPosition.position = pelvisTkr.pos ;
         pelvisPosition.rotation = pelvisTkr.rot * Quaternion.Inverse(pelvisInitRot);
         pelvisPosition.localPosition += MainMgr.inst.pelvisInitTkr[modelIndex].pos;
-        //offset to avoid cam in face problem
-        //modelPosition.localPosition = modelPosition.localPosition + Vector3.Scale(modelPosition.forward, new Vector3(-0.1f, -0.1f, -0.1f));
     }
 
     //scale model to fit
