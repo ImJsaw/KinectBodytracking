@@ -15,9 +15,9 @@ public class Lock : MonoBehaviour {
         //Utility.limRot(hand, min, max);
         if (Utility.testRotValid(hand, min, max)) {
             lastValiableRotate = hand.localRotation;
-            Debug.Log("valid" + lastValiableRotate.eulerAngles);
+            //Debug.Log("valid" + lastValiableRotate.eulerAngles);
         } else {
-            Debug.Log("not valid" + hand.localRotation.eulerAngles);
+            //Debug.Log("not valid" + hand.localRotation.eulerAngles);
             hand.localRotation = lastValiableRotate;
         }
 

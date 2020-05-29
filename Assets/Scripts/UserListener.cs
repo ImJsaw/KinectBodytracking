@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Valve.VR;
 
 [CLSCompliant(false)]
 public class UserListener : ListenerBase {
@@ -9,6 +10,11 @@ public class UserListener : ListenerBase {
             VRroot = Instantiate(VrPrefab, new Vector3(0, 0, -6), Quaternion.identity);
         }
         base.Start();
+        leftFootTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.leftFootTkrIndex + 1);
+        rightFootTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.rightFootTkrIndex + 1);
+        pelvisTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.pelvisTkrIndex + 1);
+        leftGoalTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.leftGoalTkrIndex + 1);
+        rightGoalTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.rightGoalTkrIndex + 1);
         //tell other my stat
         sendRegister();
     }
@@ -17,14 +23,6 @@ public class UserListener : ListenerBase {
         base.Update();
         //update goal from tracker
         if (!MainMgr.isVRValid) {
-            if(leftGoalTkr == null)
-                MainMgr.inst.leftArmGoal[0] = new SerializablePos(new Vector3(0,0,0));
-            else
-                MainMgr.inst.leftArmGoal[0] = new SerializablePos(leftGoalTkr.position);
-            if (rightGoalTkr == null)
-                MainMgr.inst.rightArmGoal[0] = new SerializablePos(new Vector3(0, 0, 0));
-            else
-                MainMgr.inst.rightArmGoal[0] = new SerializablePos(rightGoalTkr.position);
             //move func
             Vector3 movement = new Vector3(0, 0, 0);
             if (Input.GetKeyDown(KeyCode.W)) {
@@ -45,9 +43,16 @@ public class UserListener : ListenerBase {
             if (Input.GetKeyDown(KeyCode.LeftShift)) {
                 movement += new Vector3(0, -1, 0);
             }
-
             curCam.transform.position += movement;
-
+        } else {
+            if (leftGoalTkr == null)
+                MainMgr.inst.leftArmGoal[0] = new SerializablePos(new Vector3(0, 0, 0));
+            else
+                MainMgr.inst.leftArmGoal[0] = new SerializablePos(leftGoalTkr.position);
+            if (rightGoalTkr == null)
+                MainMgr.inst.rightArmGoal[0] = new SerializablePos(new Vector3(0, 0, 0));
+            else
+                MainMgr.inst.rightArmGoal[0] = new SerializablePos(rightGoalTkr.position);
         }
         sendModel();
     }

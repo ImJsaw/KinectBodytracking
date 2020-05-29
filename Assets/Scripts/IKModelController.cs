@@ -52,6 +52,7 @@ public class IKModelController : MonoBehaviour {
     private Quaternion leftLegTargetRot = Quaternion.identity;
     private Quaternion rightLegTargetRot = Quaternion.identity;
 
+    public Vector3 multiplier = new Vector3(1.5f,1.5f,1.5f);
     //controller len
     float controllerLen = 0.1f;
     // initial pos
@@ -109,7 +110,8 @@ public class IKModelController : MonoBehaviour {
         //make model horizon move with cam
         pelvisPosition.position = pelvisTkr.pos ;
         pelvisPosition.rotation = pelvisTkr.rot * Quaternion.Inverse(pelvisInitRot);
-        pelvisPosition.localPosition += MainMgr.inst.pelvisInitTkr[modelIndex].pos;
+        Debug.Log("init " + pelvisInitRot.eulerAngles.ToString() + "cur " + pelvisTkr.rot.eulerAngles.ToString() + "final " + pelvisPosition.rotation.eulerAngles.ToString());
+        pelvisPosition.localPosition += Vector3.Scale(MainMgr.inst.pelvisInitTkr[modelIndex].pos, multiplier);
     }
 
     //scale model to fit
