@@ -92,8 +92,8 @@ public class IKModelController : MonoBehaviour {
         if (rightHandGoal != null && MainMgr.inst.rightArmGoal[modelIndex].v3() != new Vector3(0, 0, 0))
             rightHandGoal.position = MainMgr.inst.rightArmGoal[modelIndex].v3();
         //leg
-        leftLegTarget.position = leftTkr.pos ;
-        rightLegTarget.position = rightTkr.pos ;
+        leftLegTarget.position = leftTkr.pos - new Vector3(0,0.3f,0) ;
+        rightLegTarget.position = rightTkr.pos - new Vector3(0, 0.3f, 0);
         leftLegTarget.rotation = leftTkr.rot * Quaternion.Inverse(leftLegInitRot) * leftLegTargetRot;
         rightLegTarget.rotation = rightTkr.rot * Quaternion.Inverse(rightLegInitRot) * rightLegTargetRot;
 

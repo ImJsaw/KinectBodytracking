@@ -199,12 +199,13 @@ public class CalibrationListener : ListenerBase {
 
     void checkInit() {
         if (m_InitAction.GetStateDown(m_Pose.inputSource)) {
+            
             Debug.Log("trigger");
             MainMgr.inst.leftInitCtr[0].rot = leftCtr.rotation;
             MainMgr.inst.rightInitCtr[0].rot = rightCtr.rotation;
             MainMgr.inst.leftInitTkr[0].rot = leftFootTkr.rotation;
             MainMgr.inst.rightInitTkr[0].rot = rightFootTkr.rotation;
-            MainMgr.inst.pelvisInitTkr[0].pos = Vector3.Scale(pelvisOffset.localPosition, pelvisTkr.localScale);
+            //MainMgr.inst.pelvisInitTkr[0].pos = Vector3.Scale(pelvisOffset.localPosition, pelvisTkr.localScale);
             MainMgr.inst.pelvisInitTkr[0].rot = pelvisTkr.rotation;
             MainMgr.inst.handDist[0] = Vector3.Distance(leftCtr.position, rightCtr.position);
             curState++;
