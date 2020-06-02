@@ -81,13 +81,14 @@ public static class NetMgr {
                 playerPose msg = Utility.byte2Origin<playerPose>(socketPackage.data);
                 int index = MainMgr.inst.getIndexfromUID(msg.UID);
                 Debug.Log("[NetMgr]index" + index);
-                if (MainMgr.inst.skeletons.Count > index)
-                    MainMgr.inst.skeletons[index] = msg.skeleton;
+                //if (MainMgr.inst.skeletons.Count > index)
+                //    MainMgr.inst.skeletons[index] = msg.skeleton;
+                //if (MainMgr.inst.isFirstDataGet.Count > index)
+                //    MainMgr.inst.isFirstDataGet[index] = true;
                 if (MainMgr.inst.headPos.Count > index)
                     MainMgr.inst.headPos[index] = msg.headTransform;
-                if (MainMgr.inst.isFirstDataGet.Count > index)
-                    MainMgr.inst.isFirstDataGet[index] = true;
                 if (MainMgr.inst.hasVR[index]) {
+                    Debug.Log("[NetMgr]update server model");
                     //for ik
                     MainMgr.inst.leftCtr[index] = msg.leftHandTransform;
                     MainMgr.inst.rightCtr[index] = msg.rightHandTransform;

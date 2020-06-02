@@ -4,17 +4,20 @@ using Valve.VR;
 
 [CLSCompliant(false)]
 public class UserListener : ListenerBase {
-    
+
     new void Start() {
         if (MainMgr.isVRValid) {
             VRroot = Instantiate(VrPrefab, new Vector3(0, 0, -6), Quaternion.identity);
         }
         base.Start();
-        leftFootTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.leftFootTkrIndex + 1);
-        rightFootTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.rightFootTkrIndex + 1);
-        pelvisTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.pelvisTkrIndex + 1);
-        leftGoalTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.leftGoalTkrIndex + 1);
-        rightGoalTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.rightGoalTkrIndex + 1);
+        if (MainMgr.isVRValid) {
+
+            leftFootTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.leftFootTkrIndex + 1);
+            rightFootTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.rightFootTkrIndex + 1);
+            pelvisTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.pelvisTkrIndex + 1);
+            leftGoalTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.leftGoalTkrIndex + 1);
+            rightGoalTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.rightGoalTkrIndex + 1);
+        }
         //tell other my stat
         sendRegister();
     }
@@ -68,6 +71,9 @@ public class UserListener : ListenerBase {
             msg.leftLegTransform = MainMgr.inst.leftTkr[0];
             msg.rightLegTransform = MainMgr.inst.rightTkr[0];
             msg.pelvisTransform = MainMgr.inst.pelvisTkr[0];
+
+            msg.leftArmGoal = MainMgr.inst.leftArmGoal[0];
+            msg.rightArmGoal = MainMgr.inst.rightArmGoal[0];
         }
         //send from net
         byte[] modelDataBytes = Utility.Trans2byte(msg);
@@ -78,6 +84,7 @@ public class UserListener : ListenerBase {
         register msg = new register();
         msg.UID = MainMgr.inst.myUID();
         msg.headInitTransform = MainMgr.inst.headPos[0];
+        msg.hasVR = MainMgr.isVRValid;
         if (MainMgr.isVRValid) {
             msg.leftHandInitTransform = MainMgr.inst.leftInitCtr[0];
             msg.rightHandInitTransform = MainMgr.inst.rightInitCtr[0];
