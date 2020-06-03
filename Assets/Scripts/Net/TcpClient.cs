@@ -67,7 +67,7 @@ public class TcpClient : MonoBehaviour {
         while (true) {
             if (!serverSocket.Connected)
                 continue;
-            recvData = new byte[4096];
+            //recvData = new byte[4096];
             recvLen = 0;
             recvLen = serverSocket.Receive(recvData);
             if (recvLen == 0) {

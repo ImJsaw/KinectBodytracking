@@ -37,6 +37,7 @@ public class ListenerBase : MonoBehaviour {
 
     public void Update() {
         MainMgr.inst.headPos[0] = new SerializableTransform(curCam.transform.position, curCam.transform.rotation);
+        GC.Collect();
         if (MainMgr.isVRValid) {
             updatePosition();
             //return;
