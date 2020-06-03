@@ -19,7 +19,7 @@ public class IKModelController : MonoBehaviour {
                 Debug.LogError("model index < 0 !");
             if (_modelIndex == -1)
                 Debug.LogError("model number not set");
-            scaleByHand(MainMgr.inst.handDist[modelIndex]);
+            //scaleByHand(MainMgr.inst.handDist[modelIndex]);
         }
     }
 
@@ -57,12 +57,17 @@ public class IKModelController : MonoBehaviour {
     float controllerLen = 0.1f;
     // initial pos
 
+    private float modelHandDis;
+
 
     void Start() {
         logTargetInitRotation();
+        modelHandDis = Vector3.Distance(rightHandTarget.position, leftHandTarget.position);
     }
 
     void Update() {
+        //always update scale to make client scale correct
+        scaleByHand(MainMgr.inst.handDist[modelIndex]);
         hmt = MainMgr.inst.headPos[modelIndex];
         leftCtr = MainMgr.inst.leftCtr[modelIndex];
         rightCtr = MainMgr.inst.rightCtr[modelIndex];
@@ -108,10 +113,13 @@ public class IKModelController : MonoBehaviour {
 
     private void updateModelTransform() {
         //make model horizon move with cam
-        pelvisPosition.position = pelvisTkr.pos ;
+        pelvisPosition.position = pelvisTkr.pos;
         pelvisPosition.rotation = pelvisTkr.rot * Quaternion.Inverse(pelvisInitRot);
-        Debug.Log("init " + pelvisInitRot.eulerAngles.ToString() + "cur " + pelvisTkr.rot.eulerAngles.ToString() + "final " + pelvisPosition.rotation.eulerAngles.ToString());
-        pelvisPosition.localPosition += Vector3.Scale(MainMgr.inst.pelvisInitTkr[modelIndex].pos, multiplier);
+        //Debug.Log("init " + pelvisInitRot.eulerAngles.ToString() + "cur " + pelvisTkr.rot.eulerAngles.ToString() + "final " + pelvisPosition.rotation.eulerAngles.ToString());
+        Vector3 offset = Vector3.Scale(MainMgr.inst.pelvisInitTkr[modelIndex].pos, multiplier);
+        Debug.Log("set pelvis pos " + pelvisTkr.pos.ToString() + ", after assign " + pelvisPosition.position.ToString() + " offset : " + offset.ToString());
+        pelvisPosition.localPosition += offset;
+        Debug.Log("after offset" + pelvisPosition.position.ToString());
     }
 
     //scale model to fit
@@ -119,9 +127,9 @@ public class IKModelController : MonoBehaviour {
         if (handDistance == -1)
             return;
 
-        float modelHandDis = Vector3.Distance(rightHandTarget.position, leftHandTarget.position);
+        
         float scale = (handDistance - controllerLen) / (modelHandDis - controllerLen);
-        Debug.Log("scale model " + scale + " time to fit");
+        Debug.Log("scale model " + scale + " time to fit, model hand dis" + modelHandDis);
         transform.localScale = new Vector3(scale, scale, scale);
     }
 }

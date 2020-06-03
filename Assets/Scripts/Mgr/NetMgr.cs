@@ -145,6 +145,7 @@ public static class NetMgr {
                     MainMgr.inst.modelType[registerIndex] = registerMsg.modelType;
                 MainMgr.inst.hasVR[registerIndex] = registerMsg.hasVR;
                 if (registerMsg.hasVR) {
+                    MainMgr.inst.handDist[registerIndex] = registerMsg.handDist;
                     MainMgr.inst.leftInitCtr[registerIndex] = registerMsg.leftHandInitTransform;
                     MainMgr.inst.rightInitCtr[registerIndex] = registerMsg.rightHandInitTransform;
                     MainMgr.inst.leftInitTkr[registerIndex] = registerMsg.leftLegInitTransform;
