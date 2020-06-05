@@ -65,7 +65,7 @@ public class UserListener : ListenerBase {
         playerPose msg = new playerPose();
         msg.UID = MainMgr.inst.myUID();
         msg.headTransform = MainMgr.inst.headPos[0];
-        if (MainMgr.isVRValid) {
+        //if (MainMgr.isVRValid) {
             msg.leftHandTransform = MainMgr.inst.leftCtr[0];
             msg.rightHandTransform = MainMgr.inst.rightCtr[0];
             msg.leftLegTransform = MainMgr.inst.leftTkr[0];
@@ -74,7 +74,7 @@ public class UserListener : ListenerBase {
 
             msg.leftArmGoal = MainMgr.inst.leftArmGoal[0];
             msg.rightArmGoal = MainMgr.inst.rightArmGoal[0];
-        }
+        //}
         //send from net
         byte[] modelDataBytes = Utility.Trans2byte(msg);
         NetMgr.sendMsg(packageType.playerPose, modelDataBytes);
