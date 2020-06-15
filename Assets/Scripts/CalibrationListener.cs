@@ -20,6 +20,10 @@ public class CalibrationListener : ListenerBase {
     private calibrationState curState = calibrationState.checkIndex;
 
     public Transform VRRef = null;
+    public Transform model = null;
+    public Transform modelLeftHand = null;
+    public Transform modelRightHand = null;
+
 
     new void Start() {
         VRroot = VRRef.gameObject;
@@ -177,7 +181,7 @@ public class CalibrationListener : ListenerBase {
             MainMgr.leftGoalTkrIndex = leftGoalIndex;
             MainMgr.rightGoalTkrIndex = rightGoalIndex;
             MainMgr.pelvisTkrIndex = pelvisIndex;
-
+            scaleModel();
             curState++;
         }
     }
@@ -215,6 +219,12 @@ public class CalibrationListener : ListenerBase {
     void gotoGeneral() {
         Debug.Log("complete calibration");
         MainMgr.inst.changeScene(SceneID.General);
+    }
+
+    void scaleModel() {
+        const float controllerLen = 0.25f;
+        float scale = (Vector3.Distance(leftCtr.position, rightCtr.position) - controllerLen) / (Vector3.Distance(modelLeftHand.position, modelRightHand.position) - controllerLen);
+        model.localScale = Vector3.Scale(model.localScale, new Vector3(scale, scale, scale));
     }
 
 
