@@ -6,8 +6,9 @@ using UnityEngine;
 public class General : MonoBehaviour {
 
     public ObsController obsController;
-    public IKModelController[] modelPrefabVR;
-    public ModelController modelPrefab = null;
+    public IKModelController[] modelPrefab;
+    public IKModelController[] modelPrefabSelf;
+    //public ModelController modelPrefab = null;
     private Dictionary<string, int> localPlayerUIDDict = new Dictionary<string, int>();
 
     // Update is called once per frame
@@ -26,17 +27,20 @@ public class General : MonoBehaviour {
     private void addNewPlayer(string UID, int index) {
         //log  UID/index in local dictionary
         localPlayerUIDDict.Add(UID, index);
-        
+
         //instantiate model & set index
         //generate chosed type
-        
         if (MainMgr.inst.modelType[index] == -1) {
             //observer mode
-            ObsController modelPrefab = Instantiate(obsController);
-            modelPrefab.modelIndex = index;
+            ObsController obsModelPrefab = Instantiate(obsController);
+            obsModelPrefab.modelIndex = index;
+        } else if (UID == MainMgr.inst.myUID() ) {
+            //if self, generate no head model
+            IKModelController ikModelPrefab = Instantiate(modelPrefabSelf[MainMgr.inst.modelType[index]], new Vector3(0, 0, -6), Quaternion.identity);
+            ikModelPrefab.modelIndex = index;
         } else {
-            IKModelController modelPrefab = Instantiate(modelPrefabVR[MainMgr.inst.modelType[index]], new Vector3(0, 0, -6), Quaternion.identity);
-            modelPrefab.modelIndex = index;
+            IKModelController ikModelPrefab = Instantiate(modelPrefab[MainMgr.inst.modelType[index]], new Vector3(0, 0, -6), Quaternion.identity);
+            ikModelPrefab.modelIndex = index;
         }
         Debug.Log("[model instantiate] generate " + index + " th model");
     }
