@@ -1,129 +1,129 @@
 ﻿using UnityEngine;
-using System.Collections;
-//引入庫
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading;
 using System;
-using System.Collections.Generic;
 
 [CLSCompliant(false)]
 public class TcpServer : MonoBehaviour {
-    //以下預設都是私有的成員
-    Socket serverSocket; //伺服器端socket
-    static List<Socket> client = new List<Socket>();
-    IPEndPoint ipEnd; //偵聽埠
-    string recvStr; //接收的字串
-    string sendStr; //傳送的字串
-    byte[] recvData = new byte[4096]; //接收的資料，必須為位元組
-    //byte[] sendData = new byte[1024]; //傳送的資料，必須為位元組
-    int recvLen; //接收的資料長度
-    Thread connectThread; //連線執行緒
-    Thread connectThread2; //連線執行緒
-    Boolean connectlock = true;
+    Socket serverSocket;
 
+    public class SocketPack {
+        public Socket currentSocket;
+        public byte[] dataBuffer = new byte[4096];
+    }
 
-    //初始化
+    private int port = 5566;
+    private const int MAX_CLIENTS = 20;
+    private Socket[] socketChannel = new Socket[MAX_CLIENTS];
+
+    //init
     void InitSocket() {
-        //定義偵聽埠,偵聽任何IP
-        ipEnd = new IPEndPoint(IPAddress.Any, 5566);
-        //定義套接字型別,在主執行緒中定義
+        //listen any IP
+        IPEndPoint ipEnd = new IPEndPoint(IPAddress.Any, port);
+        //create socket instance
         serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        //連線
         serverSocket.Bind(ipEnd);
-        //開始偵聽,最大10個連線
+
+        //開始偵聽 "同時要求連線最大值" 10
         serverSocket.Listen(10);
-
-
-
-        //開啟一個執行緒連線，必須的，否則主執行緒卡死
-        connectThread = new Thread(new ThreadStart(SocketReceive));
-        connectThread.Start();
-
+        serverSocket.BeginAccept(new AsyncCallback(OnClientConnect), null);
     }
 
-    //連線
-    Socket SocketConnet() {
-        //if (clientSocket != null)
-        //   clientSocket.Close();
+    public class NoSocketAvailableException : Exception { }
 
-        Socket clientSocket; //客戶端socket
-
-        //控制檯輸出偵聽狀態
-        print("Waiting for a client");
-        //一旦接受連線，建立一個客戶端
-        clientSocket = serverSocket.Accept();
-        //獲取客戶端的IP和埠
-        IPEndPoint ipEndClient = (IPEndPoint)clientSocket.RemoteEndPoint;
-        //輸出客戶端的IP和埠
-        print("Connect with " + ipEndClient.Address.ToString() + ":" + ipEndClient.Port.ToString());
-
-        client.Add(clientSocket);
-
-        return clientSocket;
-
-        //連線成功則傳送資料
-        //sendStr = "Welcome to my server";
-        //SocketSend(Encoding.ASCII.GetBytes(sendStr));
+    // find avaliable channel
+    private int FindEmptyChannel() {
+        for (int i = 0; i < MAX_CLIENTS; i++) {
+            if (socketChannel[i] == null || !socketChannel[i].Connected)
+                return i;
+        }
+        return -1;
     }
 
+    public void OnClientConnect(IAsyncResult async) {
+        try {
+            int emptyChannelIndex = -1;
+            if (serverSocket == null)
+                return;
+
+            Socket tmpSocket = serverSocket.EndAccept(async);
+            EndPoint remoteEndPoint = tmpSocket.RemoteEndPoint;
+            //get avaliable channel
+            emptyChannelIndex = FindEmptyChannel();
+            if (emptyChannelIndex == -1)
+                throw new NoSocketAvailableException();
+            //handle tmp socket
+            socketChannel[emptyChannelIndex] = tmpSocket;
+            tmpSocket = null;
+
+            waitData(socketChannel[emptyChannelIndex]);
+        }
+        catch (ObjectDisposedException) {
+            Debug.Log("[TCP SERVER] ObjectDisposedException");
+        }
+        catch (SocketException) {
+            Debug.Log("[TCP SERVER] SocketException");
+        }
+        catch (NoSocketAvailableException) {
+            Debug.Log("[TCP SERVER] NoSocketAvailableException");
+        }
+        finally {
+            //release lock
+            serverSocket.BeginAccept(new AsyncCallback(OnClientConnect), null);
+        }
+    }
+
+    public AsyncCallback socketCallBack;
+    public void waitData(Socket socket) {
+        try {
+            if (socketCallBack == null)
+                socketCallBack = new AsyncCallback(onDataReceive);
+
+            SocketPack socketPack = new SocketPack();
+            socketPack.currentSocket = socket;
+            socket.BeginReceive(socketPack.dataBuffer, 0, socketPack.dataBuffer.Length, SocketFlags.None, socketCallBack, socketPack);
+        }
+        catch (SocketException) {
+            Debug.Log("[TCP SERVER] SocketException");
+        }
+    }
+
+    public void onDataReceive(IAsyncResult async) {
+        try {
+            SocketPack socketData = (SocketPack)async.AsyncState;
+            socketData.currentSocket.EndReceive(async);
+            dataHandle(socketData.dataBuffer);
+        }
+        catch (SocketException) {
+            Debug.Log("[TCP SERVER] SocketException");
+        }
+    }
+
+    //////////   custom area /////////////////
+
+    //all data get from client would be handled here
+    public void dataHandle(byte[] data) {
+        //message from client
+        NetMgr.OnMsgRcv(data, false);
+    }
+
+    //send data to all client
     public void SocketSend(byte[] sendMsg) {
-        //傳送
-        foreach(Socket curS in client)
-        {
-            curS.Send(sendMsg, sendMsg.Length, SocketFlags.None);
+        for (int i = 0; i < MAX_CLIENTS; i++) {
+            if (socketChannel[i]!= null && socketChannel[i].Connected)
+                socketChannel[i].Send(sendMsg, sendMsg.Length, SocketFlags.None);
         }
     }
 
-
-    //伺服器接收
-    void SocketReceive() {
-        //連線
-        Socket curSocket = SocketConnet();
-        //進入接收迴圈
-        while (true) {
-            //對data清零
-            recvData = new byte[4096];
-            //獲取收到的資料的長度
-            recvLen = curSocket.Receive(recvData);
-            //如果收到的資料長度為0，則重連並進入下一個迴圈
-            if (recvLen == 0) {
-                Debug.Log("socket close : " + client.Count);
-                client.Remove(curSocket);
-                SocketConnet();
-                continue;
-            }
-            //輸出接收到的資料
-            //recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
-            //將接收到的資料經過處理再發送出去
-            //sendStr = "From Server: " + recvStr;
-            //SocketSend(Encoding.ASCII.GetBytes(sendStr));
-            //get data
-            //MainMgr.inst.onMsgRcv(recvStr);
-            Debug.Log("receive");
-            NetMgr.OnMsgRcv(recvData,false);
-        }
-    }
+    //////////   custom area /////////////////
 
     //連線關閉
     void SocketQuit() {
-        //先關閉客戶端
-
-        if (client.Count > 0)
-        {
-            foreach (Socket curS in client)
-            {
-                curS.Close();
-            }
+        //close client
+        for (int i = 0; i < MAX_CLIENTS; i++) {
+            socketChannel[i].Close();
         }
-
-        //再關閉執行緒
-        if (connectThread != null) {
-            connectThread.Interrupt();
-            connectThread.Abort();
-        }
-        //最後關閉伺服器
+        //close server
         serverSocket.Close();
         print("diconnect");
     }
@@ -133,32 +133,12 @@ public class TcpServer : MonoBehaviour {
         DontDestroyOnLoad(this);
     }
 
-    // Use this for initialization
     void Start() {
-        InitSocket(); //在這裡初始化server
-    }
-
-    // Update is called once per frame
-    void Update() {
-        if(client.Count == 1 && connectlock)
-        {
-            connectThread2 = new Thread(new ThreadStart(SocketReceive));
-            connectThread2.Start();
-            connectlock = false;
-        }
+        //init server
+        InitSocket();
     }
 
     void OnApplicationQuit() {
         SocketQuit();
-    }
-
-    //get data from remote
-    public byte[] getData() {
-        return recvData;
-    }
-
-    public int getConnectNum()
-    {
-        return client.Count;
     }
 }
