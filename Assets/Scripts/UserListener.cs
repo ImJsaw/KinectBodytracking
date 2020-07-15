@@ -64,6 +64,7 @@ public class UserListener : ListenerBase {
         Debug.Log("send my model");
         playerPose msg = new playerPose();
         msg.UID = MainMgr.inst.myUID();
+        msg.modelType = MainMgr.inst.modelType[0];
         msg.headTransform = MainMgr.inst.headPos[0];
         //if (MainMgr.isVRValid) {
             msg.leftHandTransform = MainMgr.inst.leftCtr[0];
@@ -71,7 +72,6 @@ public class UserListener : ListenerBase {
             msg.leftLegTransform = MainMgr.inst.leftTkr[0];
             msg.rightLegTransform = MainMgr.inst.rightTkr[0];
             msg.pelvisTransform = MainMgr.inst.pelvisTkr[0];
-
             msg.leftArmGoal = MainMgr.inst.leftArmGoal[0];
             msg.rightArmGoal = MainMgr.inst.rightArmGoal[0];
         //}
@@ -81,6 +81,7 @@ public class UserListener : ListenerBase {
     }
 
     void sendRegister() {
+        Debug.Log("sendREG");
         register msg = new register();
         msg.UID = MainMgr.inst.myUID();
         msg.headInitTransform = MainMgr.inst.headPos[0];

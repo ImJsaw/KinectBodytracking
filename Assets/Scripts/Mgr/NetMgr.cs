@@ -10,26 +10,11 @@ public struct SocketPackage {
     public byte[] data;
 }
 
-[Serializable]
-public struct Cube
-{
-    public int id;
-
-    public float Vecx;
-    public float Vecy;
-    public float Vecz;
-
-    public float Rotx;
-    public float Roty;
-    public float Rotz;
-    public float Rotw;
-}
-
 [CLSCompliant(false)]
 [Serializable]
 public struct playerPose {
     public string UID;
-    public Skeleton skeleton;
+    //public Skeleton skeleton;
     public SerializableTransform headTransform;
     //only use if VR valid
     public SerializableTransform leftHandTransform;
@@ -39,6 +24,7 @@ public struct playerPose {
     public SerializableTransform pelvisTransform;
     public SerializablePos leftArmGoal;
     public SerializablePos rightArmGoal;
+    public int modelType;
 }
 
 [CLSCompliant(false)]
@@ -60,7 +46,7 @@ public struct register {
 [Serializable]
 public enum packageType {
     playerPose = 0,
-    cube,
+    echoMsg,
     register
 }
 
@@ -80,38 +66,38 @@ public static class NetMgr {
                 Debug.Log("[NetMgr]receive camModel package type");
                 playerPose msg = Utility.byte2Origin<playerPose>(socketPackage.data);
                 int index = MainMgr.inst.getIndexfromUID(msg.UID);
-                Debug.Log("[NetMgr]index" + index);
-                //if (MainMgr.inst.skeletons.Count > index)
-                //    MainMgr.inst.skeletons[index] = msg.skeleton;
-                //if (MainMgr.inst.isFirstDataGet.Count > index)
-                //    MainMgr.inst.isFirstDataGet[index] = true;
-                if (MainMgr.inst.headPos.Count > index)
-                    MainMgr.inst.headPos[index] = msg.headTransform;
-                if (MainMgr.inst.hasVR[index]) {
-                    Debug.Log("[NetMgr]update server model");
-                    //for ik
-                    MainMgr.inst.leftCtr[index] = msg.leftHandTransform;
-                    MainMgr.inst.rightCtr[index] = msg.rightHandTransform;
-                    MainMgr.inst.leftTkr[index] = msg.leftLegTransform;
-                    MainMgr.inst.rightTkr[index] = msg.rightLegTransform;
-                    MainMgr.inst.pelvisTkr[index] = msg.pelvisTransform;
-                }
-                if (msg.leftArmGoal.v3() != new Vector3(0, 0, 0)) {
-                    MainMgr.inst.leftArmGoal[index] = msg.leftArmGoal;
-                }
-                if (msg.rightArmGoal.v3() != new Vector3(0, 0, 0)) {
-                    MainMgr.inst.rightArmGoal[index] = msg.rightArmGoal;
+                if (index != -1) {
+
+                    Debug.Log("[NetMgr]index" + index);
+                    //if (MainMgr.inst.skeletons.Count > index)
+                    //    MainMgr.inst.skeletons[index] = msg.skeleton;
+                    //if (MainMgr.inst.isFirstDataGet.Count > index)
+                    //    MainMgr.inst.isFirstDataGet[index] = true;
+                    if (MainMgr.inst.headPos.Count > index)
+                        MainMgr.inst.headPos[index] = msg.headTransform;
+                    MainMgr.inst.modelType[index] = msg.modelType;
+                    if (MainMgr.inst.hasVR[index]) {
+                        Debug.Log("[NetMgr]update server model");
+                        //for ik
+                        MainMgr.inst.leftCtr[index] = msg.leftHandTransform;
+                        MainMgr.inst.rightCtr[index] = msg.rightHandTransform;
+                        MainMgr.inst.leftTkr[index] = msg.leftLegTransform;
+                        MainMgr.inst.rightTkr[index] = msg.rightLegTransform;
+                        MainMgr.inst.pelvisTkr[index] = msg.pelvisTransform;
+                    }
+                    if (msg.leftArmGoal.v3() != new Vector3(0, 0, 0)) {
+                        MainMgr.inst.leftArmGoal[index] = msg.leftArmGoal;
+                    }
+                    if (msg.rightArmGoal.v3() != new Vector3(0, 0, 0)) {
+                        MainMgr.inst.rightArmGoal[index] = msg.rightArmGoal;
+                    }
                 }
 
                 Debug.Log("[NetMgr]receive complete");
-                break;
-            case packageType.cube:
-                Cube Cubemsg = Utility.byte2Origin<Cube>(socketPackage.data);
-                Moveable target = MainMgr.inst.moveableList.Find(x => Cubemsg.id == x.id);
-                target.rcvCube(Cubemsg);
+                sendMsg(packageType.echoMsg, Utility.Trans2byte("model"));
                 break;
             case packageType.register:
-                
+
                 //if is client, give it all exist player init data
                 if (!MainMgr.isClient) {
                     Debug.Log("[NetMgr]receive new observer get in");
@@ -138,7 +124,7 @@ public static class NetMgr {
                 }
                 register registerMsg = Utility.byte2Origin<register>(socketPackage.data);
                 int registerIndex = MainMgr.inst.getIndexfromUID(registerMsg.UID);
-                Debug.Log("[NetMgr]index" + registerIndex + "init get, name : "+ registerMsg.UID);
+                Debug.Log("[NetMgr]index" + registerIndex + "init get, name : " + registerMsg.UID + "type" + registerMsg.modelType);
                 if (MainMgr.inst.headPos.Count > registerIndex)
                     MainMgr.inst.headPos[registerIndex] = registerMsg.headInitTransform;
                 if (MainMgr.inst.modelType.Count > registerIndex)
@@ -152,6 +138,11 @@ public static class NetMgr {
                     MainMgr.inst.rightInitTkr[registerIndex] = registerMsg.rightLegInitTransform;
                     MainMgr.inst.pelvisInitTkr[registerIndex] = registerMsg.pelvisInitTransform;
                 }
+                sendMsg(packageType.echoMsg, Utility.Trans2byte("register"));
+                break;
+            case packageType.echoMsg:
+                string echoMsg = Utility.byte2Origin<String>(socketPackage.data);
+                Debug.Log("[echo]type" + echoMsg);
                 break;
             default:
                 Debug.Log("[NetMgr]receive unknown package type");

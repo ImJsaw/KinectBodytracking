@@ -25,8 +25,8 @@ public class ObsController : MonoBehaviour {
 
     public void Update() {
         transform.position = MainMgr.inst.headPos[modelIndex].pos;
-        Debug.Log(MainMgr.inst.headPos[modelIndex].pos);
-        Debug.Log("model index: " + modelIndex);
+        //Debug.Log(MainMgr.inst.headPos[modelIndex].pos);
+        //Debug.Log("model index: " + modelIndex);
     }
 }
 

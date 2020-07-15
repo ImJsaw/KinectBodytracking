@@ -24,12 +24,14 @@ public class TcpServer : MonoBehaviour {
         serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         serverSocket.Bind(ipEnd);
 
-        //開始偵聽 "同時要求連線最大值" 10
-        serverSocket.Listen(10);
+        //開始偵聽 "同時要求連線最大值" 3
+        serverSocket.Listen(3);
         serverSocket.BeginAccept(new AsyncCallback(OnClientConnect), null);
     }
 
-    public class NoSocketAvailableException : Exception { }
+    public class NoSocketAvailableException : Exception {
+        new public string Message = "NoSocketAvailableException";
+    }
 
     // find avaliable channel
     private int FindEmptyChannel() {
@@ -40,7 +42,7 @@ public class TcpServer : MonoBehaviour {
         return -1;
     }
 
-    public void OnClientConnect(IAsyncResult async) {
+    private void OnClientConnect(IAsyncResult async) {
         try {
             int emptyChannelIndex = -1;
             if (serverSocket == null)
@@ -58,14 +60,8 @@ public class TcpServer : MonoBehaviour {
 
             waitData(socketChannel[emptyChannelIndex]);
         }
-        catch (ObjectDisposedException) {
-            Debug.Log("[TCP SERVER] ObjectDisposedException");
-        }
-        catch (SocketException) {
-            Debug.Log("[TCP SERVER] SocketException");
-        }
-        catch (NoSocketAvailableException) {
-            Debug.Log("[TCP SERVER] NoSocketAvailableException");
+        catch (Exception e) {
+            Debug.Log(e.ToString());
         }
         finally {
             //release lock
@@ -73,8 +69,8 @@ public class TcpServer : MonoBehaviour {
         }
     }
 
-    public AsyncCallback socketCallBack;
-    public void waitData(Socket socket) {
+    private static AsyncCallback socketCallBack;
+    private static void waitData(Socket socket) {
         try {
             if (socketCallBack == null)
                 socketCallBack = new AsyncCallback(onDataReceive);
@@ -83,26 +79,28 @@ public class TcpServer : MonoBehaviour {
             socketPack.currentSocket = socket;
             socket.BeginReceive(socketPack.dataBuffer, 0, socketPack.dataBuffer.Length, SocketFlags.None, socketCallBack, socketPack);
         }
-        catch (SocketException) {
-            Debug.Log("[TCP SERVER] SocketException");
+        catch (Exception e) {
+            Debug.Log(e.ToString());
         }
     }
 
-    public void onDataReceive(IAsyncResult async) {
+    private static void onDataReceive(IAsyncResult async) {
         try {
             SocketPack socketData = (SocketPack)async.AsyncState;
             socketData.currentSocket.EndReceive(async);
             dataHandle(socketData.dataBuffer);
+            //complete get data, wait next
+            waitData(socketData.currentSocket);
         }
-        catch (SocketException) {
-            Debug.Log("[TCP SERVER] SocketException");
+        catch (Exception e) {
+            Debug.Log(e.ToString());
         }
     }
 
     //////////   custom area /////////////////
 
     //all data get from client would be handled here
-    public void dataHandle(byte[] data) {
+    private static void dataHandle(byte[] data) {
         //message from client
         NetMgr.OnMsgRcv(data, false);
     }
@@ -110,22 +108,25 @@ public class TcpServer : MonoBehaviour {
     //send data to all client
     public void SocketSend(byte[] sendMsg) {
         for (int i = 0; i < MAX_CLIENTS; i++) {
-            if (socketChannel[i]!= null && socketChannel[i].Connected)
+            if (socketChannel[i] != null && socketChannel[i].Connected) {
                 socketChannel[i].Send(sendMsg, sendMsg.Length, SocketFlags.None);
+            }
         }
     }
 
     //////////   custom area /////////////////
-
+    
     //連線關閉
-    void SocketQuit() {
+    private void SocketQuit() {
         //close client
         for (int i = 0; i < MAX_CLIENTS; i++) {
-            socketChannel[i].Close();
+            if (socketChannel[i] != null)
+                socketChannel[i].Close();
         }
         //close server
-        serverSocket.Close();
-        print("diconnect");
+        if (serverSocket != null)
+            serverSocket.Close();
+        print("diconnect server");
     }
 
     void Awake() {

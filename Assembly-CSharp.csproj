@@ -97,6 +97,7 @@
      <Compile Include="Assets\Scripts\Native\M4ABT\Native\BodyTrackingNativeMethods.cs" />
      <Compile Include="Assets\Scripts\Native\M4ABT\Skeleton.cs" />
      <Compile Include="Assets\Scripts\Net\TcpClient.cs" />
+     <Compile Include="Assets\Scripts\Net\TcpClient_old.cs" />
      <Compile Include="Assets\Scripts\Net\TcpServer.cs" />
      <Compile Include="Assets\Scripts\Net\TcpServer_old.cs" />
      <Compile Include="Assets\Scripts\ObsController.cs" />

@@ -99,9 +99,6 @@ public class MainMgr : MonoBehaviour {
     [HideInInspector]
     public int modelSum = 0;
 
-
-    [HideInInspector]
-    public List<Moveable> moveableList = new List<Moveable>();
     [HideInInspector]
     public int moveableid = 0;
 
@@ -137,7 +134,7 @@ public class MainMgr : MonoBehaviour {
         playerUIDDict.Add(UID, modelSum);
         //init data
         headPos.Add(new SerializableTransform(INIT_CAM_POS, Quaternion.identity));
-        skeletons.Add(new Skeleton());
+        //skeletons.Add(new Skeleton());
         isFirstDataGet.Add(false);
         hasVR.Add(false);
         leftCtr.Add(new SerializableTransform());
@@ -214,7 +211,7 @@ public class MainMgr : MonoBehaviour {
     }
 
     public int getIndexfromUID(string UID) {
-        if (!playerUIDDict.ContainsKey(UID))
+        if (!playerUIDDict.ContainsKey(UID)) 
             addNewModel(UID);
         return playerUIDDict[UID];
     }

@@ -55,10 +55,7 @@ public class Selecter : MonoBehaviour
         if (!m_HasPosition)
             return;
 
-
-        int index = MainMgr.inst.getIndexfromUID(MainMgr.inst.myUID());
-
-        MainMgr.inst.setModelType(index, modelindex);
+        MainMgr.inst.setModelType(0, modelindex);
     }
 
 

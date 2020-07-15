@@ -3,13 +3,15 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 [CLSCompliant(false)]
 public class TcpClient : MonoBehaviour {
 
     Socket clientSocket;
     IPEndPoint ipEnd;
-    byte[] recvData = new byte[4096];
+    byte[] dataBuffer = new byte[4096];
     Thread connectThread;
 
     private int port = 5566;
@@ -18,38 +20,44 @@ public class TcpClient : MonoBehaviour {
     public void InitSocket(string ipAddr) {
         IPAddress ip = IPAddress.Parse(ipAddr);
         ipEnd = new IPEndPoint(ip, port);
-        // assign a thread for connecting or thread stuck
-        connectThread = new Thread(new ThreadStart(SocketReceive));
-        connectThread.Start();
-    }
-
-    void SocketConnet() {
-        if (clientSocket != null)
-            clientSocket.Close();
         //create socket instance
         clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        Debug.Log("ready to connect");
-        //連線
+        clientSocket.BeginConnect(ipEnd, new AsyncCallback(connectCallback), null);
+    }
+
+    private void connectCallback(IAsyncResult async) {
         try {
-            clientSocket.Connect(ipEnd);
+            clientSocket.EndConnect(async);
+            waitData(clientSocket);
         }
-        catch (SocketException e) {
-            socketErrHandle(e);
+        catch (Exception e) {
+            Debug.Log(e.ToString());
         }
     }
 
-    void SocketReceive() {
-        SocketConnet();
-        while (true) {
-            if (!clientSocket.Connected)
-                continue;
-            int recvLen = 0;
-            recvLen = clientSocket.Receive(recvData);
-            if (recvLen == 0) {
-                SocketConnet();
-                continue;
-            }
-            dataHandle(recvData);
+    private AsyncCallback socketCallBack;
+    private void waitData(Socket socket) {
+        try {
+            if (socketCallBack == null)
+                socketCallBack = new AsyncCallback(onDataReceive);
+
+            socket.BeginReceive(dataBuffer, 0, dataBuffer.Length, SocketFlags.None, socketCallBack, socket);
+        }
+        catch (Exception e) {
+            Debug.Log(e.ToString());
+        }
+    }
+
+    private void onDataReceive(IAsyncResult async) {
+        try {
+            Socket client = (Socket)async.AsyncState;
+            client.EndReceive(async);
+            dataHandle(dataBuffer);
+            //complete get data, wait next data
+            waitData(clientSocket);
+        }
+        catch (Exception e) {
+            Debug.Log(e.ToString());
         }
     }
 
@@ -57,11 +65,21 @@ public class TcpClient : MonoBehaviour {
 
     //send data to server
     public void SocketSend(byte[] sendMsg) {
-        clientSocket.Send(sendMsg, sendMsg.Length, SocketFlags.None);
+        clientSocket.BeginSend(sendMsg, 0, sendMsg.Length, 0, new AsyncCallback(sendCallback), null);
+    }
+
+    private void sendCallback(IAsyncResult async) {
+        try {
+            int bytesSent = clientSocket.EndSend(async);
+            Debug.Log("Sent" + bytesSent.ToString() +  "bytes to server.");
+        }
+        catch(Exception e) {
+            Debug.Log(e.ToString());
+        }
     }
 
     //all data get from server would be handled here
-    public void dataHandle(byte[] data) {
+    private static void dataHandle(byte[] data) {
         //message from server
         NetMgr.OnMsgRcv(data, true);
     }
@@ -72,18 +90,42 @@ public class TcpClient : MonoBehaviour {
         MainMgr.inst.panelWaitingList.Enqueue("NetErrorPanel");
         //UIMgr.inst.generatePanel("NetErrorPanel");
     }
+
+
+    //public UnityEngine.UI.Text txt = null;
+    //public UnityEngine.UI.InputField input = null;
+    //string str = "";
+
+    //public static byte[] Trans2byte<T>(T data) {
+    //    byte[] dataBytes;
+    //    using (MemoryStream ms = new MemoryStream()) {
+    //        BinaryFormatter bf1 = new BinaryFormatter();
+    //        bf1.Serialize(ms, data);
+    //        dataBytes = ms.ToArray();
+    //    }
+    //    return dataBytes;
+    //}
+
+    //void Update() {
+    //    txt.text = str;
+    //}
+
+    //void Start() {
+    //    InitSocket("140.118.127.42");
+
+    //}
+
+    //public void TESTSEND() {
+    //    Debug.Log("send" + input.text);
+    //    SocketSend(Trans2byte(input.text));
+    //}
+
     //////////   custom area /////////////////
 
-    void SocketQuit() {
-        //關閉執行緒
-        if (connectThread != null) {
-            connectThread.Interrupt();
-            connectThread.Abort();
-        }
-        //最後關閉伺服器
+    private void SocketQuit() {
         if (clientSocket != null)
             clientSocket.Close();
-        print("diconnect");
+        print("diconnect client");
     }
 
     void Awake() {
