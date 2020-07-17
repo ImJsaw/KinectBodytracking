@@ -86,7 +86,7 @@ public class UserListener : ListenerBase {
         msg.UID = MainMgr.inst.myUID();
         msg.headInitTransform = MainMgr.inst.headPos[0];
         msg.hasVR = MainMgr.isVRValid;
-        if (MainMgr.isVRValid) {
+        //if (MainMgr.isVRValid) {
             msg.leftHandInitTransform = MainMgr.inst.leftInitCtr[0];
             msg.rightHandInitTransform = MainMgr.inst.rightInitCtr[0];
             msg.leftLegInitTransform = MainMgr.inst.leftInitTkr[0];
@@ -95,7 +95,7 @@ public class UserListener : ListenerBase {
             //hand dist for scale
             msg.handDist = MainMgr.inst.handDist[0];
             //model type
-        }
+        //}
         msg.modelType = MainMgr.inst.modelType[0];
 
         //send from net

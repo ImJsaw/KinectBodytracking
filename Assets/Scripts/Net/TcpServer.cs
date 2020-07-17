@@ -85,15 +85,17 @@ public class TcpServer : MonoBehaviour {
     }
 
     private static void onDataReceive(IAsyncResult async) {
+        SocketPack socketData = (SocketPack)async.AsyncState;
         try {
-            SocketPack socketData = (SocketPack)async.AsyncState;
             socketData.currentSocket.EndReceive(async);
             dataHandle(socketData.dataBuffer);
-            //complete get data, wait next
-            waitData(socketData.currentSocket);
         }
         catch (Exception e) {
             Debug.Log(e.ToString());
+        }
+        finally {
+            //complete get data, wait next
+            waitData(socketData.currentSocket);
         }
     }
 
@@ -115,7 +117,7 @@ public class TcpServer : MonoBehaviour {
     }
 
     //////////   custom area /////////////////
-    
+
     //連線關閉
     private void SocketQuit() {
         //close client

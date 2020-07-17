@@ -49,16 +49,17 @@ public class TcpClient : MonoBehaviour {
     }
 
     private void onDataReceive(IAsyncResult async) {
+	Socket client = (Socket)async.AsyncState;
         try {
-            Socket client = (Socket)async.AsyncState;
             client.EndReceive(async);
             dataHandle(dataBuffer);
-            //complete get data, wait next data
-            waitData(clientSocket);
         }
         catch (Exception e) {
             Debug.Log(e.ToString());
         }
+	finally{
+	    waitData(client);
+	}
     }
 
     //////////   custom area /////////////////

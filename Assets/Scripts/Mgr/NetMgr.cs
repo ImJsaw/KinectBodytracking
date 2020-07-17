@@ -106,6 +106,7 @@ public static class NetMgr {
                         register reg = new register();
                         reg.UID = playerID.Key;
                         reg.hasVR = MainMgr.inst.hasVR[i];
+                        Debug.Log("id " + playerID.Key + ", has vr " + reg.hasVR);
                         reg.headInitTransform = MainMgr.inst.headPos[i];
                         reg.leftHandInitTransform = MainMgr.inst.leftInitCtr[i];
                         reg.rightHandInitTransform = MainMgr.inst.rightInitCtr[i];
@@ -154,6 +155,20 @@ public static class NetMgr {
         SocketPackage sendData = new SocketPackage();
         sendData.type = type;
         sendData.data = data;
+
+        byte[] dataByte = Utility.Trans2byte(sendData);
+
+            
+        try {
+            SocketPackage socketPackage = new SocketPackage();
+            MemoryStream ms = new MemoryStream(dataByte);
+            BinaryFormatter bf = new BinaryFormatter();
+            ms.Position = 0;
+            socketPackage = (SocketPackage)bf.Deserialize(ms);
+        }
+        catch (Exception) {
+            Debug.LogError("send type" + type + "error");
+        }
 
         if (MainMgr.isClient) {
             MainMgr.inst.client.SocketSend(Utility.Trans2byte(sendData));
