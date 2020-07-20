@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 458974}
   - component: {fileID: 114000010876603736}
-  - component: {fileID: 3852610310576271528}
   - component: {fileID: 6272682989444933711}
   m_Layer: 0
   m_Name: Controller (left)
@@ -77,24 +76,6 @@ MonoBehaviour:
     m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_DeviceIndexChangedEvent, SteamVR,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   broadcastDeviceChanges: 1
---- !u!114 &3852610310576271528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 124034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66fc25491dcaec344b1293eb2e52115b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GrabAction:
-    actionPath: /actions/default/in/GrabPinch
-    needsReinit: 0
-  m_Joint: {fileID: 0}
-  modelHand: {fileID: 0}
-  m_ContactInteractables: []
 --- !u!135 &6272682989444933711
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -280,8 +261,6 @@ GameObject:
   m_Component:
   - component: {fileID: 402434}
   - component: {fileID: 114000010110554832}
-  - component: {fileID: 1694557454286940506}
-  - component: {fileID: 3928379400641486614}
   - component: {fileID: 5802686121620313489}
   m_Layer: 0
   m_Name: Controller (right)
@@ -348,39 +327,6 @@ MonoBehaviour:
     m_TypeName: Valve.VR.SteamVR_Behaviour_Pose_DeviceIndexChangedEvent, SteamVR,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   broadcastDeviceChanges: 1
---- !u!114 &1694557454286940506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 159396}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66fc25491dcaec344b1293eb2e52115b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GrabAction:
-    actionPath: /actions/default/in/GrabPinch
-    needsReinit: 0
-  m_Joint: {fileID: 0}
-  modelHand: {fileID: 0}
-  m_ContactInteractables: []
---- !u!114 &3928379400641486614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 159396}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b61da44da7ff8d74b9770828004e41a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TeleportAction:
-    actionPath: /actions/default/in/Teleport
-    needsReinit: 0
 --- !u!135 &5802686121620313489
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -510,7 +456,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3

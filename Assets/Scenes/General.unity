@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -52,7 +52,7 @@ LightmapSettings:
     m_AlbedoBoost: 1
     m_EnvironmentLightingMode: 0
     m_EnableBakedLightmaps: 1
-    m_EnableRealtimeLightmaps: 0
+    m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
     serializedVersion: 12
     m_Resolution: 2
@@ -96,7 +96,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: c01c53157943d4b48990d2610f329d55,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -836,7 +837,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 897481979}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &189101020
 GameObject:
@@ -1083,7 +1084,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 897481979}
-  m_RootOrder: 10
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &239366262
 PrefabInstance:
@@ -3108,7 +3109,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1e-45, y: NaN, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 4.4369434e+27, y: 5.734115e-39, z: 2.476644e+32, w: 0.026085153}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -4671,20 +4672,20 @@ Transform:
   - {fileID: 1869962369}
   - {fileID: 1796876139}
   - {fileID: 2042730496}
+  - {fileID: 238786531}
   - {fileID: 1486344922}
   - {fileID: 1236123891}
   - {fileID: 593837011}
   - {fileID: 595740730}
   - {fileID: 394851360}
-  - {fileID: 238786531}
   - {fileID: 110847494}
   - {fileID: 1801308429}
   - {fileID: 398869554}
   - {fileID: 1065816668}
   - {fileID: 1954547443}
   - {fileID: 165972065}
-  - {fileID: 1490765332}
   - {fileID: 175626181}
+  - {fileID: 1490765332}
   - {fileID: 239366263}
   - {fileID: 1799315972}
   - {fileID: 1463861221}
@@ -7111,7 +7112,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
