@@ -9,6 +9,9 @@ TagManager:
   - camera
   - model
   - kMainCamera
+  - projectile
+  - FxTemporaire
+  - Fire
   layers:
   - Default
   - TransparentFX
@@ -18,7 +21,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - postprocess
   - 
   - 
   - 

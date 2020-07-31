@@ -46,6 +46,10 @@ public class UserListener : ListenerBase {
             if (Input.GetKeyDown(KeyCode.LeftShift)) {
                 movement += new Vector3(0, -1, 0);
             }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                curCam.transform.Rotate(0, 90, 0);
+            }
             curCam.transform.position += movement;
         } else {
             if (leftGoalTkr == null)
