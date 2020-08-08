@@ -724,6 +724,10 @@
       <Project>{A92F8BB6-A682-077C-3C19-F4141704287A}</Project>
       <Name>SteamVR_Actions</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.CopyLightingSettings.Editor.csproj">
+      <Project>{D42DA81D-8989-4FD8-1B37-D11F8D41974D}</Project>
+      <Name>Unity.CopyLightingSettings.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="SteamVR_Input_Editor.csproj">
       <Project>{7EDA7C91-0C31-233D-F6AB-DCBC26E79392}</Project>
       <Name>SteamVR_Input_Editor</Name>
@@ -739,10 +743,6 @@
     <ProjectReference Include="SteamVR_Windows_EditorHelper.csproj">
       <Project>{819C8A37-16E7-FFC9-BFF8-106D8CCDFCBF}</Project>
       <Name>SteamVR_Windows_EditorHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.CopyLightingSettings.Editor.csproj">
-      <Project>{D42DA81D-8989-4FD8-1B37-D11F8D41974D}</Project>
-      <Name>Unity.CopyLightingSettings.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
