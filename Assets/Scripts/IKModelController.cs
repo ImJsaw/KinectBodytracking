@@ -107,7 +107,7 @@ public class IKModelController : MonoBehaviour {
     private void logTargetInitRotation() {
         leftArmTargetRot = leftHandTarget.rotation;
         rightArmTargetRot = rightHandTarget.rotation;
-        leftLegTargetRot = leftLegTarget.rotation * Quaternion.Euler(0, 90, 0);
+        leftLegTargetRot = leftLegTarget.rotation * Quaternion.Euler(0, 180, 0);
         rightLegTargetRot = rightLegTarget.rotation * Quaternion.Euler(0, 180, 0);
     }
 

@@ -4107,8 +4107,8 @@ MonoBehaviour:
   - {fileID: 2407406250291528247, guid: fd4ff4af4794b5649b4c14f10a11a9c5, type: 3}
   - {fileID: 7683044807436157621, guid: b0231be9df64289428a4127bec8f8c2b, type: 3}
   modelPrefabSelf:
-  - {fileID: 2626665329456945124, guid: 185f52d10c1ec2c48b08fe38b8ea24d8, type: 3}
-  - {fileID: 2626665329456945124, guid: 185f52d10c1ec2c48b08fe38b8ea24d8, type: 3}
+  - {fileID: 9103204759533458955, guid: ab66852b14191a84395cfd2134459b30, type: 3}
+  - {fileID: 9103204759533458955, guid: ab66852b14191a84395cfd2134459b30, type: 3}
   - {fileID: 2702400369642942711, guid: ebe36211cbc206c4cbcabe9ae8bb53b2, type: 3}
   - {fileID: 2702400369642942711, guid: ebe36211cbc206c4cbcabe9ae8bb53b2, type: 3}
 --- !u!4 &821732767
