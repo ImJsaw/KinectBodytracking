@@ -24,6 +24,19 @@ public class IKModelController : MonoBehaviour {
     }
 
     public Transform pelvisPosition = null;
+
+    //===========================new Target=========================
+    private GameObject rightHandTargetNode;
+    private GameObject leftHandTargetNode;
+    private GameObject rightHandGoalNode;
+    private GameObject leftHandGoalNode;
+    private GameObject rightLegTargetNode;
+    private GameObject leftLegTargetNode;
+    private GameObject headTargetNode;
+    //===============================================================
+
+
+
     //vr tracker
     private SerializableTransform hmt;
     private SerializableTransform rightCtr = null;
@@ -39,6 +52,8 @@ public class IKModelController : MonoBehaviour {
     public Transform rightLegTarget = null;
     public Transform leftLegTarget = null;
     public Transform headTarget = null;
+
+  
 
     //tracker init rotation
     private Quaternion leftArmInitRot = Quaternion.identity;
@@ -61,6 +76,7 @@ public class IKModelController : MonoBehaviour {
 
 
     void Start() {
+        setTargetGroup();
         logTargetInitRotation();
         modelHandDis = Vector3.Distance(rightHandTarget.position, leftHandTarget.position);
     }
@@ -102,6 +118,9 @@ public class IKModelController : MonoBehaviour {
         leftLegTarget.rotation = leftTkr.rot * Quaternion.Inverse(leftLegInitRot) * leftLegTargetRot;
         rightLegTarget.rotation = rightTkr.rot * Quaternion.Inverse(rightLegInitRot) * rightLegTargetRot;
 
+
+        Debug.Log(rightHandTargetNode.transform.position);
+
     }
 
     private void logTargetInitRotation() {
@@ -131,6 +150,42 @@ public class IKModelController : MonoBehaviour {
         float scale = (handDistance - controllerLen) / (modelHandDis - controllerLen);
         Debug.Log("scale model " + scale + " time to fit, model hand dis" + modelHandDis);
         transform.localScale = new Vector3(scale, scale, scale);
+    }
+
+    private void setTargetGroup()
+    {
+        //保留原本model設定
+        if(rightHandTarget == null)
+        {
+                //SetRightTarget
+                string rightHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand";
+                rightHandTargetNode = new GameObject("rightHandTarget");
+                rightHandTargetNode.transform.SetParent(this.transform.Find(rightHandPath));
+                rightHandTargetNode.transform.localPosition = new Vector3(0, 0, 0);
+                //SetLeftTarget
+                string leftHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand";
+                leftHandTargetNode = new GameObject("leftHandTarget");
+                leftHandTargetNode.transform.SetParent(this.transform.Find(leftHandPath));
+                leftHandTargetNode.transform.localPosition = new Vector3(0, 0, 0);
+
+                //other Target
+
+                rightHandGoalNode = new GameObject("rightHandGoalNode");
+                leftHandGoalNode = new GameObject("leftHandGoalNode");
+                rightLegTargetNode = new GameObject("rightLegTargetNode");
+                leftLegTargetNode = new GameObject("leftLegTargetNode");
+                headTargetNode = new GameObject("headTargetNode");
+
+                //set target node to target
+                rightHandTarget = rightHandTargetNode.transform;
+                leftHandTarget = leftHandTargetNode.transform;
+                rightHandGoal = rightHandGoalNode.transform;
+                leftHandGoal = leftHandGoalNode.transform;
+                rightLegTarget = rightLegTargetNode.transform;
+                leftLegTarget = leftLegTargetNode.transform;
+                headTarget = headTargetNode.transform;
+        }
+
     }
 }
 
