@@ -53,7 +53,9 @@ public class IKModelController : MonoBehaviour {
     public Transform leftLegTarget = null;
     public Transform headTarget = null;
 
-  
+    public Boolean is_CustomModel = false; 
+    public Quaternion leftLegTargetRotOffset = Quaternion.Euler(0, 180, 0);
+    public Quaternion righteftLegTargetRotOffset = Quaternion.Euler(0, 180, 0);
 
     //tracker init rotation
     private Quaternion leftArmInitRot = Quaternion.identity;
@@ -77,7 +79,7 @@ public class IKModelController : MonoBehaviour {
 
     void Start() {
         setTargetGroup();
-        logTargetInitRotation();
+        //logTargetInitRotation();
         modelHandDis = Vector3.Distance(rightHandTarget.position, leftHandTarget.position);
     }
 
@@ -126,8 +128,8 @@ public class IKModelController : MonoBehaviour {
     private void logTargetInitRotation() {
         leftArmTargetRot = leftHandTarget.rotation;
         rightArmTargetRot = rightHandTarget.rotation;
-        leftLegTargetRot = leftLegTarget.rotation * Quaternion.Euler(0, 180, 0);
-        rightLegTargetRot = rightLegTarget.rotation * Quaternion.Euler(0, 180, 0);
+        leftLegTargetRot = leftLegTarget.rotation;
+        rightLegTargetRot = rightLegTarget.rotation;
     }
 
     private void updateModelTransform() {
@@ -155,7 +157,7 @@ public class IKModelController : MonoBehaviour {
     private void setTargetGroup()
     {
         //保留原本model設定
-        if(rightHandTarget == null)
+        if(is_CustomModel)
         {
                 //SetRightTarget
                 string rightHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand";
@@ -184,6 +186,14 @@ public class IKModelController : MonoBehaviour {
                 rightLegTarget = rightLegTargetNode.transform;
                 leftLegTarget = leftLegTargetNode.transform;
                 headTarget = headTargetNode.transform;
+        }
+
+        logTargetInitRotation();
+
+        if(is_CustomModel)
+        {
+            leftLegTargetRot *= leftLegTargetRotOffset;
+            rightLegTargetRot *= righteftLegTargetRotOffset;
         }
 
     }
