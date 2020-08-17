@@ -8,13 +8,13 @@ using System.Collections;
 	/// </summary>
 	[System.Serializable]
 	public class IKConstraintBend {
-		
-		#region Main Interface
 
-		/// <summary>
-		/// The first bone.
-		/// </summary>
-		public Transform bone1;
+        #region Main Interface
+
+        /// <summary>
+        /// The first bone.
+        /// </summary>
+        public Transform bone1;
 		/// <summary>
 		/// The second (bend) bone.
 		/// </summary>

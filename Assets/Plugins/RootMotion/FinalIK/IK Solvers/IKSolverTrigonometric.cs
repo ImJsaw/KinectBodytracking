@@ -40,15 +40,17 @@ namespace RootMotion.FinalIK {
 		/// <summary>
 		/// The third bone (hand or foot).
 		/// </summary>
-		public TrigonometricBone bone3 = new TrigonometricBone();	
-		
-		/// <summary>
-		/// Sets the bend goal position.
-		/// </summary>
-		/// <param name='goalPosition'>
-		/// Goal position.
-		/// </param>
-		public void SetBendGoalPosition(Vector3 goalPosition, float weight) {
+		public TrigonometricBone bone3 = new TrigonometricBone();
+
+
+
+        /// <summary>
+        /// Sets the bend goal position.
+        /// </summary>
+        /// <param name='goalPosition'>
+        /// Goal position.
+        /// </param>
+        public void SetBendGoalPosition(Vector3 goalPosition, float weight) {
 			if (!initiated) return;
 			if (weight <= 0f) return;
 			

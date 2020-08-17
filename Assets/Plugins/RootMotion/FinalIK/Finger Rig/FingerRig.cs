@@ -41,6 +41,7 @@ namespace RootMotion.FinalIK {
         /// </summary>
         public bool fixBone1Twist;
 
+ 
         /// <summary>
         /// The first bone of the finger.
         /// </summary>
