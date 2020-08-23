@@ -26,10 +26,7 @@ public class FileSaver : MonoBehaviour
 
     public void SaveModel()
     {
-    GameObject customModel =  Utility.loadModelWithTex(ObjName.text);
-    customModel.transform.localScale = new Vector3(100, 100, 100);
-    MainMgr.inst.customModelList.Add(customModel);
-    MainMgr.inst.is_custom = true;
+        Utility.saveModel(ObjName.text);
     }
 
     public void SaveModel2()

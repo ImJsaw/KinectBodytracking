@@ -141,9 +141,9 @@ public class Utility {
     public static GameObject loadModelWithTex(string modelPath)
     {
         string RootPath = "Model/"+ modelPath+"/";
-        GameObject model = resLoad<GameObject>(RootPath+modelPath);
+        GameObject model = resLoad<GameObject>(RootPath+modelPath + "_UV");
         GameObject mesh = model.transform.Find("unamed").gameObject;
-        Texture texImg = resLoad<Texture>(RootPath + modelPath);
+        Texture texImg = resLoad<Texture>(RootPath + modelPath + "_tex");
         if (texImg != null)
         {
             Debug.Log("load tex");
@@ -282,5 +282,13 @@ public class Utility {
         }
 
         return true;
+    }
+
+    public static void saveModel(string fileName)
+    {
+        GameObject customModel = Utility.loadModelWithTex(fileName);
+        customModel.transform.localScale = new Vector3(100, 100, 100);
+        MainMgr.inst.customModelList.Add(customModel);
+        MainMgr.inst.is_custom = true;
     }
 }
