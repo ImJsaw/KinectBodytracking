@@ -65,6 +65,9 @@ public class IKModelController : MonoBehaviour
         [HideInInspector]
         public Transform headTarget = null;
 
+        [HideInInspector]
+        public Boolean is_catch = false;
+
         public Boolean is_CustomModel = false;
         public Quaternion leftLegTargetRotOffset = Quaternion.Euler(0, 180, 0);
         public Quaternion righteftLegTargetRotOffset = Quaternion.Euler(0, 180, 0);
@@ -93,7 +96,6 @@ public class IKModelController : MonoBehaviour
         {
         setTargetGroup();
         //logTargetInitRotation();
-        Debug.Log("IKcontroller"+rightHandTarget);
         modelHandDis = Vector3.Distance(rightHandTarget.position, leftHandTarget.position);
         }
 
@@ -125,13 +127,13 @@ public class IKModelController : MonoBehaviour
             leftHandTarget.rotation = leftCtr.rot * Quaternion.Inverse(leftArmInitRot) * leftArmTargetRot;
             rightHandTarget.rotation = rightCtr.rot * Quaternion.Inverse(rightArmInitRot) * rightArmTargetRot;
             //assist point from kinect
-            if (leftHandGoal != null && MainMgr.inst.leftArmGoal[modelIndex].v3() != new Vector3(0, 0, 0))
-                leftHandGoal.position = MainMgr.inst.leftArmGoal[modelIndex].v3();
-            if (rightHandGoal != null && MainMgr.inst.rightArmGoal[modelIndex].v3() != new Vector3(0, 0, 0))
-                rightHandGoal.position = MainMgr.inst.rightArmGoal[modelIndex].v3();
+            //if (leftHandGoal != null && MainMgr.inst.leftArmGoal[modelIndex].v3() != new Vector3(0, 0, 0))
+            leftHandGoal.position = MainMgr.inst.leftArmGoal[modelIndex].v3();
+            //if (rightHandGoal != null && MainMgr.inst.rightArmGoal[modelIndex].v3() != new Vector3(0, 0, 0))
+            rightHandGoal.position = MainMgr.inst.rightArmGoal[modelIndex].v3();
             //leg
-            leftLegTarget.position = leftTkr.pos - new Vector3(0, 0.3f, 0);
-            rightLegTarget.position = rightTkr.pos - new Vector3(0, 0.3f, 0);
+            leftLegTarget.position = leftTkr.pos - new Vector3(0, 0.1f, 0); //腳踝到腳底板的offset
+            rightLegTarget.position = rightTkr.pos - new Vector3(0, 0.1f, 0); //腳踝到腳底板的offset
             leftLegTarget.rotation = leftTkr.rot * Quaternion.Inverse(leftLegInitRot) * leftLegTargetRot;
             rightLegTarget.rotation = rightTkr.rot * Quaternion.Inverse(rightLegInitRot) * rightLegTargetRot;
 
@@ -150,6 +152,8 @@ public class IKModelController : MonoBehaviour
 
         private void updateModelTransform()
         {
+            pelvisPosition = transform.Find("mixamorig:Hips");
+            Debug.Log("i want to know is Target Head i catch?", pelvisPosition);
             //make model horizon move with cam
             pelvisPosition.position = pelvisTkr.pos;
             pelvisPosition.rotation = pelvisTkr.rot * Quaternion.Inverse(pelvisInitRot);
@@ -174,8 +178,6 @@ public class IKModelController : MonoBehaviour
 
         private void setTargetGroup()
         {
-
-        Debug.Log("is_CustomModel");
             //保留原本model設定
             if (is_CustomModel)
             {
@@ -183,12 +185,12 @@ public class IKModelController : MonoBehaviour
                 string rightHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand";
                 rightHandTargetNode = new GameObject("rightHandTarget");
                 rightHandTargetNode.transform.SetParent(this.transform.Find(rightHandPath));
-                rightHandTargetNode.transform.localPosition = new Vector3(0, 0, 0);
+                rightHandTargetNode.transform.localPosition = new Vector3(0, 0.01f, 0); //避免node Target 座標重合
                 //SetLeftTarget
                 string leftHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand";
                 leftHandTargetNode = new GameObject("leftHandTarget");
                 leftHandTargetNode.transform.SetParent(this.transform.Find(leftHandPath));
-                leftHandTargetNode.transform.localPosition = new Vector3(0, 0, 0);
+                leftHandTargetNode.transform.localPosition = new Vector3(0, 0.01f, 0); //避免node Target 座標重合
 
                 //other Target
 
@@ -211,6 +213,9 @@ public class IKModelController : MonoBehaviour
                 rightLegTarget = rightLegTargetNode.transform;
                 leftLegTarget = leftLegTargetNode.transform;
                 headTarget = headTargetNode.transform;
+
+
+            is_catch = true;
             }
 
             logTargetInitRotation();

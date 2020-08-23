@@ -53,6 +53,8 @@ public class ListenerBase : MonoBehaviour {
         MainMgr.inst.leftTkr[0] = new SerializableTransform(leftFootTkr.position, leftFootTkr.rotation);
         MainMgr.inst.rightTkr[0] = new SerializableTransform(rightFootTkr.position, rightFootTkr.rotation);
         MainMgr.inst.pelvisTkr[0] = new SerializableTransform(pelvisTkr.position, pelvisTkr.rotation);
+        MainMgr.inst.rightArmGoal[0] = new SerializablePos(rightGoalTkr.position);
+        MainMgr.inst.leftArmGoal[0] = new SerializablePos(leftGoalTkr.position);
     }
 
 }

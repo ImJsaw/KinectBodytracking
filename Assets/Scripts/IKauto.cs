@@ -23,14 +23,18 @@ namespace RootMotion.FinalIK
             LeftLeg = this.gameObject.AddComponent<LimbIK>();
             Head = this.gameObject.AddComponent<LimbIK>();
             modelContoller = this.GetComponent<IKModelController>();
-         
-            setLimbIK();          
+
+  
         }
 
         // Update is called once per frame
         void Update()
         {
-
+            if(modelContoller.is_catch)
+            {
+                setLimbIK();
+                modelContoller.is_catch = false;
+            }
         }
 
 
