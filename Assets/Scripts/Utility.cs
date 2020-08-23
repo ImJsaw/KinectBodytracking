@@ -116,6 +116,7 @@ public class Utility {
     }
 
     //where ==> 限制 T 繼承自object
+	//  path : "Asset/Resources/"+ name
     public static T resLoad<T>(string name) where T : UnityEngine.Object {
         T res = Resources.Load<T>(name);
         if (res == null) {
@@ -124,6 +125,17 @@ public class Utility {
         }
         return res;
     }
+	
+	public static GameObject loadModelWithTex(string modelPath, string texPath){
+		GameObject model = resLoad<GameObject>(modelPath);
+        GameObject mesh = model.transform.Find("default").gameObject;
+        texImg = resLoad<Texture>(texPath);
+        if(texImg != null) {
+            Debug.Log("load tex" + texPath);
+            mesh.GetComponent<Renderer>().sharedMaterial.SetTexture("_MainTex", texImg);
+        }
+		return model;
+	}
 
     // Multiply a 4x4Matrix with a Vector3 (position i.e. translation)
     static Vector3 Matrix4x4_Mult_Translation(Vector3 Translation, Matrix4x4 TransformationMatrix) {
