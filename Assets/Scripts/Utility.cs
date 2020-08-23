@@ -127,15 +127,30 @@ public class Utility {
     }
 	
 	public static GameObject loadModelWithTex(string modelPath, string texPath){
-		GameObject model = resLoad<GameObject>(modelPath);
-        GameObject mesh = model.transform.Find("default").gameObject;
-        texImg = resLoad<Texture>(texPath);
+        GameObject model = resLoad<GameObject>(modelPath);
+        GameObject mesh = model.transform.Find("unamed").gameObject;
+        Texture texImg = resLoad<Texture>(texPath);
         if(texImg != null) {
             Debug.Log("load tex" + texPath);
             mesh.GetComponent<Renderer>().sharedMaterial.SetTexture("_MainTex", texImg);
         }
 		return model;
 	}
+
+
+    public static GameObject loadModelWithTex(string modelPath)
+    {
+        string RootPath = "Model/"+ modelPath+"/";
+        GameObject model = resLoad<GameObject>(RootPath+modelPath);
+        GameObject mesh = model.transform.Find("unamed").gameObject;
+        Texture texImg = resLoad<Texture>(RootPath + modelPath);
+        if (texImg != null)
+        {
+            Debug.Log("load tex");
+            mesh.GetComponent<Renderer>().sharedMaterial.SetTexture("_MainTex", texImg);
+        }
+        return model;
+    }
 
     // Multiply a 4x4Matrix with a Vector3 (position i.e. translation)
     static Vector3 Matrix4x4_Mult_Translation(Vector3 Translation, Matrix4x4 TransformationMatrix) {

@@ -68,7 +68,7 @@ public class IKModelController : MonoBehaviour
         [HideInInspector]
         public Boolean is_catch = false;
 
-        public Boolean is_CustomModel = false;
+        public Boolean is_CustomModel = true;
         public Quaternion leftLegTargetRotOffset = Quaternion.Euler(0, 180, 0);
         public Quaternion righteftLegTargetRotOffset = Quaternion.Euler(0, 180, 0);
 

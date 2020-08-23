@@ -36,7 +36,19 @@ public class General : MonoBehaviour {
             obsModelPrefab.modelIndex = index;
         } else if (UID == MainMgr.inst.myUID() ) {
             //if self, generate no head model
-            IKModelController ikModelPrefab = Instantiate(modelPrefabSelf[MainMgr.inst.modelType[index]], new Vector3(0, 0, -6), Quaternion.identity);
+            IKModelController ikModelPrefab = new IKModelController();
+            if (MainMgr.inst.is_custom)
+            {
+                GameObject customModel = MainMgr.inst.customModelList[0];
+                GameObject newer = Instantiate(customModel, new Vector3(0, 0, -6), Quaternion.identity);
+                newer.AddComponent<IKModelController>();
+                newer.AddComponent<RootMotion.FinalIK.IKauto>();
+                ikModelPrefab = newer.GetComponent<IKModelController>();
+            }
+            else
+            {
+                ikModelPrefab = Instantiate(modelPrefabSelf[MainMgr.inst.modelType[index]], new Vector3(0, 0, -6), Quaternion.identity);
+            }
             ikModelPrefab.modelIndex = index;
         } else {
             IKModelController ikModelPrefab = Instantiate(modelPrefab[MainMgr.inst.modelType[index]], new Vector3(0, 0, -6), Quaternion.identity);

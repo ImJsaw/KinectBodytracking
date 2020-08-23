@@ -94,7 +94,10 @@ public class MainMgr : MonoBehaviour {
     public List<float> handDist = new List<float>();
     [HideInInspector]
     public List<int> modelType = new List<int>();
-
+    [HideInInspector]
+    public List<GameObject> customModelList = new List<GameObject>(); //SaveModel 後會存在這裡 
+    [HideInInspector]
+    public Boolean is_custom = false; //開始時有沒有存入客製化模型
 
     [HideInInspector]
     public int modelSum = 0;
