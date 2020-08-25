@@ -64,6 +64,7 @@ namespace RootMotion.FinalIK
             RightArm.solver.target = modelContoller.rightHandTarget;
             RightArm.solver.bendGoal = modelContoller.rightHandGoal;
             RightArm.solver.maintainRotationWeight = 1;
+            RightArm.solver.IKRotationWeight = 0;
         }
 
         private void leftArmSettig()
@@ -83,7 +84,7 @@ namespace RootMotion.FinalIK
             LeftArm.solver.target = modelContoller.leftHandTarget;
             LeftArm.solver.bendGoal = modelContoller.leftHandGoal;
             LeftArm.solver.maintainRotationWeight = 1;
-
+            LeftArm.solver.IKRotationWeight = 0;
         }
 
         private void leftLegSetting()

@@ -222,7 +222,7 @@ public class CalibrationListener : ListenerBase {
     }
 
     void scaleModel() {
-        const float controllerLen = 0.15f;
+        const float controllerLen = 0.1f;
         float scale = (Vector3.Distance(leftCtr.position, rightCtr.position) - controllerLen) / Vector3.Distance(modelLeftHand.position, modelRightHand.position);
         model.localScale = Vector3.Scale(model.localScale, new Vector3(scale, scale, scale));
     }
