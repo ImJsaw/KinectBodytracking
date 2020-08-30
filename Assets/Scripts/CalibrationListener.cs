@@ -87,7 +87,7 @@ public class CalibrationListener : ListenerBase {
         }
         isTkrValid[leftCtrIndex] = false;
         isTkrValid[rightCtrIndex] = false;
-        Debug.Log("** remove controller **" + leftCtrIndex + ", " + rightCtrIndex);
+        Debug.Log("** remove controller **" + (leftCtrIndex+1) + ", " + (rightCtrIndex+1));
         logCurValidIndex();
         //remove lighthouse
         for (int lightHouseCount = 0; lightHouseCount < 2; lightHouseCount++) {
@@ -105,7 +105,7 @@ public class CalibrationListener : ListenerBase {
                 }
             }
             isTkrValid[lightHouseIndex] = false;
-            Debug.Log("** remove lighthouse " + lightHouseIndex);
+            Debug.Log("** remove lighthouse " + (lightHouseIndex+1));
         }
         Debug.Log("** remove lighthouse **");
         logCurValidIndex();
@@ -117,7 +117,7 @@ public class CalibrationListener : ListenerBase {
             //skip index already check not open
             if (!isTkrValid[i])
                 continue;
-            msg += (i + " ");
+            msg += ((i+1) + " ");
         }
         Debug.Log(msg + " is valid");
     }

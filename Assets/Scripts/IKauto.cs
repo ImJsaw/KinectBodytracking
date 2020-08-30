@@ -136,7 +136,7 @@ namespace RootMotion.FinalIK
 
             Head.solver.bendModifier = IKSolverLimb.BendModifier.Target;
             Head.solver.target = modelContoller.headTarget;
-            Head.solver.maintainRotationWeight = 1;
+            Head.solver.maintainRotationWeight = 0.5f;
             Head.fixTransforms = false;
         }
     }

@@ -86,7 +86,7 @@ public class IKModelController : MonoBehaviour
 
         public Vector3 multiplier = new Vector3(1.5f, 1.5f, 1.5f);
         //controller len
-        float controllerLen = 0.0f;
+        float controllerLen = 0.1f;
         // initial pos
 
         private float modelHandDis;
@@ -174,7 +174,7 @@ public class IKModelController : MonoBehaviour
 
             float scale = (handDistance - controllerLen) / (modelHandDis - controllerLen);
             Debug.Log("scale model " + scale + " time to fit, model hand dis" + modelHandDis);
-            transform.localScale = transform.localScale * scale*2;
+            transform.localScale = transform.localScale * scale;
         }
 
         private void setTargetGroup()
@@ -186,18 +186,18 @@ public class IKModelController : MonoBehaviour
                 string rightHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand";
                 rightHandTargetNode = new GameObject("rightHandTarget");
                 rightHandTargetNode.transform.SetParent(this.transform.Find(rightHandPath));
-                rightHandTargetNode.transform.localPosition = new Vector3(0, 0.01f, 0); //避免node Target 座標重合
+                rightHandTargetNode.transform.localPosition = new Vector3(0, 0.0f, 0); //避免node Target 座標重合
                 rightHandTargetNode.transform.SetParent(this.transform, true);
                 //SetLeftTarget
                 string leftHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand";
                 leftHandTargetNode = new GameObject("leftHandTarget");
                 leftHandTargetNode.transform.SetParent(this.transform.Find(leftHandPath));
-                leftHandTargetNode.transform.localPosition = new Vector3(0, 0.01f, 0); //避免node Target 座標重合
+                leftHandTargetNode.transform.localPosition = new Vector3(0, 0.0f, 0); //避免node Target 座標重合
                 leftHandTargetNode.transform.SetParent(this.transform, true);
 
-            GameObject leftshoulder = GameObject.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm");
-            leftshoulder.transform.Rotate(0, 180, 0);
-            leftshoulder.transform.GetChild(0).Rotate(0, 180, 0);
+            GameObject leftshoulder = GameObject.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm");
+            leftshoulder.transform.Rotate(0, 90, 0);
+            leftshoulder.transform.GetChild(0).Rotate(0, 90, 0);
             //other Targets
 
             rightHandGoalNode = new GameObject("rightHandGoalNode");
