@@ -282,7 +282,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjName: {fileID: 0}
-  TexName: {fileID: 0}
 --- !u!4 &38614664
 Transform:
   m_ObjectHideFlags: 0
@@ -945,6 +944,8 @@ MonoBehaviour:
   rightLegTarget: {fileID: 0}
   leftLegTarget: {fileID: 0}
   headTarget: {fileID: 0}
+  rightHand: {fileID: 0}
+  leftHand: {fileID: 0}
   is_catch: 0
   is_CustomModel: 1
   leftLegTargetRotOffset: {x: 0, y: 1, z: 0, w: -0.00000004371139}
@@ -2004,6 +2005,8 @@ MonoBehaviour:
   rightLegTarget: {fileID: 43715726}
   leftLegTarget: {fileID: 1143377407}
   headTarget: {fileID: 6284382809711840377}
+  rightHand: {fileID: 0}
+  leftHand: {fileID: 0}
   is_catch: 0
   is_CustomModel: 0
   leftLegTargetRotOffset: {x: 0, y: 1, z: 0, w: -0.00000004371139}

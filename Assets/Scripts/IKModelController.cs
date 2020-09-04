@@ -64,13 +64,17 @@ public class IKModelController : MonoBehaviour
         public Transform leftLegTarget = null;
         [HideInInspector]
         public Transform headTarget = null;
-
+        //給lock接雙手的rotation   
+        [HideInInspector]
+        public GameObject rightHand = null;
+        [HideInInspector]
+        public GameObject leftHand = null;
+        //讓IK_auto 確認有沒有接到ModelController
         [HideInInspector]
         public Boolean is_catch = false;
-
+        //確認是不是客製化model
         public Boolean is_CustomModel = true;
-        public Quaternion leftLegTargetRotOffset = Quaternion.Euler(0, 180, 0);
-        public Quaternion righteftLegTargetRotOffset = Quaternion.Euler(0, 180, 0);
+
 
         //tracker init rotation
         private Quaternion leftArmInitRot = Quaternion.identity;
@@ -98,7 +102,7 @@ public class IKModelController : MonoBehaviour
         //logTargetInitRotation();
         modelHandDis = Vector3.Distance(rightHandTarget.position, leftHandTarget.position);
         scaleByHand(MainMgr.inst.handDist[modelIndex]);
-    }
+        }
 
         void Update()
         {
@@ -185,22 +189,27 @@ public class IKModelController : MonoBehaviour
                 //SetRightTarget
                 string rightHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand";
                 rightHandTargetNode = new GameObject("rightHandTarget");
+                rightHand = GameObject.Find(rightHandPath);
                 rightHandTargetNode.transform.SetParent(this.transform.Find(rightHandPath));
                 rightHandTargetNode.transform.localPosition = new Vector3(0, 0.0f, 0); //避免node Target 座標重合
                 rightHandTargetNode.transform.SetParent(this.transform, true);
+                rightHandTargetNode.transform.localRotation *= Quaternion.Euler(0, 90, 0);
                 //SetLeftTarget
                 string leftHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand";
                 leftHandTargetNode = new GameObject("leftHandTarget");
+                leftHand = GameObject.Find(leftHandPath);
                 leftHandTargetNode.transform.SetParent(this.transform.Find(leftHandPath));
                 leftHandTargetNode.transform.localPosition = new Vector3(0, 0.0f, 0); //避免node Target 座標重合
                 leftHandTargetNode.transform.SetParent(this.transform, true);
+                leftHandTargetNode.transform.localRotation *= Quaternion.Euler(0, 90, 0);
 
-            GameObject leftshoulder = GameObject.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm");
-            leftshoulder.transform.Rotate(0, 90, 0);
-            leftshoulder.transform.GetChild(0).Rotate(0, 90, 0);
-            //other Targets
+            //rightArm offset for custom model
+            GameObject rightArm = GameObject.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm");
+                rightArm.transform.Rotate(0, 90, 0);
+                rightArm.transform.GetChild(0).Rotate(0, 90, 0);
 
-            rightHandGoalNode = new GameObject("rightHandGoalNode");
+                //other Targets  
+                rightHandGoalNode = new GameObject("rightHandGoalNode");
                 leftHandGoalNode = new GameObject("leftHandGoalNode");
                 rightLegTargetNode = new GameObject("rightLegTargetNode");
                 leftLegTargetNode = new GameObject("leftLegTargetNode");
