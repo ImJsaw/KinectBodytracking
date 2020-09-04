@@ -11,8 +11,8 @@ public class FileSaver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //ObjName.text = "SOP";
-        SaveModel2();
+        ObjName.text = "SOP";
+       // SaveModel2();
     }
 
     void Awake()
@@ -38,7 +38,7 @@ public class FileSaver : MonoBehaviour
         GameObject newer = Instantiate(customModel);
         newer.AddComponent<IKModelController>();
         newer.AddComponent<RootMotion.FinalIK.IKauto>();
-        newer.AddComponent<Lock>();
+        //newer.AddComponent<Lock>();
         IKModelController IK = newer.GetComponent<IKModelController>();
     }
 

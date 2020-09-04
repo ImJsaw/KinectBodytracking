@@ -193,7 +193,7 @@ public class IKModelController : MonoBehaviour
                 rightHandTargetNode.transform.SetParent(this.transform.Find(rightHandPath));
                 rightHandTargetNode.transform.localPosition = new Vector3(0, 0.0f, 0); //避免node Target 座標重合
                 rightHandTargetNode.transform.SetParent(this.transform, true);
-                rightHandTargetNode.transform.localRotation *= Quaternion.Euler(0, 90, 0);
+                rightHandTargetNode.transform.localRotation *= Quaternion.Euler(90, 90, 0);
                 //SetLeftTarget
                 string leftHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand";
                 leftHandTargetNode = new GameObject("leftHandTarget");
@@ -201,7 +201,7 @@ public class IKModelController : MonoBehaviour
                 leftHandTargetNode.transform.SetParent(this.transform.Find(leftHandPath));
                 leftHandTargetNode.transform.localPosition = new Vector3(0, 0.0f, 0); //避免node Target 座標重合
                 leftHandTargetNode.transform.SetParent(this.transform, true);
-                leftHandTargetNode.transform.localRotation *= Quaternion.Euler(0, 90, 0);
+                leftHandTargetNode.transform.localRotation *= Quaternion.Euler(-90, 90, 0);
 
             //rightArm offset for custom model
             GameObject rightArm = GameObject.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm");
