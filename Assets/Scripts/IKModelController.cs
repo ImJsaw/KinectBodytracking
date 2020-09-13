@@ -203,6 +203,8 @@ public class IKModelController : MonoBehaviour
                 leftHandTargetNode.transform.SetParent(this.transform, true);
                 leftHandTargetNode.transform.localRotation *= Quaternion.Euler(-90, 90, 0);
 
+ 
+
             //rightArm offset for custom model
             GameObject rightArm = GameObject.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm");
                 rightArm.transform.Rotate(0, 90, 0);
@@ -220,8 +222,10 @@ public class IKModelController : MonoBehaviour
                 rightLegTargetNode.transform.localRotation = Quaternion.Euler(0, 180, 0);
                 leftLegTargetNode.transform.localRotation = Quaternion.Euler(0, 180, 0);
 
-                //set target node to target
-                rightHandTarget = rightHandTargetNode.transform;
+
+
+            //set target node to target
+            rightHandTarget = rightHandTargetNode.transform;
                 leftHandTarget = leftHandTargetNode.transform;
                 rightHandGoal = rightHandGoalNode.transform;
                 leftHandGoal = leftHandGoalNode.transform;
