@@ -948,8 +948,6 @@ MonoBehaviour:
   leftHand: {fileID: 0}
   is_catch: 0
   is_CustomModel: 1
-  leftLegTargetRotOffset: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-  righteftLegTargetRotOffset: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   multiplier: {x: 1.5, y: 1.5, z: 1.5}
 --- !u!1 &494212130
 GameObject:
@@ -2009,8 +2007,6 @@ MonoBehaviour:
   leftHand: {fileID: 0}
   is_catch: 0
   is_CustomModel: 0
-  leftLegTargetRotOffset: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-  righteftLegTargetRotOffset: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   multiplier: {x: 1.5, y: 1.5, z: 1.5}
 --- !u!114 &1522913871
 MonoBehaviour:
