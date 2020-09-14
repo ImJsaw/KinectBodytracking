@@ -222,8 +222,8 @@ public class IKModelController : MonoBehaviour
                 rightLegTargetNode.transform.localRotation = Quaternion.Euler(0, 180, 0);
                 leftLegTargetNode.transform.localRotation = Quaternion.Euler(0, 180, 0);
 
-
-
+                leftHandGoalNode.transform.position = new Vector3(0, 1, -0.5f);
+                rightHandGoalNode.transform.position = new Vector3(0, 1, -0.5f);
             //set target node to target
             rightHandTarget = rightHandTargetNode.transform;
                 leftHandTarget = leftHandTargetNode.transform;

@@ -141,7 +141,7 @@ public class CalibrationListener : ListenerBase {
                 //skip index already check not open
                 if (!isTkrValid[i])
                     continue;
-                //GetRightGoal index
+                /*//GetRightGoal index
                 float curRightGoal = (trackers[i].transform.position - rightCtr.transform.position).sqrMagnitude;
                 if (curRightGoal < minRightGoal) {
                     minRightGoal = curRightGoal;
@@ -152,7 +152,7 @@ public class CalibrationListener : ListenerBase {
                 if (curLeftGoal < minLeftGoal) {
                     minLeftGoal = curLeftGoal;
                     leftGoalIndex = i;
-                }
+                }*/
                 //GetRightFoot index
                 float curRightFoot = (trackers[i].transform.position - target[0].transform.position).sqrMagnitude;
                 if (curRightFoot < minRightFoot) {
@@ -193,8 +193,8 @@ public class CalibrationListener : ListenerBase {
         leftFootTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.leftFootTkrIndex+1);
         rightFootTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.rightFootTkrIndex+1);
         pelvisTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.pelvisTkrIndex+1);
-        leftGoalTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.leftGoalTkrIndex+1);
-        rightGoalTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.rightGoalTkrIndex+1);
+        //leftGoalTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.leftGoalTkrIndex+1);
+        //rightGoalTkr.GetComponent<SteamVR_TrackedObject>().SetDeviceIndex(MainMgr.rightGoalTkrIndex+1);
         //disable tracker balls
         for (int i = 0; i < trackers.Length; i++) {
             trackers[i].gameObject.SetActive(false);
