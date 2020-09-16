@@ -43,6 +43,8 @@ public class General : MonoBehaviour {
                 GameObject newer = Instantiate(customModel, new Vector3(0, 0, -6), Quaternion.identity);
                 newer.AddComponent<IKModelController>();
                 newer.AddComponent<RootMotion.FinalIK.IKauto>();
+                newer.AddComponent<Lock>();
+                newer.transform.localScale = new Vector3(100, 100, 100);
                 ikModelPrefab = newer.GetComponent<IKModelController>();
             }
             else

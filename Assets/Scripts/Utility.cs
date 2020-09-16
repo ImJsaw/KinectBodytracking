@@ -287,7 +287,7 @@ public class Utility {
     public static void saveModel(string fileName)
     {
         GameObject customModel = Utility.loadModelWithTex(fileName);
-        customModel.transform.localScale = new Vector3(100, 100, 100);
+        //customModel.transform.localScale = new Vector3(100, 100, 100);
         MainMgr.inst.customModelList.Add(customModel);
         MainMgr.inst.is_custom = true;
     }

@@ -133,9 +133,9 @@ public class IKModelController : MonoBehaviour
             rightHandTarget.rotation = rightCtr.rot * Quaternion.Inverse(rightArmInitRot) * rightArmTargetRot;
             //assist point from kinect
             //if (leftHandGoal != null && MainMgr.inst.leftArmGoal[modelIndex].v3() != new Vector3(0, 0, 0))
-            leftHandGoal.position = MainMgr.inst.leftArmGoal[modelIndex].v3();
+            //leftHandGoal.position = MainMgr.inst.leftArmGoal[modelIndex].v3();
             //if (rightHandGoal != null && MainMgr.inst.rightArmGoal[modelIndex].v3() != new Vector3(0, 0, 0))
-            rightHandGoal.position = MainMgr.inst.rightArmGoal[modelIndex].v3();
+            //rightHandGoal.position = MainMgr.inst.rightArmGoal[modelIndex].v3();
             //leg
             leftLegTarget.position = leftTkr.pos - new Vector3(0, 0.1f, 0); //腳踝到腳底板的offset
             rightLegTarget.position = rightTkr.pos - new Vector3(0, 0.1f, 0); //腳踝到腳底板的offset
@@ -222,8 +222,11 @@ public class IKModelController : MonoBehaviour
                 rightLegTargetNode.transform.localRotation = Quaternion.Euler(0, 180, 0);
                 leftLegTargetNode.transform.localRotation = Quaternion.Euler(0, 180, 0);
 
-                leftHandGoalNode.transform.position = new Vector3(0, 1, -0.5f);
-                rightHandGoalNode.transform.position = new Vector3(0, 1, -0.5f);
+                Transform hips = transform.Find("mixamorig:Hips");
+                leftHandGoalNode.transform.SetParent(hips);
+                rightHandGoalNode.transform.SetParent(hips);
+                leftHandGoalNode.transform.localPosition = new Vector3(0, 0, 0) - new Vector3(0,0, 0.001f);
+                rightHandGoalNode.transform.localPosition = new Vector3(0, 0, 0) - new Vector3(0, 0, 0.001f);
             //set target node to target
             rightHandTarget = rightHandTargetNode.transform;
                 leftHandTarget = leftHandTargetNode.transform;
