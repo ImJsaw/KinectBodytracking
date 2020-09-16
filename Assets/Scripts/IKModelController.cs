@@ -29,7 +29,9 @@ public class IKModelController : MonoBehaviour
     }
 
     public Transform pelvisPosition = null;
-
+    public float length = 0.2f; // set the lenth of controller to goal 
+    [Range(0f, 1f)]
+    public float GoalWeight = 0.5f; 
     //===========================new Target=========================
     private GameObject rightHandTargetNode;
     private GameObject leftHandTargetNode;
@@ -98,6 +100,10 @@ public class IKModelController : MonoBehaviour
 
         void Start()
         {
+
+        pelvisPosition = transform.Find("mixamorig:Hips");
+
+
         setTargetGroup();
         //logTargetInitRotation();
         modelHandDis = Vector3.Distance(rightHandTarget.position, leftHandTarget.position);
@@ -131,13 +137,15 @@ public class IKModelController : MonoBehaviour
             rightHandTarget.position = rightCtr.pos;
             leftHandTarget.rotation = leftCtr.rot * Quaternion.Inverse(leftArmInitRot) * leftArmTargetRot;
             rightHandTarget.rotation = rightCtr.rot * Quaternion.Inverse(rightArmInitRot) * rightArmTargetRot;
+
+            setGoalplace();
             //assist point from kinect
             //if (leftHandGoal != null && MainMgr.inst.leftArmGoal[modelIndex].v3() != new Vector3(0, 0, 0))
             //leftHandGoal.position = MainMgr.inst.leftArmGoal[modelIndex].v3();
             //if (rightHandGoal != null && MainMgr.inst.rightArmGoal[modelIndex].v3() != new Vector3(0, 0, 0))
             //rightHandGoal.position = MainMgr.inst.rightArmGoal[modelIndex].v3();
             //leg
-            leftLegTarget.position = leftTkr.pos - new Vector3(0, 0.1f, 0); //腳踝到腳底板的offset
+        leftLegTarget.position = leftTkr.pos - new Vector3(0, 0.1f, 0); //腳踝到腳底板的offset
             rightLegTarget.position = rightTkr.pos - new Vector3(0, 0.1f, 0); //腳踝到腳底板的offset
             leftLegTarget.rotation = leftTkr.rot * Quaternion.Inverse(leftLegInitRot) * leftLegTargetRot;
             rightLegTarget.rotation = rightTkr.rot * Quaternion.Inverse(rightLegInitRot) * rightLegTargetRot;
@@ -157,7 +165,6 @@ public class IKModelController : MonoBehaviour
 
         private void updateModelTransform()
         {
-            pelvisPosition = transform.Find("mixamorig:Hips");
             Debug.Log("i want to know is Target Head i catch?", pelvisPosition);
             //make model horizon move with cam
             pelvisPosition.position = pelvisTkr.pos;
@@ -222,13 +229,13 @@ public class IKModelController : MonoBehaviour
                 rightLegTargetNode.transform.localRotation = Quaternion.Euler(0, 180, 0);
                 leftLegTargetNode.transform.localRotation = Quaternion.Euler(0, 180, 0);
 
-                Transform hips = transform.Find("mixamorig:Hips");
-                leftHandGoalNode.transform.SetParent(hips);
-                rightHandGoalNode.transform.SetParent(hips);
+                leftHandGoalNode.transform.SetParent(pelvisPosition);
+                rightHandGoalNode.transform.SetParent(pelvisPosition);
                 leftHandGoalNode.transform.localPosition = new Vector3(0, 0, 0) - new Vector3(0,0, 0.001f);
                 rightHandGoalNode.transform.localPosition = new Vector3(0, 0, 0) - new Vector3(0, 0, 0.001f);
-            //set target node to target
-            rightHandTarget = rightHandTargetNode.transform;
+
+                //set target node to target
+                rightHandTarget = rightHandTargetNode.transform;
                 leftHandTarget = leftHandTargetNode.transform;
                 rightHandGoal = rightHandGoalNode.transform;
                 leftHandGoal = leftHandGoalNode.transform;
@@ -241,6 +248,14 @@ public class IKModelController : MonoBehaviour
             }
 
             logTargetInitRotation();
+        }
+
+    private void setGoalplace()
+    {
+        Vector3 rightHandbackVector = rightHandTarget.forward * -1;
+        Vector3 leftHandbackVector = leftHandTarget.forward * -1;
+        rightHandGoal.transform.position = rightHandbackVector * length + pelvisPosition.transform.position;
+        leftHandGoal.transform.position = leftHandbackVector * length + pelvisPosition.transform.position;
     }
 
     }
