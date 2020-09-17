@@ -29,7 +29,7 @@ public class IKModelController : MonoBehaviour
     }
 
     public Transform pelvisPosition = null;
-    public float length = 0.2f; // set the lenth of controller to goal 
+    public float length = 0.5f; // set the lenth of controller to goal 
     [Range(0f, 1f)]
     public float GoalWeight = 0.5f; 
     //===========================new Target=========================
@@ -252,10 +252,12 @@ public class IKModelController : MonoBehaviour
 
     private void setGoalplace()
     {
-        Vector3 rightHandbackVector = rightHandTarget.forward * -1;
-        Vector3 leftHandbackVector = leftHandTarget.forward * -1;
-        rightHandGoal.transform.position = rightHandbackVector * length + pelvisPosition.transform.position;
-        leftHandGoal.transform.position = leftHandbackVector * length + pelvisPosition.transform.position;
+        Vector3 rightHandbackVector = rightHandTarget.up * -1;
+        Vector3 leftHandbackVector = leftHandTarget.up * -1;
+        rightHandGoal.transform.position = (rightHandbackVector * length + rightHandTarget.transform.position) * GoalWeight + pelvisPosition.transform.position*(1- GoalWeight);
+        leftHandGoal.transform.position = (leftHandbackVector * length + leftHandTarget.transform.position) * GoalWeight + pelvisPosition.transform.position*(1 - GoalWeight);
+
+        //Debug.DrawRay(rightHandTarget.transform.position, rightHandbackVector, Color.red);
     }
 
     }

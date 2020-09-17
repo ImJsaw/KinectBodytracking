@@ -11,8 +11,8 @@ public class FileSaver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //ObjName.text = "SOP";
-        SaveModel2();
+        ObjName.text = "SOP";
+        //SaveModel2();
     }
 
     void Awake()
