@@ -195,6 +195,34 @@ public class IKModelController : MonoBehaviour
             rightHandTargetNode = new GameObject("rightHandTarget");
             rightHand = GameObject.Find(rightHandPath);
             rightHandTargetNode.transform.SetParent(this.transform.Find(rightHandPath));
+            rightHandTargetNode.transform.localPosition = new Vector3(0, 0, 0);
+            rightHandTargetNode.transform.SetParent(this.transform, true);
+            //SetLeftTarget
+            string leftHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand";
+            leftHandTargetNode = new GameObject("leftHandTarget");
+            leftHand = GameObject.Find(leftHandPath);
+            leftHandTargetNode.transform.SetParent(this.transform.Find(leftHandPath));
+            leftHandTargetNode.transform.localPosition = new Vector3(0, 0, 0);
+            leftHandTargetNode.transform.SetParent(this.transform, true);
+
+            //other Targets  
+            rightHandGoalNode = new GameObject("rightHandGoalNode");
+            leftHandGoalNode = new GameObject("leftHandGoalNode");
+            rightLegTargetNode = new GameObject("rightLegTargetNode");
+            leftLegTargetNode = new GameObject("leftLegTargetNode");
+            headTargetNode = new GameObject("headTargetNode");
+
+
+
+            leftHandGoalNode.transform.SetParent(pelvisPosition);
+            rightHandGoalNode.transform.SetParent(pelvisPosition);
+        //保留原本model設定
+        if (is_CustomModel)
+            //SetRightTarget
+            string rightHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand";
+            rightHandTargetNode = new GameObject("rightHandTarget");
+            rightHand = GameObject.Find(rightHandPath);
+            rightHandTargetNode.transform.SetParent(this.transform.Find(rightHandPath));
             rightHandTargetNode.transform.SetParent(this.transform, true);
             //SetLeftTarget
             string leftHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand";
@@ -242,9 +270,27 @@ public class IKModelController : MonoBehaviour
                 rightHandGoalNode.transform.localPosition = new Vector3(0, 0, 0) - new Vector3(0, 0, 0.001f);
 
 
+<<<<<<< .mine
+
+=======
                 is_catch = true;
+>>>>>>> .theirs
             }
 
+<<<<<<< .mine
+            //set target node to target
+            rightHandTarget = rightHandTargetNode.transform;
+            leftHandTarget = leftHandTargetNode.transform;
+            rightHandGoal = rightHandGoalNode.transform;
+            leftHandGoal = leftHandGoalNode.transform;
+            rightLegTarget = rightLegTargetNode.transform;
+            leftLegTarget = leftLegTargetNode.transform;
+            headTarget = headTargetNode.transform;
+
+
+        is_catch = true;
+        logTargetInitRotation();
+=======
             //set target node to target
             rightHandTarget = rightHandTargetNode.transform;
             leftHandTarget = leftHandTargetNode.transform;
@@ -255,6 +301,9 @@ public class IKModelController : MonoBehaviour
             headTarget = headTargetNode.transform;
 
         logTargetInitRotation();
+
+
+>>>>>>> .theirs
         }
 
     private void setGoalplace()
