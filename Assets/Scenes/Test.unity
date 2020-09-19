@@ -937,6 +937,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pelvisPosition: {fileID: 0}
+  length: 0.5
+  GoalWeight: 0.5
   rightHandTarget: {fileID: 0}
   leftHandTarget: {fileID: 0}
   rightHandGoal: {fileID: 0}
@@ -1300,6 +1302,75 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: New Text
+--- !u!1001 &1049532416
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -927199367670048503, guid: 8fdb9d630920e3045897effa9733bad7,
+        type: 3}
+      propertyPath: m_Name
+      value: jasper
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 8fdb9d630920e3045897effa9733bad7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 8fdb9d630920e3045897effa9733bad7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 8fdb9d630920e3045897effa9733bad7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 8fdb9d630920e3045897effa9733bad7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 8fdb9d630920e3045897effa9733bad7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 8fdb9d630920e3045897effa9733bad7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 8fdb9d630920e3045897effa9733bad7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 8fdb9d630920e3045897effa9733bad7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 8fdb9d630920e3045897effa9733bad7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 8fdb9d630920e3045897effa9733bad7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 8fdb9d630920e3045897effa9733bad7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8fdb9d630920e3045897effa9733bad7, type: 3}
 --- !u!1 &1053836292
 GameObject:
   m_ObjectHideFlags: 0
@@ -1996,6 +2067,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pelvisPosition: {fileID: 5350655927849730051}
+  length: 0.5
+  GoalWeight: 0.5
   rightHandTarget: {fileID: 679759588}
   leftHandTarget: {fileID: 1340089678}
   rightHandGoal: {fileID: 9067675292112068869}
@@ -2144,6 +2217,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.5}
   m_SizeDelta: {x: -20, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1653658983 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 8fdb9d630920e3045897effa9733bad7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1049532416}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1653658984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653658983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cafc3191ac6b33c4ba1d756288c12471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1653658985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653658983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc8613086932d443b290fdb6c959de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pelvisPosition: {fileID: 0}
+  length: 0.5
+  GoalWeight: 0.5
+  rightHandTarget: {fileID: 0}
+  leftHandTarget: {fileID: 0}
+  rightHandGoal: {fileID: 0}
+  leftHandGoal: {fileID: 0}
+  rightLegTarget: {fileID: 0}
+  leftLegTarget: {fileID: 0}
+  headTarget: {fileID: 0}
+  rightHand: {fileID: 0}
+  leftHand: {fileID: 0}
+  is_catch: 0
+  is_CustomModel: 1
+  multiplier: {x: 1.5, y: 1.5, z: 1.5}
 --- !u!1 &1672557686 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 159396, guid: 4d293c8e162f3874b982baadd71153d2,

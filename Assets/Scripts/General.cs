@@ -50,6 +50,8 @@ public class General : MonoBehaviour {
             else
             {
                 ikModelPrefab = Instantiate(modelPrefabSelf[MainMgr.inst.modelType[index]], new Vector3(0, 0, -6), Quaternion.identity);
+                ikModelPrefab.gameObject.AddComponent<RootMotion.FinalIK.IKauto>();
+                ikModelPrefab.gameObject.AddComponent<Lock>();
             }
             ikModelPrefab.modelIndex = index;
         } else {

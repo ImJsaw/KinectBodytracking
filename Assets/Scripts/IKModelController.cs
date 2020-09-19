@@ -27,7 +27,7 @@ public class IKModelController : MonoBehaviour
             //scaleByHand(MainMgr.inst.handDist[modelIndex]);
         }
     }
-
+    [HideInInspector]
     public Transform pelvisPosition = null;
     public float length = 0.5f; // set the lenth of controller to goal 
     [Range(0f, 1f)]
@@ -190,64 +190,71 @@ public class IKModelController : MonoBehaviour
 
         private void setTargetGroup()
         {
-            //保留原本model設定
-            if (is_CustomModel)
+            //SetRightTarget
+            string rightHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand";
+            rightHandTargetNode = new GameObject("rightHandTarget");
+            rightHand = GameObject.Find(rightHandPath);
+            rightHandTargetNode.transform.SetParent(this.transform.Find(rightHandPath));
+            rightHandTargetNode.transform.SetParent(this.transform, true);
+            //SetLeftTarget
+            string leftHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand";
+            leftHandTargetNode = new GameObject("leftHandTarget");
+            leftHand = GameObject.Find(leftHandPath);
+            leftHandTargetNode.transform.SetParent(this.transform.Find(leftHandPath));
+            leftHandTargetNode.transform.SetParent(this.transform, true);
+
+            //other Targets  
+            rightHandGoalNode = new GameObject("rightHandGoalNode");
+            leftHandGoalNode = new GameObject("leftHandGoalNode");
+            rightLegTargetNode = new GameObject("rightLegTargetNode");
+            leftLegTargetNode = new GameObject("leftLegTargetNode");
+            headTargetNode = new GameObject("headTargetNode");
+
+
+
+            leftHandGoalNode.transform.SetParent(pelvisPosition);
+            rightHandGoalNode.transform.SetParent(pelvisPosition);
+        //保留原本model設定
+        if (is_CustomModel)
             {
                 //SetRightTarget
-                string rightHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand";
-                rightHandTargetNode = new GameObject("rightHandTarget");
-                rightHand = GameObject.Find(rightHandPath);
-                rightHandTargetNode.transform.SetParent(this.transform.Find(rightHandPath));
-                rightHandTargetNode.transform.localPosition = new Vector3(0, 0.0f, 0); //避免node Target 座標重合
-                rightHandTargetNode.transform.SetParent(this.transform, true);
                 rightHandTargetNode.transform.localRotation *= Quaternion.Euler(90, 90, 0);
+
                 //SetLeftTarget
-                string leftHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand";
-                leftHandTargetNode = new GameObject("leftHandTarget");
-                leftHand = GameObject.Find(leftHandPath);
-                leftHandTargetNode.transform.SetParent(this.transform.Find(leftHandPath));
-                leftHandTargetNode.transform.localPosition = new Vector3(0, 0.0f, 0); //避免node Target 座標重合
-                leftHandTargetNode.transform.SetParent(this.transform, true);
                 leftHandTargetNode.transform.localRotation *= Quaternion.Euler(-90, 90, 0);
 
  
 
-            //rightArm offset for custom model
-            GameObject rightArm = GameObject.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm");
+                //rightArm offset for custom model
+                GameObject rightArm = GameObject.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm");
                 rightArm.transform.Rotate(0, 90, 0);
                 rightArm.transform.GetChild(0).Rotate(0, 90, 0);
 
-                //other Targets  
-                rightHandGoalNode = new GameObject("rightHandGoalNode");
-                leftHandGoalNode = new GameObject("leftHandGoalNode");
-                rightLegTargetNode = new GameObject("rightLegTargetNode");
-                leftLegTargetNode = new GameObject("leftLegTargetNode");
-                headTargetNode = new GameObject("headTargetNode");
+
 
                 //other offset setting
                 headTargetNode.transform.position += new Vector3(0, 2, 0);
                 rightLegTargetNode.transform.localRotation = Quaternion.Euler(0, 180, 0);
                 leftLegTargetNode.transform.localRotation = Quaternion.Euler(0, 180, 0);
 
-                leftHandGoalNode.transform.SetParent(pelvisPosition);
-                rightHandGoalNode.transform.SetParent(pelvisPosition);
+
                 leftHandGoalNode.transform.localPosition = new Vector3(0, 0, 0) - new Vector3(0,0, 0.001f);
                 rightHandGoalNode.transform.localPosition = new Vector3(0, 0, 0) - new Vector3(0, 0, 0.001f);
 
-                //set target node to target
-                rightHandTarget = rightHandTargetNode.transform;
-                leftHandTarget = leftHandTargetNode.transform;
-                rightHandGoal = rightHandGoalNode.transform;
-                leftHandGoal = leftHandGoalNode.transform;
-                rightLegTarget = rightLegTargetNode.transform;
-                leftLegTarget = leftLegTargetNode.transform;
-                headTarget = headTargetNode.transform;
 
-
-            is_catch = true;
+                is_catch = true;
             }
 
-            logTargetInitRotation();
+            //set target node to target
+            rightHandTarget = rightHandTargetNode.transform;
+            leftHandTarget = leftHandTargetNode.transform;
+            rightHandGoal = rightHandGoalNode.transform;
+            leftHandGoal = leftHandGoalNode.transform;
+            rightLegTarget = rightLegTargetNode.transform;
+            leftLegTarget = leftLegTargetNode.transform;
+            headTarget = headTargetNode.transform;
+
+        logTargetInitRotation();
         }
 
     private void setGoalplace()
