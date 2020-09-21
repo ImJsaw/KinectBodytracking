@@ -205,8 +205,14 @@ public class IKModelController : MonoBehaviour
             leftHandTargetNode.transform.localPosition = new Vector3(0, 0, 0);
             leftHandTargetNode.transform.SetParent(this.transform, true);
 
-            //other Targets  
-            rightHandGoalNode = new GameObject("rightHandGoalNode");
+            GameObject rightArm = GameObject.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm");
+            rightArm.transform.Rotate(0, 90, 0);
+
+            GameObject leftArm = GameObject.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm");
+        leftArm.transform.Rotate(0, -90, 0);
+
+        //other Targets  
+        rightHandGoalNode = new GameObject("rightHandGoalNode");
             leftHandGoalNode = new GameObject("leftHandGoalNode");
             rightLegTargetNode = new GameObject("rightLegTargetNode");
             leftLegTargetNode = new GameObject("leftLegTargetNode");
@@ -230,7 +236,7 @@ public class IKModelController : MonoBehaviour
  
 
                 //rightArm offset for custom model
-                GameObject rightArm = GameObject.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm");
+               
                 rightArm.transform.Rotate(0, 90, 0);
                 rightArm.transform.GetChild(0).Rotate(0, 90, 0);
 
@@ -264,8 +270,8 @@ public class IKModelController : MonoBehaviour
 
     private void setGoalplace()
     {
-        Vector3 rightHandbackVector = rightHandTarget.up * -1;
-        Vector3 leftHandbackVector = leftHandTarget.up * -1;
+        Vector3 rightHandbackVector = rightHandTarget.right * -1;
+        Vector3 leftHandbackVector = leftHandTarget.right ;
         rightHandGoal.transform.position = (rightHandbackVector * length + rightHandTarget.transform.position) * GoalWeight + pelvisPosition.transform.position*(1- GoalWeight);
         leftHandGoal.transform.position = (leftHandbackVector * length + leftHandTarget.transform.position) * GoalWeight + pelvisPosition.transform.position*(1 - GoalWeight);
 
