@@ -131,7 +131,7 @@ public class IKModelController : MonoBehaviour
             //pelvis
             headTarget.position = hmt.pos;
             headTarget.rotation = hmt.rot;
-            headTarget.localPosition = headTarget.localPosition + Vector3.Scale(headTarget.forward, new Vector3(-0.25f, -0.25f, -0.25f));
+            headTarget.localPosition = headTarget.localPosition;//+ Vector3.Scale(headTarget.forward, new Vector3(-0.25f, -0.25f, -0.25f));
             //arm
             leftHandTarget.position = leftCtr.pos;
             rightHandTarget.position = rightCtr.pos;
@@ -145,7 +145,7 @@ public class IKModelController : MonoBehaviour
             //if (rightHandGoal != null && MainMgr.inst.rightArmGoal[modelIndex].v3() != new Vector3(0, 0, 0))
             //rightHandGoal.position = MainMgr.inst.rightArmGoal[modelIndex].v3();
             //leg
-        leftLegTarget.position = leftTkr.pos - new Vector3(0, 0.1f, 0); //腳踝到腳底板的offset
+            leftLegTarget.position = leftTkr.pos - new Vector3(0, 0.1f, 0); //腳踝到腳底板的offset
             rightLegTarget.position = rightTkr.pos - new Vector3(0, 0.1f, 0); //腳踝到腳底板的offset
             leftLegTarget.rotation = leftTkr.rot * Quaternion.Inverse(leftLegInitRot) * leftLegTargetRot;
             rightLegTarget.rotation = rightTkr.rot * Quaternion.Inverse(rightLegInitRot) * rightLegTargetRot;
@@ -209,7 +209,7 @@ public class IKModelController : MonoBehaviour
             rightArm.transform.Rotate(0, 90, 0);
 
             GameObject leftArm = GameObject.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm");
-        leftArm.transform.Rotate(0, -90, 0);
+            leftArm.transform.Rotate(0, -90, 0);
 
         //other Targets  
         rightHandGoalNode = new GameObject("rightHandGoalNode");
@@ -219,7 +219,7 @@ public class IKModelController : MonoBehaviour
             headTargetNode = new GameObject("headTargetNode");
 
 
-
+            
             leftHandGoalNode.transform.SetParent(pelvisPosition);
             rightHandGoalNode.transform.SetParent(pelvisPosition);
             leftHandGoalNode.transform.localPosition = new Vector3(0, 0, 0) - new Vector3(0, 0, 1f);
@@ -272,8 +272,9 @@ public class IKModelController : MonoBehaviour
     {
         Vector3 rightHandbackVector = rightHandTarget.right * -1;
         Vector3 leftHandbackVector = leftHandTarget.right ;
-        rightHandGoal.transform.position = (rightHandbackVector * length + rightHandTarget.transform.position) * GoalWeight + pelvisPosition.transform.position*(1- GoalWeight);
-        leftHandGoal.transform.position = (leftHandbackVector * length + leftHandTarget.transform.position) * GoalWeight + pelvisPosition.transform.position*(1 - GoalWeight);
+        rightHandGoal.transform.position = (rightHandbackVector * length + rightHandTarget.transform.position) * GoalWeight + (pelvisPosition.transform.position + pelvisPosition.transform.rotation * new Vector3(0.5f,0,0))*(1- GoalWeight);
+        leftHandGoal.transform.position = (leftHandbackVector * length + leftHandTarget.transform.position) * GoalWeight +( pelvisPosition.transform.position + pelvisPosition.transform.rotation * new Vector3(-0.5f, 0, 0)) * (1 - GoalWeight);
+        
 
         //Debug.DrawRay(rightHandTarget.transform.position, rightHandbackVector, Color.red);
     }
