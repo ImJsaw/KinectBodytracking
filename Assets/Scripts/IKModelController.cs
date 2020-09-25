@@ -31,7 +31,8 @@ public class IKModelController : MonoBehaviour
     public Transform pelvisPosition = null;
     public float length = 0.5f; // set the lenth of controller to goal 
     [Range(0f, 1f)]
-    public float GoalWeight = 0.5f; 
+    public float GoalWeight = 0.5f;
+    public string prefix = "mixamorig:";
     //===========================new Target=========================
     private GameObject rightHandTargetNode;
     private GameObject leftHandTargetNode;
@@ -101,7 +102,7 @@ public class IKModelController : MonoBehaviour
         void Start()
         {
 
-        pelvisPosition = transform.Find("mixamorig:Hips");
+        pelvisPosition = transform.Find(prefix+"Hips");
 
 
         setTargetGroup();
@@ -191,24 +192,24 @@ public class IKModelController : MonoBehaviour
         private void setTargetGroup()
         {
             //SetRightTarget
-            string rightHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand";
+            string rightHandPath = prefix+"Hips/"+prefix+"Spine/"+prefix+"Spine1/"+prefix+"Spine2/"+prefix+"RightShoulder/"+prefix+"RightArm/"+prefix+"RightForeArm/"+prefix+"RightHand";
             rightHandTargetNode = new GameObject("rightHandTarget");
             rightHand = GameObject.Find(rightHandPath);
             rightHandTargetNode.transform.SetParent(this.transform.Find(rightHandPath));
             rightHandTargetNode.transform.localPosition = new Vector3(0, 0, 0);
             rightHandTargetNode.transform.SetParent(this.transform, true);
             //SetLeftTarget
-            string leftHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm/mixamorig:LeftForeArm/mixamorig:LeftHand";
+            string leftHandPath = prefix+"Hips/"+prefix+"Spine/"+prefix+"Spine1/"+prefix+"Spine2/"+prefix+"LeftShoulder/"+prefix+"LeftArm/"+prefix+"LeftForeArm/"+prefix+"LeftHand";
             leftHandTargetNode = new GameObject("leftHandTarget");
             leftHand = GameObject.Find(leftHandPath);
             leftHandTargetNode.transform.SetParent(this.transform.Find(leftHandPath));
             leftHandTargetNode.transform.localPosition = new Vector3(0, 0, 0);
             leftHandTargetNode.transform.SetParent(this.transform, true);
 
-            GameObject rightArm = GameObject.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm");
+            GameObject rightArm = GameObject.Find(prefix+"Hips/"+prefix+"Spine/"+prefix+"Spine1/"+prefix+"Spine2/"+prefix+"RightShoulder/"+prefix+"RightArm");
             rightArm.transform.Rotate(0, 90, 0);
 
-            GameObject leftArm = GameObject.Find("mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm");
+            GameObject leftArm = GameObject.Find(prefix+"Hips/"+prefix+"Spine/"+prefix+"Spine1/"+prefix+"Spine2/"+prefix+"LeftShoulder/"+prefix+"LeftArm");
             leftArm.transform.Rotate(0, -90, 0);
 
         //other Targets  

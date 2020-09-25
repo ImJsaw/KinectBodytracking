@@ -12,8 +12,12 @@ namespace RootMotion.FinalIK
         LimbIK LeftArm;
         LimbIK LeftLeg;
         LimbIK Head;
-
+        private string prefix;
         IKModelController modelContoller;
+
+        IKauto(string prefix = "mixamorig:") {
+            this.prefix = prefix;
+        }
 
         void Start()
         {
@@ -49,13 +53,13 @@ namespace RootMotion.FinalIK
 
         private void rightArmSetting()
         {
-            string rightHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm";
+            string rightHandPath = ""+prefix+"Hips/"+prefix+"Spine/"+prefix+"Spine1/"+prefix+"Spine2/"+prefix+"RightShoulder/"+prefix+"RightArm";
             GameObject rightHandTargetBone1;
             GameObject rightHandTargetBone2;
             GameObject rightHandTargetBone3;
             rightHandTargetBone1 = GameObject.Find(rightHandPath);
-            rightHandTargetBone2 = GameObject.Find(rightHandPath + "/mixamorig:RightForeArm");
-            rightHandTargetBone3 = GameObject.Find(rightHandPath + "/mixamorig:RightForeArm/mixamorig:RightHand");
+            rightHandTargetBone2 = GameObject.Find(rightHandPath + "/"+prefix+"RightForeArm");
+            rightHandTargetBone3 = GameObject.Find(rightHandPath + "/"+prefix+"RightForeArm/"+prefix+"RightHand");
             RightArm.solver.SetChain(rightHandTargetBone1.transform, rightHandTargetBone2.transform, rightHandTargetBone3.transform, this.transform);
 
 
@@ -70,13 +74,13 @@ namespace RootMotion.FinalIK
         private void leftArmSettig()
         {
             //LeftArmLimbIK
-            string leftHandPath = "mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:LeftShoulder/mixamorig:LeftArm";
+            string leftHandPath = ""+prefix+"Hips/"+prefix+"Spine/"+prefix+"Spine1/"+prefix+"Spine2/"+prefix+"LeftShoulder/"+prefix+"LeftArm";
             GameObject leftHandTargetBone1;
             GameObject leftHandTargetBone2;
             GameObject leftHandTargetBone3;
             leftHandTargetBone1 = GameObject.Find(leftHandPath);
-            leftHandTargetBone2 = GameObject.Find(leftHandPath + "/mixamorig:LeftForeArm");
-            leftHandTargetBone3 = GameObject.Find(leftHandPath + "/mixamorig:LeftForeArm/mixamorig:LeftHand");
+            leftHandTargetBone2 = GameObject.Find(leftHandPath + "/"+prefix+"LeftForeArm");
+            leftHandTargetBone3 = GameObject.Find(leftHandPath + "/"+prefix+"LeftForeArm/"+prefix+"LeftHand");
             LeftArm.solver.SetChain(leftHandTargetBone1.transform, leftHandTargetBone2.transform, leftHandTargetBone3.transform, this.transform);
 
             //LeftArm setting
@@ -90,13 +94,13 @@ namespace RootMotion.FinalIK
         private void leftLegSetting()
         {
             //LeftLegLimbIK
-            string leftLegPath = "mixamorig:Hips/mixamorig:LeftUpLeg";
+            string leftLegPath = ""+prefix+"Hips/"+prefix+"LeftUpLeg";
             GameObject leftLegTargetBone1;
             GameObject leftLegTargetBone2;
             GameObject leftLegTargetBone3;
             leftLegTargetBone1 = GameObject.Find(leftLegPath);
-            leftLegTargetBone2 = GameObject.Find(leftLegPath + "/mixamorig:LeftLeg");
-            leftLegTargetBone3 = GameObject.Find(leftLegPath + "/mixamorig:LeftLeg/mixamorig:LeftFoot");
+            leftLegTargetBone2 = GameObject.Find(leftLegPath + "/"+prefix+"LeftLeg");
+            leftLegTargetBone3 = GameObject.Find(leftLegPath + "/"+prefix+"LeftLeg/"+prefix+"LeftFoot");
             LeftLeg.solver.SetChain(leftLegTargetBone1.transform, leftLegTargetBone2.transform, leftLegTargetBone3.transform, this.transform);
 
             //LeftLegIKsetting
@@ -108,13 +112,13 @@ namespace RootMotion.FinalIK
         private void rightLegSetting()
         {
             //RightLegLimbIK
-            string RightLegPath = "mixamorig:Hips/mixamorig:RightUpLeg";
+            string RightLegPath = ""+prefix+"Hips/"+prefix+"RightUpLeg";
             GameObject rightLegTargetBone1;
             GameObject rightLegTargetBone2;
             GameObject rightLegTargetBone3;
             rightLegTargetBone1 = GameObject.Find(RightLegPath);
-            rightLegTargetBone2 = GameObject.Find(RightLegPath + "/mixamorig:RightLeg");
-            rightLegTargetBone3 = GameObject.Find(RightLegPath + "/mixamorig:RightLeg/mixamorig:RightFoot");
+            rightLegTargetBone2 = GameObject.Find(RightLegPath + "/"+prefix+"RightLeg");
+            rightLegTargetBone3 = GameObject.Find(RightLegPath + "/"+prefix+"RightLeg/"+prefix+"RightFoot");
             RightLeg.solver.SetChain(rightLegTargetBone1.transform, rightLegTargetBone2.transform, rightLegTargetBone3.transform, this.transform);
 
             RightLeg.solver.bendModifier = IKSolverLimb.BendModifier.Target;
@@ -124,13 +128,13 @@ namespace RootMotion.FinalIK
 
         private void headSetting()
         {
-            string HeadPath = "mixamorig:Hips/mixamorig:Spine";
+            string HeadPath = ""+prefix+"Hips/"+prefix+"Spine";
             GameObject HeadTargetBone1;
             GameObject HeadTargetBone2;
             GameObject HeadTargetBone3;
             HeadTargetBone1 = GameObject.Find(HeadPath);
-            HeadTargetBone2 = GameObject.Find(HeadPath + "/mixamorig:Spine1/mixamorig:Spine2");
-            HeadTargetBone3 = GameObject.Find(HeadPath + "/mixamorig:Spine1/mixamorig:Spine2/mixamorig:Neck/mixamorig:Head");
+            HeadTargetBone2 = GameObject.Find(HeadPath + "/"+prefix+"Spine1/"+prefix+"Spine2");
+            HeadTargetBone3 = GameObject.Find(HeadPath + "/"+prefix+"Spine1/"+prefix+"Spine2/"+prefix+"Neck/"+prefix+"Head");
             Head.solver.SetChain(HeadTargetBone1.transform, HeadTargetBone2.transform, HeadTargetBone3.transform, this.transform);
 
 

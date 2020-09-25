@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45127225, g: 0.50009197, b: 0.5687121, a: 1}
+  m_IndirectSpecularColor: {r: 0.17167857, g: 0.21412635, b: 0.2832411, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5717,6 +5717,8 @@ MonoBehaviour:
   pelvisInitTkr: []
   handDist: []
   modelType: 
+  customModelList: []
+  is_custom: 0
   modelSum: 0
   moveableid: 0
 --- !u!4 &1617175664
