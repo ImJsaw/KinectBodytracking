@@ -4102,15 +4102,20 @@ MonoBehaviour:
   obsController: {fileID: 3451840916537521215, guid: ec13106713031dc4eb7e0a7ab7bdf88a,
     type: 3}
   modelPrefab:
-  - {fileID: 5258423464983168360, guid: 563c2ee194ad1cd4181327f9ebbabfcd, type: 3}
-  - {fileID: 9083175190717543845, guid: 051c4e78332e74641a445ad77af9686c, type: 3}
-  - {fileID: 2407406250291528247, guid: fd4ff4af4794b5649b4c14f10a11a9c5, type: 3}
-  - {fileID: 7683044807436157621, guid: b0231be9df64289428a4127bec8f8c2b, type: 3}
+  - {fileID: 7136180419964805061, guid: c7ede064f47d52048b4ce604ea6ee225, type: 3}
+  - {fileID: -927199367670048503, guid: a6b84133ebd03dd4f8174c241ed224dd, type: 3}
+  - {fileID: -927199367670048503, guid: 2dea5b7ca99991c458db9553992843e3, type: 3}
+  - {fileID: -927199367670048503, guid: ab2c82bb2cecddc479d2ebeb8a0ab8eb, type: 3}
   modelPrefabSelf:
-  - {fileID: 9083175190717543845, guid: 051c4e78332e74641a445ad77af9686c, type: 3}
-  - {fileID: 9083175190717543845, guid: 051c4e78332e74641a445ad77af9686c, type: 3}
-  - {fileID: 2702400369642942711, guid: ebe36211cbc206c4cbcabe9ae8bb53b2, type: 3}
-  - {fileID: 2702400369642942711, guid: ebe36211cbc206c4cbcabe9ae8bb53b2, type: 3}
+  - {fileID: 7136180419964805061, guid: c7ede064f47d52048b4ce604ea6ee225, type: 3}
+  - {fileID: -927199367670048503, guid: a6b84133ebd03dd4f8174c241ed224dd, type: 3}
+  - {fileID: -927199367670048503, guid: 2dea5b7ca99991c458db9553992843e3, type: 3}
+  - {fileID: -927199367670048503, guid: ab2c82bb2cecddc479d2ebeb8a0ab8eb, type: 3}
+  prefix:
+  - 'mixamorig:'
+  - 'mixamorig:'
+  - 
+  - 'Mutant:'
 --- !u!4 &821732767
 Transform:
   m_ObjectHideFlags: 0

@@ -98,7 +98,6 @@ public class IKModelController : MonoBehaviour
 
         private float modelHandDis;
 
-
         void Start()
         {
 
