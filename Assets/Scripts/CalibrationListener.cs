@@ -141,7 +141,7 @@ public class CalibrationListener : ListenerBase {
                 //skip index already check not open
                 if (!isTkrValid[i])
                     continue;
-                /*//GetRightGoal index
+                //GetRightGoal index
                 float curRightGoal = (trackers[i].transform.position - rightCtr.transform.position).sqrMagnitude;
                 if (curRightGoal < minRightGoal) {
                     minRightGoal = curRightGoal;
@@ -152,7 +152,7 @@ public class CalibrationListener : ListenerBase {
                 if (curLeftGoal < minLeftGoal) {
                     minLeftGoal = curLeftGoal;
                     leftGoalIndex = i;
-                }*/
+                }
                 //GetRightFoot index
                 float curRightFoot = (trackers[i].transform.position - target[0].transform.position).sqrMagnitude;
                 if (curRightFoot < minRightFoot) {
