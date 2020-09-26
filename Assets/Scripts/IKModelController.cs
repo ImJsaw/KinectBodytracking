@@ -76,7 +76,7 @@ public class IKModelController : MonoBehaviour
         [HideInInspector]
         public Boolean is_catch = false;
         //確認是不是客製化model
-        public Boolean is_CustomModel = true;
+        public Boolean is_CustomModel = false;
 
 
         //tracker init rotation

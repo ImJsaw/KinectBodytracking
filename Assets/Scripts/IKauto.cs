@@ -19,6 +19,11 @@ namespace RootMotion.FinalIK
             this.prefix = prefix;
         }
 
+        public void setPrefix(string prefix) {
+
+            this.prefix = prefix;
+        }
+
         void Start()
         {
             RightArm = this.gameObject.AddComponent<LimbIK>();

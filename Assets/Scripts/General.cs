@@ -50,8 +50,10 @@ public class General : MonoBehaviour {
             }
             model.AddComponent<IKModelController>();
             model.AddComponent<RootMotion.FinalIK.IKauto>();
+            model.GetComponent<RootMotion.FinalIK.IKauto>().setPrefix(prefix[MainMgr.inst.modelType[index]]);
             model.AddComponent<Lock>();
-            model.GetComponent<IKModelController>().prefix = prefix[index];
+            Debug.Log(MainMgr.inst.modelType[index] + "add prefix : " + prefix[index]);
+            model.GetComponent<IKModelController>().prefix = prefix[MainMgr.inst.modelType[index]];
             model.GetComponent<IKModelController>().modelIndex = index;
         } else {
             GameObject model = Instantiate(modelPrefab[MainMgr.inst.modelType[index]], new Vector3(0, 0, -6), Quaternion.identity);
