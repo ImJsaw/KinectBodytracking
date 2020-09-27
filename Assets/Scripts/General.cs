@@ -38,6 +38,7 @@ public class General : MonoBehaviour {
         } else if (UID == MainMgr.inst.myUID() ) {
             //if self, generate no head model
             GameObject model;
+            string prefixStr = "mixamorig:";
             if (MainMgr.inst.is_custom)
             {
                 GameObject customModel = MainMgr.inst.customModelList[0];
@@ -46,15 +47,19 @@ public class General : MonoBehaviour {
             }
             else
             {
+                prefixStr = prefix[MainMgr.inst.modelType[index]];
                 model = Instantiate(modelPrefabSelf[MainMgr.inst.modelType[index]], new Vector3(0, 0, -6), Quaternion.identity);
             }
             model.AddComponent<IKModelController>();
             model.AddComponent<RootMotion.FinalIK.IKauto>();
-            model.GetComponent<RootMotion.FinalIK.IKauto>().setPrefix(prefix[MainMgr.inst.modelType[index]]);
+            model.GetComponent<RootMotion.FinalIK.IKauto>().setPrefix(prefixStr);
             model.AddComponent<Lock>();
-            Debug.Log(MainMgr.inst.modelType[index] + "add prefix : " + prefix[index]);
-            model.GetComponent<IKModelController>().prefix = prefix[MainMgr.inst.modelType[index]];
+            Debug.Log(MainMgr.inst.modelType[index] + "add prefix : " + prefixStr);
+            model.GetComponent<IKModelController>().prefix = prefixStr;
             model.GetComponent<IKModelController>().modelIndex = index;
+            if (MainMgr.inst.is_custom) {
+                model.GetComponent<IKModelController>().is_CustomModel = true;
+             }
         } else {
             GameObject model = Instantiate(modelPrefab[MainMgr.inst.modelType[index]], new Vector3(0, 0, -6), Quaternion.identity);
             model.GetComponent<IKModelController>().modelIndex = index;
