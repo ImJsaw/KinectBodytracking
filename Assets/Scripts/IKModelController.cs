@@ -73,7 +73,7 @@ public class IKModelController : MonoBehaviour {
     public Boolean is_catch = false;
     //確認是不是客製化model
     public Boolean is_CustomModel = false;
-
+    
 
     //tracker init rotation
     private Quaternion leftArmInitRot = Quaternion.identity;
@@ -91,8 +91,10 @@ public class IKModelController : MonoBehaviour {
     //controller len
     float controllerLen = 0.1f;
     // initial pos
-
     private float modelHandDis;
+
+    //modelLeg offset
+    private float legOffset;
 
     void Start() {
 
@@ -257,6 +259,11 @@ public class IKModelController : MonoBehaviour {
 
         is_catch = true;
         logTargetInitRotation();
+
+        //set model's hight
+        this.transform.position = new Vector3(this.transform.position.x, 0.0f, this.transform.position.z);
+
+
     }
 
     private void setGoalplace() {
