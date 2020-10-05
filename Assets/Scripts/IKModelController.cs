@@ -93,9 +93,13 @@ public class IKModelController : MonoBehaviour {
     // initial pos
     private float modelHandDis;
 
-    //modelLeg offset
-    private float legOffset;
-
+    //Tkr to floor offset
+    private float rightLegOffset;
+    private float leftLegOffset;
+    //model to floor offset
+    private float pelvisOffset;
+    //check init foot tkr 
+    private Boolean is_first = false;
     void Start() {
 
         pelvisPosition = transform.Find(prefix + "Hips");
@@ -116,6 +120,13 @@ public class IKModelController : MonoBehaviour {
         leftTkr = MainMgr.inst.leftTkr[modelIndex];
         rightTkr = MainMgr.inst.rightTkr[modelIndex];
         pelvisTkr = MainMgr.inst.pelvisTkr[modelIndex];
+
+        if(is_first)
+        {
+            leftLegOffset = leftTkr.pos.y;
+            rightLegOffset = rightTkr.pos.y;
+            is_first = true;
+        }
 
         leftArmInitRot = MainMgr.inst.leftInitCtr[modelIndex].rot;
         rightArmInitRot = MainMgr.inst.rightInitCtr[modelIndex].rot;
@@ -143,14 +154,13 @@ public class IKModelController : MonoBehaviour {
         if (rightHandGoalNode != null && MainMgr.inst.rightArmGoal[modelIndex].v3() != new Vector3(0, 0, 0))
             rightHandGoalNode.transform.position = MainMgr.inst.rightArmGoal[modelIndex].v3();
         //leg
-        leftLegTarget.position = leftTkr.pos - new Vector3(0, 0.1f, 0); //腳踝到腳底板的offset
-        rightLegTarget.position = rightTkr.pos - new Vector3(0, 0.1f, 0); //腳踝到腳底板的offset
+        leftLegTarget.position = leftTkr.pos - new Vector3(0, leftLegOffset, 0); //腳踝到腳底板的offset
+        rightLegTarget.position = rightTkr.pos - new Vector3(0, rightLegOffset, 0); //腳踝到腳底板的offset
         leftLegTarget.rotation = leftTkr.rot * Quaternion.Inverse(leftLegInitRot) * leftLegTargetRot;
         rightLegTarget.rotation = rightTkr.rot * Quaternion.Inverse(rightLegInitRot) * rightLegTargetRot;
 
 
-        Debug.Log(rightHandTargetNode.transform.position);
-
+ 
     }
 
     private void logTargetInitRotation() {
@@ -170,6 +180,7 @@ public class IKModelController : MonoBehaviour {
         Debug.Log("set pelvis pos " + pelvisTkr.pos.ToString() + ", after assign " + pelvisPosition.position.ToString() + " offset : " + offset.ToString());
         pelvisPosition.localPosition += offset;
         Debug.Log("after offset" + pelvisPosition.position.ToString());
+        pelvisPosition.localPosition = new Vector3(pelvisPosition.localPosition.x, pelvisPosition.localPosition.y - pelvisOffset, pelvisPosition.localPosition.z);
     }
 
     //scale model to fit
@@ -261,7 +272,8 @@ public class IKModelController : MonoBehaviour {
         logTargetInitRotation();
 
         //set model's hight
-        this.transform.position = new Vector3(this.transform.position.x, 0.0f, this.transform.position.z);
+        pelvisOffset = this.transform.position.y;
+        
 
 
     }
