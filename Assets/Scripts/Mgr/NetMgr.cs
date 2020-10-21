@@ -143,6 +143,8 @@ public static class NetMgr {
                 break;
             case packageType.echoMsg:
                 string echoMsg = Utility.byte2Origin<String>(socketPackage.data);
+                if (echoMsg == "requestRegister")
+                    UserListener.sendRegister();
                 Debug.Log("[echo]type" + echoMsg);
                 break;
             default:

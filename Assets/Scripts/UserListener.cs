@@ -84,7 +84,7 @@ public class UserListener : ListenerBase {
         NetMgr.sendMsg(packageType.playerPose, modelDataBytes);
     }
 
-    void sendRegister() {
+    public static void sendRegister() {
         Debug.Log("sendREG");
         register msg = new register();
         msg.UID = MainMgr.inst.myUID();

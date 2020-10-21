@@ -52,8 +52,8 @@ public class General : MonoBehaviour {
             }
             model.AddComponent<IKModelController>();
             model.AddComponent<RootMotion.FinalIK.IKauto>();
-            model.GetComponent<RootMotion.FinalIK.IKauto>().setPrefix(prefixStr);
-            model.AddComponent<Lock>();
+            model.GetComponent<RootMotion.FinalIK.IKauto>().setPrefix(prefixStr);   
+            //model.AddComponent<Lock>();
             Debug.Log(MainMgr.inst.modelType[index] + "add prefix : " + prefixStr);
             model.GetComponent<IKModelController>().prefix = prefixStr;
             model.GetComponent<IKModelController>().modelIndex = index;

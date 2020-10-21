@@ -99,7 +99,7 @@ public class IKModelController : MonoBehaviour {
     //model to floor offset
     private float pelvisOffset;
     //check init foot tkr 
-    private Boolean is_first = false;
+    private Boolean is_first = true;
     void Start() {
 
         pelvisPosition = transform.Find(prefix + "Hips");
@@ -123,9 +123,9 @@ public class IKModelController : MonoBehaviour {
 
         if(is_first)
         {
-            leftLegOffset = leftTkr.pos.y;
-            rightLegOffset = rightTkr.pos.y;
-            is_first = true;
+            leftLegOffset = leftTkr.pos.y ;
+            rightLegOffset = rightTkr.pos.y ;
+            is_first = false;
         }
 
         leftArmInitRot = MainMgr.inst.leftInitCtr[modelIndex].rot;
@@ -180,7 +180,7 @@ public class IKModelController : MonoBehaviour {
         Debug.Log("set pelvis pos " + pelvisTkr.pos.ToString() + ", after assign " + pelvisPosition.position.ToString() + " offset : " + offset.ToString());
         pelvisPosition.localPosition += offset;
         Debug.Log("after offset" + pelvisPosition.position.ToString());
-        pelvisPosition.localPosition = new Vector3(pelvisPosition.localPosition.x, pelvisPosition.localPosition.y - pelvisOffset, pelvisPosition.localPosition.z);
+        //this.transform.localPosition = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y - rightLegOffset, this.transform.localPosition.z);
     }
 
     //scale model to fit
@@ -272,7 +272,7 @@ public class IKModelController : MonoBehaviour {
         logTargetInitRotation();
 
         //set model's hight
-        pelvisOffset = this.transform.position.y;
+       // pelvisOffset = this.transform.position.y + 5f;
         
 
 
