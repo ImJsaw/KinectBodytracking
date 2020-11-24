@@ -4103,9 +4103,11 @@ MonoBehaviour:
     type: 3}
   modelPrefab:
   - {fileID: 7136180419964805061, guid: c7ede064f47d52048b4ce604ea6ee225, type: 3}
-  - {fileID: -927199367670048503, guid: a6b84133ebd03dd4f8174c241ed224dd, type: 3}
+  - {fileID: -927199367670048503, guid: 8826daecf7a4cc146867a1ce086821e7, type: 3}
   - {fileID: -927199367670048503, guid: 2dea5b7ca99991c458db9553992843e3, type: 3}
   - {fileID: -927199367670048503, guid: ab2c82bb2cecddc479d2ebeb8a0ab8eb, type: 3}
+  - {fileID: -927199367670048503, guid: 8fdb9d630920e3045897effa9733bad7, type: 3}
+  - {fileID: -927199367670048503, guid: 2b83b65d57d90e6428327ce72a9e7f28, type: 3}
   modelPrefabSelf:
   - {fileID: 7136180419964805061, guid: c7ede064f47d52048b4ce604ea6ee225, type: 3}
   - {fileID: -927199367670048503, guid: a6b84133ebd03dd4f8174c241ed224dd, type: 3}
